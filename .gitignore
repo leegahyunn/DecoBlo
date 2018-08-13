@@ -1,1 +1,6 @@
 *.class
+target/m2e-wtp
+.settings/
+.classpath/
+.project
+.springBeans
