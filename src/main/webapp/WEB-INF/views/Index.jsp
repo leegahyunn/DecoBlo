@@ -6,7 +6,7 @@
 <meta  charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-<style>
+
 
 	.topFixBanner {
 		        text-align: left;
@@ -51,7 +51,7 @@
 </style> 
 
 
-</style>
+
 </head>
 <body>
 <div class="topFixBanner">DecoBlo
