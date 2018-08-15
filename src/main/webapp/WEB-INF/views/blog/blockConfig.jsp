@@ -5,95 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link type="text/css" rel="stylesheet" href="css/font-awesome.min.css">
-<style>	
-	* {
-		margin: 0;
-		padding: 0;
-	}
-	
-	li {
-		list-style: none;
-	}
-	
-	div.block-config {
-		width: 347px;
-		border: 1px solid #DDD;		
-		color: #808080;
-	}
-	
-	div.block-config-header {		
-		background-color: #4789e7;
-		padding: 3px 10px;
-		color: #FFF;
-		font-size: 1em;
-	}
-	
-	div.block-config-header i.fa-times {
-		float: right;	
-		color: #111;
-	}
-	
-	div.block-config-section {		
-		font-size: 0.8em;
-		font-weight: bold;
-	}
-	
-	div.block-config-section ul li.outer-config {
-		padding: 3px 20px;
-		border-bottom: 1px solid #DDD;
-	}
-	
-	div.block-config-footer {
-		overflow: hidden;
-		font-size: 0.8em;
-		padding: 5px 0;
-	}
-	
-	div.block-config-footer div {
-		width: 24.3%;
-		float: left;
-		text-align: center;
-		border-right: 1px solid #DDD;
-	}
-	
-	div.block-config-footer div:nth-child(4) {
-		border-right: 0px;
-	}
-	
-	div.block-config-footer i {
-		display: block;		
-		font-size: 2em;
-		margin: 5px 0;
-	}
-	
-	li i.right-icon{
-		float: right;
-	}
-	
-	
-	/* inner config */
-	li.fold ul.inner-config {
-		display: none;
-	}
-</style>
+<link type="text/css" rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
+<link type="text/css" rel="stylesheet" href="decoblo/css/blockConfig.css">
 <script src="resources/jquery-3.3.1.min.js"></script>
-<script>
-$(function(){
-	$(document).on('click', 'li.fold', function() {
-		$(this).children('ul.inner-config').css({"display":"block"});
-		$(this).removeClass('fold').addClass('unfold');
-		$(this).children('i.fa-chevron-right').removeClass('fa-chevron-right').addClass('fa-chevron-down');	
-	});
-	$(document).on('click', 'li.unfold', function() {
-		$(this).children('ul.inner-config').css({"display":"none"});
-		$(this).removeClass('unfold').addClass('fold');
-		$(this).children('i.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-right');	
-	});
-});
-
-
-</script>
+<script src="decoblo/js/blockConfig.js"></script>
 </head>
 <body>
 <div class="block-config">
