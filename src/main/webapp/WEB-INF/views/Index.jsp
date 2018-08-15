@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html >
 <html>
 <head>
+
+
+<jsp:include page="${fsdf}"></jsp:include>
 <meta  charset="UTF-8">
 <title>Insert title here</title>
-<link type="text/css" rel="stylesheet" href="css/main.css">
+<link type="text/css" rel="stylesheet" href="pixelarity/css/main.css">
 <style>
 
 	.topFixBanner {
@@ -57,7 +61,7 @@
 <div style="float:right;">
 <ul class="mul">
 <li class="mli">&nbsp;<a href="">로그인</a>&nbsp;</li>
-<li class="mli"><a href="">무료회원가입</a>&nbsp;</li>
+<li class="mli"><a href="${sjsj}">무료회원가입</a>&nbsp;</li>
 <li class="mli"><a href="">한국어</a></li>
 </ul>
 </div>
