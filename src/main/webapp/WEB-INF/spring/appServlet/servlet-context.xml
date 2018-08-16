@@ -18,6 +18,11 @@
 	<resources mapping="/resources/jchart/**" location="/resources/jchart/" />
 	<resources mapping="/images/**" location="/resources/images/" />
 	<resources mapping="/assets/**" location="/resources/assets/" />
+	<!-- pixelarity -->
+	<resources mapping="/pixelarity/**" location="/resources/pixelarity/" />
+	<!-- decoblo -->
+	<resources mapping="/decoblo/**" location="/resources/decoblo/" />
+
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
