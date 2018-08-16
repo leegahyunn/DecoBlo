@@ -1,0 +1,88 @@
+@charset "UTF-8";
+.main-body{
+	background-color:black;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	padding: px;
+	position: absolute;	
+}
+.header-test{
+	position:absolute;
+	top:0;
+	background-color: pink;
+	text-align: center;
+	width: 100%;
+	height: 50px;
+}
+.block_wrapper{
+		/*헤더 높이만큼 */
+		margin-top:50;
+		width: 100%;
+		height: 500px;
+}
+	
+.add-button{
+	display:block;
+	position: absolute;
+	left:0;
+	width: 100%;
+	font-size: 13px;
+	color: white;
+	list-style: none;
+	text-align: center;
+	/*헤더 높이 - 35*/
+	margin-top: 15px;
+}	
+	
+.add-block{
+	width: 35px;
+    height: 35px;
+    margin: 0 auto;
+    color: white;
+    background-color: blue;
+}
+#blockMenu-sidebar-nav{
+	cursor: pointer;
+	background-color:#919cac;
+	width: 100px;
+	height:100%;
+	margin-left: 0px;
+   	list-style: none;
+    text-align: center;
+    padding-left: 0;
+}
+	
+	#blockMenu-sidebar-nav li{
+		border-bottom: 1px solid #aab2bd;
+		padding: 10px 0 7px;
+		font-size: 11px;
+    	line-height: 1em;
+	}
+	#blockMenu-sidebar-nav li.active{
+		background-color: #4789e7;
+	}
+	
+	.blockMenu-sidebar {
+		width:315px;
+	   	position: fixed;
+	    margin-left: -315px; 
+	    padding: 35px 0 0 0;
+	    vertical-align:top;
+	    top: 0;
+	    left: 0px;
+	    height:100%;
+	    z-index:9999;
+	    background-color: #dee1ea;
+	    color: white;
+	}
+	
+	.blockMenu-sidebar-close{
+		cursor: pointer;
+		text-align: right;
+	}
+	
+	.blockMenu-sidebar li:hover {
+    color: #f1f1f1;
+	}
