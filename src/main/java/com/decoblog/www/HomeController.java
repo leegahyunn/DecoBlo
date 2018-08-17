@@ -38,7 +38,12 @@ public class HomeController {
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String test() {
-		return "blog/blockConfig";
+		return "blog/menuConfig";
+	}
+	
+	@RequestMapping(value = "/metaEdit", method = RequestMethod.GET)
+	public String idCheck() {
+		return "blog/metaEdit";
 	}
 	
 }
