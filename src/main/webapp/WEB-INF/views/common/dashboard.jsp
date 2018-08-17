@@ -193,7 +193,7 @@
 <br />
 일간 현황
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href=""><</a>
+<a href=""></a>
 
 <span>2018-08-14</span>
 <a href="">달력</a>
