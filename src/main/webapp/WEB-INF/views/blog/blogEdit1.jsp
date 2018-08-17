@@ -8,78 +8,96 @@
 <script src="resources/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	
+	firstcss();
+	/*블록 마우스 이벤트*/
 	$('.block_wrapper').on('mouseenter',function(){
-		$('.add-block').html("<i class='fas fa-plus-circle'>f055</i>");
+		
+		$('.add-button').css('display','block');
 		$(this).css("border-style","solid");
-		$(this).css("border-color","blue");
-		$(this).css("border-width","2px");
-		
+		$(this).css("border-color","#0073AC");
+		$(this).css("border-width","1px");
 	});
-	
+	/*블록 마우스 이벤트 종료*/
+	$('.add-button').on('mouseout',function(){
+		$('.add-button').css('display','none');
+		$('.block_wrapper').css("border-style","none");
+	});
+	/*블록 추가 버튼 */
 	$('.add-block').on('click',function(){
-		$( ".blockMenu-sidebar" ).fadeIn( "slow", function() {
-			$('.blockMenu-sidebar').css("margin-left",'0px');
-		  });
-	});
-	$('.block_wrapper').on('mouseleave',function(){
-		$('.block_wrapper').find('i').remove();
-		$(this).css("border-style","none");
-	})
-		
-	$('.blockMenu-sidebar-close').on('click',function(){
-		$('.blockMenu-sidebar').css("margin-left",'-315px');
+			$('.blockMenu-sidebar-div').css("margin-left",'0px');
+			$('#blockMenu-sidebar-close').css('left','315px');
+			/*$('.block-setting-cover').css('display', 'block');
+			$('.block-setting-cover').css('z-index', '15');*/
 	});
 	
-	$('li').on('click',function(){
-		$('li').removeClass("active");
-		$(this).addClass("active");
+	/*사이드바 close 버튼*/	
+	$('#blockMenu-sidebar-close').on('click',function(){
+		$('.blockMenu-sidebar-ul > li').removeClass("active");
+		$('.blockMenu-sidebar-div').css("margin-left",'-315px');
+		$('#blockMenu-sidebar-close').css('left','-50px');
+		/*$('.block-setting-cover').css('display', 'none');
+		$('.block-setting-cover').css('z-index', '0');*/
+	});
+	/*사이드바 메뉴 클릭 버튼*/
+	$('.blockMenu-sidebar-ul > li').on('click',function(){
+		$('.blockMenu-sidebar-ul > li').removeClass("active");
+			$(this).addClass("active");
 		
-	})
-});</script>
+	});
+	
+});
+/*첫화면 css */
+function firstcss(){
+	var headerHeight = $('.header-test').height();
+	$('.blockMenu-sidebar').css({"top":0 + headerHeight});
+}
+</script>
 <link type="text/css" rel="stylesheet" href="decoblo/css/blockSetting.css">
 </head>
 <body>
-
+<div class="block-setting-cover"></div>
 <div class="main-body">
 	<div class="header-test"></div>
 	<ul class="add-button">
-		<li>
-			<div class="add-block"></div>
+		<li class="add-button-li">
+			<div class="add-block">
+				<img alt='Plus' src='images/blockSettingimg/fa_plus_icon.png'/>
+			</div>
 		</li>
 	</ul>
-
 	<div class="block_wrapper">
-	
 	</div>
-
 </div>
-<div class="blockMenu-sidebar">
-	<div class="blockMenu-sidebar-close"><p>close</p></div>
-		<ul id="blockMenu-sidebar-nav">
+<div class="blockMenu-sidebar-div">
+	<ul class="blockMenu-sidebar-ul">
 		<li class="">
-			<img  alt="쇼케이스" src="">
+			<img  alt="쇼케이스" src="images/blockSettingimg/icon-showcase.png">
 			<div>쇼케이스</div>
 		</li>
 		<li class="">	
-			<img alt="타이틀" src="">
+			<img alt="타이틀" src="images/blockSettingimg/icon-header.png">
 			<div>타이틀</div>
 		</li >				
 		<li class="">
-			<img  alt="컨텐츠" src="">
+			<img  alt="컨텐츠" src="images/blockSettingimg/icon-content.png">
 			<div>컨텐츠</div>
 		</li>
 		<li class="">
-			<img  alt="텍스트" src="">
+			<img  alt="텍스트" src="images/blockSettingimg/icon-text.png">
 			<div>텍스트</div>
 		</li>
 		<li class="">
-			<img  alt="이미지" src="">
+			<img  alt="이미지" src="images/blockSettingimg/icon-image.png">
 			<div>이미지</div>
 		</li>			
 		<li class="">
-			<img  alt="구분선" src="">
+			<img  alt="구분선" src="images/blockSettingimg/icon-divider.png">
 			<div>구분선</div>
+		</li>
+	</ul>
+	<ul class="blockMenu-sidebar-close">
+		<li id="blockMenu-sidebar-close">
+			<img alt="close" src="images/blockSettingimg/btn_close.png">
 		</li>
 	</ul>
 </div>

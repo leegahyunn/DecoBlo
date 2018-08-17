@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 .main-body{
 	background-color:black;
 	top: 0;
@@ -8,81 +9,127 @@
 	padding: px;
 	position: absolute;	
 }
+/*헤더 부분*/
 .header-test{
-	position:absolute;
 	top:0;
 	background-color: pink;
 	text-align: center;
 	width: 100%;
 	height: 50px;
+	z-index: 30;
 }
+/*블록 쌓이는 부분*/
 .block_wrapper{
-		/*헤더 높이만큼 */
-		margin-top:50;
 		width: 100%;
 		height: 500px;
 }
-	
+/*블럭 추가 버튼 ul*/
 .add-button{
-	display:block;
 	position: absolute;
-	left:0;
-	width: 100%;
-	font-size: 13px;
-	color: white;
-	list-style: none;
-	text-align: center;
-	/*헤더 높이 - 35*/
-	margin-top: 15px;
+    margin-top:-17px;
+    height: 35px;
+    width:100%;
+    color:#fff;
+    font-family: 'Open Sans', 'Nanum Gothic';
+    letter-spacing: 0.01em;
+    font-size:13px;
+    font-weight: 300;
+    cursor:pointer;
+    text-align:center;
+    padding:0px;
+    z-index:20;
+    display:none;
 }	
-	
+/*블럭 추가 버튼 li*/
+.add-button-li{
+	 width: 100%;
+    /*background:transparent url(http://i.addblock.net/block_bg.gif) 0px 8px repeat-x;*/
+    background:transparent;
+    line-height: 30px;
+    padding: 0px 10px;
+    font-size: 13px;
+    vertical-align: top;
+}
+/*블럭 추가 버튼 아이콘 div*/	
 .add-block{
 	width: 35px;
     height: 35px;
     margin: 0 auto;
-    color: white;
-    background-color: blue;
+    background-color: #4789E7;
+    border: 1px solid #0073AC;
+    font-weight: 700;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
 }
-#blockMenu-sidebar-nav{
+
+/*사이드바 메뉴 */
+.blockMenu-sidebar-ul{
 	cursor: pointer;
 	background-color:#919cac;
-	width: 100px;
+	width: 67px;
 	height:100%;
 	margin-left: 0px;
+	margin-top:0px;
    	list-style: none;
     text-align: center;
     padding-left: 0;
 }
+/*사이드바 메뉴 li*/
+.blockMenu-sidebar-ul li{
+	border-bottom: 1px solid #aab2bd;
+	padding: 10px 0 7px;
+	font-size: 11px;
+    line-height: 1em;
+}
+.blockMenu-sidebar-ul li.img{
+	width: 44px;
+}
+/*사이드바 메뉴 클릭시 파랑색으로 바뀜 */
+.blockMenu-sidebar-ul li.active{
+	background-color: #4789e7;
+}
+/*사이드바 */
+.blockMenu-sidebar-div {
+	width:315px;
+ 	position: fixed;
+    margin-left: -315px; 
+    vertical-align:top;
+	top: 0;
+    left: 0px;
+    height:100%;
+    z-index:50;
+    background-color: #dee1ea;
+    color: white;
+}
+.blockMenu-sidebar-close{
+	list-style: none;
+}
+
+/*사이드바 close 버튼 */
+#blockMenu-sidebar-close{
+	position:absolute;
+	top:52px;
+	left:0px;
+	width:44px;
+	height:44px;
+	background-color :transparent;
+	border-radius:0;
+	margin: 0;		
+}
 	
-	#blockMenu-sidebar-nav li{
-		border-bottom: 1px solid #aab2bd;
-		padding: 10px 0 7px;
-		font-size: 11px;
-    	line-height: 1em;
-	}
-	#blockMenu-sidebar-nav li.active{
-		background-color: #4789e7;
-	}
-	
-	.blockMenu-sidebar {
-		width:315px;
-	   	position: fixed;
-	    margin-left: -315px; 
-	    padding: 35px 0 0 0;
-	    vertical-align:top;
-	    top: 0;
-	    left: 0px;
-	    height:100%;
-	    z-index:9999;
-	    background-color: #dee1ea;
-	    color: white;
-	}
-	
-	.blockMenu-sidebar-close{
-		cursor: pointer;
-		text-align: right;
-	}
-	
-	.blockMenu-sidebar li:hover {
-    color: #f1f1f1;
-	}
+.blockMenu-sidebar li:hover {
+   color: #f1f1f1;
+}
+
+.block-setting-cover {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    display: none;
+}
