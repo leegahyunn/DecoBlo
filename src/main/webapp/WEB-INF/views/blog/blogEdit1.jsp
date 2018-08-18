@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script src="resources/jquery-3.3.1.min.js"></script>
+<script src="library/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
 	firstcss();
@@ -61,43 +61,50 @@ function firstcss(){
 	<ul class="add-button">
 		<li class="add-button-li">
 			<div class="add-block">
-				<img alt='Plus' src='images/blockSettingimg/fa_plus_icon.png'/>
+				<img alt='Plus' src='resources/images/blockSettingimg/fa_plus_icon.png'/>
 			</div>
 		</li>
 	</ul>
 	<div class="block_wrapper">
 	</div>
+	<ul class="add-button">
+		<li class="add-button-li">
+			<div class="add-block">
+				<img alt='Plus' src='resources/images/blockSettingimg/fa_plus_icon.png'/>
+			</div>
+		</li>
+	</ul>
 </div>
 <div class="blockMenu-sidebar-div">
 	<ul class="blockMenu-sidebar-ul">
 		<li class="">
-			<img  alt="쇼케이스" src="images/blockSettingimg/icon-showcase.png">
+			<img  alt="쇼케이스" src="resources/images/blockSettingimg/icon-showcase.png">
 			<div>쇼케이스</div>
 		</li>
 		<li class="">	
-			<img alt="타이틀" src="images/blockSettingimg/icon-header.png">
+			<img alt="타이틀" src="resources/images/blockSettingimg/icon-header.png">
 			<div>타이틀</div>
 		</li >				
 		<li class="">
-			<img  alt="컨텐츠" src="images/blockSettingimg/icon-content.png">
+			<img  alt="컨텐츠" src="resources/images/blockSettingimg/icon-content.png">
 			<div>컨텐츠</div>
 		</li>
 		<li class="">
-			<img  alt="텍스트" src="images/blockSettingimg/icon-text.png">
+			<img  alt="텍스트" src="resources/images/blockSettingimg/icon-text.png">
 			<div>텍스트</div>
 		</li>
 		<li class="">
-			<img  alt="이미지" src="images/blockSettingimg/icon-image.png">
+			<img  alt="이미지" src="resources/images/blockSettingimg/icon-image.png">
 			<div>이미지</div>
 		</li>			
 		<li class="">
-			<img  alt="구분선" src="images/blockSettingimg/icon-divider.png">
+			<img  alt="구분선" src="resources/images/blockSettingimg/icon-divider.png">
 			<div>구분선</div>
 		</li>
 	</ul>
 	<ul class="blockMenu-sidebar-close">
 		<li id="blockMenu-sidebar-close">
-			<img alt="close" src="images/blockSettingimg/btn_close.png">
+			<img alt="close" src="resources/images/blockSettingimg/btn_close.png">
 		</li>
 	</ul>
 </div>

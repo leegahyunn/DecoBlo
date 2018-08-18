@@ -8,11 +8,13 @@
 <link rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
 <link type="text/css" rel="stylesheet" href="decoblo/css/blockConfig.css">
 <link type="text/css" rel="stylesheet" href="decoblo/css/menuConfig.css">
+<link type="text/css" rel="stylesheet" href="decoblo/css/blockSetting.css">
 <script src="resources/library/js/jquery-3.3.1.min.js"></script>
 <script src="resources/library/js/jquery-ui.min.js"></script>
 <script src="resources/library/js/wcolpick.js"></script>
 <script src="resources/library/js/colpickRmx.js"></script>
 <script src="decoblo/js/blockConfig.js"></script>
+<script src="decoblo/js/blockSetting.js"></script>
 
 <style>
 /**********/
@@ -196,10 +198,67 @@ body#body-config #header .left-menu div {
 </div>
 
 
-<nav id="config-block-nav">
+<nav id="block-config-nav">
+<div class="blockMenu-sidebar-div">
+	<ul class="blockMenu-sidebar-ul">
+		<li class="">
+			<img  alt="쇼케이스" src="resources/images/blockSettingimg/icon-showcase.png">
+			<div>쇼케이스</div>
+		</li>
+		<li class="">	
+			<img alt="타이틀" src="resources/images/blockSettingimg/icon-header.png">
+			<div>타이틀</div>
+		</li >				
+		<li class="">
+			<img  alt="컨텐츠" src="resources/images/blockSettingimg/icon-content.png">
+			<div>컨텐츠</div>
+		</li>
+		<li class="">
+			<img  alt="텍스트" src="resources/images/blockSettingimg/icon-text.png">
+			<div>텍스트</div>
+		</li>
+		<li class="">
+			<img  alt="이미지" src="resources/images/blockSettingimg/icon-image.png">
+			<div>이미지</div>
+		</li>			
+		<li class="">
+			<img  alt="구분선" src="resources/images/blockSettingimg/icon-divider.png">
+			<div>구분선</div>
+		</li>
+	</ul>
+	<ul class="blockMenu-sidebar-close">
+		<li id="blockMenu-sidebar-close">
+			<img alt="close" src="resources/images/blockSettingimg/btn_close.png">
+		</li>
+	</ul>
+</div>
 </nav>
-
+<!-- 전체 블록 section 시작 -->
 <section id="blog-wrapper">
+	<!-- 블록 추가 버튼 top -->
+	<ul class="add-button" id="add-button-top">
+		<li class="add-button-li">
+			<div class="add-block">
+				<img alt='Plus' src='resources/images/blockSettingimg/fa_plus_icon.png'/>
+			</div>
+		</li>
+	</ul>
+	<!-- 블록이 쌓이는 section -->
+	<section class="block" id="blockNo">
+		<div class="block-setting-cover"></div>
+	</section>
+	<!-- 블록 추가 버튼 bottom -->
+	<ul class="add-button" id="add-button-bottom">
+		<li class="add-button-li">
+			<div class="add-block">
+				<img alt='Plus' src='resources/images/blockSettingimg/fa_plus_icon.png'/>
+			</div>
+		</li>
+	</ul>
+	
+	<section class="block" id="blockNo">
+	
+	</section>
 </section>
 
 </body>
