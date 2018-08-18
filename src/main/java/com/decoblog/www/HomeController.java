@@ -22,4 +22,9 @@ public class HomeController {
 		return "blog/metaEdit";
 	}
 	
+	@RequestMapping(value = "/yrtest", method = RequestMethod.GET)
+	public String yrtest() {
+		return "blog/blogEdit1";
+	}
+	
 }
