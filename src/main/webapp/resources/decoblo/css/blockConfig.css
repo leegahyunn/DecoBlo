@@ -5,15 +5,10 @@
 	padding: 0;
 }
 
-li {
-	list-style: none;
-}
 
 div.block-config {
-	
 	border: 1px solid #DDD;		
 	color: #808080;
-	
 }
 
 div.block-config-header {		
@@ -33,11 +28,27 @@ div.block-config-section {
 	font-weight: bold;
 }
 
-div.block-config-section ul li.outer-config {
-	padding: 3px 20px;
+div.block-config-section div div.outer-config {
+	padding: 5px 20px;
 	border-bottom: 1px solid #DDD;
 }
 
+/* Inner Config */
+div.block-config-section div.inner-config {
+	display: none;
+	padding: 5px 0;
+	font-weight: normal;
+	background-color: #F6F8F9;
+}
+
+div.block-config-section div.inner-config div.config-row label {
+	width: 80px;
+	padding: 5px 0;
+    display: inline-block;
+    text-align: right;
+}
+
+/* Blosck Config Footer */
 div.block-config-footer {
 	overflow: hidden;
 	font-size: 0.8em;
@@ -61,12 +72,61 @@ div.block-config-footer i {
 	margin: 5px 0;
 }
 
-li i.right-icon{
+div i.right-icon{
 	float: right;
 }
 
 
-/* inner config */
-li.fold ul.inner-config {
-	display: none;
+
+/*************/
+/* UI SLIDER */
+/*************/
+
+/* Default */
+.range-slider{
+	display: inline-block;
+	width: 200px;
 }
+
+.slider-result{
+	color: blue;
+	font-weight: bold;
+}
+
+/**************/
+/* Background */
+/**************/
+
+input.color.transparent {
+    background: url(http://i.addblock.net/transparent.png) center center repeat;
+    background-size: 64px 64px;
+}
+
+input.color-picker span {
+    font-size: 12px;
+}
+input.color {
+    width: 19px;
+    height: 19px;
+    margin-bottom: -6px;
+    border-radius: 12px;
+    display: inline-block;
+    border: 1px solid #cacaca;
+    cursor: pointer;
+}
+
+input.color-picker {
+    line-height: 1;
+    height: 25px;
+    padding-top: 0;
+}
+
+
+input[type="color"] {
+	-webkit-appearance: circle-button;
+}
+
+
+
+
+
