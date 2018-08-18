@@ -76,7 +76,10 @@ div i.right-icon{
 	float: right;
 }
 
-
+.default-config-right{
+	width: 20px;
+	color: red;
+}
 
 /*************/
 /* UI SLIDER */

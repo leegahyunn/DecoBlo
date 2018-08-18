@@ -5,18 +5,36 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link type="text/css" rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
-<link type="text/css" rel="stylesheet" href="decoblo/css/blockConfig.css">
+<link rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
 <link type="text/css" rel="stylesheet" href="decoblo/css/menuConfig.css">
-<script src="resources/jquery-3.3.1.min.js"></script>
+<style type="text/css">
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
+ul.example li.placeholder {
+  position: relative;
+  /** More li styles **/
+}
+ul.example li.placeholder:before {
+  position: absolute;
+  /** Define arrowhead **/
+}
+</style>
+<script src="resources/library/js/jquery-3.3.1.min.js"></script>
 <script src="decoblo/js/blockConfig.js"></script>
 <script src="decoblo/js/menuConfig.js"></script>
 
 <script>
   $(function  () {
-	  $("ul.example").sortable();
+	  $("div.example").sortable();
 	  $("#flip").click(function(){
-		  
 	        $("#panel").slideToggle("slow");
 	    });
 	  $("#flip2").click(function(){
@@ -42,13 +60,12 @@
 	  })
 	});  
   
-  var group = $("ul.serialization").sortable({
+  var a =  $("div.example");
+  var group = $("a.serialization").sortable({
 	  group: 'serialization',
 	  delay: 500,
 	  onDrop: function ($item, container, _super) {
 	    var data = group.sortable("serialize").get();
-		console.log("data : " + data);
-		console.log("item : " + $item);
 	    var jsonString = JSON.stringify(data, null, ' ');
 
 	    $('#serialize_output2').text(jsonString);
@@ -65,20 +82,20 @@
 				<i class="fa fa-cog"></i> <span>메뉴 설정</span><i class="fa fa-times"></i>
 			</div>
 			<div class="block-config-section" id="panel">
-				<ul class='example'>
-					<li class="fold outer-config">
+				<div class='example'>
+					<div class="fold outer-config">
 						<span>여백</span> 
 						<i class="fa fa-chevron-right right-icon fold-icon"></i>
-						<ul></ul>
-					</li>
+						<div></div>
+					</div>
 					
-					<li class="fold outer-config">
+					<div class="fold outer-config">
 						<span>배경</span> 
 						<i class="fa fa-chevron-right right-icon fold-icon"></i>
-						<ul></ul>
-					</li>
+						<div></div>
+					</div>
 						
-					<li class="fold outer-config">
+					<!-- <li class="fold outer-config">
 						<span>하이</span> 
 						<i class="fa fa-chevron-right right-icon fold-icon"></i>
 						<ul></ul>
@@ -88,8 +105,8 @@
 						<span>흐이</span> 
 						<i class="fa fa-chevron-right right-icon fold-icon"></i>
 						<ul></ul>
-					</li>
-				</ul>
+					</li> -->
+				</div>
 			</div>
 		</div>
 		
