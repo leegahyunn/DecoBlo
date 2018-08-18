@@ -9,12 +9,22 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
-		return "index";
+		return "blog/blockConfig";
 	}
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String test() {
-		return "blog/blockConfig";
+		return "blog/menuConfig";
+	}
+	
+	@RequestMapping(value = "/metaEdit", method = RequestMethod.GET)
+	public String idCheck() {
+		return "blog/metaEdit";
+	}
+	
+	@RequestMapping(value = "/yrtest", method = RequestMethod.GET)
+	public String yrtest() {
+		return "blog/blogEdit1";
 	}
 	
 	@RequestMapping(value = "/test1", method = RequestMethod.GET)
