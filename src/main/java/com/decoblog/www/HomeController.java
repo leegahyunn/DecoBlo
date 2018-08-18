@@ -17,4 +17,8 @@ public class HomeController {
 		return "blog/blockConfig";
 	}
 	
+	@RequestMapping(value = "/test1", method = RequestMethod.GET)
+	public String test1() {
+		return "blog/test";
+	}
 }
