@@ -10,9 +10,10 @@ li {
 }
 
 div.block-config {
-	width: 347px;
+	
 	border: 1px solid #DDD;		
 	color: #808080;
+	
 }
 
 div.block-config-header {		
