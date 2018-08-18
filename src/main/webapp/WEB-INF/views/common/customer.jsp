@@ -4,88 +4,45 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Help</title>
+<title>DecoBlo - Customer</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="pixelarity/assets/css/main.css" />
+<link rel="stylesheet" href="decoblo/css/customer.css" />
 <script src="resources/jquery-3.3.1.min.js"></script>
 <style type="text/css">
-	.table-wrapper {
-		margin: o auto;
-	}
-	
-	.qalist {
-		display : flex;
-		width : 400px;
-		text-align: center;
-		vertical-align: middle;
-		justify-content: space-around;
-		margin: 1px;
-	}
-	
-	footer#footer {
-		padding: 0;
-		padding-bottom : 50px;
-		text-align :center;
-		width: 100%;
-		color: #AAA;
-		
-	}
-	
-	hr {
-		height: 1px;
-		background-color : white;
-	}
-	
 
-	section#intro-photo{
-		display: block;
-	    padding-top: 0px;
-	    padding-bottom: 20px;
-		
-	}
-	section#intro-photo div#article {
-		width: 100%;
-		height: 300px;
-		background-color: rgba(100, 100, 100, 0.5);
-	}
-	
-	h5 {
-		 padding-bottom: 20px;
-	}
-	
-	
 </style>
 </head>
 <body class="landing">
 
-	<!-- Header -->
-		<header id="header" class="alt ">
-			<h1><a href="index.html">Decoblo</a></h1>
-			<nav id="nav">
+<!-- Header -->
+<header id="header" class="alt ">
+	<h1><a href="index.html">Decoblo</a></h1>
+	<nav id="nav">
+		<ul>
+			<li><a href="login">로그인</a></li>
+			<li><a href="join">무료회원가입</a></li>
+			<li>
+				<a href="#" class="icon fa-angle-down">한국어(KO)</a>
 				<ul>
-					<li><a href="login">로그인</a></li>
-					<li><a href="join">무료회원가입</a></li>
+					<li><a href="#">한국어(KO)</a></li>
+					<li><a href="#">日本語(JP)</a></li>
+					
 					<li>
-						<a href="#" class="icon fa-angle-down">한국어(KO)</a>
+						<a href="#">Submenu</a>
 						<ul>
-							<li><a href="#">한국어(KO)</a></li>
-							<li><a href="#">日本語(JP)</a></li>
-							
-							<li>
-								<a href="#">Submenu</a>
-								<ul>
-									<li><a href="#">Option 1</a></li>
-									<li><a href="#">Option 2</a></li>
-									<li><a href="#">Option 3</a></li>
-									<li><a href="#">Option 4</a></li>
-								</ul>
-							</li>
+							<li><a href="#">Option 1</a></li>
+							<li><a href="#">Option 2</a></li>
+							<li><a href="#">Option 3</a></li>
+							<li><a href="#">Option 4</a></li>
 						</ul>
 					</li>
-					
 				</ul>
-			</nav>
-		</header>
+			</li>
+			
+		</ul>
+	</nav>
+</header>
 
 
 
