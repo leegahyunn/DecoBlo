@@ -16,12 +16,12 @@
 	<resources mapping="/resources/**" location="/resources/" />
 	<!-- 추가 -->
 	<resources mapping="/resources/jchart/**" location="/resources/jchart/" />
-	<resources mapping="/images/**" location="/resources/pixelarity/images/" />
-	<resources mapping="/assets/**" location="/resources/pixelarity/assets/" />
 	<!-- pixelarity -->
 	<resources mapping="/pixelarity/**" location="/resources/pixelarity/" />
 	<!-- decoblo -->
 	<resources mapping="/decoblo/**" location="/resources/decoblo/" />
+	<!-- libarary -->
+	<resources mapping="/library/**" location="/resources/library/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

@@ -132,7 +132,7 @@ input[switch="warning"]:checked + label:before {
 	overflow: hidden;
 }
 .drop-down-menu{
-	width: 16.7%;
+	width: 300px;
 	display: inline-block;
 	float: left;
 }
