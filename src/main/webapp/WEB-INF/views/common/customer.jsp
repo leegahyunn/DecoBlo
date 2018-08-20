@@ -4,8 +4,9 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Help</title>
+<title>DecoBlo - Customer</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/common/help.jsp
 <link type="text/css" rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 <link rel="stylesheet" href="decoblo/css/helpPage.css" />
@@ -75,27 +76,50 @@
 	}
 	
 	
+=======
+<link rel="stylesheet" href="pixelarity/assets/css/main.css" />
+<link rel="stylesheet" href="decoblo/css/customer.css" />
+<script src="resources/jquery-3.3.1.min.js"></script>
+<style type="text/css">
+
+>>>>>>> upstream/dev:src/main/webapp/WEB-INF/views/common/customer.jsp
 </style>
 </head>
 <body class="landing">
 
-	<!-- Header -->
-		<header id="header" class="alt ">
-			<h1><a href="index.html">Decoblo</a></h1>
-			<nav id="nav">
+<!-- Header -->
+<header id="header" class="alt ">
+	<h1><a href="index.html">Decoblo</a></h1>
+	<nav id="nav">
+		<ul>
+			<li><a href="login">로그인</a></li>
+			<li><a href="join">무료회원가입</a></li>
+			<li>
+				<a href="#" class="icon fa-angle-down">한국어(KO)</a>
 				<ul>
-					<li><a href="login">로그인</a></li>
-					<li><a href="join">무료회원가입</a></li>
+					<li><a href="#">한국어(KO)</a></li>
+					<li><a href="#">日本語(JP)</a></li>
+					
 					<li>
-						<a href="#" class="icon fa-angle-down">한국어(KO)</a>
+						<a href="#">Submenu</a>
 						<ul>
+<<<<<<< HEAD:src/main/webapp/WEB-INF/views/common/help.jsp
 							<li><a href="#">한국어(KO)</a></li>
 							<li><a href="#">日本語(JP)</a></li>
+=======
+							<li><a href="#">Option 1</a></li>
+							<li><a href="#">Option 2</a></li>
+							<li><a href="#">Option 3</a></li>
+							<li><a href="#">Option 4</a></li>
+>>>>>>> upstream/dev:src/main/webapp/WEB-INF/views/common/customer.jsp
 						</ul>
 					</li>
 				</ul>
-			</nav>
-		</header>
+			</li>
+			
+		</ul>
+	</nav>
+</header>
 
 
 
