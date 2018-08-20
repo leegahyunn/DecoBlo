@@ -10,22 +10,21 @@
 <link rel="stylesheet" type="text/css" href="decoblo/css/blockConfig.css">
 <link rel="stylesheet" type="text/css" href="decoblo/css/menuConfig.css">
 <link rel="stylesheet" type="text/css" href="decoblo/css/blockSetting.css">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script src="resources/library/js/jquery-3.3.1.min.js"></script>
+<script src="resources/library/js/jquery-ui.min.js"></script>
 <script src="decoblo/js/jquery.nestable.js"></script>
 <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> </script>
-<link rel="stylesheet" type="text/css" href="pixelarity/assets/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="http://www.jqueryscript.net/css/jquerysctipttop.css">
 
 <link rel="stylesheet" type="text/css" href="decoblo/css/blockConfig.css">
 <link rel="stylesheet" type="text/css" href="decoblo/css/menuConfig.css">
 <link rel="stylesheet" type="text/css" href="decoblo/css/blockSetting.css">
   
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
 <script src="decoblo/js/jquery.nestable.js"></script>
 <script src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> </script>
   
-<script src="resources/library/js/jquery-3.3.1.min.js"></script>
-<script src="resources/library/js/jquery-ui.min.js"></script>
+
 <script src="resources/library/js/wcolpick.js"></script>
 <script src="resources/library/js/colpickRmx.js"></script>
   
@@ -158,7 +157,7 @@ div label.right-icon{
 .dd-empty,
 .dd-placeholder { display: block; position: relative; margin: 0; padding: 0; min-height: 20px; font-size: 13px; line-height: 20px; }
 
-.dd-handle { display: block; margin: 5px 0; padding: 5px 10px;   font-weight: bold; border: 1px solid #ccc;
+.aa-handle { display: block; margin: 5px 0; padding: 5px 10px;   font-weight: bold; border: 1px solid #ccc;
     background: #fafafa;
     background: -webkit-linear-gradient(top, #fafafa 0%, #eee 100%);
     background:    -moz-linear-gradient(top, #fafafa 0%, #eee 100%);
@@ -167,7 +166,7 @@ div label.right-icon{
             border-radius: 3px;
     box-sizing: border-box; -moz-box-sizing: border-box;
 }
-.dd-handle:hover { color: #2ea8e5; background: #fff; }
+.aa-handle:hover { color: #2ea8e5; background: #fff; }
 
 .dd-item > button { display: block; position: relative; cursor: pointer; float: left; width: 25px; height: 20px; margin: 5px 0; padding: 0; text-indent: 100%; white-space: nowrap; overflow: hidden; border: 0; background: transparent; font-size: 12px; line-height: 1; text-align: center; font-weight: bold; }
 .dd-item > button:before { content: '+'; display: block; position: absolute; width: 100%; text-align: center; text-indent: 0; }
@@ -187,15 +186,15 @@ div label.right-icon{
 }
 
 .dd-dragel { position: absolute; pointer-events: none; z-index: 9999; }
-.dd-dragel > .dd-item .dd-handle { margin-top: 0; }
-.dd-dragel .dd-handle {
+.dd-dragel > .dd-item .aa-handle { margin-top: 0; }
+.dd-dragel .aa-handle {
     -webkit-box-shadow: 2px 4px 6px 0 rgba(0,0,0,.1);
             box-shadow: 2px 4px 6px 0 rgba(0,0,0,.1);
 }
 
 .nestable-lists { display: block; clear: both; padding: 30px 0; width: 100%; border: 0; border-top: 2px solid #ddd; border-bottom: 2px solid #ddd; }
 
-#nestable2 .dd-handle {
+#nestable2 .aa-handle {
     color: #fff;
     border: 1px solid #999;
     background: #bbb;
@@ -203,10 +202,10 @@ div label.right-icon{
     background:    -moz-linear-gradient(top, #bbb 0%, #999 100%);
     background:         linear-gradient(top, #bbb 0%, #999 100%);
 }
-#nestable2 .dd-handle:hover { background: #bbb; }
+#nestable2 .aa-handle:hover { background: #bbb; }
 #nestable2 .dd-item > button:before { color: #fff; }
 
-.dd-hover > .dd-handle { background: #2ea8e5 !important; }
+.dd-hover > .aa-handle { background: #2ea8e5 !important; }
 .dd3-content { display: block; height: 30px; margin: 5px 0; padding: 5px 10px 5px 40px; color: #333; text-decoration: none; font-weight: bold; border: 1px solid #ccc;
     background: #fafafa;
     background: -webkit-linear-gradient(top, #fafafa 0%, #eee 100%);
@@ -280,13 +279,8 @@ $(function(){
 	/**************/
 	$(".menuEdit").click(function(){
 		alert("항")
-		$(".menu").css('display','none');
-		$(".menuEdit").css('display','block');
 	})
-	$(".menuCheck").click(function(){
-		$(".menuEdit").css('display','none');
-		$(".menu").css('display','block');
-	})
+	
 	
 	
 	/**************/
@@ -339,7 +333,7 @@ _gaq.push(['_trackPageview']);
 <body id="body-config">
 <header id="header">
 	<div class="left-menu menu-flip"><!-- menu-flip 클래스 추가-->
-		<div>메뉴s 설정</div>
+		<div>메뉴 설정</div>
 		<i class="fa fa-chevron-down"></i>
 	</div>
 	<div class="left-menu site-flip"><!-- site-flip 클래스 추가-->
@@ -349,61 +343,63 @@ _gaq.push(['_trackPageview']);
 </header>
 
 <div id="nav-container">
-	<nav id="menu-config-nav">
-		<!-- config-section -->
-		<div class="menu-panel dd" id="nestable">
-			 <ol class="dd-list"> 
-			 	<li class="dd-item" data-id="1">
-					<div class="default-config dd-titles dd-handle">
-						<div class="outer-config menu">
-							<span>about1</span> 
-						</div>
-					</div>
-					<div class="dd-buttons">
-						<i class="fa right-icon fa-trash"></i>
-						<i class="fa right-icon fa-pencil menuEdit"></i>
-						<i class="fa right-icon fa-eye"></i>
-					</div>
-					<div class="fold outer-config menuEdit" style="display:none;">
-						<input type="text" value="title" style="width:200px;">
-						<i class="right-icon fa fa-check menuCheck"></i>
-					</div>
-				</li>
-				<li class="dd-item" data-id="2">
-					<div class="default-config dd-titles dd-handle">
-						<div class="outer-config">
-							<span>contact</span> 
-						</div>
-					</div>
-					<div class="dd-buttons">
-							<i class="fa right-icon fa-trash"></i>
-							<i class="fa right-icon fa-pencil menuEdit"></i>
-							<i class="fa right-icon fa-eye"></i>
-					</div>
-				</li>
-				<li class="dd-item" data-id="3">
-					<div class="default-config dd-titles dd-handle">
-						<div class="outer-config">
-							<span>portfolio</span> 
-							
-						</div>
-					</div>
-					<div class="dd-buttons">
-							<i class="fa right-icon fa-trash"></i>
-							<i class="fa right-icon fa-pencil menuEdit"></i>
-							<i class="fa right-icon fa-eye"></i>
-					</div>
-				</li>
-			</ol>
-			<div class="default-config">
-				<div class="outer-config">
-					<span>메뉴추가</span> 
-					<i class="fa fa-plus"></i>
-				</div>
-			</div>
-		</div>
-		<!-- /config-section -->
-	</nav>
+<nav id="menu-config-nav">
+      <!-- config-section -->
+      <div class="menu-panel dd" id="nestable">
+          <ol class="dd-list"> 
+             <li class="dd-item" data-id="1">
+               <div class="default-config" >
+                  <div class="outer-config menu aa-handle">
+                  	<div class="dd-handle" style="display: inline-block;">
+                  		<span>ㄴsssㅁㅁㅁㅁㅁㄴ</span> 
+                  		<div class="outer-config"  style="display: inline-block;">
+	                   	<i class="fa fa-trash"></i>
+						<i class="fa fa-pencil menuEdit" ></i>
+						<i class="fa fa-eye"></i>
+	                </div>
+	                </div>
+	                
+                  </div>
+               </div>
+            </li>
+            <li class="dd-item" data-id="2">
+               <div class="default-config">
+                  <div class="outer-config menu aa-handle">
+                  	<div class="dd-handle" style="display: inline-block;">
+                  		<span>ㄴsssㄴ</span> 
+	                </div>
+	                <div class="outer-config"  style="display: inline-block;">
+	                   	<i class="fa fa-trash"></i>
+						<i class="fa fa-pencil menuEdit" ></i>
+						<i class="fa fa-eye"></i>
+	                </div>
+                  </div>
+               </div>
+            </li>
+            <li class="dd-item" data-id="3">
+               <div class="default-config">
+                  <div class="outer-config menu aa-handle">
+                  	<div class="dd-handle" style="display: inline-block;">
+                  		<span>ㄴsssㄴ</span> 
+	                </div>
+	                <div class="outer-config"  style="display: inline-block;">
+	                   	<i class="fa fa-trash"></i>
+						<i class="fa fa-pencil menuEdit" ></i>
+						<i class="fa fa-eye"></i>
+	                </div>
+                  </div>
+               </div>
+            </li>
+         </ol>
+         <div class="default-config">
+            <div class="outer-config">
+               <span>메뉴추가</span> 
+               <i class="fa fa-plus"></i>
+            </div>
+         </div>
+      </div>
+      <!-- /config-section -->
+   </nav>
 	
 	<nav id="site-config-nav">
 	<form enctype="multipart/form-data">
