@@ -5,10 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>DecoBlo - Config</title>
-<link rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
-<link type="text/css" rel="stylesheet" href="decoblo/css/blockConfig.css">
-<link type="text/css" rel="stylesheet" href="decoblo/css/menuConfig.css">
-<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="pixelarity/assets/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="http://www.jqueryscript.net/css/jquerysctipttop.css">
+<link rel="stylesheet" type="text/css" href="decoblo/css/blockConfig.css">
+<link rel="stylesheet" type="text/css" href="decoblo/css/menuConfig.css">
+<link rel="stylesheet" type="text/css" href="decoblo/css/blockSetting.css">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="decoblo/js/jquery.nestable.js"></script>
 <script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> </script>
