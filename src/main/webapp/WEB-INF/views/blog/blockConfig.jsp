@@ -5,52 +5,75 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link type="text/css" rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
-<link type="text/css" rel="stylesheet" href="decoblo/css/blockConfig.css">
+<link rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="decoblo/css/blockConfig.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="resources/jquery-3.3.1.min.js"></script>
+<script src="resources/jquery-ui.min.js"></script>
+<script src="resources/colpickRmx.js"></script>
 <script src="decoblo/js/blockConfig.js"></script>
+
 </head>
 <body>
 <div class="block-config">
 	<div class="block-config-header">
 		<i class="fa fa-cog"></i> <span>블럭 설정</span><i class="fa fa-times"></i>
 	</div>
+	
+	<!-- config-section -->
 	<div class="block-config-section">
-		<ul>
-			<li class="fold outer-config">
+		<div class="default-config">
+			<div class="fold outer-config">
 				<span>여백</span> 
 				<i class="fa fa-chevron-right right-icon fold-icon"></i>
-				<ul class="inner-config">
-					<li> dkdk </li>
-				</ul>
-			</li>
-			<li class="fold outer-config">
+			</div>
+			<div class="inner-config">
+				<div class="config-row">
+					<label>좌우여백</label>
+				</div>
+				<div class="config-row">
+					<label>상<span class="slider-result">0</span>px</label>
+					<div class="range-slider">
+					</div>
+				</div>
+				<div class="config-row">
+					<label>하<span class="slider-result">0</span>px</label>
+					<span class="range-slider">
+					</span>
+				</div>
+				
+			</div>
+		</div>
+		<div class="default-config">
+			<div class="fold outer-config">
 				<span>배경</span> 
 				<i class="fa fa-chevron-right right-icon fold-icon"></i>
-				<ul class="inner-config">
-					<li> dkdk </li>
-				</ul>
-			</li>
-			<li class="fold outer-config">
+			</div>
+			<div class="inner-config">
+				<div class="config-row">
+					<label>색상</label>
+					<input type="color" class="color color-picker transparent">
+					<button id="example3"></button>
+				</div>
+				<div class="config-row">
+					<label>이미지</label>
+				</div>				
+			</div>
+		</div>
+		<div class="default-config">
+			<div class="fold outer-config">
 				<span>블럭 링크(앵커)</span> 
 				<i class="fa fa-chevron-right right-icon fold-icon"></i>
-				<ul class="inner-config">
-					<li> dkdk </li>
-				</ul>
-			</li>
-			<li class="fold outer-config">
-				<span>버튼 선 색상</span> 
-				<i class="fa fa-chevron-right right-icon fold-icon"></i>
-				<ul class="inner-config">
-					<li> dkdk </li>
-				</ul>				
-			</li>
-			<li class="outer-config">
-				이미지
-			</li>
-		</ul>
-				
+			</div>
+			<div class="inner-config">
+				<label>aaaa</label>
+			</div>
+		</div>
+		
 	</div>
+	<!-- /config-section -->
+	
+	<!-- footer -->
 	<div class="block-config-footer">
 		<div class="block-move">			
 			<i class="fa fa-sort"></i>
@@ -69,6 +92,11 @@
 			<span>블럭삭제</span>
 		</div>
 	</div>
+	<!-- /footer -->
 </div>
+
+
+ 
+ 
 </body>
 </html>

@@ -3,14 +3,72 @@
  */
 
 $(function(){
-	$(document).on('click', 'li.fold', function() {
-		$(this).children('ul.inner-config').css({"display":"block"});
+	$(document).on('click', 'div.fold', function() {
+		$(this).next().css({"display":"block"});
 		$(this).removeClass('fold').addClass('unfold');
 		$(this).children('i.fa-chevron-right').removeClass('fa-chevron-right').addClass('fa-chevron-down');	
 	});
-	$(document).on('click', 'li.unfold', function() {
-		$(this).children('ul.inner-config').css({"display":"none"});
+	$(document).on('click', 'div.unfold', function() {
+		$(this).next().css({"display":"none"});
 		$(this).removeClass('unfold').addClass('fold');
 		$(this).children('i.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-right');	
 	});
+	
+	$(".range-slider").slider({
+		range: "max",
+		min: 1,
+		max: 100,
+		value: 50,
+		slide: function(event, ui) {
+			$(this).prev().children('.slider-result').text(ui.value);
+		}
+	});
+});
+
+$('#example3').newColpick({
+  onLoaded: function(colDiv,el) {
+    var hex = $.colpickRmx.hsbToHex($(el).getCurrentColpickColor());
+    $(el).css('background-color', '#' + hex);
+  },
+  onChange: function(hsb,hex,rgb,el,bsc) {
+    $(el).css('background-color', '#' + hex);
+  },
+  onHide: function(colDiv,el) {
+    var hex = $.colpickRmx.hsbToHex($(el).getCurrentColpickColor());
+    $(el).css('background-color', '#' + hex);
+    $(el).setColpickColor(hex, false);
+  },
+  onSubmit: function(hsb,hex,rgb,el) {
+    $(el).hideColpick();
+  }
+});
+
+
+$('#element3').newColpick({
+  alphaOutline: true,
+  appendToBody: false,
+  arrowsColor: 'default',
+  border: 1,
+  checkersColor: 'default',
+  color: {h:0, s:0, b:20, a:1},
+  colorOutline: true,
+  colorScheme: 'light-full',
+  colorSelOutline: true,
+  compactLayout: false,
+  enableAlpha: true,
+  enableSubmit: true,
+  fieldsBackground: 'default',
+  flat: true,
+  hueOutline: true,
+  layout: 'full',
+  livePreview: true,
+  polyfill: false,
+  position: 'auto',
+  readonlyFields: false,
+  readonlyHexField: false,
+  showEvent: 'click',
+  submitBackground: 'default',
+  submitColor: 'default',
+  variant: 'standard',
+  
 });

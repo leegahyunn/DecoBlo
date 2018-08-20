@@ -20,7 +20,7 @@ DROP TABLE DB_USER CASCADE CONSTRAINTS;
 CREATE TABLE DB_BBS
 (
 	-- 게시글 고유 번호
-	bbsNo number(10) NOT NULL UNIQUE,
+	bbsNo number(10) NOT NULL,
 	-- 게시판 번호
 	boardNo number(6) NOT NULL UNIQUE,
 	-- 게시글 제목
@@ -48,7 +48,7 @@ CREATE TABLE DB_BBS
 CREATE TABLE DB_BBS_ATTACH
 (
 	-- 첨부파일 고유번호
-	attachNo number(10) NOT NULL UNIQUE,
+	attachNo number(10) NOT NULL,
 	-- 게시글 고유 번호
 	attachBbsNo number(10) NOT NULL UNIQUE,
 	-- 첨부파일 원본 파일명
@@ -62,7 +62,7 @@ CREATE TABLE DB_BBS_ATTACH
 CREATE TABLE DB_BLOCK
 (
 	-- 블록 고유 번호
-	blockNo number(10) NOT NULL UNIQUE,
+	blockNo number(10) NOT NULL,
 	-- 블록이 속한 메뉴 번호
 	blockMenuNo number(10) NOT NULL UNIQUE,
 	-- 블록에 적용할 템플릿 번호
@@ -80,9 +80,48 @@ CREATE TABLE DB_BLOCK
 CREATE TABLE DB_BOARD
 (
 	-- 게시판 번호
-	boardNo number(6) NOT NULL UNIQUE,
+	boardNo number(6) NOT NULL,
 	-- 게시판 뷰가 나타날 블록 번호
 	boardBlockNo number(10) NOT NULL UNIQUE,
+	-- 템플릿 번호
+	boardTemplateNo number(10) NOT NULL UNIQUE,
+	-- 블록에서 초기에 표시할 게시글 개수
+	boardInitNDisplay number(2) DEFAULT 5 NOT NULL,
+	-- 게시물 번호 표시 여부
+	-- 0: 표시 안 함 1: 표시 2: 항상 표시 3: 표시 불가
+	boardDisplayedNo number(1) DEFAULT 1,
+	-- 타이틀 표시 여부
+	-- 0: 표시 안 함 1: 표시 2: 항상 표시 3: 표시 불가
+	boardDisplayedTitle number(1) DEFAULT 1,
+	-- 내용 표시 여부
+	-- 0: 표시 안 함 1: 표시 2: 항상 표시 3: 표시 불가
+	boardDisplayedContent number(1) DEFAULT 0,
+	-- 표시 여부
+	-- 0: 표시 안 함 1: 표시 2: 항상 표시 3: 표시 불가
+	boardDisplayedAuthor number(1) DEFAULT 0,
+	-- 날짜 표시 여부
+	-- 0: 표시 안 함 1: 표시 2: 항상 표시 3: 표시 불가
+	boardDisplayedDate number(1) DEFAULT 1,
+	-- 조회수 표시 여부
+	-- 0: 표시 안 함 1: 표시 2: 항상 표시 3: 표시 불가
+	boardDisplayedHit number(1) DEFAULT 1,
+	-- 좋아요 표시 여부
+	-- 0: 표시 안 함 1: 표시 2: 항상 표시 3: 표시 불가
+	boardDisplayedLike number(1) DEFAULT 0,
+	-- 댓글수 표시 여부
+	-- 0: 표시 안 함 1: 표시 2: 항상 표시 3: 표시 불가
+	boardDisplayedComment number(1) DEFAULT 1,
+	-- 하단 목록 표시 여부
+	-- 0: 표시 안 함 1: 표시 2: 항상 표시 3: 표시 불가
+	boardDisplayedBottomList number(1) DEFAULT 1,
+	-- 검색창 표시 여부
+	-- 0: 표시 안 함 1: 표시 2: 항상 표시 3: 표시 불가
+	boardDisplayedSearch number(1) DEFAULT 1,
+	-- 썸네일 사용여부
+	-- 0: 표시 안 함 1: 표시 2: 항상 표시 3: 표시 불가
+	boardDisplayedThumbnails number(1) DEFAULT 0,
+	-- 날짜 표시 형식 (YYYY-MM-DD 등)
+	boardDateForm varchar2(30) DEFAULT 'YYYY-MM-DD',
 	PRIMARY KEY (boardNo)
 );
 
@@ -90,7 +129,7 @@ CREATE TABLE DB_BOARD
 CREATE TABLE DB_MENU
 (
 	-- 메뉴 고유번호
-	menuNo number(10) NOT NULL UNIQUE,
+	menuNo number(10) NOT NULL,
 	-- 유저번호
 	menuUserNo number(4) NOT NULL UNIQUE,
 	-- 메뉴 이름
@@ -112,7 +151,7 @@ CREATE TABLE DB_MENU
 CREATE TABLE DB_REPLY
 (
 	-- 댓글 고유 번호
-	replyNo number(10) NOT NULL UNIQUE,
+	replyNo number(10) NOT NULL,
 	-- 게시글 고유 번호
 	replyBbsNo number(10) NOT NULL UNIQUE,
 	-- 댓글 내용
@@ -139,7 +178,7 @@ CREATE TABLE DB_REPLY
 CREATE TABLE DB_STAT
 (
 	-- 통계 고유 번호
-	statNo number(10) NOT NULL UNIQUE,
+	statNo number(10) NOT NULL,
 	-- 유저번호
 	statUserNo number(4) NOT NULL UNIQUE,
 	-- 블로그 방문자 통계
@@ -159,7 +198,7 @@ CREATE TABLE DB_STAT
 CREATE TABLE DB_SUBSCRIBE
 (
 	-- 일련번호
-	subNo number(5) NOT NULL UNIQUE,
+	subNo number(5) NOT NULL,
 	-- 구독하는 사람
 	subSendUser number(4) NOT NULL UNIQUE,
 	-- 구독 대상
@@ -173,19 +212,31 @@ CREATE TABLE DB_SUBSCRIBE
 CREATE TABLE DB_TEMPLATE
 (
 	-- 템플릿 번호
-	templateNo number(10) NOT NULL UNIQUE,
+	templateNo number(10) NOT NULL,
 	-- 템플릿 타입
 	templateType varchar2(30) NOT NULL,
 	-- 템플릿 내용
 	templateContent blob NOT NULL,
-	-- 템플릿 등록일
-	templateRegDate date DEFAULT SYSDATE,
-	-- 템플릿 등록자
-	templateRegUser number(4),
-	-- 템플릿 수정일
-	templateEditDate date,
-	-- 템플릿 수정자
-	templateEditUser number(4),
+	-- 템플릿에 포함될 이미지 개수
+	templateNImages number(2) DEFAULT 0 NOT NULL,
+	-- 선 포함 여부
+	-- (0: 미포함 1: 포함)
+	blockIncludedLine number(1) DEFAULT 0,
+	-- 버튼 포함 여부
+	-- (0: 미포함 1: 포함)
+	blockIncludedButton number(1) DEFAULT 0,
+	-- 롤링인덱스 포함 여부
+	-- (0: 미포함 1: 포함)
+	blockIncludedRollingIndex number(1) DEFAULT 0,
+	-- 컨텐츠 박스 (단일 div) 포함 여부
+	-- (0: 미포함 1: 포함)
+	blockIncludedContentBox number(1) DEFAULT 0,
+	-- 컨텐츠 리스트 (다중 div) 포함 여부
+	-- (0: 미포함 1: 포함)
+	blockIncludedContentList number(1) DEFAULT 0,
+	-- 컨텐츠 가로 개수 수정 가능 여부
+	-- (0: 미포함 1: 포함)
+	blockAdjustHorisontalCount number(1) DEFAULT 0,
 	PRIMARY KEY (templateNo)
 );
 
@@ -193,7 +244,7 @@ CREATE TABLE DB_TEMPLATE
 CREATE TABLE DB_USER
 (
 	-- 유저번호
-	userNo number(4) NOT NULL UNIQUE,
+	userNo number(4) NOT NULL,
 	-- 유저 이메일
 	userEmaii varchar2(200) NOT NULL UNIQUE,
 	-- 유저 이름
@@ -297,6 +348,12 @@ ALTER TABLE DB_REPLY
 
 ALTER TABLE DB_BLOCK
 	ADD FOREIGN KEY (bockTemplateNo)
+	REFERENCES DB_TEMPLATE (templateNo)
+;
+
+
+ALTER TABLE DB_BOARD
+	ADD FOREIGN KEY (boardTemplateNo)
 	REFERENCES DB_TEMPLATE (templateNo)
 ;
 
