@@ -40,7 +40,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
 	public String chtest() {
-		return "templates/1/block1";
+		return "templates/SampleTemplate";
 	}
 	
 	@RequestMapping(value = "/chtest1", method = RequestMethod.GET)
@@ -48,7 +48,6 @@ public class HomeController {
 		return "templates/1/index";
 	}
 	
-<<<<<<< HEAD
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String view() {
 		return "common/dashboard";
@@ -60,7 +59,6 @@ public class HomeController {
 		
 	}
 	
-=======
 	@RequestMapping(value = "/metaEdit", method = RequestMethod.GET)
 	public String idCheck() {
 		return "blog/metaEdit";
@@ -79,5 +77,4 @@ public class HomeController {
 	public String test2() {
 		return "blog/blockConfig";
 	}
->>>>>>> 274ef393b88fe5e1cbb2e1b425dcc5c823ac6b69
 }
