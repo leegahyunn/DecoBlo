@@ -17,4 +17,15 @@ public class HomeController {
 		return "blog/blockConfig";
 	}
 	
+	@RequestMapping(value = "/view", method = RequestMethod.GET)
+	public String view() {
+		return "common/dashboard";
+	}
+	@RequestMapping(value = "/view2", method = RequestMethod.GET)
+	public String view2(){
+			return "common/main";
+		
+		
+	}
+	
 }
