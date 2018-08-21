@@ -1,4 +1,4 @@
-package com.decoblog.www.bbs.vo;
+package com.decoblog.www.board.vo;
 
 public class BbsAttach {
 	private int attachNo;

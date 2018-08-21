@@ -1,6 +1,6 @@
-package com.decoblog.www.bbs.vo;
+package com.decoblog.www.board.vo;
 
-public class BbsBoard {
+public class Board {
 	private int boardNo;
 	private int boardBlockNo;
 	private int boardBlockTmpNo;
@@ -17,9 +17,9 @@ public class BbsBoard {
 	private int boardDisplayedSearch;
 	private int boardDisplayedThumbnails;
 	private String boardDateForm;
-	public BbsBoard() {
+	public Board() {
 	}
-	public BbsBoard(int boardNo, int boardBlockNo, int boardBlockTmpNo, int boardInitNDisplay, int boardDisplayedNo,
+	public Board(int boardNo, int boardBlockNo, int boardBlockTmpNo, int boardInitNDisplay, int boardDisplayedNo,
 			int boardDisplayedTitle, int boardDisplayedContent, int boardDisplayedAuthor, int boardDisplayedDate,
 			int boardDisplayedHit, int boardDisplayedLike, int boardDisplayedComment, int boardDisplayedBottomList,
 			int boardDisplayedSearch, int boardDisplayedThumbnails, String boardDateForm) {
