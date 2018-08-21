@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<html>
+<head>
+<title>Untitled</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="pixelarity/assets/css/main.css" />
+</head>
+<body style="background-color: blue">
 <header id="header" class="alt ">
 	<h1><a href="index.html">Drift <span>by Pixelarity</span></a></h1>
 	<nav id="nav">
@@ -27,3 +35,13 @@
 		</ul>
 	</nav>
 </header>
+<script src="pixelarity/assets/js/jquery.min.js"></script>
+<script src="pixelarity/assets/js/jquery.dropotron.min.js"></script>
+<script src="pixelarity/assets/js/jquery.scrollgress.min.js"></script>
+<script src="pixelarity/assets/js/jquery.scrolly.min.js"></script>
+<script src="pixelarity/assets/js/jquery.slidertron.min.js"></script>
+<script src="pixelarity/assets/js/skel.min.js"></script>
+<script src="pixelarity/assets/js/util.js"></script>
+<script src="pixelarity/assets/js/main.js"></script>
+</body>
+</html>
