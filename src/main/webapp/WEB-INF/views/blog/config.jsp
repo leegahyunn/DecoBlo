@@ -14,7 +14,6 @@
 <script src="resources/library/js/jquery-3.3.1.min.js"></script>
 <script src="resources/library/js/jquery-ui.min.js"></script>
 <script src="decoblo/js/jquery.nestable.js"></script>
-<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> </script>
 
 <link rel="stylesheet" type="text/css" href="decoblo/css/blockConfig.css">
 <link rel="stylesheet" type="text/css" href="decoblo/css/menuConfig.css">
@@ -22,7 +21,6 @@
   
 
 <script src="decoblo/js/jquery.nestable.js"></script>
-<script src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> </script>
   
 
 <script src="resources/library/js/wcolpick.js"></script>
@@ -55,9 +53,10 @@ body#body-config #header .left-menu {
 	width: 300px;
 	height: 100%;
 	display: inline-block;
-	border: 1px solid #333e4e;
+	border-right: 1px solid #333e4e;
 	float: left;
-	padding-top: 5px;
+	padding-top: 10px;
+	font-size:12px;
 	text-align: center;
 }
 
@@ -66,6 +65,25 @@ body#body-config #header .left-menu div {
 	margin: 0 auto;
 	display: inline-block;
 }
+
+/* right-menu */
+body#body-config #header .right-menu {
+	width: 100px;
+	height: 100%;
+	display: inline-block;
+	border-right: 1px solid #333e4e;
+	float: right;
+	padding-top: 10px;
+	font-size:12px;
+	text-align: center;
+}
+
+body#body-config #header .right-menu div {
+	width: 100px;
+	margin: 0 auto;
+	display: inline-block;
+}
+
 
 
 /**************/
@@ -77,7 +95,7 @@ body#body-config #header .left-menu div {
 #menu-config-nav, #site-config-nav{
 	width: 300px;
 	float: left;
- 	border: 1px solid black;
+ 	border: 1px solid white;
 }
 
 /**************/
@@ -143,11 +161,20 @@ div label.right-icon{
     display: none;
 }
 
+#header div.folder {
+	background-color: #556273;
+}
+
+#header div.unfolder {
+	background-color: #4789E7;
+}
+
+
 
 /**************/
 /*메뉴 드래그앤드롭*/
 /**************/
-.dd { position: relative; display: block;}
+.dd { position: relative; }
 
 .dd-list { display: block; position: relative; }
 .dd-list .dd-list { padding-left: 30px; }
@@ -157,16 +184,18 @@ div label.right-icon{
 .dd-empty,
 .dd-placeholder { display: block; position: relative; margin: 0; padding: 0; min-height: 20px; font-size: 13px; line-height: 20px; }
 
-.aa-handle { display: block; margin: 5px 0; padding: 5px 10px;   font-weight: bold; border: 1px solid #ccc;
-    background: #fafafa;
-    background: -webkit-linear-gradient(top, #fafafa 0%, #eee 100%);
-    background:    -moz-linear-gradient(top, #fafafa 0%, #eee 100%);
-    background:         linear-gradient(top, #fafafa 0%, #eee 100%);
-    -webkit-border-radius: 3px;
-            border-radius: 3px;
+.aa-handle { display: block; margin: 5px 0; padding: 5px 10px;   font-weight: bold; 
+    background: -webkit-linear-gradient(top, #FFFFFF 0%, #FFF 100%);
+    background:    -moz-linear-gradient(top, #FFFFFF 0%, #FFF 100%);
+    background:         linear-gradient(top, #FFFFFF 0%, #FFF 100%);
+    -webkit-border-radius: 0;
+            border-radius: 0;
     box-sizing: border-box; -moz-box-sizing: border-box;
+    border-bottom: 1px solid #CCC;
 }
-.aa-handle:hover { color: #2ea8e5; background: #fff; }
+
+.aa-handle:hover { color: #000; background: #fff; }
+.aa-handle i:hover { color: #2ea8e5; background: #fff; }
 
 .dd-item > button { display: block; position: relative; cursor: pointer; float: left; width: 25px; height: 20px; margin: 5px 0; padding: 0; text-indent: 100%; white-space: nowrap; overflow: hidden; border: 0; background: transparent; font-size: 12px; line-height: 1; text-align: center; font-weight: bold; }
 .dd-item > button:before { content: '+'; display: block; position: absolute; width: 100%; text-align: center; text-indent: 0; }
@@ -249,6 +278,8 @@ div label.right-icon{
 	padding-top: 14px;
 }
 
+.hi:hover { color: red; }
+
 
 /* 파일 업로드 */
 input.upload {  
@@ -262,9 +293,9 @@ input.upload {
 <script type="text/javascript">
 $(function(){
 
-	/**************/
-	/*    타이틀      */
-	/**************/
+	/***********************/
+	/* 사이트 설정(타이틀) 수정    */
+	/***********************/
 	$(".titleBtn").click(function(){
 		$(".title").css('display','none');
 		$(".titleEdit").css('display','block');
@@ -274,14 +305,21 @@ $(function(){
 		$(".title").css('display','block');
 	})
 	
+	
 	/**************/
-	/*    메뉴수정     */
-	/**************/
-	$(".menuEdit").click(function(){
-		alert("항")
+	/* 메뉴 이름 수정  */
+	/*************/
+	$(".editBtn-1").click(function(){
+		$(".menu-1").css('display','none');
+		$(".menuicon-1").css('display','none');
+		$(".editBox-1").css('display','block');
 	})
-	
-	
+	$(".checkBtn-1").click(function(){
+		$(".editBox-1").css('display','none');
+		$(".menuicon-1").css('display','inline-block');
+		$(".menu-1").css('display','inline-block');
+	})
+
 	
 	/**************/
 	/*   메타태그     */
@@ -293,11 +331,25 @@ $(function(){
 	/**************/
 	/*    드롭다운     */
 	/**************/
-	$(".menu-flip").click(function(){
-	      $(".menu-panel").slideToggle("slow");
-	});
 	$(".site-flip").click(function(){
-	      $(".site-panel").slideToggle("slow");
+	      $(".site-panel").slideToggle("slow")
+	      $(".site-panel").css("border-bottom","1px solid #333e4e").css("border-left","1px solid #333e4e").css("border-right","1px solid #333e4e")
+	  	
+	});
+	
+	$(".menu-flip").click(function(){
+	      $(".menu-panel").slideToggle("slow")
+	      $(".menu-panel").css("border-bottom","1px solid #333e4e").css("border-left","1px solid #333e4e").css("border-right","1px solid #333e4e")
+	  	
+	});
+	 
+	$(document).on('click', 'div.folder', function() {
+		$(this).removeClass('folder').addClass('unfolder');
+		$(this).children('i.fa-chevron-right').removeClass('fa-chevron-right').addClass('fa-chevron-down');	
+	});
+	$(document).on('click', 'div.unfolder', function() {
+		$(this).removeClass('unfolder').addClass('folder');
+		$(this).children('i.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-right');	
 	});
 	
 	/**************/
@@ -332,68 +384,97 @@ _gaq.push(['_trackPageview']);
 </head>
 <body id="body-config">
 <header id="header">
-	<div class="left-menu menu-flip"><!-- menu-flip 클래스 추가-->
+	<div class="left-menu menu-flip folder"><!-- menu-flip 클래스 추가-->
 		<div>메뉴 설정</div>
-		<i class="fa fa-chevron-down"></i>
+		<i class="fa fa-chevron-right"></i>
 	</div>
-	<div class="left-menu site-flip"><!-- site-flip 클래스 추가-->
+	<div class="left-menu site-flip folder"><!-- site-flip 클래스 추가-->
 		<div>사이트 설정</div>
 		<i class="fa fa-chevron-down"></i>
 	</div>
+	
+	<!-- right-menu -->
+	<div class="right-menu">
+		<div><i class="fa fa-share"></i>  편집끝내기</div>
+	</div>
+	<div class="right-menu">
+		<div><i class="fa fa-arrow-circle-up"></i>  사이트게시</div>
+	</div>
+	<div class="right-menu">
+		<div><i class="fa fa-desktop"></i>  미리보기</div>
+	</div>
+	<div class="right-menu">
+		<div><i class="fa fa-question"></i>  가이드</div>
+	</div>
+	<div class="right-menu">
+		<div><i class="fa fa-user"></i>  1:1문의</div>
+	</div>
+	
 </header>
 
 <div id="nav-container">
 <nav id="menu-config-nav">
       <!-- config-section -->
-      <div class="menu-panel dd" id="nestable">
+      <div class="menu-panel dd" id="nestable" >
           <ol class="dd-list"> 
              <li class="dd-item" data-id="1">
                <div class="default-config" >
-                  <div class="outer-config menu aa-handle">
-                  	<div class="dd-handle" style="display: inline-block;">
-                  		<span>ㄴsssㅁㅁㅁㅁㅁㄴ</span> 
-                  		<div class="outer-config"  style="display: inline-block;">
+                  <div class="outer-config aa-handle">
+                  	<div class="dd-handle menu-1" style="display: inline-block; width: 80%;">
+                  		<span>about</span> 
+	                </div>
+	                <div class="outer-config menuicon-1"  style="display: inline-block;">
 	                   	<i class="fa fa-trash"></i>
-						<i class="fa fa-pencil menuEdit" ></i>
+						<i class="fa fa-pencil editBtn-1" ></i>
 						<i class="fa fa-eye"></i>
 	                </div>
-	                </div>
-	                
+					<div class="fold outer-config editBox-1" style="display:none;">
+						<input type="text" value="title" style="width:200px;">
+						<i class="right-icon fa fa-check checkBtn-1"></i>
+					</div>
                   </div>
                </div>
             </li>
             <li class="dd-item" data-id="2">
                <div class="default-config">
-                  <div class="outer-config menu aa-handle">
-                  	<div class="dd-handle" style="display: inline-block;">
-                  		<span>ㄴsssㄴ</span> 
+                  <div class="outer-config aa-handle">
+                  	<div class="dd-handle" style="display: inline-block; width: 80%;">
+                  		<span>portfolio</span> 
 	                </div>
-	                <div class="outer-config"  style="display: inline-block;">
+	               <div class="outer-config menuicon-2"  style="display: inline-block;">
 	                   	<i class="fa fa-trash"></i>
-						<i class="fa fa-pencil menuEdit" ></i>
+						<i class="fa fa-pencil editBtn-2" ></i>
 						<i class="fa fa-eye"></i>
 	                </div>
+					<div class="fold outer-config editBox-2" style="display:none;">
+						<input type="text" value="title" style="width:200px;">
+						<i class="right-icon fa fa-check checkBtn-2"></i>
+					</div>
                   </div>
                </div>
             </li>
             <li class="dd-item" data-id="3">
                <div class="default-config">
-                  <div class="outer-config menu aa-handle">
-                  	<div class="dd-handle" style="display: inline-block;">
-                  		<span>ㄴsssㄴ</span> 
+                  <div class="outer-config aa-handle">
+                  	<div class="dd-handle" style="display: inline-block; width: 80%;">
+                  		<span>contact us</span> 
 	                </div>
-	                <div class="outer-config"  style="display: inline-block;">
+	                <div class="outer-config menuicon-3"  style="display: inline-block;">
 	                   	<i class="fa fa-trash"></i>
-						<i class="fa fa-pencil menuEdit" ></i>
+						<i class="fa fa-pencil editBtn-3" ></i>
 						<i class="fa fa-eye"></i>
 	                </div>
+					<div class="fold outer-config editBox-3" style="display:none;">
+						<input type="text" value="title" style="width:200px;">
+						<i class="right-icon fa fa-check checkBtn-3"></i>
+					</div>
                   </div>
                </div>
             </li>
          </ol>
-         <div class="default-config">
+         <div class="default-config" style="text-align: right; padding-right: 5px">
             <div class="outer-config">
-               <span>메뉴추가</span> 
+               <span style="font-size: 14px;">메뉴추가</span> 
                <i class="fa fa-plus"></i>
             </div>
          </div>
@@ -401,7 +482,11 @@ _gaq.push(['_trackPageview']);
       <!-- /config-section -->
    </nav>
 	
-	<nav id="site-config-nav">
+	<nav id="site-config-nav" style="
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;"
+	>
 	<form enctype="multipart/form-data">
 		<div class="block-config-section site-panel"><!-- site-panel 클래스 추가 -->
 			<div class="default-config">
