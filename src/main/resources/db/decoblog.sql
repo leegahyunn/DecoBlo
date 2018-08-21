@@ -6,10 +6,11 @@ DROP TABLE DB_REPLY CASCADE CONSTRAINTS;
 DROP TABLE DB_BBS CASCADE CONSTRAINTS;
 DROP TABLE DB_BOARD CASCADE CONSTRAINTS;
 DROP TABLE DB_BLOCK CASCADE CONSTRAINTS;
+DROP TABLE DB_BLOCK_TEMPLATE CASCADE CONSTRAINTS;
 DROP TABLE DB_MENU CASCADE CONSTRAINTS;
 DROP TABLE DB_STAT CASCADE CONSTRAINTS;
 DROP TABLE DB_SUBSCRIBE CASCADE CONSTRAINTS;
-DROP TABLE DB_TEMPLATE CASCADE CONSTRAINTS;
+DROP TABLE DB_Template CASCADE CONSTRAINTS;
 DROP TABLE DB_USER CASCADE CONSTRAINTS;
 
 
@@ -65,8 +66,8 @@ CREATE TABLE DB_BLOCK
 	blockNo number(10) NOT NULL,
 	-- 블록이 속한 메뉴 번호
 	blockMenuNo number(10) NOT NULL UNIQUE,
-	-- 블록에 적용할 템플릿 번호
-	bockTemplateNo number(10) NOT NULL UNIQUE,
+	-- 템플릿 번호
+	blockTmpNo number(10) NOT NULL,
 	-- 블로그 내에서 배치될 블록 순서
 	blockSeq number(2) DEFAULT 1 NOT NULL,
 	-- 블록 내용
@@ -77,6 +78,40 @@ CREATE TABLE DB_BLOCK
 );
 
 
+CREATE TABLE DB_BLOCK_TEMPLATE
+(
+	-- 템플릿 번호
+	blockTmpNo number(10) NOT NULL,
+	-- 템플릿 고유 번호
+	blockTemplateNo number(10) NOT NULL,
+	-- 템플릿 타입
+	blockTmpType varchar2(30) NOT NULL,
+	-- 템플릿 내용
+	blockTmpContent blob NOT NULL,
+	-- 템플릿에 포함될 이미지 개수
+	blockTmpNImages number(2) DEFAULT 0 NOT NULL,
+	-- 선 포함 여부
+	-- (0: 미포함 1: 포함)
+	blockTmpHasLine number(1) DEFAULT 0,
+	-- 버튼 포함 여부
+	-- (0: 미포함 1: 포함)
+	blockTmpHasButton number(1) DEFAULT 0,
+	-- 롤링인덱스 포함 여부
+	-- (0: 미포함 1: 포함)
+	blockTmpHasRollingIndex number(1) DEFAULT 0,
+	-- 컨텐츠 박스 (단일 div) 포함 여부
+	-- (0: 미포함 1: 포함)
+	blockTmpHasContentBox number(1) DEFAULT 0,
+	-- 컨텐츠 리스트 (다중 div) 포함 여부
+	-- (0: 미포함 1: 포함)
+	blockTmpHasContentList number(1) DEFAULT 0,
+	-- 컨텐츠 가로 개수 수정 가능 여부
+	-- (0: 미포함 1: 포함)
+	blockTmpNContents number(1) DEFAULT 0,
+	PRIMARY KEY (blockTmpNo)
+);
+
+
 CREATE TABLE DB_BOARD
 (
 	-- 게시판 번호
@@ -84,7 +119,7 @@ CREATE TABLE DB_BOARD
 	-- 게시판 뷰가 나타날 블록 번호
 	boardBlockNo number(10) NOT NULL UNIQUE,
 	-- 템플릿 번호
-	boardTemplateNo number(10) NOT NULL UNIQUE,
+	boardBlockTmpNo number(10) NOT NULL,
 	-- 블록에서 초기에 표시할 게시글 개수
 	boardInitNDisplay number(2) DEFAULT 5 NOT NULL,
 	-- 게시물 번호 표시 여부
@@ -209,34 +244,12 @@ CREATE TABLE DB_SUBSCRIBE
 );
 
 
-CREATE TABLE DB_TEMPLATE
+CREATE TABLE DB_Template
 (
-	-- 템플릿 번호
+	-- 템플릿 고유 번호
 	templateNo number(10) NOT NULL,
-	-- 템플릿 타입
-	templateType varchar2(30) NOT NULL,
-	-- 템플릿 내용
-	templateContent blob NOT NULL,
-	-- 템플릿에 포함될 이미지 개수
-	templateNImages number(2) DEFAULT 0 NOT NULL,
-	-- 선 포함 여부
-	-- (0: 미포함 1: 포함)
-	blockIncludedLine number(1) DEFAULT 0,
-	-- 버튼 포함 여부
-	-- (0: 미포함 1: 포함)
-	blockIncludedButton number(1) DEFAULT 0,
-	-- 롤링인덱스 포함 여부
-	-- (0: 미포함 1: 포함)
-	blockIncludedRollingIndex number(1) DEFAULT 0,
-	-- 컨텐츠 박스 (단일 div) 포함 여부
-	-- (0: 미포함 1: 포함)
-	blockIncludedContentBox number(1) DEFAULT 0,
-	-- 컨텐츠 리스트 (다중 div) 포함 여부
-	-- (0: 미포함 1: 포함)
-	blockIncludedContentList number(1) DEFAULT 0,
-	-- 컨텐츠 가로 개수 수정 가능 여부
-	-- (0: 미포함 1: 포함)
-	blockAdjustHorisontalCount number(1) DEFAULT 0,
+	-- 템플릿 제목
+	templateTitle varchar2(30),
 	PRIMARY KEY (templateNo)
 );
 
@@ -246,7 +259,7 @@ CREATE TABLE DB_USER
 	-- 유저번호
 	userNo number(4) NOT NULL,
 	-- 유저 이메일
-	userEmaii varchar2(200) NOT NULL UNIQUE,
+	userEmail varchar2(200) NOT NULL UNIQUE,
 	-- 유저 이름
 	userName varchar2(100) NOT NULL,
 	-- 유저 별명
@@ -322,6 +335,18 @@ ALTER TABLE DB_BOARD
 ;
 
 
+ALTER TABLE DB_BLOCK
+	ADD FOREIGN KEY (blockTmpNo)
+	REFERENCES DB_BLOCK_TEMPLATE (blockTmpNo)
+;
+
+
+ALTER TABLE DB_BOARD
+	ADD FOREIGN KEY (boardBlockTmpNo)
+	REFERENCES DB_BLOCK_TEMPLATE (blockTmpNo)
+;
+
+
 ALTER TABLE DB_BBS
 	ADD FOREIGN KEY (boardNo)
 	REFERENCES DB_BOARD (boardNo)
@@ -346,15 +371,9 @@ ALTER TABLE DB_REPLY
 ;
 
 
-ALTER TABLE DB_BLOCK
-	ADD FOREIGN KEY (bockTemplateNo)
-	REFERENCES DB_TEMPLATE (templateNo)
-;
-
-
-ALTER TABLE DB_BOARD
-	ADD FOREIGN KEY (boardTemplateNo)
-	REFERENCES DB_TEMPLATE (templateNo)
+ALTER TABLE DB_BLOCK_TEMPLATE
+	ADD FOREIGN KEY (blockTemplateNo)
+	REFERENCES DB_Template (templateNo)
 ;
 
 
@@ -377,13 +396,13 @@ ALTER TABLE DB_STAT
 
 
 ALTER TABLE DB_SUBSCRIBE
-	ADD FOREIGN KEY (subRecieveUser)
+	ADD FOREIGN KEY (subSendUser)
 	REFERENCES DB_USER (userNo)
 ;
 
 
 ALTER TABLE DB_SUBSCRIBE
-	ADD FOREIGN KEY (subSendUser)
+	ADD FOREIGN KEY (subRecieveUser)
 	REFERENCES DB_USER (userNo)
 ;
 
