@@ -39,5 +39,6 @@ $(function(){
 /*첫화면 css */
 function firstcss(){
 	var headerHeight = $('#header').height();
+	console.log(headerHeight);
 	$('.blockMenu-sidebar-div').css({"top":0 + headerHeight});
 }

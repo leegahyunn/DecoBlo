@@ -73,8 +73,13 @@ public class HomeController {
 	public String test1() {
 		return "blog/test";
 	}
-	@RequestMapping(value = "/test2", method = RequestMethod.GET)
+	
+	@RequestMapping(value="/test2",method=RequestMethod.GET)
 	public String test2() {
 		return "blog/blockConfig";
+	}
+	@RequestMapping(value="/titleTest1",method=RequestMethod.GET)
+	public String titleTest1() {
+		return "templates/title/titleTest1";
 	}
 }
