@@ -121,6 +121,10 @@
 	<br>
 	<br>
 	
+	
+	<!-- 댓글부분 -->
+	<textarea rows="5" cols="40"></textarea>
+	
 
 	<!-- 글목록 div 태그 -->
 		<div class="table-wrapper">	
@@ -150,7 +154,6 @@
 						</tr>
 					</c:forEach>
 					</c:if> --%>
-					
 					
 					<!-- 일단 박아놓기 -->
 					<tr>
