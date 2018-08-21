@@ -7,37 +7,20 @@
 <title>DecoBlo - Config</title>
 <link rel="stylesheet" type="text/css" href="pixelarity/assets/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="http://www.jqueryscript.net/css/jquerysctipttop.css">
-<<<<<<< HEAD
 <link rel="stylesheet" type="text/css" href="decoblo/css/blockConfig.css">
 <link rel="stylesheet" type="text/css" href="decoblo/css/menuConfig.css">
 <link rel="stylesheet" type="text/css" href="decoblo/css/blockSetting.css">
 
 <script src="resources/library/js/jquery-3.3.1.min.js"></script>
 <script src="resources/library/js/jquery-ui.min.js"></script>
-<script src="decoblo/js/jquery.nestable.js"></script>
-
-<link rel="stylesheet" type="text/css" href="decoblo/css/blockConfig.css">
-<link rel="stylesheet" type="text/css" href="decoblo/css/menuConfig.css">
-<link rel="stylesheet" type="text/css" href="decoblo/css/blockSetting.css">
-  
-
-<script src="decoblo/js/jquery.nestable.js"></script>
-  
-
-=======
-<link rel="stylesheet" type="text/css" href="decoblo/css/blockConfig.css">
-<link rel="stylesheet" type="text/css" href="decoblo/css/menuConfig.css">
-<link rel="stylesheet" type="text/css" href="decoblo/css/blockSetting.css">
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  
-<script src="resources/library/js/jquery-3.3.1.min.js"></script>
-<script src="resources/library/js/jquery-ui.min.js"></script>
-<script src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> </script>
-<script src="decoblo/js/jquery.nestable.js"></script>
->>>>>>> a0c1edf03b4d71a725582bac2c6a6a5b26dab367
 <script src="resources/library/js/wcolpick.js"></script>
 <script src="resources/library/js/colpickRmx.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  
+<script src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> </script>
+<script src="decoblo/js/jquery.nestable.js"></script>
+<script src="decoblo/js/jquery.nestable.js"></script>
 <script src="decoblo/js/blockConfig.js"></script>
+<script src="decoblo/js/blockSetting.js"></script>
 <script src="decoblo/js/menuConfig.js"></script>
 <script src="decoblo/js/blockSetting.js"></script>
 
