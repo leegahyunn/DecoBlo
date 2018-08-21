@@ -42,8 +42,7 @@ public class HomeController {
 	public String test() {
 		return "blog/menuConfig";
 	}
-	
-<<<<<<< HEAD
+
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String view() {
 		return "common/dashboard";
@@ -54,8 +53,7 @@ public class HomeController {
 		
 		
 	}
-	
-=======
+
 	@RequestMapping(value = "/metaEdit", method = RequestMethod.GET)
 	public String idCheck() {
 		return "blog/metaEdit";
@@ -74,5 +72,5 @@ public class HomeController {
 	public String test2() {
 		return "blog/blockConfig";
 	}
->>>>>>> 274ef393b88fe5e1cbb2e1b425dcc5c823ac6b69
+
 }

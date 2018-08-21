@@ -322,28 +322,8 @@ main p {
 </style>
 </head>
 <body>
-<<<<<<< HEAD
-=======
-<div class="main">
-<div class="head">DecoBlo
-<div style="float:right;">
-<ul class="mul">
-<li class="mli">&nbsp;<a href="">블로그 홈</a>&nbsp;</li>
-<li class="mli"><a href="">대시보드</a>&nbsp;</li>
-<li class="mli"><a href="">한국어</a>&nbsp;&nbsp;</li>
-<li class="mli"><a href="">고객센터</a></li>
-</ul>
-</div>
-</div>
-<div class="center1">
-<div class="statistics">
-<br />
-일간 현황
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href=""></a>
->>>>>>> 274ef393b88fe5e1cbb2e1b425dcc5c823ac6b69
 
-		<!-- Header -->
+<!-- Header -->
 			<header id="header">
 				<h1><a href="index.html">Deco <span>Blong</span></a></h1>
 				<nav id="nav">
