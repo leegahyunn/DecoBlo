@@ -38,9 +38,14 @@ public class HomeController {
 	/*
 	 * Test
 	 */
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public String test() {
-		return "blog/menuConfig";
+	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
+	public String chtest() {
+		return "templates/SampleTemplate";
+	}
+	
+	@RequestMapping(value = "/chtest1", method = RequestMethod.GET)
+	public String chtest1() {
+		return "templates/1/index";
 	}
 
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
