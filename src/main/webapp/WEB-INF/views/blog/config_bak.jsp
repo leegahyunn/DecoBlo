@@ -5,12 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>DecoBlo - Config</title>
-<link rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
-<link type="text/css" rel="stylesheet" href="decoblo/css/blockConfig.css">
-<link type="text/css" rel="stylesheet" href="decoblo/css/menuConfig.css">
-<link type="text/css" rel="stylesheet" href="decoblo/css/blockSetting.css">
 <link rel="stylesheet" type="text/css" href="pixelarity/assets/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="http://www.jqueryscript.net/css/jquerysctipttop.css">
+
 <link rel="stylesheet" type="text/css" href="decoblo/css/blockConfig.css">
 <link rel="stylesheet" type="text/css" href="decoblo/css/menuConfig.css">
 <link rel="stylesheet" type="text/css" href="decoblo/css/blockSetting.css">
@@ -23,7 +20,6 @@
 <script src="resources/library/js/wcolpick.js"></script>
 <script src="resources/library/js/colpickRmx.js"></script>
 <script src="decoblo/js/blockConfig.js"></script>
-<script src="decoblo/js/blockSetting.js"></script>
 <script src="decoblo/js/menuConfig.js"></script>
 <script src="decoblo/js/blockSetting.js"></script>
 
