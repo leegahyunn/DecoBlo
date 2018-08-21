@@ -106,7 +106,7 @@
 		<h1 style="font-size: 30px;">title</h1>
 		<h5>userid</h5>
 		<hr/>
-		<!-- <hr class="hr"/> -->
+		<!-- <hr class="hr"/> -->  
 	</div>
 	<br/>
 	<br/>
