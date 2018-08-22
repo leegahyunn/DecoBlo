@@ -46,19 +46,43 @@
 			<img alt="close" src="resources/images/blockSettingimg/btn_close.png">
 		</li>
 	</ul>
-	
 </div>
 </nav>
 <!-- 전체 블록 section 시작 -->
 <section id="blog-wrapper">
-	<div class="intro-block-wrapper" id="intro-block-wrapper">
-		<div class="text-shadow">
-		<div>
-			<img alt="추가" src="resources/images/blockSettingimg/addblock.png"/>
+	
+	<div class="templates-wrapper" style="background-color: gray;">
+	
+		<div class="intro-block-wrapper" id="intro-block-wrapper">
+			<div class="text-shadow">
+				<div>
+					<img alt="추가" src="resources/images/blockSettingimg/addblock.png"/>
+				</div>
+				<b>INTRO 메뉴가 비어있습니다. 블럭을 추가하시려면 여기를 클릭하세요.</b>
+			</div>
 		</div>
-		<b>INTRO 메뉴가 비어있습니다. 블럭을 추가하시려면 여기를 클릭하세요.</b>
+		
+		<div class="menu-wrapper" style="background-color: blue;">
+			<div class="block-wrapper" style="background-color: purple;">
+				<div class="block-no 0">
+					<h2>0번 블록 0번 블록 0번 블록 0번 블록</h2>
+					<strong contenteditable="true">Eeco-BLog-NO1.Block </strong>
+				</div>
+				<div class="block-no 1">
+					<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>
+					<strong contenteditable="true">Eeco-BLog-NO1.Block </strong>
+					<hr/>
+				</div>
+			</div>
 		</div>
+		
+	</div>	
+	
+	<div class="user-block-button">
+		<i class="fa fa-check"></i>
+		<span>사용하기</span>
 	</div>
+	
 </section>
 </body>
 </html>

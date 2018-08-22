@@ -40,7 +40,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
 	public String chtest() {
-		return "templates/1/block1";
+		return "templates/sampleTemplate";
 	}
 	
 	@RequestMapping(value = "/chtest1", method = RequestMethod.GET)

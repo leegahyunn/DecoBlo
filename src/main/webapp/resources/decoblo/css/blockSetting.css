@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 /*블록 쌓이는 부분*/
+/*블록이 없을때 intro*/
 .intro-block-wrapper{
 	display:table;
 	width: 100%;
@@ -8,7 +9,9 @@
 	background-color: #959fab;
 	text-align: center;
 	font-family: 'Open sans','Nanum gothic';
+	border: 1px dashed white;
 }
+/*intro block css */
 .text-shadow{
 	display:table-cell;
 	vertical-align: middle;
@@ -17,19 +20,38 @@
 	font-size: 24px;
 	cursor: pointer;
 }
+/*intro block image css*/
 .intro-block-wrapper img{
 	margin:0 auto;
 	padding-bottom: 40px;
 }
-div#blockNo_1{
-	width: 100%;
-	height: 100px;
-	background-color: red;
+/*블록이 생성되는 바디 */
+.templates-wrapper{
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	width: auto;
+	height: auto;
+	margin: 0;
+	padding: 0;
 }
-div#blockNo_2{
-	width:100%;
-	height:150px;
-	background-color: orange;
+.menu-wrapper{
+	position:relative;
+	width: 100%;
+}
+.block-wrapper{
+	position:relative;
+	width: 100%;
+	
+}
+.block-no{
+	width: 100%;
+	height: auto;
+	background-color: transparent;
+	text-align: center;
+	vertical-align: middle;
 }
 
 /*블럭 추가 버튼 ul*/
@@ -130,6 +152,7 @@ div#blockNo_2{
 	margin: 0;		
 	
 }
+/*사이드바 블록 썸네일 ul */
 .block-thumnail{
 	display: inline-block;
 	width: 233px;
@@ -140,12 +163,32 @@ div#blockNo_2{
 	text-align: center;
 	
 }
+/*사이드바 블록 썸네일 li */
 .block-thumnail li {
 	padding: 2px 3px;
-	border: 1px solid #aab2bd;
 	margin-bottom: 10px;
+	cursor: pointer;
 	
 }
+/*사이드바 블록 썸네일  마우스 올리면  border*/
+.block-thumnail li:hover{
+	border: 1px solid #aab2bd;
+}
+/*사이드바 블록 썸네일  이미지 크기*/
 .block-thumnail img{
 	width: 100%;
+	height : 50px;
+}
+.user-block-button{
+	display:none;
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	background-color: #4789e7;
+	border: 1px solid #0073ac;
+	color: #fff;
+	padding: 4px 18px;
+	border-radius: 3px;
+	font-size: 13px;
+	cursor: pointer;
 }

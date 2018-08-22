@@ -21,6 +21,8 @@ public class User {
 	private String configBackgroundSavedFile;
 	private String fabiconOriginalFile;
 	private String fabiconSavedFile;
+	private String defaultCssFile;
+	private String defaultJsFile;
 	private String metaAuthor;
 	private String metaKeyword;
 	private String metaDescription;
@@ -31,8 +33,9 @@ public class User {
 			String userTmpPassword, String userInfo, String userProileOriinalName, String userProfileSavedName,
 			String blogTitle, String blogAddress, int blogCount, String blogRegDate, int configRightClickable,
 			String configBasicFont, String configBackgroundColor, String configBackgroundOriginFile,
-			String configBackgroundSavedFile, String fabiconOriginalFile, String fabiconSavedFile, String metaAuthor,
-			String metaKeyword, String metaDescription, String userRegdate) {
+			String configBackgroundSavedFile, String fabiconOriginalFile, String fabiconSavedFile,
+			String defaultCssFile, String defaultJsFile, String metaAuthor, String metaKeyword, String metaDescription,
+			String userRegdate) {
 		this.userNo = userNo;
 		this.userEmail = userEmail;
 		this.userName = userName;
@@ -53,6 +56,8 @@ public class User {
 		this.configBackgroundSavedFile = configBackgroundSavedFile;
 		this.fabiconOriginalFile = fabiconOriginalFile;
 		this.fabiconSavedFile = fabiconSavedFile;
+		this.defaultCssFile = defaultCssFile;
+		this.defaultJsFile = defaultJsFile;
 		this.metaAuthor = metaAuthor;
 		this.metaKeyword = metaKeyword;
 		this.metaDescription = metaDescription;
@@ -178,6 +183,18 @@ public class User {
 	public void setFabiconSavedFile(String fabiconSavedFile) {
 		this.fabiconSavedFile = fabiconSavedFile;
 	}
+	public String getDefaultCssFile() {
+		return defaultCssFile;
+	}
+	public void setDefaultCssFile(String defaultCssFile) {
+		this.defaultCssFile = defaultCssFile;
+	}
+	public String getDefaultJsFile() {
+		return defaultJsFile;
+	}
+	public void setDefaultJsFile(String defaultJsFile) {
+		this.defaultJsFile = defaultJsFile;
+	}
 	public String getMetaAuthor() {
 		return metaAuthor;
 	}
@@ -212,8 +229,8 @@ public class User {
 				+ configRightClickable + ", configBasicFont=" + configBasicFont + ", configBackgroundColor="
 				+ configBackgroundColor + ", configBackgroundOriginFile=" + configBackgroundOriginFile
 				+ ", configBackgroundSavedFile=" + configBackgroundSavedFile + ", fabiconOriginalFile="
-				+ fabiconOriginalFile + ", fabiconSavedFile=" + fabiconSavedFile + ", metaAuthor=" + metaAuthor
-				+ ", metaKeyword=" + metaKeyword + ", metaDescription=" + metaDescription + ", userRegdate="
-				+ userRegdate + "]";
+				+ fabiconOriginalFile + ", fabiconSavedFile=" + fabiconSavedFile + ", defaultCssFile=" + defaultCssFile
+				+ ", defaultJsFile=" + defaultJsFile + ", metaAuthor=" + metaAuthor + ", metaKeyword=" + metaKeyword
+				+ ", metaDescription=" + metaDescription + ", userRegdate=" + userRegdate + "]";
 	}
 }
