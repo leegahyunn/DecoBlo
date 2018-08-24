@@ -38,6 +38,7 @@
 			<div>구분선</div>
 		</li>
 	</ul>
+	<!--  썸네일 쌓이는 부분 -->
 	<ul class="block-thumnail">
 		
 	</ul>
@@ -62,27 +63,19 @@
 			</div>
 		</div>
 		
-		<div class="menu-wrapper" style="background-color: blue;">
-			<div class="block-wrapper" style="background-color: purple;">
-				<div class="block-no 0">
-					<h2>0번 블록 0번 블록 0번 블록 0번 블록</h2>
-					<strong contenteditable="true">Eeco-BLog-NO1.Block </strong>
+		<section class="menu-wrapper" >
+		<!-- 블록 미리보기  -->
+				<div class="block-preview">
+				
+				<!-- 사용하기 버튼 -->
+					
+					<!-- 블록 코드 미리보기 -->
+					
 				</div>
-				<div class="block-no 1">
-					<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>
-					<strong contenteditable="true">Eeco-BLog-NO1.Block </strong>
-					<hr/>
-				</div>
-			</div>
-		</div>
+				<!-- 실제 블록 코드 들어갈 부분 -->
+		</section>
 		
 	</div>	
-	
-	<div class="user-block-button">
-		<i class="fa fa-check"></i>
-		<span>사용하기</span>
-	</div>
-	
 </section>
 </body>
 </html>

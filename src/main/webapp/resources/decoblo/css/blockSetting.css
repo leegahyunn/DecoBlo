@@ -37,19 +37,40 @@
 	margin: 0;
 	padding: 0;
 }
+/*메뉴 쌍이는 section*/
 .menu-wrapper{
 	position:relative;
 	width: 100%;
 }
+/*블록 쌓이는 section*/
 .block-wrapper{
 	position:relative;
 	width: 100%;
+	text-align: center;
+}
+/*미리보기 */
+.block-preview{
+	position: fixed;
+	top:150px;
+	left: 375px;
 	
+}
+/*블록 사용하기 버튼*/
+.use-block-button{
+	position: absolute;
+	top: -48px;
+	right:22px;
+	background-color: #4789e7;
+	border: 1px solid #0073ac;
+	color: #fff;
+	padding: 4px 18px;
+	border-radius: 3px;
+	font-size: 13px;
+	cursor: pointer;
 }
 .block-no{
 	width: 100%;
 	height: auto;
-	background-color: transparent;
 	text-align: center;
 	vertical-align: middle;
 }
@@ -178,17 +199,4 @@
 .block-thumnail img{
 	width: 100%;
 	height : 50px;
-}
-.user-block-button{
-	display:none;
-	position: absolute;
-	top: 30%;
-	left: 50%;
-	background-color: #4789e7;
-	border: 1px solid #0073ac;
-	color: #fff;
-	padding: 4px 18px;
-	border-radius: 3px;
-	font-size: 13px;
-	cursor: pointer;
 }

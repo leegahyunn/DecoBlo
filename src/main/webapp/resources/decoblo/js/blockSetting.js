@@ -28,7 +28,34 @@ $(function(){
 		thumnail(0);
 		/*썸네일 클릭 이벤트*/
 		$('.block-thumnail > li').on('click',function(){
-			$('.intro-block-wrapper').css('display','none');
+			$('.block-preview').css('display','block');
+			$('.block-preview').html(""
+					+"<div class='use-block-button'>"
+					+"<i class='fa fa-check'></i>"
+					+"<span>사용하기</span>"
+					+"</div>"
+					);
+			$('.block-preview').append(""
+					+"<div>"
+					+"<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>"
+					+"<strong contenteditable='true'>Eeco-BLog-NO1.Block </strong>"
+					+"<hr/>"
+					+"</div>");
+			$('.use-block-button').on('click',function(){
+				$('.menu-wrapper').html(BlockAddButtonTop());
+				$('.menu-wrapper').append(
+						+"<section>"
+						+"<div>"
+						+"<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>"
+						+"<strong contenteditable='true'>Eeco-BLog-NO1.Block </strong>"
+						+"<hr/>"
+						+"</div>"
+						+"</section>"
+						);
+				$('.block-wrapper').attr('data-block-no-',1);
+				$('.block-preview').empty();
+				$('.intro-block-wrapper').css('display','none');
+			});
 		});
 		$('.blockMenu-sidebar-div').css("margin-left",'0px');
 		$('#blockMenu-sidebar-close').css('left','315px');
@@ -48,7 +75,7 @@ $(function(){
 	
 	/*사이드바 close 버튼*/	
 	$('#blockMenu-sidebar-close').on('click',function(){
-		$('.user-block-button').css('display','none');
+		$('.use-block-button').css('display','none');
 		if($('.blockMenu-sidebar-ul > li').hasClass("active")){
 			$('.blockMenu-sidebar-ul > li').removeClass();
 		}
@@ -65,11 +92,35 @@ $(function(){
 		
 		/*썸네일 클릭 이벤트*/
 		$('.block-thumnail > li').on('click',function(){
-			$('.user-block-button').css('display','inline-block');
-			for(var i = 0 ; i<$('.block-thumnail>li').length;i++){
-				
-			}
-			$('.intro-block-wrapper').css('display','none');
+			$('.use-block-button').css('display','block');
+			$('.block-preview').css('display','inline-block');
+			$('.block-preview').html(""
+					+"<div class='use-block-button'>"
+					+"<i class='fa fa-check'></i>"
+					+"<span>사용하기</span>"
+					+"</div>"
+					);
+			$('.block-preview').append(""
+					+"<div>"
+					+"<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>"
+					+"<strong contenteditable='true'>Eeco-BLog-NO1.Block </strong>"
+					+"<hr/>"
+					+"</div>");
+			$('.use-block-button').on('click',function(){
+				$('.menu-wrapper').html(BlockAddButtonTop());
+				$('.menu-wrapper').append(
+						+"<div class='block-wrapper'>"
+						+"<div>"
+						+"<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>"
+						+"<strong contenteditable='true'>Eeco-BLog-NO1.Block </strong>"
+						+"<hr/>"
+						+"</div>"
+						+"</div>"
+						);
+				$('.block-wrapper').attr('data-block-no-',1);
+				$('.block-preview').empty();
+				$('.intro-block-wrapper').css('display','none');
+			});
 		});
 	});
 	
@@ -80,6 +131,7 @@ $(function(){
 function firstcss(){
 	var headerHeight = $('#header').height();
 	$('.blockMenu-sidebar-div').css({"top":0 + headerHeight});
+	$('.use-block-button').css('display','none');
 }
 /*썸네일 불러오는 함수*/
 function thumnail(index){
@@ -119,4 +171,15 @@ function thumnail(index){
 		break;
 	}
 	
+}
+
+/*블록 add 버튼 추가 함수 */
+function BlockAddButtonTop(){
+	var blockAddButtonTop = 
+		"<ul class='add-button' id='add-button-top_1'>"
+		+"<li class='add-button-li'>"
+		+"<div class='add-block'>"
+		+"<img alt='Plus' src='resources/images/blockSettingimg/fa_plus_icon.png'/>"
+		+"</div></li></ul>";
+	return blockAddButtonTop;
 }
