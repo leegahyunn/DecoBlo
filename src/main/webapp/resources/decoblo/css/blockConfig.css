@@ -76,10 +76,7 @@ div i.right-icon{
 	float: right;
 }
 
-.default-config-right{
-	width: 20px;
-	color: red;
-}
+
 
 /*************/
 /* UI SLIDER */
@@ -128,8 +125,3 @@ input.color-picker {
 input[type="color"] {
 	-webkit-appearance: circle-button;
 }
-
-
-
-
-

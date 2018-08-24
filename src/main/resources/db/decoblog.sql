@@ -1,4 +1,4 @@
-
+﻿
 /* Drop Tables */
 
 DROP TABLE DB_BBS_ATTACH CASCADE CONSTRAINTS;
@@ -166,7 +166,7 @@ CREATE TABLE DB_MENU
 	-- 메뉴 고유번호
 	menuNo number(10) NOT NULL,
 	-- 유저번호
-	menuUserNo number(4) NOT NULL UNIQUE,
+	menuUserNo number(4) NOT NULL,
 	-- 메뉴 이름
 	menuName varchar2(150) NOT NULL,
 	-- 메뉴 보모 번호
@@ -396,13 +396,13 @@ ALTER TABLE DB_STAT
 
 
 ALTER TABLE DB_SUBSCRIBE
-	ADD FOREIGN KEY (subSendUser)
+	ADD FOREIGN KEY (subRecieveUser)
 	REFERENCES DB_USER (userNo)
 ;
 
 
 ALTER TABLE DB_SUBSCRIBE
-	ADD FOREIGN KEY (subRecieveUser)
+	ADD FOREIGN KEY (subSendUser)
 	REFERENCES DB_USER (userNo)
 ;
 

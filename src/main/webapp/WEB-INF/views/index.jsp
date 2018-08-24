@@ -4,13 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<<<<<<< HEAD
+=======
+<title>DecoBlo - Create Your Own Blog</title>
+<style type="text/css">
+</style>
+>>>>>>> 16995e9a39e7851b099158eb3b828829ac6517f3
 <title>DecoBlo - Create Your Own Blog</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="pixelarity/assets/css/main.css" />
-
-
-
+<link rel="stylesheet" href="decoblo/css/user.css" />
 </head>
 <body class="landing">
 	<!-- Header -->
@@ -21,6 +26,7 @@
 		<nav id="nav">
 			<ul>
 				<li><a href="login">로그인</a></li>
+				<li id="login">로그인</li>
 				<li><a href="join">무료회원가입</a></li>
 				<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
 					<ul>
@@ -28,10 +34,14 @@
 						<li><a href="#">日本語(JP)</a></li>
 					</ul>
 				</li>
+<<<<<<< HEAD
 				<li><a href="main">메인</a></li>
 				<li><a href="dashboard">대시보드</a></li>
 				<li><a href="config">블로그 수정</a></li>
 				<li><a href="customer">고객센터</a></li>	
+=======
+
+>>>>>>> 16995e9a39e7851b099158eb3b828829ac6517f3
 			</ul>
 		</nav>
 	</header>
@@ -170,6 +180,7 @@
 			<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
 			<li><a href="#" class="icon fa-instagram"><span
 					class="label">Instagram</span></a></li>
+			<li><a href="#" class="icon fa-instagram"><span	class="label">Instagram</span></a></li>
 			<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
 			<li><a href="#" class="icon fa-envelope"><span class="label">Envelope</span></a></li>
 		</ul>
@@ -181,8 +192,36 @@
 		</ul>
 		<span class="copyright"> &copy; DecoBlog </span>
 	</footer>
+	
+	<!-- 로그인 팝업 -->
+	<div class="login-wrapper" style="border: 1px solid black">
+	    <div class="login-content">
+	      <div class="login-header">
+	        <i class="fa fa-times"></i>
+	      </div>
+	      <div class="login-body">
+	        <div class="text-center logo"><img src="//i.addblock.net/modal-logo-dark.png" alt="creatorlink logo"></div>
+	        <div class="text-center">
+	            <span class="join-text">데코블로가 처음이신가요?</span> 
+	            <a class="join" href="/member/join">회원가입</a>
+	        </div>
+	        <div class="login-form form-group">
+	            <input type="text" id="userEmail" name="userEmail" class="form-control valid" placeholder="이메일">
+	            <input type="password" id="userPassword" name="userPassword" class="form-control valid" placeholder="비밀번호">
+	        	<div class="row">
+		        	<label class="forget col-md-12 col-sm-12 col-xs-12"><a href="/member/support/password_reset" data-lang="page.member.login-modal.password-reset">비밀번호를 잊으셨나요?</a></label>
+	        	</div>
+	        </div>
+	        <div class="btn-wrapper">
+	        	<div class="login-btn">로그인</div>
+	        </div>
+	      </div>
+	    </div>
+	</div>
+	<!-- /로그인 팝업 -->
 
 	<!-- Scripts -->
+	
 	<script src="pixelarity/assets/js/jquery.min.js"></script>
 	<script src="pixelarity/assets/js/jquery.dropotron.min.js"></script>
 	<script src="pixelarity/assets/js/jquery.scrollgress.min.js"></script>
@@ -192,6 +231,8 @@
 	<script src="pixelarity/assets/js/util.js"></script>
 	<!--[if lte IE 8]><script src="pixelarity/assets/js/ie/respond.min.js"></script><![endif]-->
 	<script src="pixelarity/assets/js/main.js"></script>
+	
+	<script src="decoblo/js/index.js"></script>
 
 
 </body>

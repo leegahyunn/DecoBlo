@@ -3,4 +3,15 @@
 
 <mapper namespace="com.decoblog.www.user.dao.UserMapper">
 
+<!-- int login(User user); -->
+<select id="login" parameterType="User" resultType="User">
+	SELECT 
+	    userNo, userEmail, userName
+	FROM
+	    DB_USER
+	WHERE
+		userEmail = #{userEmail}
+	AND
+		userPassword = #{userPassword}
+</select>
 </mapper>
