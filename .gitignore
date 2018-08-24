@@ -6,3 +6,4 @@ target/
 .springBeans
 src/main/webapp/WEB-INF/views/Index.jsp.rej
 src/main/resources/db/decoblog.xls
+src/main/resources/db/decoblog.png
