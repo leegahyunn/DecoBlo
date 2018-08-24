@@ -39,7 +39,7 @@
 	<!-- Banner -->
 	<section id="banner" style="background-image: url('pixelarity/images/background.png'); background-size: cover; ; ">
 		<div class="inner">
-			<h2>자신만에 특별한 블로그 제작</h2>
+			<h2>자신만의 특별한 블로그 제작</h2>
 			<p>코딩을 몰라도 누구나 자신만에 특별한 블로그를 만들 수 있습니다.</p>
 			<ul class="actions">
 				<li><a href="#one" class="button big scrolly">제작하기</a></li>

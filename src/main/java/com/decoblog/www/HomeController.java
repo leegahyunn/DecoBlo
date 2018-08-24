@@ -17,10 +17,7 @@ public class HomeController {
 		return "common/customer";
 	}
 	
-	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-	public String dashboard() {
-		return "common/dashboard";
-	}
+	
 	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main() {
