@@ -40,13 +40,9 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
 	public String chtest() {
-		return "templates/sampleTemplate";
+		return "user/pop_login";
 	}
-	
-	@RequestMapping(value = "/chtest1", method = RequestMethod.GET)
-	public String chtest1() {
-		return "templates/1/index";
-	}
+
 	
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String view() {
