@@ -283,6 +283,8 @@ input.upload {
 
 </style>
 <script type="text/javascript">
+
+menuConfig();
 $(function(){
 
 	/***********************/
@@ -330,6 +332,7 @@ $(function(){
 	});
 	
 	$(".menu-flip").click(function(){
+		alert("a")
 	      $(".menu-panel").slideToggle("slow")
 	      $(".menu-panel").css("border-bottom","1px solid #333e4e").css("border-left","1px solid #333e4e").css("border-right","1px solid #333e4e")
 	  	
@@ -356,8 +359,32 @@ $(function(){
 		group: 1
 	})
 	.on('change', updateOutput);
-});
 
+	
+	
+});
+function menuConfig() {
+	//alert("aaaaaaaa");
+/* 	var sendData = [{
+		"userid" : "1"
+	}];
+	 */
+	$.ajax({
+		method   : 'post'
+		, url    : 'menuConfig'
+/* 		, data   : JSON.stringify(sendData)
+		, dataType : 'json' */
+		, contentType : 'application/json; charset=UTF-8'
+		, success: function(resp) {
+			//alert(resp);
+			var result ='';
+			for(var i in resp){
+				result += '<li>'+resp[i].menuName +'</li>'
+			}
+			$('.result').html(result);
+		}
+	});
+}
 </script>
 <script type="text/javascript">
 /**************/
@@ -378,7 +405,7 @@ _gaq.push(['_trackPageview']);
 <header id="header">
 	<div class="left-menu menu-flip folder"><!-- menu-flip 클래스 추가-->
 		<div>메뉴 설정</div>
-		<i class="fa fa-chevron-right"></i>
+		<i class="fa fa-chevron-down"></i>
 	</div>
 	<div class="left-menu site-flip folder"><!-- site-flip 클래스 추가-->
 		<div>사이트 설정</div>
@@ -605,6 +632,11 @@ _gaq.push(['_trackPageview']);
 	
 </div>
 
+	<div>
+		<ul class = "result">
+		
+		</ul>
+	</div>
 
 <nav id="block-config-nav">
 <div class="blockMenu-sidebar-div">

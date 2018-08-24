@@ -25,11 +25,11 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping(value = "/config", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/config", method = RequestMethod.GET)
 	public String config() {
 		return "blog/config";
 	}
-	
+	*/
 	
 	
 	/*
