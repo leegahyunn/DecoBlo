@@ -12,10 +12,10 @@ public class Bbs {
 	private int bbsSeq;
 	private String bbsRegDate;
 	private String bbsEditDate;
-	
+
 	public Bbs() {
 	}
-	
+
 	public Bbs(int bbsNo, int boardNo, String bbsTitle, String bbsContent, int bbsCount, int bbsLike, int bbsParent,
 			int bbsDepth, int bbsSeq, String bbsRegDate, String bbsEditDate) {
 		this.bbsNo = bbsNo;
@@ -125,7 +125,5 @@ public class Bbs {
 				+ ", bbsCount=" + bbsCount + ", bbsLike=" + bbsLike + ", bbsParent=" + bbsParent + ", bbsDepth="
 				+ bbsDepth + ", bbsSeq=" + bbsSeq + ", bbsRegDate=" + bbsRegDate + ", bbsEditDate=" + bbsEditDate + "]";
 	}
-	
-	
-	
+
 }
