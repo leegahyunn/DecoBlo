@@ -31,4 +31,11 @@ public class UserController {
 			return "false";
 		}
 	}
+	
+	@RequestMapping(value="/user/join", method=RequestMethod.GET)
+	public String join() {
+			return "user/join";
+	}
+	
+	
 }
