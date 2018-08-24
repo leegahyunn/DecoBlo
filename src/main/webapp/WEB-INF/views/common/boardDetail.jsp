@@ -9,7 +9,7 @@
 <link type="text/css" rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 <link rel="stylesheet" href="decoblo/css/boardDetail.css" />
-<script src="resources/jquery-3.3.1.min.js"></script>
+<script src="resources/library/js/jquery-3.3.1.min.js"></script>
 <style type="text/css">
 	#main {
 		margin: o auto;
@@ -59,9 +59,24 @@
 	
 		line-height:normal;
 		text-align: center;
-		margin: 5px;
+		margin: 0px;
 		padding-left: 15px;
 		padding-right: 15px;
+		
+		
+	}
+	
+	
+	#replyForm2{
+		text-align : center;
+		display: flex;
+		clear : both;
+		margin-left: 5px;
+		margin-right: 5px;
+		vertical-align: middle;
+		align-items: center;
+		justify-content: space-between;
+		
 	}
 	
 
@@ -123,7 +138,45 @@
 	
 	
 	<!-- 댓글부분 -->
-	<textarea rows="5" cols="40"></textarea>
+		<!-- 댓글 폼 영역 -->
+	<div id="replyForm">
+		<div id="replyForm" class="right"  style="width:1000px; justify-content: space-between; ">
+		<form action="replyWrite" method="post" onsubmit="return replyCheck()" autocomplete="off"  style="display:inline;" >
+			<input type="hidden" name="action" value="insertReply" />
+			<input type="hidden" name="boardnum" value="${bdetail.boardnum}" />
+			<div id="replyForm2">
+			<input type="text" id="replytext" name="replytext" style="width:1000px"><input class="buttons" type="button" value="등록"/>
+			</div>
+		</form>
+		</div>
+
+	
+	
+	<!-- 댓글 목록 영역 -->
+	<table class="replyList">
+		<c:forEach var="reply" items="${replyList}">
+		<tr>
+			<td class="replyid">${reply.userid}</td>
+			<td class="replytext">${reply.replytext}</td>
+			<td class="replydate">${reply.regdate}</td>
+			<td class="replybutton">
+				<c:if test="${loginId == reply.userid}">
+				<a href="">수정</a>
+				<a href="javascript:deleteReply(${reply.replynum}, ${reply.boardnum})">삭제</a>
+				</c:if>
+			</td>
+		</tr>
+		
+		
+		
+		
+		
+		
+		
+		</c:forEach>
+	</table>
+	</div> <!--  end #reply -->	
+	
 	
 
 	<!-- 글목록 div 태그 -->
