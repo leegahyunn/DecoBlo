@@ -18,11 +18,9 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  
 <script src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> </script>
 <script src="decoblo/js/jquery.nestable.js"></script>
-<script src="decoblo/js/jquery.nestable.js"></script>
 <script src="decoblo/js/blockConfig.js"></script>
 <script src="decoblo/js/blockSetting.js"></script>
 <script src="decoblo/js/menuConfig.js"></script>
-<script src="decoblo/js/blockSetting.js"></script>
 
 
 <style>
@@ -698,9 +696,25 @@ _gaq.push(['_trackPageview']);
 		</li>
 	</ul>
 	
-	<section class="block" id="blockNo">
-	
+	<ul class="add-button" id="add-button-top">
+		<li class="add-button-li">
+			<div class="add-block">
+				<img alt='Plus' src='resources/images/blockSettingimg/fa_plus_icon.png'/>
+			</div>
+		</li>
+	</ul>
+	<!-- 블록이 쌓이는 section -->
+	<section class="block" id="blockNo-2">
+		<div class="block-setting-cover"></div>
 	</section>
+	<!-- 블록 추가 버튼 bottom -->
+	<ul class="add-button" id="add-button-bottom">
+		<li class="add-button-li">
+			<div class="add-block">
+				<img alt='Plus' src='resources/images/blockSettingimg/fa_plus_icon.png'/>
+			</div>
+		</li>
+	</ul>
 </section>
 
 </body>

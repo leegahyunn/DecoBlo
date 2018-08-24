@@ -3,4 +3,149 @@
 
 <mapper namespace="com.decoblog.www.board.dao.BoardMapper">
 
+<!-- 글 목록 --> 
+<select id="select" parameterType="map" resultType="Bbs">
+	select
+		bbsNo
+		, boardNo
+		, bbsTitle
+		, bbsContent
+		, bbsCount
+		, bbsLike
+		, bbsParent
+		, bbsDepth
+		, bbsSeq
+		, to_char(bbsRegdate, 'YYYY-MM-DD') bbsRegdate
+		, to_char(bbsEditDate, 'YYYY-MM-DD') bbsEditDate
+	from
+		DB_BBS
+	where
+		${searchItem} like '%' || #{searchWord} || '%'
+	order by
+		bbsNo desc
+</select>
+
+<!-- 글 상세보기 -->
+<select id="selectOne" parameterType="int" resultType="Bbs">
+	select
+		a.bbsNo
+		, a.bbsTitle
+		, a.bbsContent
+		, a.bbsCount
+		, a.bbsLike
+		, to_char(a.bbsRegdate, 'YYYY-MM-DD') AS bbsRegdate
+		, to_char(a.bbsEditDate, 'YYYY-MM-DD') AS bbsEditDate
+		, b.attachOriginalFile
+		, b.attachSavedFile
+	from 
+		DB_BBS a, DB_BBS_ATTACH b
+	where
+		a.bbsNo = b.attachBbsNo;
+		
+</select>
+
+
+<!-- 글 쓰기 -->
+<insert id="insertBbs" parameterType="Bbs">
+	insert into DB_BBS
+		(
+		bbsNo
+		, boardNo
+		, bbsTitle
+		, bbsContent
+		, bbsLike
+		, bbsParent
+		, bbsDepth
+		, bbsSeq
+		, bbsRegdate
+		, bbsEditDate
+		)
+	values(
+		DB_BBS_SEQ.nextval
+		, #{boardNo}
+		, #{bbsTitle}
+		, #{bbsContent}
+		, #{bbsLike}
+		, #{bbsParent}
+		, #{bbsDepth}
+		, #{bbsSeq}
+		, sysdate
+		, #{bbsEditDate}	
+	)
+</insert>
+
+<!-- 첨부파일 넣기 -->
+<insert id="insertAttach" parameterType="BbsAttach">
+	insert into DB_BBSATTACH
+		(
+		attachNo
+		, attachBbsNo
+		, attachOriginalFile
+		, attachSavedFile
+		)
+	values(
+		DB_BBS_ATTACH_SEQ.nextval
+		, #{attachBbsNo}
+		, #{attachOriginalFile}
+		, #{attachSavedFile}
+	)
+</insert>
+
+
+<!-- 첨부파일 수정 -->
+<update id="updateBbsAttach" parameterType="BbsAttach">
+	update DB_BBS_ATTACH set
+		attachNo = DB_BBS_ATTACH_SEQ.nextval
+		, attachOriginalFile = #{attachOriginalFile}
+		, attachSavedFile = #{attachSavedFile}
+	where
+		attachBbsNo = #{attachBbsNo}
+</update>
+
+
+<!-- 글 수정 -->
+<update id="updateBbs" parameterType="Bbs">
+	update DB_BBS set
+		bbsTitle  = #{bbsTitle}
+		, bbsContent = #{bbsContent}
+		, bbsEditDate = sysdate
+	where
+		bbsNo = #{bbsNo}
+</update>
+
+
+
+<!-- 글 삭제 -->
+<delete id="deleteBbs" parameterType="Bbs">
+	delete from DB_BBS
+	where
+		bbsNo = #{bbsNo}
+</delete>
+
+<!-- 첨부파일 삭제 -->
+<delete id="deleteBbsAttach" parameterType="BbsAttach">
+	delete from DB_BBS_ATTACH
+	where
+		bbsNo = #{bbsNo}
+</delete>
+
+<!-- 전체 글 개수 조회 -->
+<select id="getTotalBbs" parameterType="map" resultType="int">
+	select count(*)
+	from
+		DB_BBS
+	where
+		${searchItem} like '%' || #{searchWord} || '%'
+</select>
+
+<!-- 조회수 +1 -->
+<update id="updateBbsCount" parameterType="int">
+	update DB_BBS set
+		bbsCount = bbsCount+1
+	where
+		bbsNo = #{bbsNo}
+</update>
+
+
+
 </mapper>

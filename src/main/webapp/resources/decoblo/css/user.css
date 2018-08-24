@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+/***************/
+/* Login Popup */
+/***************/
+.login-wrapper {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: -1;
+	padding-top: 150px;
+}
+
+.login-content {
+	width: 500px;
+	margin: 0 auto;
+	background-color: #FFFFFF;	
+}
+
+/* Login Content */
+
+/* Login Header */
+.login-content .login-header {
+	padding: 5px 10px;
+	height: 30px;
+	text-align: right;	
+}
+
+.login-content .login-header i {
+	font-size: 2em;
+	color: #33363A;
+}
+
+/* Login Body */
+.login-content .login-body {
+	width: 430px;
+	margin: 0 auto;
+	padding: 30px 0;
+}
+
+.login-content .login-body .logo {
+	padding: 20px;
+}
+.login-content .login-body .text-center {
+	text-align: center;
+}
+
+
+/* Login From */
+.login-content .login-body .login-form {
+}
+
+.login-content .login-body .login-form input[type="text"], input[type="password"] { 
+	border-radius: 0;
+	margin: 11px 0;
+}
+
+.login-content .login-body .login-form .join {
+	text-decoration: underline;
+    color: red;
+    font-weight: bold;
+}
+
+.login-content .login-body .login-form .forget {
+	text-align: right;
+}
+
+/* Login Button */
+.login-content .login-body .btn-wrapper .login-btn {
+	display: block;
+	width: 100%;
+	padding: 10px 16px;
+	background-color: #2D343E;
+	border-radius: 0;
+	line-height: 1.3333333;
+	font-size: 18px;
+	font-weight: 400;
+	text-align: center;
+	vertical-align: middle;
+	color: #FFFFFF;
+	cursor: pointer;
+	border: 1px solid transparent;
+}
+
+.login-content .login-body .btn-wrapper .login-btn:hover {
+	border-color: #204d74;
+	text-decoration: none;
+	color: #47cdd9 !important;
+	outline: 0;
+}
+
