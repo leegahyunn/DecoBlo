@@ -17,6 +17,12 @@ public class UserController {
 	@Autowired
 	UserRepository userRepository;
 	
+	/**
+	 * 로그인 Ajax
+	 * @param user JSP에서 입력된 User 정보
+	 * @param session HttpSession
+	 * @return 로그인 성공 시 true, 실패 시 false 반환
+	 */
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public @ResponseBody String login(@RequestBody User user, HttpSession session) {
 		
@@ -32,6 +38,10 @@ public class UserController {
 		}
 	}
 	
+	/**
+	 * 회원가입 페이지 이동
+	 * @return 회원가입 페이지
+	 */
 	@RequestMapping(value="/user/join", method=RequestMethod.GET)
 	public String join() {
 			return "user/join";

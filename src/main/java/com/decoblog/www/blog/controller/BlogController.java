@@ -18,13 +18,21 @@ public class BlogController {
 	@Autowired
 	BlogRepository blogRepository;
 	
-	
+	/**
+	 * 블로그 수정 페이지로 이동
+	 * @return 블로그 수정 페이지
+	 */
 	@RequestMapping(value = "/config", method = RequestMethod.GET)
 	public String config() {		
 		return "blog/config";
 	}
 	
-	
+	/**
+	 * 메뉴 수정 Ajax
+	 * DB에 저장된 메뉴를 가져와서 JSP에 넘겨줌
+	 * @param model Ques.Ajax에서 model 써야 하나요?
+	 * @return ArrayList<HashMap<String, ArrayList<Menu>>> JSON
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/menuConfig", method = RequestMethod.POST)
 	public ArrayList<Menu> menuConfig(Model model) {

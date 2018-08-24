@@ -22,18 +22,22 @@ public class StatController {
 	@Autowired
 	StatRepository statRepository;
 	
+	/**
+	 * Stat 전체 가져오기
+	 * Ques. userNo 넘겨줘야 되지 않을까? 
+	 * @param model
+	 * @return DB에 저장된 Stat
+	 */
 	@RequestMapping(value="/dashboard", method=RequestMethod.GET)
 	public String dashboard(Model model) {
 		
 
 		Stat stat = statRepository.selectnowstat();
 		
+		// Ques. 필요한 애인가요?
 		SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
 	  
 		model.addAttribute("stat", stat);
-
-		
-		
 		
 	    return "common/dashboard";
 	}

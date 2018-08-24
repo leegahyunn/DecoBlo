@@ -3,6 +3,7 @@
 
 <mapper namespace="com.decoblog.www.user.dao.UserMapper">
 
+<!-- 로그인 -->
 <!-- int login(User user); -->
 <select id="login" parameterType="User" resultType="User">
 	SELECT 
@@ -14,4 +15,5 @@
 	AND
 		userPassword = #{userPassword}
 </select>
+
 </mapper>

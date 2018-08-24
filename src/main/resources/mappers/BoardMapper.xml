@@ -5,7 +5,7 @@
 
 <!-- 글 목록 --> 
 <select id="select" parameterType="map" resultType="Bbs">
-	select
+	SELECT
 		bbsNo
 		, boardNo
 		, bbsTitle
@@ -17,17 +17,17 @@
 		, bbsSeq
 		, to_char(bbsRegdate, 'YYYY-MM-DD') bbsRegdate
 		, to_char(bbsEditDate, 'YYYY-MM-DD') bbsEditDate
-	from
+	FROM
 		DB_BBS
-	where
+	WHERE
 		${searchItem} like '%' || #{searchWord} || '%'
-	order by
+	ORDER BY
 		bbsNo desc
 </select>
 
 <!-- 글 상세보기 -->
 <select id="selectOne" parameterType="int" resultType="Bbs">
-	select
+	SELECT
 		a.bbsNo
 		, a.bbsTitle
 		, a.bbsContent
@@ -37,9 +37,9 @@
 		, to_char(a.bbsEditDate, 'YYYY-MM-DD') AS bbsEditDate
 		, b.attachOriginalFile
 		, b.attachSavedFile
-	from 
+	FROM 
 		DB_BBS a, DB_BBS_ATTACH b
-	where
+	WHERE
 		a.bbsNo = b.attachBbsNo;
 		
 </select>
@@ -47,8 +47,7 @@
 
 <!-- 글 쓰기 -->
 <insert id="insertBbs" parameterType="Bbs">
-	insert into DB_BBS
-		(
+	INSERT INTO DB_BBS (
 		bbsNo
 		, boardNo
 		, bbsTitle
@@ -59,9 +58,8 @@
 		, bbsSeq
 		, bbsRegdate
 		, bbsEditDate
-		)
-	values(
-		DB_BBS_SEQ.nextval
+	) VALUES (
+		db_bbs_seq.NEXTVAL
 		, #{boardNo}
 		, #{bbsTitle}
 		, #{bbsContent}
@@ -69,22 +67,20 @@
 		, #{bbsParent}
 		, #{bbsDepth}
 		, #{bbsSeq}
-		, sysdate
+		, SYSDATE
 		, #{bbsEditDate}	
 	)
 </insert>
 
 <!-- 첨부파일 넣기 -->
 <insert id="insertAttach" parameterType="BbsAttach">
-	insert into DB_BBSATTACH
-		(
+	INSERT INTO db_bbsattach (
 		attachNo
 		, attachBbsNo
 		, attachOriginalFile
 		, attachSavedFile
-		)
-	values(
-		DB_BBS_ATTACH_SEQ.nextval
+	) VALUES (
+		db_bbs_attach_seq.NEXTVAL
 		, #{attachBbsNo}
 		, #{attachOriginalFile}
 		, #{attachSavedFile}
@@ -94,22 +90,26 @@
 
 <!-- 첨부파일 수정 -->
 <update id="updateBbsAttach" parameterType="BbsAttach">
-	update DB_BBS_ATTACH set
-		attachNo = DB_BBS_ATTACH_SEQ.nextval
+	UPDATE 
+		db_bbs_attach 
+	SET
+		attachNo = db_bbs_attach_seq.NEXTVAL
 		, attachOriginalFile = #{attachOriginalFile}
 		, attachSavedFile = #{attachSavedFile}
-	where
+	WHERE
 		attachBbsNo = #{attachBbsNo}
 </update>
 
 
 <!-- 글 수정 -->
 <update id="updateBbs" parameterType="Bbs">
-	update DB_BBS set
+	UPDATE 
+		db_bbs 
+	SET
 		bbsTitle  = #{bbsTitle}
 		, bbsContent = #{bbsContent}
 		, bbsEditDate = sysdate
-	where
+	WHERE
 		bbsNo = #{bbsNo}
 </update>
 
@@ -117,32 +117,37 @@
 
 <!-- 글 삭제 -->
 <delete id="deleteBbs" parameterType="Bbs">
-	delete from DB_BBS
-	where
+	DELETE FROM 
+		db_bbs
+	WHERE
 		bbsNo = #{bbsNo}
 </delete>
 
 <!-- 첨부파일 삭제 -->
 <delete id="deleteBbsAttach" parameterType="BbsAttach">
-	delete from DB_BBS_ATTACH
-	where
+	DELETE FROM 
+		db_bbs_attach
+	WHERE
 		bbsNo = #{bbsNo}
 </delete>
 
 <!-- 전체 글 개수 조회 -->
 <select id="getTotalBbs" parameterType="map" resultType="int">
-	select count(*)
-	from
-		DB_BBS
-	where
+	SELECT
+		count(*)
+	FROM
+		db_bbs
+	WHERE
 		${searchItem} like '%' || #{searchWord} || '%'
 </select>
 
 <!-- 조회수 +1 -->
 <update id="updateBbsCount" parameterType="int">
-	update DB_BBS set
+	UPDATE 
+		db_bbs 
+	SET
 		bbsCount = bbsCount+1
-	where
+	WHERE
 		bbsNo = #{bbsNo}
 </update>
 

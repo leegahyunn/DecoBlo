@@ -11,6 +11,11 @@ public class UserRepository {
 	@Autowired
 	SqlSession session;
 
+	/**
+	 * 로그인
+	 * @param user 로그인 할 유저 정보
+	 * @return 로그인 된 유저 정보
+	 */
 	public User login(User user) {
 		UserMapper mapper = session.getMapper(UserMapper.class);
 		User result = mapper.login(user);
