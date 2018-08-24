@@ -4,15 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>DecoBlo - Create Your Own Blog</title>
 <style type="text/css">
 </style>
 <title>DecoBlo - Create Your Own Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="pixelarity/assets/css/main.css" />
-
-
-
+<link rel="stylesheet" href="decoblo/css/user.css" />
 </head>
 <body class="landing">
 
@@ -23,13 +22,14 @@
 		</h1>
 		<nav id="nav">
 			<ul>
-				<li><a href="login">로그인</a></li>
+				<li id="login">로그인</li>
 				<li><a href="join">무료회원가입</a></li>
 				<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
 					<ul>
 						<li><a href="#">한국어(KO)</a></li>
 						<li><a href="#">日本語(JP)</a></li>
-					</ul></li>
+					</ul>
+				</li>
 
 			</ul>
 		</nav>
@@ -63,13 +63,13 @@
 				<div class="viewer">
 					<div class="reel">
 						<div class="slide">
-							<img src="images/slide01.jpg" alt="" />
+							<img src="pixelarity/images/slide01.jpg" alt="" />
 						</div>
 						<div class="slide">
-							<img src="images/slide02.jpg" alt="" />
+							<img src="pixelarity/images/slide02.jpg" alt="" />
 						</div>
 						<div class="slide">
-							<img src="images/slide03.jpg" alt="" />
+							<img src="pixelarity/images/slide03.jpg" alt="" />
 						</div>
 					</div>
 				</div>
@@ -89,7 +89,7 @@
 			<div class="row">
 				<div class="4u 6u(medium) 12u$(small)">
 					<article class="box post">
-						<a href="#" class="image fit"><img src="images/pic01.jpg"
+						<a href="#" class="image fit"><img src="pixelarity/images/pic01.jpg"
 							alt="" /></a>
 						<h3>블로그1</h3>
 						<p>Ipsum dolor tempus et commodo lorem accumsan et adipiscing
@@ -101,7 +101,7 @@
 				</div>
 				<div class="4u 6u$(medium) 12u$(small)">
 					<article class="box post">
-						<a href="#" class="image fit"><img src="images/pic02.jpg"
+						<a href="#" class="image fit"><img src="pixelarity/images/pic02.jpg"
 							alt="" /></a>
 						<h3>블로그2</h3>
 						<p>Ipsum dolor tempus et commodo lorem accumsan et adipiscing
@@ -113,7 +113,7 @@
 				</div>
 				<div class="4u$ 6u(medium) 12u$(small)">
 					<article class="box post">
-						<a href="#" class="image fit"><img src="images/pic03.jpg"
+						<a href="#" class="image fit"><img src="pixelarity/images/pic03.jpg"
 							alt="" /></a>
 						<h3>블로그3</h3>
 						<p>Ipsum dolor tempus et commodo lorem accumsan et adipiscing
@@ -125,7 +125,7 @@
 				</div>
 				<div class="4u 6u$(medium) 12u$(small)">
 					<article class="box post">
-						<a href="#" class="image fit"><img src="images/pic04.jpg"
+						<a href="#" class="image fit"><img src="pixelarity/images/pic04.jpg"
 							alt="" /></a>
 						<h3>블로그4</h3>
 						<p>Ipsum dolor tempus et commodo lorem accumsan et adipiscing
@@ -137,7 +137,7 @@
 				</div>
 				<div class="4u 6u(medium) 12u$(small)">
 					<article class="box post">
-						<a href="#" class="image fit"><img src="images/pic05.jpg"
+						<a href="#" class="image fit"><img src="pixelarity/images/pic05.jpg"
 							alt="" /></a>
 						<h3>블로그5</h3>
 						<p>Ipsum dolor tempus et commodo lorem accumsan et adipiscing
@@ -149,7 +149,7 @@
 				</div>
 				<div class="4u$ 6u$(medium) 12u$(small)">
 					<article class="box post">
-						<a href="#" class="image fit"><img src="images/pic06.jpg"
+						<a href="#" class="image fit"><img src="pixelarity/images/pic06.jpg"
 							alt="" /></a>
 						<h3>블로그6</h3>
 						<p>Ipsum dolor tempus et commodo lorem accumsan et adipiscing
@@ -168,8 +168,7 @@
 		<ul class="icons">
 			<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
 			<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-			<li><a href="#" class="icon fa-instagram"><span
-					class="label">Instagram</span></a></li>
+			<li><a href="#" class="icon fa-instagram"><span	class="label">Instagram</span></a></li>
 			<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
 			<li><a href="#" class="icon fa-envelope"><span class="label">Envelope</span></a></li>
 		</ul>
@@ -181,8 +180,36 @@
 		</ul>
 		<span class="copyright"> &copy; DecoBlog </span>
 	</footer>
+	
+	<!-- 로그인 팝업 -->
+	<div class="login-wrapper" style="border: 1px solid black">
+	    <div class="login-content">
+	      <div class="login-header">
+	        <i class="fa fa-times"></i>
+	      </div>
+	      <div class="login-body">
+	        <div class="text-center logo"><img src="//i.addblock.net/modal-logo-dark.png" alt="creatorlink logo"></div>
+	        <div class="text-center">
+	            <span class="join-text">데코블로가 처음이신가요?</span> 
+	            <a class="join" href="/member/join">회원가입</a>
+	        </div>
+	        <div class="login-form form-group">
+	            <input type="text" id="userEmail" name="userEmail" class="form-control valid" placeholder="이메일">
+	            <input type="password" id="userPassword" name="userPassword" class="form-control valid" placeholder="비밀번호">
+	        	<div class="row">
+		        	<label class="forget col-md-12 col-sm-12 col-xs-12"><a href="/member/support/password_reset" data-lang="page.member.login-modal.password-reset">비밀번호를 잊으셨나요?</a></label>
+	        	</div>
+	        </div>
+	        <div class="btn-wrapper">
+	        	<div class="login-btn">로그인</div>
+	        </div>
+	      </div>
+	    </div>
+	</div>
+	<!-- /로그인 팝업 -->
 
 	<!-- Scripts -->
+	
 	<script src="pixelarity/assets/js/jquery.min.js"></script>
 	<script src="pixelarity/assets/js/jquery.dropotron.min.js"></script>
 	<script src="pixelarity/assets/js/jquery.scrollgress.min.js"></script>
@@ -190,8 +217,9 @@
 	<script src="pixelarity/assets/js/jquery.slidertron.min.js"></script>
 	<script src="pixelarity/assets/js/skel.min.js"></script>
 	<script src="pixelarity/assets/js/util.js"></script>
-	<!--[if lte IE 8]><script src="pixelarity/assets/js/ie/respond.min.js"></script><![endif]-->
 	<script src="pixelarity/assets/js/main.js"></script>
+	
+	<script src="decoblo/js/index.js"></script>
 
 </body>
 </html>

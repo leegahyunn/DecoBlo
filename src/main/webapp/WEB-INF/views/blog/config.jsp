@@ -18,11 +18,9 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>  
 <script src="http://pagead2.googlesyndication.com/pagead/show_ads.js"> </script>
 <script src="decoblo/js/jquery.nestable.js"></script>
-<script src="decoblo/js/jquery.nestable.js"></script>
 <script src="decoblo/js/blockConfig.js"></script>
 <script src="decoblo/js/blockSetting.js"></script>
 <script src="decoblo/js/menuConfig.js"></script>
-<script src="decoblo/js/blockSetting.js"></script>
 
 
 <style>
