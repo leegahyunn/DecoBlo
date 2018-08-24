@@ -29,25 +29,28 @@
 						<li><a href="#">日本語(JP)</a></li>
 					</ul>
 				</li>
+				<li><a href="main">메인</a></li>
+				<li><a href="dashboard">대시보드</a></li>
+				<li><a href="config">블로그 수정</a></li>
+				<li><a href="customer">고객센터</a></li>	
 
 			</ul>
 		</nav>
 	</header>
 
 	<!-- Banner -->
-	<section id="banner">
+	<section id="banner" style="background-image: url('pixelarity/images/background.png'); background-size: cover; ; ">
 		<div class="inner">
-			<h2>자신만에 특별한 블로그 제작</h2>
+			<h2>자신만의 특별한 블로그 제작</h2>
 			<p>코딩을 몰라도 누구나 자신만에 특별한 블로그를 만들 수 있습니다.</p>
 			<ul class="actions">
 				<li><a href="#one" class="button big scrolly">제작하기</a></li>
 			</ul>
-			<div class="a">
-				<p align="right" style="font-size: 12px;">현재 00000명이 DecoBlog를
+		</div>
+			<div class="a" style="bottom: 0; position: absolute; right: 0;">
+				<p  style="font-size: 12px;">현재 00000명이 DecoBlog를
 					이용하고 있습니다.</p>
 			</div>
-
-		</div>
 	</section>
 
 	<!-- One -->

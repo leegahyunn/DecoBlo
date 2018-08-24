@@ -3,20 +3,6 @@
  */
 $(function(){
 	firstcss();
-	/*블록 마우스 이벤트*/
-	/*$('.block-setting-section').find('#blockNo_1').on('mouseenter',function(){*/
-		$(this).find('.block-setting-cover').on('mouseenter',function(){
-		$(this).find('.block-setting-cover').find('.add-button').css('display','block');
-		$(this).css("border-style","solid");
-		$(this).css("border-color","#0073AC");
-		$(this).css("border-width","1px");
-	});
-	/*블록 마우스 이벤트 종료*/
-	
-	$('.add-button').on('mouseout',function(){
-		$('.add-button').css('display','none');
-		$('.block-setting-cover').css("border-style","none");
-	});
 	
 	/*블록 없을때 블록 추가 버튼 */
 	$('.intro-block-wrapper').on('click',function(){
@@ -42,17 +28,11 @@ $(function(){
 					+"<hr/>"
 					+"</div>");
 			$('.use-block-button').on('click',function(){
-				$('.menu-wrapper').html(BlockAddButtonTop());
-				$('.menu-wrapper').append(
-						+"<section>"
-						+"<div>"
-						+"<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>"
-						+"<strong contenteditable='true'>Eeco-BLog-NO1.Block </strong>"
-						+"<hr/>"
-						+"</div>"
-						+"</section>"
-						);
-				$('.block-wrapper').attr('data-block-no-',1);
+				$('.menu-wrapper').html(blockAddButtonTop());
+				$('.menu-wrapper').append(blockWrapper());
+				$('.menu-wrapper').append(blockAddButtonBottom());
+				/*data-block-no- db에 저장된 blockNo*/
+				$('.menu-wrapper').find('section').attr('data-block-no-',1);
 				$('.block-preview').empty();
 				$('.intro-block-wrapper').css('display','none');
 			});
@@ -62,12 +42,33 @@ $(function(){
 	});
 	
 	/*블록 추가 버튼 */
-	$('.add-block').on('click',function(){
+	$(document).on('click','.add-button',function(){
+		alert("ok");
 		$('.blockMenu-sidebar-ul > li').first().addClass("active "+ 0);
 		thumnail(0);
 		/*썸네일 클릭 이벤트*/
 		$('.block-thumnail > li').on('click',function(){
-			$('.intro-block-wrapper').css('display','none');
+			alert("ok");
+			$('.block-preview').html(""
+					+"<div class='use-block-button'>"
+					+"<i class='fa fa-check'></i>"
+					+"<span>사용하기</span>"
+					+"</div>"
+					);
+			$('.block-preview').append(""
+					+"<div>"
+					+"<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>"
+					+"<strong contenteditable='true'>Eeco-BLog-NO1.Block </strong>"
+					+"<hr/>"
+					+"</div>");
+			$('.use-block-button').on('click',function(){
+				$('.menu-wrapper').html(blockAddButtonTop());
+				$('.menu-wrapper').append(blockWrapper());
+				$('.menu-wrapper').append(blockAddButtonBottom());
+				$('.menu-wrapper').find('section').attr('data-block-no-',1);
+				$('.block-preview').empty();
+				$('.intro-block-wrapper').css('display','none');
+			});
 		});
 		$('.blockMenu-sidebar-div').css("margin-left",'0px');
 		$('#blockMenu-sidebar-close').css('left','315px');
@@ -83,48 +84,20 @@ $(function(){
 		$('#blockMenu-sidebar-close').css('left','-50px');
 		$('.block-thumnail > li').remove();
 	});
-	/*사이드바 메뉴 클릭 버튼*/
-	$('.blockMenu-sidebar-ul > li').on('click',function(){
-		var index = $(this).index();
-		$('.blockMenu-sidebar-ul > li').removeClass();
-		$(this).addClass("active "+index); 
-		thumnail(index);
-		
-		/*썸네일 클릭 이벤트*/
-		$('.block-thumnail > li').on('click',function(){
-			$('.use-block-button').css('display','block');
-			$('.block-preview').css('display','inline-block');
-			$('.block-preview').html(""
-					+"<div class='use-block-button'>"
-					+"<i class='fa fa-check'></i>"
-					+"<span>사용하기</span>"
-					+"</div>"
-					);
-			$('.block-preview').append(""
-					+"<div>"
-					+"<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>"
-					+"<strong contenteditable='true'>Eeco-BLog-NO1.Block </strong>"
-					+"<hr/>"
-					+"</div>");
-			$('.use-block-button').on('click',function(){
-				$('.menu-wrapper').html(BlockAddButtonTop());
-				$('.menu-wrapper').append(
-						+"<div class='block-wrapper'>"
-						+"<div>"
-						+"<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>"
-						+"<strong contenteditable='true'>Eeco-BLog-NO1.Block </strong>"
-						+"<hr/>"
-						+"</div>"
-						+"</div>"
-						);
-				$('.block-wrapper').attr('data-block-no-',1);
-				$('.block-preview').empty();
-				$('.intro-block-wrapper').css('display','none');
-			});
-		});
+	
+	/*블록 마우스 이벤트*/
+	$(document).on('mouseenter','.block-wrapper',function(){
+		$('.add-button').css('display','block');
+		$(this).css("border-style","solid");
+		$(this).css("border-color","#0073AC");
+		$(this).css("border-width","1px");
 	});
 	
-	
+	/*블록 마우스 이벤트 종료*/
+	$(document).on('mouseout','.add-button',function(){
+		$('.add-button').css('display','none');
+		$('.block-setting-cover').css("border-style","none");
+	});
 	
 });
 /*첫화면 css */
@@ -173,13 +146,34 @@ function thumnail(index){
 	
 }
 
-/*블록 add 버튼 추가 함수 */
-function BlockAddButtonTop(){
-	var blockAddButtonTop = 
-		"<ul class='add-button' id='add-button-top_1'>"
+/*블록 add 버튼 추가 함수 Top */
+function blockAddButtonTop(){
+	var blockAddButtonTop = ""
+		+"<ul class='add-button' id='add-button-top_1'>"
 		+"<li class='add-button-li'>"
 		+"<div class='add-block'>"
 		+"<img alt='Plus' src='resources/images/blockSettingimg/fa_plus_icon.png'/>"
 		+"</div></li></ul>";
 	return blockAddButtonTop;
+}
+/*블록 add 버튼 추가 함수 Bottom */
+function blockAddButtonBottom(){
+	var blockAddButtonBottom = ""
+		+"<ul class='add-button' id='add-button-bottom_1'>"
+		+"<li class='add-button-li'>"
+		+"<div class='add-block'>"
+		+"<img alt='Plus' src='resources/images/blockSettingimg/fa_plus_icon.png'/>"
+		+"</div></li></ul>";
+	return blockAddButtonBottom;
+}
+/*블록 코드 가져오는 함수 */
+function blockWrapper(){
+	var blockWrapperCode= ""
+		+"<section class='block-wrapper'><div>"
+		+"<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>"
+		+"<strong contenteditable='true'>Eeco-BLog-NO1.Block </strong>"
+		+"<hr/>"
+		+"</div>"
+		+"</section>";
+	return blockWrapperCode;
 }

@@ -66,11 +66,8 @@
 		<section class="menu-wrapper" >
 		<!-- 블록 미리보기  -->
 				<div class="block-preview">
-				
 				<!-- 사용하기 버튼 -->
-					
 					<!-- 블록 코드 미리보기 -->
-					
 				</div>
 				<!-- 실제 블록 코드 들어갈 부분 -->
 		</section>
