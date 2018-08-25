@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,8 +45,25 @@ public class UserController {
 	 */
 	@RequestMapping(value="/user/join", method=RequestMethod.GET)
 	public String join() {
-			return "user/join";
+		return "user/join";
 	}
 	
+	/**
+	 * 회원가입
+	 * @return 메인
+	 */
+	@RequestMapping(value="/user/join", method=RequestMethod.POST)
+	public String joinPost(User user) {
+		user.setBlogTitle(user.getUserName() + "님의 블로그");
+		user.setBlogAddress(user.getUserEmail().split("@")[0]);
+		System.out.println(user);
+		userRepository.create(user);
+		return "redirect:/";
+	}
 	
+	@RequestMapping(value="/user/emailConfirm", method=RequestMethod.GET)
+	public String emailConfirm(String userEmail, String key) {
+		userRepository.emailConfirm(userEmail, key);
+		return "redirect:/";
+	}
 }

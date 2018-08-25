@@ -21,12 +21,14 @@
 	            <span class="join-text">크리에이티브한 당신을 위한 사이트를 만들어보세요!</span> 
 	        </div>
 	        <div class="join-form user-form form-group">
+	        	<form method="post" action="join" id="join">
 	        	<input type="text" id="userName" name="userName" placeholder="이름" value="" autocomplete="new-password">
 	            <input type="text" id="userEmail" name="userEmail" placeholder="이메일" value="" autocomplete="new-password">
 	            <input type="password" id="userPassword" name="userPassword" placeholder="비밀번호" value="" autocomplete="new-password">
+	            </form>
 	        </div>
 	        <div class="btn-wrapper">
-	        	<div class="join-btn user-btn">회원가입</div>
+	        	<div id="join-btn" class="join-btn user-btn">회원가입</div>
 	        </div>
 	      </div>
 	    </div>
@@ -37,6 +39,10 @@
 		$('#userName').val('');
 		$('#userEmail').val('');
 		$('#userPassword').val('');
+		
+		$('#join-btn').on('click', function(){
+			$('#join').submit();
+		});
 	});
 </script>
 </body>

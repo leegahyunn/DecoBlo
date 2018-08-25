@@ -16,4 +16,38 @@
 		userPassword = #{userPassword}
 </select>
 
+<!-- 회원가입 -->
+<!-- int insertUser(User vo); -->
+<insert id="insertUser" parameterType="User">
+	INSERT INTO db_user (
+	    userno, useremail, username, userpassword, blogtitle, blogaddress
+	) VALUES (
+	    db_user_seq.NEXTVAL, #{userEmail}, #{userName}, #{userPassword}, #{blogTitle}, #{blogAddress}
+	)
+</insert>
+
+<!-- 인증키 삽입 -->
+<!-- int createAuthKey(String userEmail, String key); -->
+<update id="createAuthKey" parameterType="String">
+	UPDATE 
+		db_user
+	SET
+		usertmppassword = #{1}
+	WHERE
+		userEmail = #{0}
+</update>
+
+<!-- 이메일 인증 -->
+<!-- int emailConfirm(String userEmail, String key); -->
+<update id="emailConfirm" parameterType="String">
+	UPDATE 
+		db_user
+	SET
+		usertmppassword = ''
+	WHERE
+		userEmail = #{0} 
+	AND
+		usertmppassword = #{1}
+</update>
+
 </mapper>

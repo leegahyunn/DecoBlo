@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="decoblo/css/user.css" />
 </head>
 <body class="landing">
-
+	<input type="hidden" id="isAuthed" value="${isAuthed}">
 	<!-- Header -->
 	<header id="header" class="alt ">
 		<h1>
@@ -211,7 +211,6 @@
 	<!-- /로그인 팝업 -->
 
 	<!-- Scripts -->
-	
 	<script src="pixelarity/assets/js/jquery.min.js"></script>
 	<script src="pixelarity/assets/js/jquery.dropotron.min.js"></script>
 	<script src="pixelarity/assets/js/jquery.scrollgress.min.js"></script>
@@ -220,8 +219,7 @@
 	<script src="pixelarity/assets/js/skel.min.js"></script>
 	<script src="pixelarity/assets/js/util.js"></script>
 	<script src="pixelarity/assets/js/main.js"></script>
-	
 	<script src="decoblo/js/index.js"></script>
-
+	
 </body>
 </html>

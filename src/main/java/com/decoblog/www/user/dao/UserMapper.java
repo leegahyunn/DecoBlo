@@ -11,4 +11,28 @@ public interface UserMapper {
 	 */
 	User login(User user);
 
+	/**
+	 * 회원가입
+	 * @param vo 회원가입 할 유저정보
+	 * @return	Insert 개수
+	 */
+	int insertUser(User vo);
+
+	/**
+	 * 인증키 삽입 (Update)
+	 * @param userEmail 해당 유저의 이메일
+	 * @param key 인증키
+	 * @return
+	 */
+	int createAuthKey(String userEmail, String key);
+
+	/**
+	 * 이메일 인증 (Update)
+	 * 이메일과 key가 일치하면 key를 삭제함
+	 * @param userEmail	Get으로 전달받은 userEmail
+	 * @param key Get으로 전달받은 key
+	 * @return 일치여부
+	 */
+	int emailConfirm(String userEmail, String key);
+
 }
