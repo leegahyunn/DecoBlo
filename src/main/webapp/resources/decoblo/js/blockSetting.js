@@ -38,12 +38,16 @@ $(function(){
 	/*썸네일 클릭 이벤트 */
 	$(document).on('click','.block-thumnail > li',function(){
 		$('.block-preview').html(useButton());
-		$('.block-preview').append(""
-				+"<div>"
-				+"<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>"
-				+"<strong contenteditable='true'>Eeco-BLog-NO1.Block </strong>"
-				+"<hr/>"
-				+"</div>");
+		$.ajax({
+			method:'POST'
+			,url:'getBlockContent'
+			,data : 'blockTmpNo=21'
+			,success:function(response){
+				blockWrapperCode=response;
+				$('.block-preview').append(blockWrapperCode);
+			}
+		});
+		
 	});
 	
 	/*사용하기 버튼 클릭 이벤트 */
@@ -92,6 +96,12 @@ function firstcss(){
 function thumnail(index){
 	switch(index){
 	case 0 :
+		$.ajax({
+			method:'POST'
+			, url:'getThumnail'
+			, data:'tmpType=showcase'
+			
+		});
 		$('.block-thumnail >li').remove();
 		$('.block-thumnail').html("" 
 			+"<li class='block-no "+index+""+1+"'>"
@@ -100,6 +110,11 @@ function thumnail(index){
 		);
 		break;
 	case 1 :
+		$.ajax({
+			method:'POST'
+			, url:'getThumnail'
+			, data:'tmpType=title'
+		});
 		$('.block-thumnail >li').remove();
 		$('.block-thumnail').html(""
 			+"<li class='block-no "+index+""+1+"'>"
@@ -111,15 +126,50 @@ function thumnail(index){
 		);
 		break;
 	case 2 :
-		$('.block-thumnail >li').remove();
-		$('.block-thumnail').html(""
-			+"<li class='block-no "+index+""+1+"'>"
-			+"<img alt='test1' src='resources/images/blockThumnail/block3.png'>"
-			+"</li>"
-			+"<li class='block-no "+index+""+2+"'>"
-			+"<img alt='test2' src='resources/images/blockThumnail/block-1.png'>"
-			+"</li>"
-		);
+		$.ajax({
+			method:'POST'
+			, url:'getThumnail'
+			, data:'tmpType=contents'
+			,success:function(rep){
+				console.log(rep.length);
+				$('.block-thumnail >li').remove();
+				for(var i=0; i< rep.length; i++){
+					$('.block-thumnail').html(""
+					+"<li class='block-no "+rep[i]+"'>"
+					+"<img alt='test1' src='resources/images/blockThumnail/block"+rep[i]+".png'>"
+					+"</li>");
+				}
+			}
+		});
+		
+		break;
+	case 3 : 
+		$.ajax({
+			method:'POST'
+			, url:'getThumnail'
+			, data:'tmpType=text'
+		});
+		break;
+	case 4 : 
+		$.ajax({
+			method:'POST'
+			, url:'getThumnail'
+			, data:'tmpType=image'
+		});
+		break;
+	case 5 : 
+		$.ajax({
+			method:'POST'
+			, url:'getThumnail'
+			, data:'tmpType=line'
+		});
+		break;
+	case 6 : 
+		$.ajax({
+			method:'POST'
+			, url:'getThumnail'
+			, data:'tmpType=board'
+		});
 		break;
 	default :
 		$('.block-thumnail >li').remove();
@@ -150,13 +200,23 @@ function blockAddButtonBottom(){
 }
 /*블록 코드 가져오는 함수 */
 function blockWrapper(){
-	var blockWrapperCode= ""
+	/*var blockWrapperCode= ""
 		+"<div>"
 		+"<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>"
 		+"<strong contenteditable='true'>Eeco-BLog-NO1.Block </strong>"
 		+"<hr/>"
-		+"</div>";
-	return blockWrapperCode;
+		+"</div>";*/
+		var blockWrapperCode = "";
+	$.ajax({
+		method:'POST'
+		,url:'getBlockContent'
+		,data : 'blockTmpNo=21'
+		,success:function(response){
+			alert(JSON.stringify(response));
+			blockWrapperCode=response;
+			alert("success 안"+blockWrapperCode);
+		}
+	});
 }
 /*사용하기 버튼 코드 함수 */
 function useButton(){

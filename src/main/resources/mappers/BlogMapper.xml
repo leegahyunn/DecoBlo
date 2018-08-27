@@ -28,5 +28,14 @@
 	ORDER BY 
 		menuparent, menuseq
 </select>
+<!-- 블록 넘버 가져오기 -->
+<select id="selectThumnail" parameterType="string" resultType="int">
+	SELECT blocktmpno FROM DB_BLOCK_TEMPLATE WHERE blocktmptype=#{tmpType}
+</select>
 
+<!-- 블록 코드 가져오기 -->
+<select id="selectBlockContent" parameterType="int" resultType="string">
+SELECT UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(blocktmpcontent)) AS blockTmpContent FROM db_block_template
+ WHERE blocktmpno =#{blocktmpNo}
+ </select>
 </mapper>
