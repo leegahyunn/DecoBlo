@@ -29,10 +29,15 @@
 						<li><a href="#">日本語(JP)</a></li>
 					</ul>
 				</li>
-				<li><a href="main">메인</a></li>
-				<li><a href="dashboard">대시보드</a></li>
-				<li><a href="config">블로그 수정</a></li>
-				<li><a href="customer">고객센터</a></li>	
+				<li><a href="#" class="icon fa-angle-down">테스트</a>
+					<ul>
+						<li><a href="main">메인</a></li>
+						<li><a href="customer">정보수정</a></li>
+						<li><a href="dashboard">대시보드</a></li>
+						<li><a href="config">블로그 수정</a></li>
+						<li><a href="customer">고객센터</a></li>						
+					</ul>
+				</li>	
 
 			</ul>
 		</nav>

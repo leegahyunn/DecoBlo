@@ -7,10 +7,7 @@
 <title>Insert title here</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<!--[if lte IE 8]><script src="pixelarity/assets/js/ie/html5shiv.js"></script><![endif]-->
 <link rel="stylesheet" href="pixelarity/assets/css/main.css" />
-<!--[if lte IE 8]><link rel="stylesheet" href="pixelarity/assets/css/ie8.css" /><![endif]-->
-<!--[if lte IE 9]><link rel="stylesheet" href="pixelarity/assets/css/ie9.css" /><![endif]-->
 
 <style>
 .top {
@@ -98,7 +95,43 @@
 	position: relative;
 	height: 450px;
 }
-	</style>
+
+
+/******************/
+/* 계정 정보 변경 */
+/******************/
+.account-profile .container section div {
+/* 	border: 1px solid black; */
+}
+
+section.account{
+	overflow: hidden;
+}
+
+section.account div {
+	display: inline-block;
+	float: left;
+}
+
+section.account div p {
+	margin: 5px 0;	
+}
+
+section.account div.left-one {
+	width: 20%;
+}
+section.account div.left-two {
+	width: 25%;
+}
+
+section.account div.left-three {
+	width: 50%;
+}
+
+textarea {
+	resize: none;
+}
+</style>
 
 
 </head>
@@ -107,7 +140,7 @@
 	<!-- Header -->
 	<header id="header">
 		<h1>
-			<a href="index.html">Deco <span>Blong</span></a>
+			<a href="index.html">Deco <span>Blo</span></a>
 		</h1>
 		<nav id="nav">
 			<ul>
@@ -125,87 +158,51 @@
 						<li><a href="#">日本語(JP)</a></li>
 					</ul></li>
 				<li><a href="#">고객센터</a></li>
-
-
-
 			</ul>
-
 		</nav>
 	</header>
 
 	<!-- Main -->
-	<section id="main" class="wrapper style1">
-
+	<section id="main" class="wrapper style1 account-profile">
+		<header class="major">
+			<h2>계정 관리</h2>
+		</header>
 		<div class="container">
-
 			<!-- Content -->
-			<section id="content">
-
-				<!-- Text -->
-				<section>
-					<div class="showbox">
-						<h2>HOT ISSUE</h2>
-						<a class="prev" onclick="plusSlides(-1)"></a>
-						<div class="slideshow">
-						</div>
-						<div class="slideshow2">
-						</div>
-						<div class="slideshow3">
-						</div>
-
+				<section class="account">
+					<div class="left-one">
+						<h3>계정 정보</h3>
+						<p>[변경 불가]</p>
+					</div>
+					<div class="left-two">
+						<p>이름</p>
+						<p>이메일</p>
+						<p>닉네임</p>
+						<p>도메인</p>												
+					</div>
+					<div class="left-three">
+						<p>관리자</p>
+						<p>admin@decoblo.com</p>
+						<p>관리자</p>
+						<p>admin</p>
 					</div>
 				</section>
-			</section>
+				<hr>
+				<section class="account">
+					<div class="left-one">
+						<h3>추가 정보</h3>
+					</div>
+					<div class="left-two">
+						<div>
+							<img src="decoblo/images/profile-mypage.jpg">
+							<p>사진 수정</p>
+						</div>
+					</div>
+					<div class="left-three">
+						<textarea rows="4" cols="25"></textarea>
+					</div>
+				</section>
 
-			<header>
-				<div class="a"></div>
-
-
-				<hr />
-				<div class="box"></div>
-
-
-			</header>
-
-
-
-			<div>
-				<h3>이웃새글</h3>
-				<hr />
-				<div class="top">
-					<div class="ttext">글씨</div>
-					<div class="timg">이미지</div>
-
-
-
-				</div>
-
-				<hr />
-				<div class="top">
-					<div class="ttext">글씨</div>
-					<div class="timg">이미지</div>
-
-
-
-				</div>
-
-
-
-				<hr />
-				<div class="top">
-					<div class="ttext">글씨</div>
-					<div class="timg">이미지</div>
-
-
-
-				</div>
-				<hr />
-				<div class="top">
-					<div class="ttext">글씨</div>
-					<div class="timg">이미지</div>
-
-				</div>
-			</div>
 		</div>
 	</section>
 
