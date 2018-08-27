@@ -32,19 +32,14 @@ public class HomeController {
 	
 	
 	
-	/*
-	 * Test
-	 */
+
 	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
 	public String chtest() {
-		return "templates/1/index";
+		
 		return "user/pop_login";
 	}
 
-<<<<<<< HEAD
-=======
-	
->>>>>>> 16995e9a39e7851b099158eb3b828829ac6517f3
+
 	@RequestMapping(value = "/view", method = RequestMethod.GET)
 	public String view() {
 		return "common/dashboard";
@@ -70,18 +65,10 @@ public class HomeController {
 	public String test1() {
 		return "blog/test";
 	}
-	@RequestMapping(value = "/test2", method = RequestMethod.GET)
-	
-	@RequestMapping(value="/test2",method=RequestMethod.GET)
-	public String test2() {
-		return "blog/blockConfig";
-	}
-<<<<<<< HEAD
 
-=======
-	@RequestMapping(value="/titleTest1",method=RequestMethod.GET)
+@RequestMapping(value="/titleTest1",method=RequestMethod.GET)
 	public String titleTest1() {
 		return "templates/title/titleTest1";
 	}
->>>>>>> 16995e9a39e7851b099158eb3b828829ac6517f3
+
 }
