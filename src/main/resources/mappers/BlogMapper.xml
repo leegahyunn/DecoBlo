@@ -3,4 +3,30 @@
 
 <mapper namespace="com.decoblog.www.blog.dao.BlogMapper">
 
+<resultMap id="selectMap" type="java.util.HashMap">
+	<id column="menuparent" property="menuParent"/>
+	<collection property="Menu" javaType="java.util.ArrayList" resultMap="menus" />
+</resultMap>
+
+<resultMap type="Menu" id="menus">
+	<result property="menuNo" column="menuNo"/>
+	<result property="menuName" column="menuName"/>
+	<result property="menuParent" column="menuParent"/>
+	<result property="menuDepth" column="menuDepth"/>
+	<result property="menuSeq" column="menuSeq"/>
+	<result property="menuVisible" column="menuVisible"/>
+	<result property="menuLink" column="menuLink"/>
+	<result property="menuParentSeq" column="menuParentSeq"/>
+</resultMap>
+
+<!-- 메뉴 가져오기 -->
+<select id="selectMenu" resultMap="selectMap">
+	SELECT 
+		*
+	FROM
+		db_menu
+	ORDER BY 
+		menuparent, menuseq
+</select>
+
 </mapper>

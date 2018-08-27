@@ -9,7 +9,7 @@
 <link type="text/css" rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"/>
 <link rel="stylesheet" href="decoblo/css/helpPage.css" />
-<script src="resources/jquery-3.3.1.min.js"></script>
+<script src="resources/library/js/jquery-3.3.1.min.js"></script>
 <style type="text/css">
 	.table-wrapper {
 		margin: o auto;

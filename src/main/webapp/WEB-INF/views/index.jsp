@@ -4,7 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<<<<<<< HEAD
 
+=======
+>>>>>>> 561b93f1eeb6da5b5c435b5c3518de0ad44ed89f
 <title>DecoBlo - Create Your Own Blog</title>
 <style type="text/css">
 </style>
@@ -14,16 +17,19 @@
 <link rel="stylesheet" href="decoblo/css/user.css" />
 </head>
 <body class="landing">
+	<input type="hidden" id="isAuthed" value="${isAuthed}">
 	<!-- Header -->
 	<header id="header" class="alt ">
 		<h1>
 			<a href="#">Deco <span>Blong</span></a>
+			<a href="index.html">Deco <span>Blong</span></a>
 		</h1>
 		<nav id="nav">
 			<ul>
 				<li><a href="login">로그인</a></li>
 				<li id="login">로그인</li>
 				<li><a href="join">무료회원가입</a></li>
+				<li><a href="user/join">무료회원가입</a></li>
 				<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
 					<ul>
 						<li><a href="#">한국어(KO)</a></li>
@@ -190,16 +196,23 @@
 	<div class="login-wrapper" style="border: 1px solid black">
 	    <div class="login-content">
 	      <div class="login-header">
+	<div class="login-wrapper user-wrapper">
+	    <div class="login-content user-content">
+	      <div class="login-header user-header">
 	        <i class="fa fa-times"></i>
 	      </div>
 	      <div class="login-body">
+	      <div class="login-body user-body">
 	        <div class="text-center logo"><img src="//i.addblock.net/modal-logo-dark.png" alt="creatorlink logo"></div>
 	        <div class="text-center">
 	            <span class="join-text">데코블로가 처음이신가요?</span> 
 	            <a class="join" href="/member/join">회원가입</a>
+	            <a class="join" href="user/join">회원가입</a>
 	        </div>
 	        <div class="login-form form-group">
 	            <input type="text" id="userEmail" name="userEmail" class="form-control valid" placeholder="이메일">
+	        <div class="login-form user-form form-group">
+	            <input type="text" id="userEmail" name="userEmail" class="form-control valid" placeholder="이메일" autocomplete="new-password">
 	            <input type="password" id="userPassword" name="userPassword" class="form-control valid" placeholder="비밀번호">
 	        	<div class="row">
 		        	<label class="forget col-md-12 col-sm-12 col-xs-12"><a href="/member/support/password_reset" data-lang="page.member.login-modal.password-reset">비밀번호를 잊으셨나요?</a></label>
@@ -207,6 +220,7 @@
 	        </div>
 	        <div class="btn-wrapper">
 	        	<div class="login-btn">로그인</div>
+	        	<div class="login-btn user-btn">로그인</div>
 	        </div>
 	      </div>
 	    </div>
@@ -228,5 +242,6 @@
 	<script src="decoblo/js/index.js"></script>
 
 
+	
 </body>
 </html>

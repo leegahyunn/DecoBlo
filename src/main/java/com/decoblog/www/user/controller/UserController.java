@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,12 @@ public class UserController {
 	@Autowired
 	UserRepository userRepository;
 	
+	/**
+	 * 로그인 Ajax
+	 * @param user JSP에서 입력된 User 정보
+	 * @param session HttpSession
+	 * @return 로그인 성공 시 true, 실패 시 false 반환
+	 */
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public @ResponseBody String login(@RequestBody User user, HttpSession session) {
 		
@@ -30,5 +37,33 @@ public class UserController {
 		} else {
 			return "false";
 		}
+	}
+	
+	/**
+	 * 회원가입 페이지 이동
+	 * @return 회원가입 페이지
+	 */
+	@RequestMapping(value="/user/join", method=RequestMethod.GET)
+	public String join() {
+		return "user/join";
+	}
+	
+	/**
+	 * 회원가입
+	 * @return 메인
+	 */
+	@RequestMapping(value="/user/join", method=RequestMethod.POST)
+	public String joinPost(User user) {
+		user.setBlogTitle(user.getUserName() + "님의 블로그");
+		user.setBlogAddress(user.getUserEmail().split("@")[0]);
+		System.out.println(user);
+		userRepository.create(user);
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/user/emailConfirm", method=RequestMethod.GET)
+	public String emailConfirm(String userEmail, String key) {
+		userRepository.emailConfirm(userEmail, key);
+		return "redirect:/";
 	}
 }
