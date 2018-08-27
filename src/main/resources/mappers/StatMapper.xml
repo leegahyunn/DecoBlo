@@ -2,12 +2,16 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.decoblog.www.stat.dao.StatMapper">
+
+<!-- 통계 가져오기 -->
 <select id="selectnowstat" resultType="Stat">
-
-
-SELECT statNo,statUserNo,statBlogCount,statBbsCount,statReplyCount,statSubscribe,TO_CHAR(STATREGDATE,'YYYY.MM.DD') AS statRegDate 
-FROM DB_STAT 
-where to_char( STATREGDATE, 'yyyymmdd' ) = to_char( sysdate, 'yyyymmdd')
+	SELECT 
+		statNo, statUserNo, statBlogCount, statBbsCount, statReplyCount,
+		statSubscribe, TO_CHAR(STATREGDATE,'YYYY.MM.DD') AS statRegDate 
+	FROM 
+		db_stat 
+	WHERE 
+		TO_CHAR(statregdate, 'yyyymmdd') = TO_CHAR(SYSDATE, 'yyyymmdd')
 </select>
 
 

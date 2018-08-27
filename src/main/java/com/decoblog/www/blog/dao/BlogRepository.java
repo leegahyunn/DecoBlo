@@ -18,17 +18,14 @@ public class BlogRepository {
 	@Autowired
 	SqlSession session;
 
+	/**
+	 * 전체 메뉴 가져오기
+	 * @return DB에 등록된 메뉴
+	 */
 	public ArrayList<HashMap<String, ArrayList<Menu>>> selectMenu() {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		ArrayList<HashMap<String, ArrayList<Menu>>> result = mapper.selectMenu();
 		
 		return result;
 	}
-	
-	/*public List<Map<String, Object>> selectTest() {
-		BlogMapper mapper = session.getMapper(BlogMapper.class);
-		List<Map<String, Object>> result = mapper.selectTest();
-		
-		return result;
-	}*/
 }
