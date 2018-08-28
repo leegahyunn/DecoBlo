@@ -130,14 +130,17 @@
 	<div align="center"><!-- 큰div태그 -->	
 	 <!-- 일단 여기도 검색 기능 -->
 		<div align="right" style="width:1170px">
-			<form class="qalist" action="qalist">
+		
+		
+			<form class="qalist" action="listboard" method="get">
+			
 				<select name="searchItem" class="searchItem" style="margin: 5px;">
 	<!-- 여기 검색에는 작성자 검색 X => 특별히 필요할 것 같지 않아서 넣지 않음 -->
 					<option value="title" ${searchItem == 'title' ? 'selected':'' } >글제목</option>
 					<option value="content" ${searchItem == 'content' ? 'selected':'' } >내용</option>
 				</select>
 				<input class="searchWord" type="text" name="searchWord" value="${searchWord }" style="margin: 5px;"/>
-				<input class="buttons" type="button" value="검색" style="line-height:normal; text-align: center; margin: 5px;"/>
+				<input class="buttons" type="submit" value="검색" style="line-height:normal; text-align: center; margin: 5px;"/>
 			</form>
 		</div>
 

@@ -167,12 +167,6 @@
 			</td>
 		</tr>
 		
-		
-		
-		
-		
-		
-		
 		</c:forEach>
 	</table>
 	</div> <!--  end #reply -->	

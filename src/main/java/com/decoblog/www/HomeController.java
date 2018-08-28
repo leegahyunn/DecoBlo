@@ -38,7 +38,7 @@ public class HomeController {
 	// 이가현
 	@RequestMapping(value = "/ghtest", method = RequestMethod.GET)
 	public String ghtest() {
-		return "blog/metaEdit";
+		return "common/noticeWrite";
 	}
 	
 	// 최용락
