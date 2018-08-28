@@ -9,69 +9,51 @@ $(function(){
 		if($('.blockMenu-sidebar-ul li').hasClass("active")){
 			$('.blockMenu-sidebar-ul > li').removeClass();
 		}
-		
-		$('.blockMenu-sidebar-ul > li').first().addClass("active "+ 0);
+		$('.blockMenu-sidebar-ul > li').first().addClass("active");
 		thumnail(0);
-		/*썸네일 클릭 이벤트*/
-		$('.block-thumnail > li').on('click',function(){
-			$('.block-preview').css('display','block');
-			$('.block-preview').html(""
-					+"<div class='use-block-button'>"
-					+"<i class='fa fa-check'></i>"
-					+"<span>사용하기</span>"
-					+"</div>"
-					);
-			$('.block-preview').append(""
-					+"<div>"
-					+"<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>"
-					+"<strong contenteditable='true'>Eeco-BLog-NO1.Block </strong>"
-					+"<hr/>"
-					+"</div>");
-			$('.use-block-button').on('click',function(){
-				$('.menu-wrapper').html(blockAddButtonTop());
-				$('.menu-wrapper').append(blockWrapper());
-				$('.menu-wrapper').append(blockAddButtonBottom());
-				/*data-block-no- db에 저장된 blockNo*/
-				$('.menu-wrapper').find('section').attr('data-block-no-',1);
-				$('.block-preview').empty();
-				$('.intro-block-wrapper').css('display','none');
-			});
-		});
 		$('.blockMenu-sidebar-div').css("margin-left",'0px');
 		$('#blockMenu-sidebar-close').css('left','315px');
 	});
 	
 	/*블록 추가 버튼 */
 	$(document).on('click','.add-button',function(){
-		alert("ok");
+		if($('.blockMenu-sidebar-ul li').hasClass("active")){
+			$('.blockMenu-sidebar-ul > li').removeClass();
+		}
 		$('.blockMenu-sidebar-ul > li').first().addClass("active "+ 0);
 		thumnail(0);
-		/*썸네일 클릭 이벤트*/
-		$('.block-thumnail > li').on('click',function(){
-			alert("ok");
-			$('.block-preview').html(""
-					+"<div class='use-block-button'>"
-					+"<i class='fa fa-check'></i>"
-					+"<span>사용하기</span>"
-					+"</div>"
-					);
-			$('.block-preview').append(""
-					+"<div>"
-					+"<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>"
-					+"<strong contenteditable='true'>Eeco-BLog-NO1.Block </strong>"
-					+"<hr/>"
-					+"</div>");
-			$('.use-block-button').on('click',function(){
-				$('.menu-wrapper').html(blockAddButtonTop());
-				$('.menu-wrapper').append(blockWrapper());
-				$('.menu-wrapper').append(blockAddButtonBottom());
-				$('.menu-wrapper').find('section').attr('data-block-no-',1);
-				$('.block-preview').empty();
-				$('.intro-block-wrapper').css('display','none');
-			});
-		});
 		$('.blockMenu-sidebar-div').css("margin-left",'0px');
 		$('#blockMenu-sidebar-close').css('left','315px');
+	});
+	
+	/*사이드바 type 클릭 이벤트 */
+	$(document).on('click','.blockMenu-sidebar-ul>li',function(){
+		if($('.blockMenu-sidebar-ul li').hasClass("active")){
+			$('.blockMenu-sidebar-ul > li').removeClass();
+		}
+		$(this).addClass("active");
+		thumnail($(this).index());
+	});
+	
+	/*썸네일 클릭 이벤트 */
+	$(document).on('click','.block-thumnail > li',function(){
+		$('.block-preview').html(useButton());
+		$('.block-preview').append(""
+				+"<div>"
+				+"<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>"
+				+"<strong contenteditable='true'>Eeco-BLog-NO1.Block </strong>"
+				+"<hr/>"
+				+"</div>");
+	});
+	
+	/*사용하기 버튼 클릭 이벤트 */
+	$(document).on('click','.use-block-button',function(){
+		$('.menu-wrapper').append(blockAddButtonTop());
+		$('.menu-wrapper').append("<section class='block-wrapper'>"+blockWrapper()+"</section>");
+		$('.menu-wrapper').append(blockAddButtonBottom());
+		$('.menu-wrapper').find('section').attr('data-block-no-',1);
+		$('.block-preview').empty();
+		$('.intro-block-wrapper').css('display','none');
 	});
 	
 	/*사이드바 close 버튼*/	
@@ -169,11 +151,19 @@ function blockAddButtonBottom(){
 /*블록 코드 가져오는 함수 */
 function blockWrapper(){
 	var blockWrapperCode= ""
-		+"<section class='block-wrapper'><div>"
+		+"<div>"
 		+"<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>"
 		+"<strong contenteditable='true'>Eeco-BLog-NO1.Block </strong>"
 		+"<hr/>"
-		+"</div>"
-		+"</section>";
+		+"</div>";
 	return blockWrapperCode;
+}
+/*사용하기 버튼 코드 함수 */
+function useButton(){
+	var useButtonCode = ""
+	+"<div class='use-block-button'>"
+	+"<i class='fa fa-check'></i>"
+	+"<span>사용하기</span>"
+	+"</div>";
+	return useButtonCode;
 }

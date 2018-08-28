@@ -3,6 +3,7 @@
  */
 
 $(function(){
+	/* 메뉴 펼치기 / 메뉴 열기 */
 	$(document).on('click', 'div.fold', function() {
 		$(this).next().css({"display":"block"});
 		$(this).removeClass('fold').addClass('unfold');
@@ -14,6 +15,7 @@ $(function(){
 		$(this).children('i.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-right');	
 	});
 	
+	/* 슬라이더 */
 	$(".range-slider").slider({
 		range: "max",
 		min: 1,
@@ -21,6 +23,17 @@ $(function(){
 		value: 50,
 		slide: function(event, ui) {
 			$(this).prev().children('.slider-result').text(ui.value);
+		}
+	});
+	
+	/* 파일 선택 */
+	$('#backgroundfile').change(function(){
+		var fileName = $(this).val();
+		if (fileName != '') {
+			$('span#backgroundfile-name').text(fileName);
+			$('.background-config .additional-option').each(function(index, item){
+				$(item).css('display', 'block');
+			});
 		}
 	});
 });
@@ -72,3 +85,6 @@ $('#element3').newColpick({
   variant: 'standard',
   
 });
+
+
+

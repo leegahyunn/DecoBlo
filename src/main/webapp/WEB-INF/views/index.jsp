@@ -196,7 +196,7 @@
 	            <a class="join" href="user/join">회원가입</a>
 	        </div>
 	        <div class="login-form user-form form-group">
-	            <input type="text" id="userEmail" name="userEmail" class="form-control valid" placeholder="이메일">
+	            <input type="text" id="userEmail" name="userEmail" class="form-control valid" placeholder="이메일" autocomplete="new-password">
 	            <input type="password" id="userPassword" name="userPassword" class="form-control valid" placeholder="비밀번호">
 	        	<div class="row">
 		        	<label class="forget col-md-12 col-sm-12 col-xs-12"><a href="/member/support/password_reset" data-lang="page.member.login-modal.password-reset">비밀번호를 잊으셨나요?</a></label>
