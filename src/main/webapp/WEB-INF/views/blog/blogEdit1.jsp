@@ -49,6 +49,7 @@
 	</ul>
 </div>
 </nav>
+<div id="mask"></div>
 <!-- 전체 블록 section 시작 -->
 <section id="blog-wrapper">
 	
@@ -64,9 +65,6 @@
 		</div>
 		
 		<section class="menu-wrapper" >
-		<!-- 블록 미리보기  -->
-				
-				<!-- 실제 블록 코드 들어갈 부분 -->
 		</section>
 		<div class="block-preview">
 				<!-- 사용하기 버튼 -->

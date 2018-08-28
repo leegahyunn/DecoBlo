@@ -1,5 +1,7 @@
 package com.decoblog.www.blog.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -55,9 +57,12 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping(value="getBlockContent",method=RequestMethod.POST)
 	public String getBlockContent(int blockTmpNo) {
-		System.out.println(blockTmpNo);
 		String blockContent = blogRepository.selectBlockContent(blockTmpNo);
-		System.out.println(blockContent);
+		try {
+			blockContent = URLEncoder.encode(blockContent, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return blockContent;
 	}
 	
