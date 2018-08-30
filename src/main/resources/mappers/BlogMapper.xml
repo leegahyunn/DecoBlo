@@ -4,7 +4,7 @@
 <mapper namespace="com.decoblog.www.blog.dao.BlogMapper">
 
 <resultMap id="selectMap" type="java.util.HashMap">
-	<id column="menuparent" property="menuParent"/>
+	<id column="menuParent" property="menuParent"/>
 	<collection property="Menu" javaType="java.util.ArrayList" resultMap="menus" />
 </resultMap>
 
@@ -28,5 +28,16 @@
 	ORDER BY 
 		menuparent, menuseq
 </select>
+
+<update id="updateMenu" parameterType="Menu">
+	UPDATE 
+		db_menu
+	SET
+		menuName = #{menuName}
+	WHERE
+		menuParent = #{menuParent}
+	AND 
+		menuSeq = #{menuSeq}
+</update>
 
 </mapper>
