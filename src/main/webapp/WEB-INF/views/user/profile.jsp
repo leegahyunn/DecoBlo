@@ -131,6 +131,19 @@ section.account div.left-three {
 textarea {
 	resize: none;
 }
+
+section.additional-info .left-two p {
+	text-align: center;
+}
+
+section.additional-info #update-profile {
+	margin: 10px 0;
+	padding: 8px 15px;
+	border: 0;
+	background-color: black;
+	color: #FFF;
+	float: right;
+}
 </style>
 
 
@@ -187,7 +200,7 @@ textarea {
 					</div>
 				</section>
 				<hr>
-				<section class="account">
+				<section class="account additional-info">
 					<div class="left-one">
 						<h3>추가 정보</h3>
 					</div>
@@ -198,7 +211,8 @@ textarea {
 						</div>
 					</div>
 					<div class="left-three">
-						<textarea id="profile-user-info" rows="4" cols="25"></textarea>
+						<textarea id="profile-user-info" rows="5" cols="25"></textarea>
+						<button id="update-profile">수정하기</button>
 					</div>
 				</section>
 

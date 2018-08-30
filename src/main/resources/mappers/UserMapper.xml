@@ -54,7 +54,11 @@
 <!-- User getProfile(String userNo); -->
 <select id="getProfile" parameterType="String" resultType="User">
 	SELECT 
-		userName, userEmail, userNickName, blogAddress, userProfileSavedName, userInfo
+		userName, userEmail, 
+		NVL("", userNickName) as userNickName 
+		NVL("", blogAddress) as blogAddress, 
+		NVL("", userProfileSavedName) as userProfileSavedName, 
+		NVL("", userInfo) as userInfo
 	FROM
 		db_user
 	WHERE
