@@ -179,7 +179,7 @@ function wrapByMask(){
 	var maskWidth = $('.templates-wrapper').width();
 	$('#mask').css({'width':maskWidth,'height':maskHeight});
 	$('#mask').fadeIn(500);
-	$('#mask').fadeTo("fast",0.8);
+	$('#mask').fadeTo("slow",0.8);
 }
 function getBlockCode(){
 	$('.block-preview').empty();
@@ -197,8 +197,10 @@ function getBlockCode(){
 			$('.block-preview').append(blockWrapperCode);
 			alert("2");
 			/*사용하기 버튼 클릭 이벤트 */
+			$('.use-block-button').off();
 			$(document).on('click','.use-block-button',function(){
 				alert("3");
+				console.log(blockWrapperCode);
 				$('.menu-wrapper').append(blockAddButtonTop());
 				$('.menu-wrapper').append("<section class='block-wrapper'>"+blockWrapperCode+"</section>");
 				$('.menu-wrapper').append(blockAddButtonBottom());
@@ -207,8 +209,11 @@ function getBlockCode(){
 				$('.blockMenu-sidebar-div').animate({'margin-left':'-315px'},'slow');
 				$('#blockMenu-sidebar-close').css('left','-50px');
 				$('#mask').hide();
-				 blockWrapperCode= "";
+				 blockWrapperCode= "";	
 				$('.block-preview').empty();
+				$(this).remove();
+				
+				return false;
 			});
 		}
 	});

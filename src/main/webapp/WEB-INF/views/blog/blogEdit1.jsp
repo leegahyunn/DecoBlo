@@ -37,6 +37,10 @@
 			<img  alt="구분선" src="resources/images/blockSettingimg/icon-divider.png">
 			<div>구분선</div>
 		</li>
+		<li class="">
+			<img  alt="게시판" src="resources/images/blockSettingimg/icon-forum.png">
+			<div>게시판</div>
+		</li>
 	</ul>
 	<!--  썸네일 쌓이는 부분 -->
 	<ul class="block-thumnail">
