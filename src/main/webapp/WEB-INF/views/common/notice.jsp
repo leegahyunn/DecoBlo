@@ -10,6 +10,11 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"/>
 <link rel="stylesheet" href="decoblo/css/helpPage.css" />
 <script src="resources/library/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+function writeBbs() { 	// 글쓰기로 이동
+	location.href = "${pageContext.request.contextPath}/writeBbs";
+}
+</script>
 <style type="text/css">
 	.table-wrapper {
 		margin: o auto;
@@ -78,35 +83,27 @@
 </head>
 <body class="landing">
 
-	<!-- Header -->
-		<header id="header" class="alt ">
-			<h1><a href="index.html">Decoblo</a></h1>
-			<nav id="nav">
+<header id="header" class="alt ">
+	<h1>
+		<a href="index.html">Deco <span>Blong</span></a>
+	</h1>
+	<nav id="nav">
+		<ul>
+			<li id="login">로그인</li>
+			<li><a href="user/join">무료회원가입</a></li>
+			<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
 				<ul>
-					<li><a href="login">로그인</a></li>
-					<li><a href="join">무료회원가입</a></li>
-					<li>
-						<a href="#"><i class="fas fa-angle-down"></i> 한국어(KO)</a>
-						
-						<ul>
-							<li><a href="#">한국어(KO)</a></li>
-							<li><a href="#">日本語(JP)</a></li>
-							
-							<li>
-								<a href="#">Submenu</a>
-								<ul>
-									<li><a href="#">Option 1</a></li>
-									<li><a href="#">Option 2</a></li>
-									<li><a href="#">Option 3</a></li>
-									<li><a href="#">Option 4</a></li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					
+					<li><a href="#">한국어(KO)</a></li>
+					<li><a href="#">日本語(JP)</a></li>
 				</ul>
-			</nav>
-		</header>
+			</li>
+			<li><a href="main">메인</a></li>
+			<li><a href="dashboard">대시보드</a></li>
+			<li><a href="config">블로그 수정</a></li>
+			<li><a href="customer">고객센터</a></li>	
+		</ul>
+	</nav>
+</header>
 
 
 
@@ -130,14 +127,16 @@
 	<div align="center"><!-- 큰div태그 -->	
 	 <!-- 일단 여기도 검색 기능 -->
 		<div align="right" style="width:1170px">
-			<form class="qalist" action="qalist">
+			<form class="qalist" action="bbsList" method="get">
+			
 				<select name="searchItem" class="searchItem" style="margin: 5px;">
+	
 	<!-- 여기 검색에는 작성자 검색 X => 특별히 필요할 것 같지 않아서 넣지 않음 -->
-					<option value="title" ${searchItem == 'title' ? 'selected':'' } >글제목</option>
-					<option value="content" ${searchItem == 'content' ? 'selected':'' } >내용</option>
+					<option value="bbsTitle" ${searchItem == 'bbsTitle' ? 'selected':'' } >글제목</option>
+					<option value="bbsContent" ${searchItem == 'bbsContent' ? 'selected':'' } >내용</option>
 				</select>
 				<input class="searchWord" type="text" name="searchWord" value="${searchWord }" style="margin: 5px;"/>
-				<input class="buttons" type="button" value="검색" style="line-height:normal; text-align: center; margin: 5px;"/>
+				<input class="buttons" type="submit" value="검색" style="line-height:normal; text-align: center; margin: 5px;"/>
 			</form>
 		</div>
 
@@ -150,35 +149,26 @@
 					<tr>
 						<th>No.</th>
 						<th>제목</th>
-						<th>작성자</th>
 						<th>작성일</th>
 					</tr>
 				</thead>
+				
 				<tbody>
-					<%-- 실제로 사용할 코드
-					<c:if test="${empty noticelist }">
-						<td colspan="5">작성된 글이 없습니다</td>
+					<c:if test="${empty bbsList }">
+						<td colspan="5" style="text-align:center;">작성된 글이 없습니다</td>
 					</c:if>
 					<!-- 이하 글 목록 반복 -->
-					<c:if test="${not empty noticelist }">
-					<c:forEach var="notice" items="${noticelist}" varStatus="status">
+					<c:if test="${not empty bbsList }">
+					<c:forEach var="bbs" items="${bbsList}" varStatus="status">
 						<tr>
 							<td class="center">${status.count + navi.startRecord}</td>
-							<td><a href="noticeDetail?noticenum=${notice.noticenum}">${notice.title}</a></td>
-							<td>${notice.userid}</td>
-							<td>${notice.regdate}</td>
+							<td><a href="bbsDetail?bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></td>
+							<td>${bbs.bbsRegDate}</td>
 						</tr>
 					</c:forEach>
-					</c:if> --%>
+					</c:if>
 					
 					
-					<!-- 일단 박아놓기 -->
-					<tr>
-						<td class="center">${status.count + navi.startRecord}</td>
-						<td><a href="noticeDetail?noticenum=${notice.noticenum}">안녕하세요 공지사항입니다.</a></td>
-						<td>snoopy</td>
-						<td>2018.08.16</td>
-					</tr>
 				</tbody>
 			</table>
 
@@ -199,7 +189,7 @@
 				</div>
 				<div class="right" align="right" style="width:1210px">
 					<!-- 관리자만 공지사항 등록 가능 c:if 사용하기 -->			
-					<input class="buttons" type="button" value="공지사항등록" style="line-height:normal; text-align: center; margin: 5px;"/>
+					<input class="buttons" type="button" value="공지사항등록" onclick="writeBbs()" style="line-height:normal; text-align: center; margin: 5px;"/>
 				</div>
 			</div>
 					

@@ -9,7 +9,7 @@
 		bbsNo
 		, boardNo
 		, bbsTitle
-		, bbsContent
+		, UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(bbsContent)) 
 		, bbsCount
 		, bbsLike
 		, bbsParent
@@ -26,24 +26,41 @@
 </select>
 
 <!-- 글 상세보기 -->
-<select id="selectOne" parameterType="int" resultType="Bbs">
+<select id="selectOneBbs" parameterType="int" resultType="Bbs">
 	SELECT
-		a.bbsNo
-		, a.bbsTitle
-		, a.bbsContent
-		, a.bbsCount
-		, a.bbsLike
-		, to_char(a.bbsRegdate, 'YYYY-MM-DD') AS bbsRegdate
-		, to_char(a.bbsEditDate, 'YYYY-MM-DD') AS bbsEditDate
-		, b.attachOriginalFile
-		, b.attachSavedFile
+		bbsNo
+		, boardNo
+		, bbsTitle
+		, (UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(bbsContent))) as bbsContent
+		, bbsCount
+		, bbsLike
+		, bbsParent
+		, bbsDepth
+		, bbsSeq
+		, to_char(bbsRegdate, 'YYYY-MM-DD') bbsRegdate
+		, to_char(bbsEditDate, 'YYYY-MM-DD') bbsEditDate
 	FROM 
-		DB_BBS a, DB_BBS_ATTACH b
+		DB_BBS
 	WHERE
-		a.bbsNo = b.attachBbsNo;
-		
+		bbsNo = #{bbsNo}
+	ORDER BY
+		bbsRegdate desc
 </select>
 
+<!-- 첨부파일 상세보기 -->
+<select id="selectOneBbsAttach" parameterType="int" resultType="BbsAttach">
+	SELECT
+		attachNo
+		, attachBbsNo 
+		, attachOriginalFile 
+		, attachSavedFile 
+	FROM
+		DB_BBS_ATTACH
+	WHERE
+		attachBbsNo = #{attachBbsNo}
+	ORDER BY
+		attachNo desc
+</select>
 
 <!-- 글 쓰기 -->
 <insert id="insertBbs" parameterType="Bbs">
@@ -52,6 +69,7 @@
 		, boardNo
 		, bbsTitle
 		, bbsContent
+        , bbsCount
 		, bbsLike
 		, bbsParent
 		, bbsDepth
@@ -62,15 +80,17 @@
 		db_bbs_seq.NEXTVAL
 		, #{boardNo}
 		, #{bbsTitle}
-		, #{bbsContent}
-		, #{bbsLike}
-		, #{bbsParent}
-		, #{bbsDepth}
-		, #{bbsSeq}
+		, UTL_RAW.CAST_TO_RAW(#{bbsContent})
+        , 0
+		, 0
+		, db_bbs_seq.NEXTVAL
+		, 0
+		, 0
 		, SYSDATE
-		, #{bbsEditDate}	
+		, SYSDATE	
 	)
 </insert>
+
 
 <!-- 첨부파일 넣기 -->
 <insert id="insertAttach" parameterType="BbsAttach">
@@ -88,6 +108,19 @@
 </insert>
 
 
+<!-- 글 수정 -->
+<update id="updateBbs" parameterType="Bbs">
+	UPDATE 
+		db_bbs 
+	SET
+		bbsTitle  = #{bbsTitle}
+		, bbsContent = UTL_RAW.CAST_TO_RAW(#{bbsContent})
+		, bbsEditDate = sysdate
+	WHERE
+		bbsNo = #{bbsNo}
+</update>
+
+
 <!-- 첨부파일 수정 -->
 <update id="updateBbsAttach" parameterType="BbsAttach">
 	UPDATE 
@@ -101,22 +134,12 @@
 </update>
 
 
-<!-- 글 수정 -->
-<update id="updateBbs" parameterType="Bbs">
-	UPDATE 
-		db_bbs 
-	SET
-		bbsTitle  = #{bbsTitle}
-		, bbsContent = #{bbsContent}
-		, bbsEditDate = sysdate
-	WHERE
-		bbsNo = #{bbsNo}
-</update>
+
 
 
 
 <!-- 글 삭제 -->
-<delete id="deleteBbs" parameterType="Bbs">
+<delete id="deleteBbs" parameterType="int">
 	DELETE FROM 
 		db_bbs
 	WHERE
@@ -126,9 +149,9 @@
 <!-- 첨부파일 삭제 -->
 <delete id="deleteBbsAttach" parameterType="BbsAttach">
 	DELETE FROM 
-		db_bbs_attach
+		DB_BBS_ATTACH
 	WHERE
-		bbsNo = #{bbsNo}
+		attachBbsNo = #{attachBbsNo}
 </delete>
 
 <!-- 전체 글 개수 조회 -->
@@ -136,7 +159,7 @@
 	SELECT
 		count(*)
 	FROM
-		db_bbs
+		DB_BBS
 	WHERE
 		${searchItem} like '%' || #{searchWord} || '%'
 </select>
@@ -144,12 +167,20 @@
 <!-- 조회수 +1 -->
 <update id="updateBbsCount" parameterType="int">
 	UPDATE 
-		db_bbs 
+		DB_BBS 
 	SET
 		bbsCount = bbsCount+1
 	WHERE
 		bbsNo = #{bbsNo}
 </update>
+
+
+
+<!-- 댓글 -->
+
+<!-- 댓글 목록 -->
+
+
 
 
 
