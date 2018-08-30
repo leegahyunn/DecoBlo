@@ -32,13 +32,13 @@ public class HomeController {
 	// 박치현
 	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
 	public String chtest() {
-		return "user/pop_login";
+		return "blog/blockConfig";
 	}
 	
 	// 이가현
 	@RequestMapping(value = "/ghtest", method = RequestMethod.GET)
 	public String ghtest() {
-		return "blog/metaEdit";
+		return "redirect:/bbsList";
 	}
 	
 	// 최용락
