@@ -28,4 +28,22 @@ public class BlogRepository {
 		
 		return result;
 	}
+	
+	
+	
+	/*
+	 * 블록 썸네일 가져오기
+	 * */
+	public List<Integer> selectThumnail(String tmpType){
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		List<Integer> blockNoList= mapper.selectThumnail(tmpType);
+		return blockNoList;
+	}
+	
+	/*블록 코드 가져오기*/
+	public String selectBlockContent(int blockTemplateNo) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		String blockContent = mapper.selectBlockContent(blockTemplateNo);
+		return blockContent;
+	}
 }

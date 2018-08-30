@@ -11,8 +11,9 @@ $(function(){
 		}
 		$('.blockMenu-sidebar-ul > li').first().addClass("active");
 		thumnail(0);
-		$('.blockMenu-sidebar-div').css("margin-left",'0px');
+		$('.blockMenu-sidebar-div').animate({'margin-left':'0px'},'slow');
 		$('#blockMenu-sidebar-close').css('left','315px');
+		wrapByMask();
 	});
 	
 	/*블록 추가 버튼 */
@@ -24,6 +25,20 @@ $(function(){
 		thumnail(0);
 		$('.blockMenu-sidebar-div').css("margin-left",'0px');
 		$('#blockMenu-sidebar-close').css('left','315px');
+		wrapByMask();
+	});
+	
+	/*사이드바 close 버튼*/	
+	$('#blockMenu-sidebar-close').on('click',function(){
+		$('.use-block-button').css('display','none');
+		if($('.blockMenu-sidebar-ul > li').hasClass("active")){
+			$('.blockMenu-sidebar-ul > li').removeClass();
+		}
+		$('.blockMenu-sidebar-div').animate({'margin-left':'-315px'},'slow');
+		$('#blockMenu-sidebar-close').css('left','-50px');
+		$('.block-thumnail > li').remove();
+		$('#mask').hide();
+		$('.block-preview').empty();
 	});
 	
 	/*사이드바 type 클릭 이벤트 */
@@ -37,38 +52,11 @@ $(function(){
 	
 	/*썸네일 클릭 이벤트 */
 	$(document).on('click','.block-thumnail > li',function(){
-		$('.block-preview').html(useButton());
-		$('.block-preview').append(""
-				+"<div>"
-				+"<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>"
-				+"<strong contenteditable='true'>Eeco-BLog-NO1.Block </strong>"
-				+"<hr/>"
-				+"</div>");
-	});
-	
-	/*사용하기 버튼 클릭 이벤트 */
-	$(document).on('click','.use-block-button',function(){
-		$('.menu-wrapper').append(blockAddButtonTop());
-		$('.menu-wrapper').append("<section class='block-wrapper'>"+blockWrapper()+"</section>");
-		$('.menu-wrapper').append(blockAddButtonBottom());
-		$('.menu-wrapper').find('section').attr('data-block-no-',1);
-		$('.block-preview').empty();
-		$('.intro-block-wrapper').css('display','none');
-	});
-	
-	/*사이드바 close 버튼*/	
-	$('#blockMenu-sidebar-close').on('click',function(){
-		$('.use-block-button').css('display','none');
-		if($('.blockMenu-sidebar-ul > li').hasClass("active")){
-			$('.blockMenu-sidebar-ul > li').removeClass();
-		}
-		$('.blockMenu-sidebar-div').css("margin-left",'-315px');
-		$('#blockMenu-sidebar-close').css('left','-50px');
-		$('.block-thumnail > li').remove();
+		getBlockCode();
 	});
 	
 	/*블록 마우스 이벤트*/
-	$(document).on('mouseenter','.block-wrapper',function(){
+	$(document).on('mouseenter','.block-wrapper>div',function(){
 		$('.add-button').css('display','block');
 		$(this).css("border-style","solid");
 		$(this).css("border-color","#0073AC");
@@ -81,6 +69,13 @@ $(function(){
 		$('.block-setting-cover').css("border-style","none");
 	});
 	
+	/*마스크 클릭 이벤트*/
+	$(document).on('click','#mask',function(){
+		$(this).hide();
+		$('.blockMenu-sidebar-div').animate({'margin-left':'-315px'},'slow');
+		$('#blockMenu-sidebar-close').css('left','-50px');
+		$('.block-preview').empty();
+	})
 });
 /*첫화면 css */
 function firstcss(){
@@ -92,34 +87,32 @@ function firstcss(){
 function thumnail(index){
 	switch(index){
 	case 0 :
-		$('.block-thumnail >li').remove();
-		$('.block-thumnail').html("" 
-			+"<li class='block-no "+index+""+1+"'>"
-			+"<img alt='test1' src='resources/images/blockThumnail/block1.PNG'>"
-			+"</li>"
-		);
+		var data = 'tmpType=showcase';
+		getBlockNo(data);
 		break;
 	case 1 :
-		$('.block-thumnail >li').remove();
-		$('.block-thumnail').html(""
-			+"<li class='block-no "+index+""+1+"'>"
-			+"<img alt='test1' src='resources/images/blockThumnail/block2.png'>"
-			+"</li>"
-			+"<li class='block-no "+index+""+2+"'>"
-			+"<img alt='test2' src='resources/images/blockThumnail/block-0.png'>"
-			+"</li>"
-		);
+		var data = 'tmpType=title';
+		getBlockNo(data);
 		break;
 	case 2 :
-		$('.block-thumnail >li').remove();
-		$('.block-thumnail').html(""
-			+"<li class='block-no "+index+""+1+"'>"
-			+"<img alt='test1' src='resources/images/blockThumnail/block3.png'>"
-			+"</li>"
-			+"<li class='block-no "+index+""+2+"'>"
-			+"<img alt='test2' src='resources/images/blockThumnail/block-1.png'>"
-			+"</li>"
-		);
+		var data = 'tmpType=contents';
+		getBlockNo(data);
+		break;
+	case 3 : 
+		var data = 'tmpType=text';
+		getBlockNo(data);
+		break;
+	case 4 : 
+		var data = 'tmpType=image';
+		getBlockNo(data);
+		break;
+	case 5 : 
+		var data = 'tmpType=line';
+		getBlockNo(data);
+		break;
+	case 6 : 
+		var data = 'tmpType=board';
+		getBlockNo(data);
 		break;
 	default :
 		$('.block-thumnail >li').remove();
@@ -148,15 +141,28 @@ function blockAddButtonBottom(){
 		+"</div></li></ul>";
 	return blockAddButtonBottom;
 }
+/*Type 별 블록 넘버 가져오는 함수 */
+function getBlockNo(data){
+$.ajax({
+	method:'POST'
+	, url:'getThumnail'
+	, data: data
+	,success:function(rep){
+		console.log(rep.length);
+		$('.block-thumnail >li').remove();
+		for(var i=0; i< rep.length; i++){
+			$('.block-thumnail').html(""
+			+"<li data-block-no="+rep[i]+">"
+			+"<img alt='test1' src='resources/images/blockThumnail/block"+rep[i]+".png'>"
+			+"</li>");
+		}
+	}
+});
+}
 /*블록 코드 가져오는 함수 */
 function blockWrapper(){
-	var blockWrapperCode= ""
-		+"<div>"
-		+"<h1>1번 블록 1번 블록 1번 블록 1번 블록</h1>"
-		+"<strong contenteditable='true'>Eeco-BLog-NO1.Block </strong>"
-		+"<hr/>"
-		+"</div>";
-	return blockWrapperCode;
+		var blockWrapperCode = "";
+	
 }
 /*사용하기 버튼 코드 함수 */
 function useButton(){
@@ -166,4 +172,49 @@ function useButton(){
 	+"<span>사용하기</span>"
 	+"</div>";
 	return useButtonCode;
+}
+/*mask 함수*/
+function wrapByMask(){
+	var maskHeight= $('.templates-wrapper').height();
+	var maskWidth = $('.templates-wrapper').width();
+	$('#mask').css({'width':maskWidth,'height':maskHeight});
+	$('#mask').fadeIn(500);
+	$('#mask').fadeTo("slow",0.8);
+}
+function getBlockCode(){
+	$('.block-preview').empty();
+	$('.block-preview').append(useButton());
+	alert("1");
+	var blockWrapperCode = "";
+	var blockTmpNo = $('.block-thumnail > li').attr('data-block-no');
+	$.ajax({
+		method:'POST'
+		,url:'getBlockContent'
+		,async: false
+		,data : 'blockTmpNo='+blockTmpNo+''
+		,success:function(response){
+			blockWrapperCode = decodeURIComponent(response).replace(/\+/g, " ");
+			$('.block-preview').append(blockWrapperCode);
+			alert("2");
+			/*사용하기 버튼 클릭 이벤트 */
+			$('.use-block-button').off();
+			$(document).on('click','.use-block-button',function(){
+				alert("3");
+				console.log(blockWrapperCode);
+				$('.menu-wrapper').append(blockAddButtonTop());
+				$('.menu-wrapper').append("<section class='block-wrapper'>"+blockWrapperCode+"</section>");
+				$('.menu-wrapper').append(blockAddButtonBottom());
+				$('.menu-wrapper').find('section').attr('data-block-no',blockTmpNo);
+				$('.intro-block-wrapper').css('display','none');
+				$('.blockMenu-sidebar-div').animate({'margin-left':'-315px'},'slow');
+				$('#blockMenu-sidebar-close').css('left','-50px');
+				$('#mask').hide();
+				 blockWrapperCode= "";	
+				$('.block-preview').empty();
+				$(this).remove();
+				
+				return false;
+			});
+		}
+	});
 }
