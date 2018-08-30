@@ -35,4 +35,11 @@ public interface UserMapper {
 	 */
 	int emailConfirm(String userEmail, String key);
 
+	/**
+	 * 유저 정보 가져오기
+	 * @param userNo 가져올 유저의 고유 번호
+	 * @return 유저 정보
+	 */
+	User getProfile(String userNo);
+
 }

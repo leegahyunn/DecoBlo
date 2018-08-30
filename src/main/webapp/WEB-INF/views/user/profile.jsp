@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="pixelarity/assets/css/main.css" />
+<link rel="stylesheet" href="../pixelarity/assets/css/main.css" />
 
 <style>
 .top {
@@ -172,7 +172,6 @@ textarea {
 				<section class="account">
 					<div class="left-one">
 						<h3>계정 정보</h3>
-						<p>[변경 불가]</p>
 					</div>
 					<div class="left-two">
 						<p>이름</p>
@@ -181,10 +180,10 @@ textarea {
 						<p>도메인</p>												
 					</div>
 					<div class="left-three">
-						<p>관리자</p>
-						<p>admin@decoblo.com</p>
-						<p>관리자</p>
-						<p>admin</p>
+						<p id="profile-user-name">관리자</p>
+						<p id="profile-user-email">admin@decoblo.com</p>
+						<p id="profile-user-nickname">관리자</p>
+						<p id="profile-user-blog-address">admin</p>
 					</div>
 				</section>
 				<hr>
@@ -194,12 +193,12 @@ textarea {
 					</div>
 					<div class="left-two">
 						<div>
-							<img src="decoblo/images/profile-mypage.jpg">
+							<img id="profile-user-image" src="../decoblo/images/profile-mypage.jpg">
 							<p>사진 수정</p>
 						</div>
 					</div>
 					<div class="left-three">
-						<textarea rows="4" cols="25"></textarea>
+						<textarea id="profile-user-info" rows="4" cols="25"></textarea>
 					</div>
 				</section>
 
@@ -227,16 +226,38 @@ textarea {
 	</footer>
 
 	<!-- Scripts -->
-	<script src="pixelarity/assets/js/jquery.min.js"></script>
-	<script src="pixelarity/assets/js/jquery.dropotron.min.js"></script>
-	<script src="pixelarity/assets/js/jquery.scrollgress.min.js"></script>
-	<script src="pixelarity/assets/js/jquery.scrolly.min.js"></script>
-	<script src="pixelarity/assets/js/jquery.slidertron.min.js"></script>
-	<script src="pixelarity/assets/js/skel.min.js"></script>
-	<script src="pixelarity/assets/js/util.js"></script>
-	<!--[if lte IE 8]><script src="pixelarity/assets/js/ie/respond.min.js"></script><![endif]-->
-	<script src="pixelarity/assets/js/main.js"></script>
-	
+	<script src="../pixelarity/assets/js/jquery.min.js"></script>
+	<script src="../pixelarity/assets/js/jquery.dropotron.min.js"></script>
+	<script src="../pixelarity/assets/js/jquery.scrollgress.min.js"></script>
+	<script src="../pixelarity/assets/js/jquery.scrolly.min.js"></script>
+	<script src="../pixelarity/assets/js/jquery.slidertron.min.js"></script>
+	<script src="../pixelarity/assets/js/skel.min.js"></script>
+	<script src="../pixelarity/assets/js/util.js"></script>
+	<script src="../pixelarity/assets/js/main.js"></script>
+
+	<script>
+		$(function(){
+			printUserProfile();
+		});
 		
-	
+		function printUserProfile() {
+			$.ajax({
+				url: 'profile',
+				method: 'post',
+				contentType: 'application/json; charset=utf-8',
+				success: function(resp){
+					$('#profile-user-name').text(resp.userName);
+					$('#profile-user-email').text(resp.userEmail);
+					$('#profile-user-nickname').text(resp.userNickName);
+					$('#profile-user-blog-address').text(resp.blogAddress);
+					if (resp.userProfileSavedName != null) {
+						$('#profile-user-image').attr('src', '../upload/profile/'+resp.userProfileSavedName);
+					} else {
+						$('#profile-user-image').attr('src', '../upload/profile/default.jpg');
+					}
+					$('#profile-user-info').text(resp.userInfo);
+				}
+			});
+		};
+	</script>	
 </html>

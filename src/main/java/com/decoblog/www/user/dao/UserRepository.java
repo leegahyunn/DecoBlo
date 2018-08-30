@@ -46,12 +46,15 @@ public class UserRepository {
 			sendMail = new MailHandler(mailSender);
 			sendMail.setSubject("[DecoBlo 서비스 이메일 인증]");
 			sendMail.setText(
-			new StringBuffer().append("<h1>메일인증</h1>")
-				.append("<a href='http://localhost:48080/www/user/emailConfirm?userEmail=")
-				.append(vo.getUserEmail())
-				.append("&key=")
-				.append(key)
-				.append("' target='_blenk'>이메일 인증 확인</a>").toString());
+					new StringBuffer()
+						.append("<h1>메일인증</h1>")
+						.append("<a href='http://localhost:48080/www/user/emailConfirm?userEmail=")
+						.append(vo.getUserEmail())
+						.append("&key=")
+						.append(key)
+						.append("' target='_blenk'>이메일 인증 확인</a>")
+						.toString()
+					);
 			sendMail.setFrom("decoblo35@gmail.com", "데코브로");
 			sendMail.setTo(vo.getUserEmail());
 			sendMail.send();
@@ -73,6 +76,15 @@ public class UserRepository {
 		
 		UserMapper mapper = session.getMapper(UserMapper.class);
 		mapper.emailConfirm(userEmail, key);
+		
+		return result;
+	}
+
+	public User getProfile(String userNo) {
+		User result = null;
+		
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		result = mapper.getProfile(userNo);
 		
 		return result;
 	}

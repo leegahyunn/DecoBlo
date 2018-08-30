@@ -113,7 +113,7 @@
 			<ul>
 				<li><a href="#" class="icon fa-angle-down">이준호님</a>
 					<ul>
-						<li><a href="#">계정설정</a></li>
+						<li><a href="user/profile">계정설정</a></li>
 						<li><a href="#">내 블로그</a></li>
 						<li><a href="#">대시보드</a></li>
 						<li><a href="#">1대1 문의</a></li>

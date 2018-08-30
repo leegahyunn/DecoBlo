@@ -50,4 +50,15 @@
 		usertmppassword = #{1}
 </update>
 
+<!-- 유저 프로필 가져오기 -->
+<!-- User getProfile(String userNo); -->
+<select id="getProfile" parameterType="String" resultType="User">
+	SELECT 
+		userName, userEmail, userNickName, blogAddress, userProfileSavedName, userInfo
+	FROM
+		db_user
+	WHERE
+		userNo = #{userNo}
+</select>
+
 </mapper>
