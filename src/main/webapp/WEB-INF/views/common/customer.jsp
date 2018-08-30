@@ -78,34 +78,26 @@
 <link rel="stylesheet" href="decoblo/css/customer.css" />
 </head>
 <body class="landing">
-
-<!-- Header -->
 <header id="header" class="alt ">
-	<h1><a href="index.html">Decoblo</a></h1>
+	<h1>
+		<a href="index.html">Deco <span>Blong</span></a>
+	</h1>
 	<nav id="nav">
 		<ul>
-			<li><a href="login">로그인</a></li>
-			<li><a href="join">무료회원가입</a></li>
-			<li>
-				<a href="#" class="icon fa-angle-down">한국어(KO)</a>
+			<li id="login">로그인</li>
+			<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
 				<ul>
-					<li><a href="#">한국어(KO)</a></li>
+				<li><a href="#">한국어(KO)</a></li>
 					<li><a href="#">日本語(JP)</a></li>
-					
-					<li>
-						<a href="#">Submenu</a>
-						<ul>
-							<li><a href="#">한국어(KO)</a></li>
-							<li><a href="#">日本語(JP)</a></li>
-						</ul>
-					</li>
 				</ul>
 			</li>
-			
+			<li><a href="main">메인</a></li>
+			<li><a href="dashboard">대시보드</a></li>
+			<li><a href="config">블로그 수정</a></li>
+			<li><a href="customer">고객센터</a></li>	
 		</ul>
 	</nav>
 </header>
-
 
 
 <!-- 소개 사진 -->

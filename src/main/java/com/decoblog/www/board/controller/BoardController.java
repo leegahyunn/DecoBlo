@@ -32,10 +32,10 @@ public class BoardController {
 	final int PAGE_PER_GROUP = 5;
 	
 	// 글 목록 화면 요청
-	@RequestMapping(value="/listBbs", method=RequestMethod.GET)
+	@RequestMapping(value="/bbsList", method=RequestMethod.GET)
 	public String listboard(Model model,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
-			@RequestParam(value = "searchItem", defaultValue = "title") String searchItem,
+			@RequestParam(value = "searchItem", defaultValue = "bbsTitle") String searchItem,
 			@RequestParam(value = "searchWord", defaultValue = "") String searchWord) {
 		
 		// Repository로 넘겨주기
@@ -59,17 +59,25 @@ public class BoardController {
 	
 	// 글 상세보기
 	@RequestMapping(value="/bbsDetail", method=RequestMethod.GET)
-	public String selectOneBbs(Model model, int boardNo, int bbsNo) {
+	public String selectOneBbs(Model model, int bbsNo, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value = "searchItem", defaultValue = "bbsTitle") String searchItem,
+			@RequestParam(value = "searchWord", defaultValue = "") String searchWord) {
 		
 		Bbs bbsDetail = repository.selectOneBbs(bbsNo);
 		
 		// 조회수 +1 
 		repository.updateBbsCount(bbsNo);
 		
+		// 글목록
+		int totalRecordCount = repository.getTotalBbs(searchItem, searchWord);
+		PageNavigator navi = new PageNavigator(currentPage, totalRecordCount);
+				
+		List<Bbs> bbsList = repository.select(searchItem, searchWord, navi.getStartRecord(), navi.getCountPerPage());
 		
+		model.addAttribute("bbsList", bbsList);
 		model.addAttribute("bbsDetail", bbsDetail);
 		
-		return "common/notice";
+		return "common/bbsDetail";
 	}
 	
 	
@@ -77,14 +85,14 @@ public class BoardController {
 	@RequestMapping(value="/writeBbs", method=RequestMethod.GET)
 	public String writeBbs() {
 		
-		return "common/noticeWrite";
+		return "common/bbsWrite";
 	}
 	
 	// 글쓰기 + 첨부파일 DB
 	@RequestMapping(value="/writeBbs", method=RequestMethod.POST)
-	public String writeBbs(Bbs bbs, BbsAttach bbsAttach, MultipartFile upload, HttpSession session) {
+	public String writeBbs(Bbs bbs) {
 		
-		String userid = (String) session.getAttribute("loginId");
+/*		String userid = (String) session.getAttribute("loginId");
 		
 		String savedFileName = FileService.saveFile(upload, uploadPath);
 		String originalFileName = upload.getOriginalFilename();
@@ -95,11 +103,11 @@ public class BoardController {
 			bbsAttach.setAttachOriginalFile(originalFileName);
 			
 			repository.insertBbsAttach(bbsAttach);
-		}
-		
+		}*/
+;
 		repository.insertBbs(bbs);
 		
-		return "redirect:listBbs";
+		return "redirect:bbsList";
 	}
 	
 	
@@ -110,10 +118,10 @@ public class BoardController {
 	@RequestMapping(value="/updateBbs", method=RequestMethod.GET)
 	public String updateBbs(Model model, int bbsNo) {
 		
-		Bbs bbsupdate = repository.selectOneBbs(bbsNo);
-		model.addAttribute("bbsupdate", bbsupdate);
+		Bbs bbsUpdate = repository.selectOneBbs(bbsNo);
+		model.addAttribute("bbsUpdate", bbsUpdate);
 		
-		return "common/noticeUpdate";
+		return "common/bbsUpdate";
 	}
 	
 	// 글 수정 DB
@@ -121,11 +129,14 @@ public class BoardController {
 	public String updateBbs(Bbs bbs, MultipartFile upload) {
 		
 		// 수정할 글 가져오기
-		Bbs bbsupdate = repository.selectOneBbs(bbs.getBbsNo());
+		Bbs bbsUpdate = repository.selectOneBbs(bbs.getBbsNo());
+		
+		// 수정한 글 넣어주기
+		repository.updateBbs(bbs);
 		
 		// 만약 첨부파일 있을 시 
 		
-		return "redirect:listBbs";
+		return "redirect:bbsList";
 	}
 
 	
@@ -135,11 +146,18 @@ public class BoardController {
 	@RequestMapping(value="/deleteBbs", method=RequestMethod.GET)
 	public String deleteBbs(int bbsNo) {
 		
-		Bbs bbs = repository.selectOneBbs(bbsNo);
+		// Bbs bbs = repository.selectOneBbs(bbsNo);
+		
+		System.out.println(bbsNo);
+		
+		int result = repository.deleteBbs(bbsNo);
+		
+		
+		
 		
 		// 첨부파일 삭제
 
-		return "redirect:listBbs";
+		return "redirect:bbsList";
 	}
 	
 	

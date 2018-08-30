@@ -9,7 +9,7 @@
 		bbsNo
 		, boardNo
 		, bbsTitle
-		, bbsContent
+		, UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(bbsContent)) 
 		, bbsCount
 		, bbsLike
 		, bbsParent
@@ -29,12 +29,16 @@
 <select id="selectOneBbs" parameterType="int" resultType="Bbs">
 	SELECT
 		bbsNo
+		, boardNo
 		, bbsTitle
-		, bbsContent
+		, (UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(bbsContent))) as bbsContent
 		, bbsCount
 		, bbsLike
-		, to_char(bbsRegdate, 'YYYY-MM-DD') AS bbsRegdate
-		, to_char(bbsEditDate, 'YYYY-MM-DD') AS bbsEditDate
+		, bbsParent
+		, bbsDepth
+		, bbsSeq
+		, to_char(bbsRegdate, 'YYYY-MM-DD') bbsRegdate
+		, to_char(bbsEditDate, 'YYYY-MM-DD') bbsEditDate
 	FROM 
 		DB_BBS
 	WHERE
@@ -65,6 +69,7 @@
 		, boardNo
 		, bbsTitle
 		, bbsContent
+        , bbsCount
 		, bbsLike
 		, bbsParent
 		, bbsDepth
@@ -75,15 +80,17 @@
 		db_bbs_seq.NEXTVAL
 		, #{boardNo}
 		, #{bbsTitle}
-		, #{bbsContent}
-		, #{bbsLike}
-		, #{bbsParent}
-		, #{bbsDepth}
-		, #{bbsSeq}
+		, UTL_RAW.CAST_TO_RAW(#{bbsContent})
+        , 0
+		, 0
+		, db_bbs_seq.NEXTVAL
+		, 0
+		, 0
 		, SYSDATE
-		, #{bbsEditDate}	
+		, SYSDATE	
 	)
 </insert>
+
 
 <!-- 첨부파일 넣기 -->
 <insert id="insertAttach" parameterType="BbsAttach">
@@ -107,7 +114,7 @@
 		db_bbs 
 	SET
 		bbsTitle  = #{bbsTitle}
-		, bbsContent = #{bbsContent}
+		, bbsContent = UTL_RAW.CAST_TO_RAW(#{bbsContent})
 		, bbsEditDate = sysdate
 	WHERE
 		bbsNo = #{bbsNo}
@@ -132,7 +139,7 @@
 
 
 <!-- 글 삭제 -->
-<delete id="deleteBbs" parameterType="Bbs">
+<delete id="deleteBbs" parameterType="int">
 	DELETE FROM 
 		db_bbs
 	WHERE
@@ -166,6 +173,14 @@
 	WHERE
 		bbsNo = #{bbsNo}
 </update>
+
+
+
+<!-- 댓글 -->
+
+<!-- 댓글 목록 -->
+
+
 
 
 
