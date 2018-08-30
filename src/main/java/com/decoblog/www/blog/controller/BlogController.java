@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.decoblog.www.blog.dao.BlogRepository;
 import com.decoblog.www.blog.vo.BlockTemplate;
 import com.decoblog.www.blog.vo.Menu;
+import com.google.gson.Gson;
 
 @Controller
 public class BlogController {
@@ -32,19 +34,39 @@ public class BlogController {
 	}
 	
 	/**
-	 * 메뉴 수정 Ajax
+	 * 메뉴 불러오기 Ajax
 	 * DB에 저장된 메뉴를 가져와서 JSP에 넘겨줌
-	 * @param model Ques.Ajax에서 model 써야 하나요?
 	 * @return ArrayList<HashMap<String, ArrayList<Menu>>> JSON
 	 */
+//	@ResponseBody
+//	@RequestMapping(value = "/menuConfig", method = RequestMethod.POST)
+//	public ArrayList<Menu> menuConfig() {
+//		ArrayList<HashMap<String, ArrayList<Menu>>> list= blogRepository.selectMenu();
+//		ArrayList<Menu> menuList = new ArrayList<Menu>();
+//		for(int i = 0; i<list.size(); i++) {
+//			for(int j = 0; j<list.get(i).get("Menu").size(); j++) {
+//				menuList.add(list.get(i).get("Menu").get(j));
+//			}
+//		}
+//		return menuList;
+//	}
 	@ResponseBody
 	@RequestMapping(value = "/menuConfig", method = RequestMethod.POST)
-	public ArrayList<Menu> menuConfig(Model model) {
+	public String menuConfig() {
 		ArrayList<HashMap<String, ArrayList<Menu>>> list= blogRepository.selectMenu();
-		System.out.println(list);
-		System.out.println(list.get(0).get("Menu").get(0));
-		
-		return list.get(0).get("Menu");
+		Gson gson = new Gson();
+		String result = gson.toJson(list);
+		return result;
+	}
+	/**
+	 * 메뉴 수정 Ajax
+	 * @return 블로그 수정 페이지
+	 */
+	@RequestMapping(value = "/editMenu", method = RequestMethod.POST)
+	public String editMenu(@RequestBody Menu menu) {
+		System.out.println(menu); 
+		blogRepository.updateMenu(menu);
+		return "blog/config";
 	}
 	
 	@ResponseBody

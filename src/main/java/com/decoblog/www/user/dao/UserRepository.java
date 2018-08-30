@@ -30,7 +30,7 @@ public class UserRepository {
 		UserMapper mapper = session.getMapper(UserMapper.class);
 		User result = mapper.login(user);
 		return result;
-	}
+	} 
 	
 	public void create(User vo) {
 		UserMapper mapper = session.getMapper(UserMapper.class);

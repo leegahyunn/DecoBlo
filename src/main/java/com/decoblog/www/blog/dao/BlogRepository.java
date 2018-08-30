@@ -29,7 +29,15 @@ public class BlogRepository {
 		return result;
 	}
 	
-	
+	/**
+	 * 메뉴 타이틀 수정
+	 * @return 성공 여부
+	 */
+	public int updateMenu(Menu menu) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateMenu(menu);
+		
+		return result;
 	
 	/*
 	 * 블록 썸네일 가져오기
