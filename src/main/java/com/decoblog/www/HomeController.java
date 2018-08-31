@@ -29,26 +29,10 @@ public class HomeController {
 	}
 	
 	
-<<<<<<< HEAD
-	@RequestMapping(value = "/config", method = RequestMethod.GET)
-	public String config() {
-		return "blog/config";
-	}
-	
+
 	
 	
 
-	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
-	public String chtest() {
-		
-		return "user/pop_login";
-	}
-
-
-	@RequestMapping(value = "/view", method = RequestMethod.GET)
-	public String view() {
-		return "common/dashboard";
-	}
 	@RequestMapping(value = "/view2", method = RequestMethod.GET)
 	public String view2(){
 			return "common/main";
@@ -56,9 +40,7 @@ public class HomeController {
 		
 	}
 
-	@RequestMapping(value = "/metaEdit", method = RequestMethod.GET)
-	public String idCheck() {
-=======
+
 	/**************************************/
 	/* 테스트 컨트롤러; 테스트는 여기서 ! */
 	/**************************************/
@@ -71,7 +53,7 @@ public class HomeController {
 	// 이가현
 	@RequestMapping(value = "/ghtest", method = RequestMethod.GET)
 	public String ghtest() {
->>>>>>> 561b93f1eeb6da5b5c435b5c3518de0ad44ed89f
+
 		return "blog/metaEdit";
 	}
 	
@@ -81,17 +63,15 @@ public class HomeController {
 		return "blog/blogEdit1";
 	}
 	
-	@RequestMapping(value = "/test1", method = RequestMethod.GET)
-	public String test1() {
+	
 	// 안정민
 	@RequestMapping(value = "/jmtest", method = RequestMethod.GET)
 	public String jmtest() {
 		return "blog/test";
 	}
-<<<<<<< HEAD
 
-@RequestMapping(value="/titleTest1",method=RequestMethod.GET)
-=======
+
+
 	
 	// 이준호
 	@RequestMapping(value = "/jhtest", method = RequestMethod.GET)
@@ -107,8 +87,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value="/titleTest1",method=RequestMethod.GET)
->>>>>>> 561b93f1eeb6da5b5c435b5c3518de0ad44ed89f
-	public String titleTest1() {
+public String titleTest1() {
 		return "templates/title/titleTest1";
 	}
 

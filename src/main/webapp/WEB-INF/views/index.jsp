@@ -4,10 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<<<<<<< HEAD
-
-=======
->>>>>>> 561b93f1eeb6da5b5c435b5c3518de0ad44ed89f
 <title>DecoBlo - Create Your Own Blog</title>
 <style type="text/css">
 </style>
@@ -21,14 +17,11 @@
 	<!-- Header -->
 	<header id="header" class="alt ">
 		<h1>
-			<a href="#">Deco <span>Blong</span></a>
 			<a href="index.html">Deco <span>Blong</span></a>
 		</h1>
 		<nav id="nav">
 			<ul>
-				<li><a href="login">로그인</a></li>
 				<li id="login">로그인</li>
-				<li><a href="join">무료회원가입</a></li>
 				<li><a href="user/join">무료회원가입</a></li>
 				<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
 					<ul>
@@ -36,10 +29,15 @@
 						<li><a href="#">日本語(JP)</a></li>
 					</ul>
 				</li>
-				<li><a href="main">메인</a></li>
-				<li><a href="dashboard">대시보드</a></li>
-				<li><a href="config">블로그 수정</a></li>
-				<li><a href="customer">고객센터</a></li>	
+				<li><a href="#" class="icon fa-angle-down">테스트</a>
+					<ul>
+						<li><a href="main">메인</a></li>
+						<li><a href="customer">정보수정</a></li>
+						<li><a href="dashboard">대시보드</a></li>
+						<li><a href="config">블로그 수정</a></li>
+						<li><a href="customer">고객센터</a></li>						
+					</ul>
+				</li>	
 
 			</ul>
 		</nav>
@@ -177,8 +175,6 @@
 		<ul class="icons">
 			<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
 			<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-			<li><a href="#" class="icon fa-instagram"><span
-					class="label">Instagram</span></a></li>
 			<li><a href="#" class="icon fa-instagram"><span	class="label">Instagram</span></a></li>
 			<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
 			<li><a href="#" class="icon fa-envelope"><span class="label">Envelope</span></a></li>
@@ -193,24 +189,17 @@
 	</footer>
 	
 	<!-- 로그인 팝업 -->
-	<div class="login-wrapper" style="border: 1px solid black">
-	    <div class="login-content">
-	      <div class="login-header">
 	<div class="login-wrapper user-wrapper">
 	    <div class="login-content user-content">
 	      <div class="login-header user-header">
 	        <i class="fa fa-times"></i>
 	      </div>
-	      <div class="login-body">
 	      <div class="login-body user-body">
 	        <div class="text-center logo"><img src="//i.addblock.net/modal-logo-dark.png" alt="creatorlink logo"></div>
 	        <div class="text-center">
 	            <span class="join-text">데코블로가 처음이신가요?</span> 
-	            <a class="join" href="/member/join">회원가입</a>
 	            <a class="join" href="user/join">회원가입</a>
 	        </div>
-	        <div class="login-form form-group">
-	            <input type="text" id="userEmail" name="userEmail" class="form-control valid" placeholder="이메일">
 	        <div class="login-form user-form form-group">
 	            <input type="text" id="userEmail" name="userEmail" class="form-control valid" placeholder="이메일" autocomplete="new-password">
 	            <input type="password" id="userPassword" name="userPassword" class="form-control valid" placeholder="비밀번호">
@@ -219,7 +208,6 @@
 	        	</div>
 	        </div>
 	        <div class="btn-wrapper">
-	        	<div class="login-btn">로그인</div>
 	        	<div class="login-btn user-btn">로그인</div>
 	        </div>
 	      </div>
@@ -228,7 +216,6 @@
 	<!-- /로그인 팝업 -->
 
 	<!-- Scripts -->
-	
 	<script src="pixelarity/assets/js/jquery.min.js"></script>
 	<script src="pixelarity/assets/js/jquery.dropotron.min.js"></script>
 	<script src="pixelarity/assets/js/jquery.scrollgress.min.js"></script>
@@ -236,12 +223,8 @@
 	<script src="pixelarity/assets/js/jquery.slidertron.min.js"></script>
 	<script src="pixelarity/assets/js/skel.min.js"></script>
 	<script src="pixelarity/assets/js/util.js"></script>
-	<!--[if lte IE 8]><script src="pixelarity/assets/js/ie/respond.min.js"></script><![endif]-->
 	<script src="pixelarity/assets/js/main.js"></script>
-	
 	<script src="decoblo/js/index.js"></script>
-
-
 	
 </body>
 </html>

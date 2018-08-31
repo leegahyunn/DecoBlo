@@ -7,13 +7,104 @@
 <select id="selectnowstat" resultType="Stat">
 	SELECT 
 		statNo, statUserNo, statBlogCount, statBbsCount, statReplyCount,
-		statSubscribe, TO_CHAR(STATREGDATE,'YYYY.MM.DD') AS statRegDate 
+		statSubscribe, TO_CHAR(STATREGDATE,'YYYY-MM-DD') AS statRegDate 
 	FROM 
 		db_stat 
 	WHERE 
-		TO_CHAR(statregdate, 'yyyymmdd') = TO_CHAR(SYSDATE, 'yyyymmdd')
+		TO_CHAR(statregdate, 'yyyy-mm-dd') = TO_CHAR(SYSDATE, 'yyyy-mm-dd')
+</select>
+
+<select id="selectdate" resultType="Stat" parameterType="String">
+select 
+    statNo, statUserNo, statblogcount, statbbscount,statreplycount, statsubscribe, statregdate
+from 
+    db_stat
+where  statregdate = #{date}
+
+</select>
+
+<select id="selectweek" resultType="Stat" parameterType="String">
+select 
+      sum(statblogcount) as statblogcount, sum(statbbscount) as statbbscount,sum(statreplycount) as statreplycount, sum(statsubscribe) as statsubscribe
+from 
+    db_stat
+where  statregdate between #{startdate} and #{enddate}
+
+</select>
+<select id="selectweekchart" resultType="Stat">
+<![CDATA[ 
+select 
+    sum(statblogcount) as statblogcount, 
+    sum(statbbscount) as statbbscount, 
+    sum(statreplycount) as statreplycount, 
+    sum(statsubscribe) as statsubscribe, 
+    trunc(statregdate, 'ww') as statregdate
+from 
+    db_stat
+where  trunc(SYSDATE, 'ww') - 64 <  trunc(statregdate, 'ww')  and trunc(statregdate, 'ww') < trunc(SYSDATE, 'ww') - 1  
+group by
+    trunc(statregdate, 'ww')
+order by 
+    trunc(statregdate, 'ww') desc
+
+    	]]>	
+</select>
+
+<select id="selectchart" resultType="Stat">
+<![CDATA[
+select 
+    sum(statblogcount) as statblogcount, sum(statbbscount) as statbbscount, sum(statreplycount) as statreplycount, sum(statsubscribe) as statsubscribe, trunc(statregdate, 'dd') as statregdate
+from 
+    db_stat
+where trunc(SYSDATE, 'dd') - 14 <  trunc(statregdate, 'dd') and  trunc(statregdate, 'dd') < trunc(SYSDATE, 'dd') - 1  
+group by
+    trunc(statregdate, 'dd')
+order by 
+    trunc(statregdate, 'dd') desc
+    ]]>
+</select>
+
+<select id="selectmchart" resultType="Stat">
+<![CDATA[
+   select 
+    sum(statblogcount) as statblogcount, sum(statbbscount) as  statbbscount, sum(statreplycount) as statreplycount, sum(statsubscribe) as statsubscribe, trunc(statregdate, 'mm') as statregdate
+from 
+    db_stat
+where trunc(SYSDATE, 'mm') - 600<  trunc(statregdate, 'mm')  and trunc(statregdate, 'mm') < trunc(SYSDATE, 'mm') - 1  
+group by
+    trunc(statregdate, 'mm')
+order by 
+    trunc(statregdate, 'mm') desc
+     ]]>
 </select>
 
 
+<select id="nowmoth" resultType="Stat">
+<![CDATA[
+select 
+    sum(statblogcount) as statblogcount, sum(statbbscount) as  statbbscount, sum(statreplycount) as statreplycount, sum(statsubscribe) as statsubscribe, trunc(statregdate, 'mm') as statregdate
+from 
+    db_stat
+where trunc(statregdate, 'mm') = trunc(SYSDATE, 'mm')
+group by
+    trunc(statregdate, 'mm')
+     ]]>
+</select>
 
+<select id="nowweek" resultType="Stat">
+<![CDATA[
+select 
+    sum(statblogcount) as statblogcount, 
+    sum(statbbscount) as statbbscount, 
+    sum(statreplycount) as statreplycount, 
+    sum(statsubscribe) as statsubscribe, 
+    trunc(statregdate, 'ww') as statregdate
+from 
+    db_stat
+where   trunc(statregdate, 'ww') = trunc(SYSDATE, 'ww') 
+group by
+    trunc(statregdate, 'ww')
+
+     ]]>
+</select>
 </mapper>
