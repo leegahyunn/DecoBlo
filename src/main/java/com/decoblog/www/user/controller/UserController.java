@@ -4,12 +4,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.decoblog.www.user.dao.Encrypt;
 import com.decoblog.www.user.dao.UserRepository;
 import com.decoblog.www.user.vo.User;
 
@@ -17,6 +17,8 @@ import com.decoblog.www.user.vo.User;
 public class UserController {
 	@Autowired
 	UserRepository userRepository;
+	
+	Encrypt encrypt = new Encrypt();
 	
 	/**
 	 * 로그인 Ajax
@@ -26,6 +28,7 @@ public class UserController {
 	 */
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public @ResponseBody String login(@RequestBody User user, HttpSession session) {
+		user.setUserPassword(encrypt.encode(user.getUserPassword()));
 		
 		User loggedUser = userRepository.login(user);
 		
@@ -55,8 +58,8 @@ public class UserController {
 	@RequestMapping(value="/user/join", method=RequestMethod.POST)
 	public String joinPost(User user) {
 		user.setBlogTitle(user.getUserName() + "님의 블로그");
-		user.setBlogAddress(user.getUserEmail().split("@")[0]);
-		System.out.println(user);
+		user.setUserNickName(user.getUserName());
+		user.setUserPassword(encrypt.encode(user.getUserPassword()));
 		userRepository.create(user);
 		return "redirect:/";
 	}

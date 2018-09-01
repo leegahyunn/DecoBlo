@@ -4,14 +4,14 @@ public class User {
 	private int userNo;
 	private String userEmail;
 	private String userName;
-	private String userNickName;
+	private String userNickName = "";
 	private String userPassword;
 	private String userTmpPassword;
-	private String userInfo;
+	private String userInfo = "";
 	private String userProileOriinalName;
 	private String userProfileSavedName;
 	private String blogTitle;
-	private String blogAddress;
+	private String blogAddress = "";
 	private int blogCount;
 	private String blogRegDate;
 	private int configRightClickable;

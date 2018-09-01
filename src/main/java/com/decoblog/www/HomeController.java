@@ -32,7 +32,7 @@ public class HomeController {
 	// 박치현
 	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
 	public String chtest() {
-		return "blog/blockConfig";
+		return "blog/config_bak_20180830";
 	}
 	
 	// 이가현

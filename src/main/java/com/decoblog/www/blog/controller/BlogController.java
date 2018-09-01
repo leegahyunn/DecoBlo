@@ -38,24 +38,26 @@ public class BlogController {
 	 * DB에 저장된 메뉴를 가져와서 JSP에 넘겨줌
 	 * @return ArrayList<HashMap<String, ArrayList<Menu>>> JSON
 	 */
-//	@ResponseBody
-//	@RequestMapping(value = "/menuConfig", method = RequestMethod.POST)
-//	public ArrayList<Menu> menuConfig() {
-//		ArrayList<HashMap<String, ArrayList<Menu>>> list= blogRepository.selectMenu();
-//		ArrayList<Menu> menuList = new ArrayList<Menu>();
-//		for(int i = 0; i<list.size(); i++) {
-//			for(int j = 0; j<list.get(i).get("Menu").size(); j++) {
-//				menuList.add(list.get(i).get("Menu").get(j));
-//			}
-//		}
-//		return menuList;
-//	}
+	@ResponseBody
+	@RequestMapping(value = "/menuConfig2", method = RequestMethod.POST)
+	public ArrayList<Menu> menuConfig2() {
+		ArrayList<HashMap<String, ArrayList<Menu>>> list= blogRepository.selectMenu();
+		ArrayList<Menu> menuList = new ArrayList<Menu>();
+		for(int i = 0; i<list.size(); i++) {
+			for(int j = 0; j<list.get(i).get("Menu").size(); j++) {
+				menuList.add(list.get(i).get("Menu").get(j));
+			}
+		}
+		return menuList;
+	}
 	@ResponseBody
 	@RequestMapping(value = "/menuConfig", method = RequestMethod.POST)
 	public String menuConfig() {
-		ArrayList<HashMap<String, ArrayList<Menu>>> list= blogRepository.selectMenu();
+		ArrayList<HashMap<String, ArrayList<Menu>>> lists = blogRepository.selectMenu();
+		System.out.println(lists);
+		
 		Gson gson = new Gson();
-		String result = gson.toJson(list);
+		String result = gson.toJson(lists);
 		return result;
 	}
 	/**

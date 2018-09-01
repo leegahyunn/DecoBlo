@@ -334,7 +334,7 @@ menuConfig();
 function menuConfig() {
 	$.ajax({
 		method   : 'post'
-		, url    : 'menuConfig'
+		, url    : 'menuConfig2'
 		, contentType : 'application/json; charset=UTF-8'
 		, success: function(resp) {
 			var result1 ='';
@@ -494,10 +494,14 @@ $(function(){
 	};
 	
 	$('#nestable').nestable({
-		group: 1
+		group: 1		
 	})
 	.on('change', updateOutput);
 	
+	$(document).on('change', '.dd', function(){
+		console.log('serialize1');
+		console.log($('.dd').nestable('serialize'));
+	});
 	
 	var target;
 	$('#nestable')
@@ -527,6 +531,8 @@ $(function(){
 		} */
 		
 		target.removeClass("changed222");
+		
+		console.log($('#nestable').nestable('serialize'));
 	});
 	
 	/*********************/
@@ -586,7 +592,7 @@ _gaq.push(['_trackPageview']);
 
 <header id="header">
 	<div class="left-menu menu-config-flip folder"><!-- menu-flip 클래스 추가-->
-		<div>메뉴 s설정</div>
+		<div>메뉴 설정</div>
 		<i class="fa fa-chevron-down"></i>
 	</div>
 	<div class="left-menu site-config-flip folder"><!-- site-flip 클래스 추가-->

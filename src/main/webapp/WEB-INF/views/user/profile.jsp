@@ -10,6 +10,10 @@
 <link rel="stylesheet" href="../pixelarity/assets/css/main.css" />
 
 <style>
+i {
+	margin: 0 5px;
+	cursor: pointer;
+}
 .top {
 	position: relative;
 	height: 120px;
@@ -122,6 +126,7 @@ section.account div.left-one {
 }
 section.account div.left-two {
 	width: 25%;
+	font-weight: bold;
 }
 
 section.account div.left-three {
@@ -136,13 +141,18 @@ section.additional-info .left-two p {
 	text-align: center;
 }
 
-section.additional-info #update-profile {
+.profile-edit-button {
 	margin: 10px 0;
 	padding: 8px 15px;
 	border: 0;
 	background-color: black;
 	color: #FFF;
 	float: right;
+}
+
+section.account .left-two p span, section.account .left-three input[type="password"]{
+	height: 30px;
+	margin: 5px 0;
 }
 </style>
 
@@ -157,7 +167,7 @@ section.additional-info #update-profile {
 		</h1>
 		<nav id="nav">
 			<ul>
-				<li><a href="#" class="icon fa-angle-down">이준호님</a>
+				<li><a href="#" class="icon fa-angle-down">${loginName}님</a>
 					<ul>
 						<li><a href="#">계정설정</a></li>
 						<li><a href="#">내 블로그</a></li>
@@ -193,10 +203,16 @@ section.additional-info #update-profile {
 						<p>도메인</p>												
 					</div>
 					<div class="left-three">
-						<p id="profile-user-name">관리자</p>
-						<p id="profile-user-email">admin@decoblo.com</p>
-						<p id="profile-user-nickname">관리자</p>
-						<p id="profile-user-blog-address">admin</p>
+						<p id="profile-user-name"></p>
+						<p id="profile-user-email"></p>
+						<p id="profile-user-nickname">
+							<span class="basic-message"></span>
+							<span class="additional-option"></span>
+						</p>
+						<p id="profile-user-blog-address">
+							<span class="basic-message"></span>
+							<span class="additional-option"></span>
+						</p>
 					</div>
 				</section>
 				<hr>
@@ -212,7 +228,24 @@ section.additional-info #update-profile {
 					</div>
 					<div class="left-three">
 						<textarea id="profile-user-info" rows="5" cols="25"></textarea>
-						<button id="update-profile">수정하기</button>
+						<button id="update-profile" class="profile-edit-button">수정하기</button>
+					</div>
+				</section>
+				<hr>
+				<section class="account password">
+					<div class="left-one">
+						<h3>비밀번호</h3>
+					</div>
+					<div class="left-two">
+						<p>기존 비밀번호</p>
+						<p>새 비밀번호</p>
+						<p>새 비밀번호 확인</p>						
+					</div>
+					<div class="left-three">
+						<input type="password">
+						<input type="password">
+						<input type="password">
+						<button id="update-password" class="profile-edit-button">수정하기</button>
 					</div>
 				</section>
 
@@ -260,10 +293,24 @@ section.additional-info #update-profile {
 				method: 'post',
 				contentType: 'application/json; charset=utf-8',
 				success: function(resp){
-					$('#profile-user-name').text(resp.userName);
-					$('#profile-user-email').text(resp.userEmail);
-					$('#profile-user-nickname').text(resp.userNickName);
-					$('#profile-user-blog-address').text(resp.blogAddress);
+					$('#profile-user-name').text(resp.userName).css('font-weight', 'bold');
+					$('#profile-user-email').text(resp.userEmail).css('font-weight', 'bold');
+					if (resp.userNickName == ''){
+						$('#profile-user-nickname .basic-message').text("닉네임을 설정하지 않았습니다.");
+					} else {
+						$('#profile-user-nickname .basic-message').text(resp.userNickName);
+					}
+					$('#profile-user-nickname .additional-option').html('<i class="fa fa-pencil"></i>');
+					
+					if (resp.blogAddress == ''){
+						$('#profile-user-blog-address .basic-message').text("아직 블로그를 생성하지 않았습니다.");
+						$('#profile-user-blog-address .additional-option').html('<a href="#">블로그 생성</a>').css({'text-weight':'bold'});
+
+					} else {
+						$('#profile-user-blog-address .basic-message').text(resp.blogAddress);
+						$('#profile-user-blog-address .additional-option').html('<i class="fa fa-pencil"></i>');
+					}
+					
 					if (resp.userProfileSavedName != null) {
 						$('#profile-user-image').attr('src', '../upload/profile/'+resp.userProfileSavedName);
 					} else {

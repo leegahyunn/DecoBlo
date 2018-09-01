@@ -111,7 +111,7 @@
 		</h1>
 		<nav id="nav">
 			<ul>
-				<li><a href="#" class="icon fa-angle-down">이준호님</a>
+				<li><a href="#" class="icon fa-angle-down">${loginName}님</a>
 					<ul>
 						<li><a href="user/profile">계정설정</a></li>
 						<li><a href="#">내 블로그</a></li>

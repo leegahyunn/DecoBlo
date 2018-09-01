@@ -25,7 +25,6 @@ public class BlogRepository {
 	public ArrayList<HashMap<String, ArrayList<Menu>>> selectMenu() {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		ArrayList<HashMap<String, ArrayList<Menu>>> result = mapper.selectMenu();
-		
 		return result;
 	}
 	
@@ -38,6 +37,7 @@ public class BlogRepository {
 		int result = mapper.updateMenu(menu);
 		
 		return result;
+	}
 	
 	/*
 	 * 블록 썸네일 가져오기
