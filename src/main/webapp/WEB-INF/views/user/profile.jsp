@@ -14,6 +14,10 @@ i {
 	margin: 0 5px;
 	cursor: pointer;
 }
+
+button {
+	cursor: pointer;
+}
 .top {
 	position: relative;
 	height: 120px;
@@ -163,7 +167,7 @@ section.account .left-two p span, section.account .left-three input[type="passwo
 	<!-- Header -->
 	<header id="header">
 		<h1>
-			<a href="index.html">Deco <span>Blo</span></a>
+			<a href="/www/">Deco <span>Blo</span></a>
 		</h1>
 		<nav id="nav">
 			<ul>
@@ -242,10 +246,10 @@ section.account .left-two p span, section.account .left-three input[type="passwo
 						<p>새 비밀번호 확인</p>						
 					</div>
 					<div class="left-three">
-						<input type="password">
-						<input type="password">
-						<input type="password">
-						<button id="update-password" class="profile-edit-button">수정하기</button>
+						<input type="password" name="currentPassword" id="currentPassword">
+						<input type="password" name="newPassword" id="newPassword">
+						<input type="password" name="newPasswordCheck" id="newPasswordCheck">
+						<button id="update-password-btn" class="profile-edit-button">수정하기</button>
 					</div>
 				</section>
 
@@ -285,6 +289,12 @@ section.account .left-two p span, section.account .left-three input[type="passwo
 	<script>
 		$(function(){
 			printUserProfile();
+			$('#update-password-btn').on('click', changePassword);
+			$('#newPasswordCheck').keydown(function(key) {
+				if (key.keyCode == 13) {
+					changePassword();
+				}
+			});
 		});
 		
 		function printUserProfile() {
@@ -318,7 +328,51 @@ section.account .left-two p span, section.account .left-three input[type="passwo
 					}
 					$('#profile-user-info').text(resp.userInfo);
 				}
-			});
+			});		
+			
 		};
+		
+		function changePassword(){
+			var currentPassword = $('#currentPassword').val();
+			var newPassword = $('#newPassword').val();
+			var newPasswordCheck = $('#newPasswordCheck').val();
+			
+			if (currentPassword == "") {
+				alert('비밀번호를 입력하여 주십시오');
+				$('#currentPassword').focus();
+				return false;
+			} 
+			
+			if (newPassword == "") {
+				alert('새로운 비밀번호를 입력하여 주십시오');
+				$('#newPassword').focus();
+				return false;
+			}
+			
+			if (newPassword != newPasswordCheck) {
+				alert('새 비밀번호와 확인이 일치하지 않습니다.');
+				$('#newPassword').focus();
+				return false;
+			}
+			
+			$.ajax({
+				url: 'changePassword',
+				method: 'post',
+				data: {
+					"currentPassword" : currentPassword,
+					"newPassword" : newPassword,
+				},
+				success: function(resp){
+					if (resp == "Success") {
+						alert('비밀번호가 변경되었습니다. \n'
+								+ '다시 로그인해주시기 바랍니다.');
+						location.href = '/www';
+					} else {
+						alert('현재 비밀번호가 맞지 않습니다.');
+					}
+				}
+			});
+			
+		}
 	</script>	
 </html>

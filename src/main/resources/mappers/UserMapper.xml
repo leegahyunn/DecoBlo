@@ -65,4 +65,17 @@
 	    userNo = #{userNo}
 </select>
 
+<!-- 비밀번호 변경 -->
+<!-- int changePassword(HashMap<String, String> passwords); -->
+<update id="changePassword" parameterType="HashMap">
+	UPDATE
+		db_user
+	SET
+		userPassword = #{newPassword}
+	WHERE
+		userNo = #{userNo}
+	AND
+		userPassword = #{currentPassword}
+</update>
+
 </mapper>

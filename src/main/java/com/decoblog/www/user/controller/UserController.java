@@ -1,5 +1,7 @@
 package com.decoblog.www.user.controller;
 
+import java.util.HashMap;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,4 +93,26 @@ public class UserController {
 		return userProfile;
 	}
 	
+	/**
+	 * 비밀번호 변경
+	 * @return
+	 */
+	@RequestMapping(value="/user/changePassword", method=RequestMethod.POST)
+	public @ResponseBody String changePassword(String currentPassword, 
+			String newPassword, HttpSession session) {
+
+		HashMap<String, String> passwords = new HashMap<>();
+		passwords.put("userNo", String.valueOf(session.getAttribute("loginNo")));
+		passwords.put("currentPassword", encrypt.encode(currentPassword));
+		passwords.put("newPassword", encrypt.encode(newPassword));
+		
+		int result = userRepository.changePassword(passwords);
+		
+		if (result > 0) {
+			session.invalidate();
+			return "Success";
+		} else {
+			return "Failed";
+		}
+	}
 }

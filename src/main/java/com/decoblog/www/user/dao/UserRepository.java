@@ -1,6 +1,7 @@
 package com.decoblog.www.user.dao;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 
 import javax.inject.Inject;
 import javax.mail.MessagingException;
@@ -85,6 +86,15 @@ public class UserRepository {
 		
 		UserMapper mapper = session.getMapper(UserMapper.class);
 		result = mapper.getProfile(userNo);
+		
+		return result;
+	}
+
+	public int changePassword(HashMap<String, String> passwords) {
+		int result = 0;
+		
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		result = mapper.changePassword(passwords);
 		
 		return result;
 	}

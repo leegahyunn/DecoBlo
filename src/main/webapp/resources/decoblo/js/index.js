@@ -4,25 +4,39 @@ $(function(){
 	/*********/
 	
 	/* 로그인 메뉴 클릭시 */
-	$('#login').on('click', function(){
+	$('#login').on('click', displayLoginPopup);
+	
+	/* 로그인 창 닫기 클릭시 */
+	$('.login-content .login-header i').on('click', hideLoginPopup);
+	
+	/* 로그인 버튼 클릭시 & 엔터 */
+	$('.login-content .btn-wrapper .login-btn').on('click', login);
+	$('#userPassword').keydown(function(key) {
+		if (key.keyCode == 13) {
+			login();
+		}
+	});
+
+
+
+	
+	function displayLoginPopup(){
 		$('.login-wrapper').css('z-index', '10001');
 		$('.login-wrapper').each(function(index, item){
 			$(item).css('z-index', '10001');
 		});
-	});
+	}
 	
-	/* 로그인 창 닫기 클릭시 */
-	$('.login-content .login-header i').on('click', function(){
+	function hideLoginPopup() {
 		$('.login-wrapper').css('z-index', '-1');
 		$('.login-wrapper').each(function(index, item){
 			$(item).css('z-index', '-1');
 			$('#userEmail').val('');
 			$('#userPassword').val('');
 		});
-	});
+	}
 	
-	/* 로그인 버튼 클릭시 */
-	$('.login-content .btn-wrapper .login-btn').on('click', function() {
+	function login(){
 		var userEmail = $('#userEmail').val();
 		var userPassword = $('#userPassword').val();
 		
@@ -55,5 +69,5 @@ $(function(){
 				}
 			}
 		});
-	});
+	}
 });
