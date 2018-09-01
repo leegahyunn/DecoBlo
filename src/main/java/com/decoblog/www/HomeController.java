@@ -1,5 +1,7 @@
 package com.decoblog.www;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,8 +13,13 @@ public class HomeController {
 	/* 메인 컨트롤러; 수정하지 말아주세요 */
 	/**************************************/
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
-		return "index";
+	public String home(HttpSession session) {
+		if (session.getAttribute("loginNo") != null) {
+			return "common/main";
+		} else {
+			return "index";
+		}
+		
 	}
 	
 	@RequestMapping(value = "/customer", method = RequestMethod.GET)

@@ -415,33 +415,7 @@ pmydate{
 <body>
 
 	<!-- Header -->
-	<header id="header">
-		<h1>
-			<a href="index.html">Deco <span>Blong</span></a>
-		</h1>
-		<nav id="nav">
-			<ul>
-				<li><a href="#" class="icon fa-angle-down">${sessionScope.loginName}</a>
-					<ul>
-						<li><a href="#">내 블로그</a></li>
-						<li><a href="#">계정설정</a></li>
-						<li><a href="#">1대1 문의</a></li>
-						<li><a href="#">로그아웃</a></li>
-					</ul>
-				<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
-
-					<ul>
-						<li><a href="#">한국어(KO)</a></li>
-						<li><a href="#">日本語(JP)</a></li>
-					</ul></li>
-				<li><a href="#">고객센터</a></li>
-
-
-
-			</ul>
-
-		</nav>
-	</header>
+	<jsp:include page="header.jsp"></jsp:include>
 
 	<!-- Main -->
 	<section id="main" class="wrapper style1">

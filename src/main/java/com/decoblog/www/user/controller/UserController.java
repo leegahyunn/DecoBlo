@@ -66,6 +66,12 @@ public class UserController {
 		return "redirect:/";
 	}
 	
+	/**
+	 * 이메일 확인
+	 * @param userEmail
+	 * @param key
+	 * @return
+	 */
 	@RequestMapping(value="/user/emailConfirm", method=RequestMethod.GET)
 	public String emailConfirm(String userEmail, String key) {
 		userRepository.emailConfirm(userEmail, key);
@@ -114,5 +120,15 @@ public class UserController {
 		} else {
 			return "Failed";
 		}
+	}
+	
+	/** 
+	 * 로그아웃
+	 * @return
+	 */
+	@RequestMapping(value="/user/logout", method=RequestMethod.GET)
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
 	}
 }
