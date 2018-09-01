@@ -111,10 +111,10 @@
 		</h1>
 		<nav id="nav">
 			<ul>
-				<li><a href="#" class="icon fa-angle-down">이준호님</a>
+				<li><a href="#" class="icon fa-angle-down">${sessionScope.loginName}</a>
 					<ul>
 						<li><a href="#">내 블로그</a></li>
-						<li><a href="#">대시보드</a></li>
+						<li><a href="dashboard">대시보드</a></li>
 						<li><a href="#">1대1 문의</a></li>
 						<li><a href="#">로그아웃</a></li>
 					</ul>

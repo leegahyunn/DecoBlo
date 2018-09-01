@@ -19,6 +19,9 @@ public class HomeController {
 	public String customer() {
 		return "common/customer";
 	}
+	
+	
+	
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main() {
@@ -26,6 +29,18 @@ public class HomeController {
 	}
 	
 	
+
+	
+	
+
+	@RequestMapping(value = "/view2", method = RequestMethod.GET)
+	public String view2(){
+			return "common/main";
+		
+		
+	}
+
+
 	/**************************************/
 	/* 테스트 컨트롤러; 테스트는 여기서 ! */
 	/**************************************/
@@ -47,11 +62,15 @@ public class HomeController {
 		return "blog/blogEdit1";
 	}
 	
+	
 	// 안정민
 	@RequestMapping(value = "/jmtest", method = RequestMethod.GET)
 	public String jmtest() {
 		return "blog/test";
 	}
+
+
+
 	
 	// 이준호
 	@RequestMapping(value = "/jhtest", method = RequestMethod.GET)
@@ -67,7 +86,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value="/titleTest1",method=RequestMethod.GET)
-	public String titleTest1() {
+public String titleTest1() {
 		return "templates/title/titleTest1";
 	}
 
