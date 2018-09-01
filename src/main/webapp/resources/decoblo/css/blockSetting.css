@@ -1,6 +1,14 @@
 @charset "UTF-8";
 
-/*블록 쌓이는 부분*/
+/*사이드바 생성시 검은화면*/
+#mask{
+	position: absolute;
+	left: 0;
+	top:0;
+	z-index: 49;
+	background-color: #000;
+	display: none;
+}
 /*블록이 없을때 intro*/
 .intro-block-wrapper{
 	display:table;
@@ -52,7 +60,8 @@
 .block-preview{
 	position: fixed;
 	top:150px;
-	left: 375px;
+	left: 500px;
+	z-index: 51;
 	
 }
 /*블록 사용하기 버튼*/
@@ -147,10 +156,10 @@
 .blockMenu-sidebar-div {
 	width:315px;
  	position: fixed;
-    margin-left: -315px; 
     vertical-align:top;
 	top: 0;
-    left: 0px;
+    left: 0;
+    margin-left:-375px;
     height:100%;
     z-index:50;
     background-color: #dee1ea;

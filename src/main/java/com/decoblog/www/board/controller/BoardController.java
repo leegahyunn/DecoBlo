@@ -1,48 +1,167 @@
 package com.decoblog.www.board.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.decoblog.www.board.dao.BoardRepository;
+import com.decoblog.www.board.vo.Bbs;
+import com.decoblog.www.board.vo.BbsAttach;
+import com.decoblog.www.board.vo.FileService;
+import com.decoblog.www.board.vo.PageNavigator;
 
 @Controller
 public class BoardController {
 	@Autowired
 	BoardRepository repository;
 	SqlSession session;
+	final String uploadPath = "/uploadPath";
+
 	
 	
 	final int COUNT_PER_PAGE = 10;
 	final int PAGE_PER_GROUP = 5;
 	
-	
+	// ê¸€ ëª©ë¡ í™”ë©´ ìš”ì²­
+	@RequestMapping(value="/bbsList", method=RequestMethod.GET)
+	public String listboard(Model model,
+			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value = "searchItem", defaultValue = "bbsTitle") String searchItem,
+			@RequestParam(value = "searchWord", defaultValue = "") String searchWord) {
+		
+		// Repositoryë¡œ ë„˜ê²¨ì£¼ê¸°
+		int totalRecordCount = repository.getTotalBbs(searchItem, searchWord);
+		
+		// í˜ì´ì§€ë„¤ë¹„ê²Œì´í„° ìƒì„±
+		PageNavigator navi = new PageNavigator(currentPage, totalRecordCount);
+		
+		List<Bbs> bbsList = repository.select(searchItem, searchWord, navi.getStartRecord(), navi.getCountPerPage());
+		
+		model.addAttribute("bbsList", bbsList);
+		model.addAttribute("searchItem", searchItem);
+		model.addAttribute("searchWord", searchWord);
+		model.addAttribute("navi", navi);
+		model.addAttribute("currentPage", currentPage);
 
-	// ±Û ¸ñ·Ï È­¸é ¿äÃ»(1) -- ÀÏ¹İ °Ô½ÃÆÇ
-	
-	
-	// ±Û ¸ñ·Ï È­¸é ¿äÃ»(2) -- »çÁø ¸ñ·Ï °Ô½ÃÆÇ
-	
-	
-	
-	
-	// ±Û ¾²±â È­¸é ¿äÃ»
-	
-	
-	// ±Û ¾²±â DB Ã³¸®
-	
-	
-	// ±Û »ó¼¼ º¸±â
-	
-	
-	// ±Û ¼öÁ¤ È­¸é ¿äÃ»
-	
-	
-	// ±Û ¼öÁ¤ DB Ã³¸®
-	
-	
-	// ±Û »èÁ¦
+		
+		return "common/notice";
+	}
 
+	
+	// ê¸€ ìƒì„¸ë³´ê¸°
+	@RequestMapping(value="/bbsDetail", method=RequestMethod.GET)
+	public String selectOneBbs(Model model, int bbsNo, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
+			@RequestParam(value = "searchItem", defaultValue = "bbsTitle") String searchItem,
+			@RequestParam(value = "searchWord", defaultValue = "") String searchWord) {
+		
+		Bbs bbsDetail = repository.selectOneBbs(bbsNo);
+		
+		// ì¡°íšŒìˆ˜ +1 
+		repository.updateBbsCount(bbsNo);
+		
+		// ê¸€ëª©ë¡
+		int totalRecordCount = repository.getTotalBbs(searchItem, searchWord);
+		PageNavigator navi = new PageNavigator(currentPage, totalRecordCount);
+				
+		List<Bbs> bbsList = repository.select(searchItem, searchWord, navi.getStartRecord(), navi.getCountPerPage());
+		
+		model.addAttribute("bbsList", bbsList);
+		model.addAttribute("bbsDetail", bbsDetail);
+		
+		return "common/bbsDetail";
+	}
+	
+	
+	// ê¸€ì“°ê¸° í™”ë©´ ìš”ì²­
+	@RequestMapping(value="/writeBbs", method=RequestMethod.GET)
+	public String writeBbs() {
+		
+		return "common/bbsWrite";
+	}
+	
+	// ê¸€ì“°ê¸° + ì²¨ë¶€íŒŒì¼ DB
+	@RequestMapping(value="/writeBbs", method=RequestMethod.POST)
+	public String writeBbs(Bbs bbs) {
+		
+/*		String userid = (String) session.getAttribute("loginId");
+		
+		String savedFileName = FileService.saveFile(upload, uploadPath);
+		String originalFileName = upload.getOriginalFilename();
+		
+		// ì²¨ë¶€íŒŒì¼ ìˆì„ ë•Œ
+		if(!upload.getOriginalFilename().equals("")) {
+			bbsAttach.setAttachSavedFile(savedFileName);
+			bbsAttach.setAttachOriginalFile(originalFileName);
+			
+			repository.insertBbsAttach(bbsAttach);
+		}*/
+;
+		repository.insertBbs(bbs);
+		
+		return "redirect:bbsList";
+	}
+	
+	
+	
+	
+	
+	// ê¸€ ìˆ˜ì • í™”ë©´ ìš”ì²­
+	@RequestMapping(value="/updateBbs", method=RequestMethod.GET)
+	public String updateBbs(Model model, int bbsNo) {
+		
+		Bbs bbsUpdate = repository.selectOneBbs(bbsNo);
+		model.addAttribute("bbsUpdate", bbsUpdate);
+		
+		return "common/bbsUpdate";
+	}
+	
+	// ê¸€ ìˆ˜ì • DB
+	@RequestMapping(value="/updateBbs", method=RequestMethod.POST)
+	public String updateBbs(Bbs bbs, MultipartFile upload) {
+		
+		// ìˆ˜ì •í•  ê¸€ ê°€ì ¸ì˜¤ê¸°
+		Bbs bbsUpdate = repository.selectOneBbs(bbs.getBbsNo());
+		
+		// ìˆ˜ì •í•œ ê¸€ ë„£ì–´ì£¼ê¸°
+		repository.updateBbs(bbs);
+		
+		// ë§Œì•½ ì²¨ë¶€íŒŒì¼ ìˆì„ ì‹œ 
+		
+		return "redirect:bbsList";
+	}
+
+	
+	
+	
+	// ê¸€ ì‚­ì œ
+	@RequestMapping(value="/deleteBbs", method=RequestMethod.GET)
+	public String deleteBbs(int bbsNo) {
+		
+		// Bbs bbs = repository.selectOneBbs(bbsNo);
+		
+		System.out.println(bbsNo);
+		
+		int result = repository.deleteBbs(bbsNo);
+		
+		
+		
+		
+		// ì²¨ë¶€íŒŒì¼ ì‚­ì œ
+
+		return "redirect:bbsList";
+	}
+	
+	
+	
 	
 	
 }

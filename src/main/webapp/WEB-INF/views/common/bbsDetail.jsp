@@ -4,12 +4,26 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>HelpDetail</title>
+<title>Notice</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link type="text/css" rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 <link rel="stylesheet" href="decoblo/css/boardDetail.css" />
-<script src="resources/library/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+function bbsList() { 	// 글목록으로 이동
+	location.href = "${pageContext.request.contextPath}/bbsList";
+}
+
+function deleteBbs(bbsNo) { 	// 글삭제
+	
+	alert(bbsNo);
+	
+	if (confirm('정말 삭제하시겠습니까?')) {
+		
+		location.href = "deleteBbs?bbsNo=" + bbsNo;
+	}
+}
+</script>
 <style type="text/css">
 	#main {
 		margin: o auto;
@@ -59,11 +73,9 @@
 	
 		line-height:normal;
 		text-align: center;
-		margin: 0px;
+		margin: 5px;
 		padding-left: 15px;
 		padding-right: 15px;
-		
-		
 	}
 	
 	
@@ -76,12 +88,11 @@
 		vertical-align: middle;
 		align-items: center;
 		justify-content: space-between;
-		
 	}
 	
 
-	
 </style>
+<script src="resources/library/js/jquery-3.3.1.min.js"></script>
 </head>
 <body class="landing">
 
@@ -118,28 +129,30 @@
 	
 	<br>
 	<div class="detail" align="left" style="width:1200px">
-		<h1 style="font-size: 30px;">title</h1>
-		<h5>userid</h5>
+		<h1 style="font-size: 30px;">${bbsDetail.bbsTitle}</h1>
+		<div style="text-align: right;">
+			<a href="updateBbs?bbsNo=${bbsDetail.bbsNo}" style="font-size:12px; padding-right: 20px;">수정</a>
+			<a href="javascript:deleteBbs('${bbsDetail.bbsNo}')"  style="font-size:12px; padding-right: 20px;">삭제</a>
+		</div>
 		<hr/>
 		<!-- <hr class="hr"/> -->  
+	
+		<br/>
+		<br/>
+
+		<p>${bbsDetail.bbsContent}
+		
+		<br><br>
+		<br>
+		<hr/>
 	</div>
-	<br/>
-	<br/>
-	
-	<div>
-	
-		<p> 본문본문본문본문본문본문본문본문본문본문본문본문
-	
-	</div>
-	
 	<br>
-	<br>
-	<br>
-	
-	
+
 	<!-- 댓글부분 -->
 		<!-- 댓글 폼 영역 -->
 	<div id="replyForm">
+	
+	
 		<div id="replyForm" class="right"  style="width:1000px; justify-content: space-between; ">
 		<form action="replyWrite" method="post" onsubmit="return replyCheck()" autocomplete="off"  style="display:inline;" >
 			<input type="hidden" name="action" value="insertReply" />
@@ -150,7 +163,10 @@
 		</form>
 		</div>
 
+	<!-- 댓글 목록 영역 2 -->
+	<div id="replyList"></div>
 	
+
 	
 	<!-- 댓글 목록 영역 -->
 	<table class="replyList">
@@ -161,71 +177,58 @@
 			<td class="replydate">${reply.regdate}</td>
 			<td class="replybutton">
 				<c:if test="${loginId == reply.userid}">
-				<a href="">수정</a>
+				<a>수정</a>
 				<a href="javascript:deleteReply(${reply.replynum}, ${reply.boardnum})">삭제</a>
 				</c:if>
 			</td>
 		</tr>
-		
-		
-		
-		
-		
-		
-		
 		</c:forEach>
 	</table>
+	
+	
 	</div> <!--  end #reply -->	
 	
 	
+	<!-- 게시글 답변달기 -->
+	<div>
+		<input type="button" value="답변" onclick="" style="line-height:normal; text-align: center; margin: 5px;"/>
+	</div>
+	<br>
+	<br>
+
 
 	<!-- 글목록 div 태그 -->
 		<div class="table-wrapper">	
 		
-			<table class="board" border="1" style="width: 1200px;">
+		<table class="board" border="1" style="width: 1200px;">
 				<thead>
 					<tr>
 						<th>No.</th>
 						<th>제목</th>
-						<th style="text-align: right">작성일</th>
+						<th>작성일</th>
 					</tr>
 				</thead>
+				
 				<tbody>
-					<%-- 실제로 사용할 코드
-					<c:if test="${empty qalist }">
-						<td colspan="5">작성된 글이 없습니다</td>
+					<c:if test="${empty bbsList }">
+						<td colspan="5" style="text-align:center;">작성된 글이 없습니다</td>
 					</c:if>
 					<!-- 이하 글 목록 반복 -->
-					<c:if test="${not empty qalist }">
-					<c:forEach var="qa" items="${qalist}" varStatus="status">
+					<c:if test="${not empty bbsList }">
+					<c:forEach var="bbs" items="${bbsList}" varStatus="status">
 						<tr>
 							<td class="center">${status.count + navi.startRecord}</td>
-							<td>[답변대기] / [답변완료] </td>
-							<td><a href="qaDetail?qanum=${qa.qanum}">${qa.title}</a></td>
-							<td>${qa.userid}</td>
-							<td>${qa.regdate}</td>
+							<td><a href="bbsDetail?bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></td>
+							<td>${bbs.bbsRegDate}</td>
 						</tr>
 					</c:forEach>
-					</c:if> --%>
+					</c:if>
 					
-					<!-- 일단 박아놓기 -->
-					<tr>
-						<td class="center">${status.count + navi.startRecord}</td>
-						<td><a href="helpDetail?qanum=${qa.qanum}">도메인연결이 되지 않습니다</a></td>
-						<td style="text-align: right">2018.08.16</td>
-					</tr>
-					<tr>
-						<td class="center">${status.count + navi.startRecord}</td>
-						<td><a href="helpDetail?qanum=${qa.qanum}">도메인연결이 되지 않습니다</a></td>
-						<td style="text-align: right">2018.08.16</td>
-					</tr>
-					<tr>
-						<td class="center">${status.count + navi.startRecord}</td>
-						<td  ><a href="helpDetail?qanum=${qa.qanum}">도메인연결이 되지 않습니다</a></td>
-						<td style="text-align: right">2018.08.16</td>
-					</tr>
+					
 				</tbody>
 			</table>
+			
+			
 				<div align="center">
 					<a href="review?currentPage=${navi.currentPage - navi.pagePerGroup}&searchItem=${searchItem}&searchWord=${searchWord}"><i class="fas fa-angle-double-left"></i> </a>
 					<a href="review?currentPage=${navi.currentPage - 1}&searchItem=${searchItem}&searchWord=${searchWord}"><i class="fas fa-caret-left"></i></a>
@@ -242,7 +245,8 @@
 							<a href="review?currentPage=${navi.currentPage + navi.pagePerGroup}&searchItem=${searchItem}&searchWord=${searchWord}"><i class="fas fa-angle-double-right"></i></a>
 				</div>
 				<div class="right" align="right" style="width:1210px">
-					<input class="buttons" type="button" value="목록"/>
+
+					<input type="button" value="목록" onclick="bbsList()" style="line-height:normal; text-align: center; margin: 5px;"/>
 				</div>
 			</div>
 
