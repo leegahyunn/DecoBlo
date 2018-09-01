@@ -2,21 +2,30 @@ package com.decoblog.www;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.decoblog.www.user.dao.UserRepository;
+
 @Controller
 public class HomeController {
+	@Autowired
+	UserRepository userRepository;
+	
 	
 	/**************************************/
 	/* 메인 컨트롤러; 수정하지 말아주세요 */
 	/**************************************/
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(HttpSession session) {
+	public String home(HttpSession session, Model model) {
 		if (session.getAttribute("loginNo") != null) {
-			return "common/main";
+			return "redirect:/main";
 		} else {
+			int nUser = userRepository.getNUser();
+			model.addAttribute("nUser", nUser);
 			return "index";
 		}
 		

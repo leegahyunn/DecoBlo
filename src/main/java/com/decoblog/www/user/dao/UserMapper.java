@@ -51,4 +51,10 @@ public interface UserMapper {
 	 */
 	int changePassword(HashMap<String, String> passwords);
 
+	/**
+	 * 전체 사용자 수 
+	 * @return
+	 */
+	int getNUser();
+
 }

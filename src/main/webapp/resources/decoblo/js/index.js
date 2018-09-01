@@ -4,7 +4,7 @@ $(function(){
 	/*********/
 	
 	/* 로그인 메뉴 클릭시 */
-	$('#login').on('click', displayLoginPopup);
+	$('.main-login').on('click', displayLoginPopup);
 	
 	/* 로그인 창 닫기 클릭시 */
 	$('.login-content .login-header i').on('click', hideLoginPopup);

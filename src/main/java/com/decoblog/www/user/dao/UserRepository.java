@@ -98,4 +98,13 @@ public class UserRepository {
 		
 		return result;
 	}
+
+	public int getNUser() {
+		int result = 0;
+		
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		result = mapper.getNUser();
+		
+		return result;
+	}
 }

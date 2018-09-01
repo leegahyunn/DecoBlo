@@ -78,4 +78,12 @@
 		userPassword = #{currentPassword}
 </update>
 
+<!-- 사용자 수 조회 -->
+<!-- int getNUser(); -->
+<select id="getNUser" resultType="int">
+	SELECT 
+		count(*)
+	FROM 
+		db_user 
+</select>
 </mapper>
