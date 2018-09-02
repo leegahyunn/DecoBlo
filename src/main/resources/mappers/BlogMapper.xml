@@ -26,18 +26,80 @@
 	FROM
 		db_menu
 	ORDER BY 
-		menuparent, menuseq
+		menuparentseq, menuseq
 </select>
 
-<update id="updateMenu" parameterType="Menu">
+<update id="updateMenuTitle" parameterType="Menu">
 	UPDATE 
 		db_menu
 	SET
 		menuName = #{menuName}
 	WHERE
-		menuParent = #{menuParent}
+		menuNo = #{menuNo}
+</update>
+<update id="updateSmallMenuPush" parameterType="map">
+	UPDATE 
+		db_menu
+	SET
+		menuSeq = menuSeq + 1
+	WHERE
+		menuSeq >= #{newMenuSeq}
 	AND 
-		menuSeq = #{menuSeq}
+		menuParent = #{newMenuParent}
+	AND
+		menuUserNo = #{menuUserNo}
+</update>
+<update id="updateSmallMenuPull" parameterType="map">
+	UPDATE 
+		db_menu
+	SET
+		menuSeq = menuSeq - 1
+	WHERE
+		menuSeq > #{menuSeq}
+	AND 
+		menuParent = #{menuParent}
+	AND
+		menuUserNo = #{menuUserNo}
 </update>
 
+<update id="updateLargeMenuPush" parameterType="map">
+	UPDATE 
+		db_menu
+	SET
+		menuParentSeq = menuParentSeq + 1
+	WHERE
+		menuParentSeq > #{menuParentSeq}
+	AND
+		menuUserNo = #{menuUserNo}
+		
+</update>
+<update id="updateLargeMenuPull" parameterType="map">
+	UPDATE 
+		db_menu
+	SET
+		menuParentSeq = menuParentSeq - 1
+	WHERE
+		menuParentSeq > #{menuParentSeq}
+	AND
+		menuUserNo = #{menuUserNo}
+</update>
+
+<update id="updateMenu" parameterType="map">
+	UPDATE 
+		db_menu
+	SET
+		<if test="newMenuDepth==0">
+			menuSeq = 0,
+			menuParent = #{menuNo},
+			menuParentSeq = #{newMenuSeq},
+		</if>
+		<if test="newMenuDepth!=0">
+			menuSeq = #{newMenuSeq},
+			menuParent = #{newMenuParent},
+			menuParentSeq = (SELECT menuParentSeq FROM db_menu WHERE menuNo=#{newMenuParent}),
+		</if>
+		menuDepth = #{newMenuDepth}
+	WHERE
+		menuNo = #{menuNo}
+</update>
 </mapper>
