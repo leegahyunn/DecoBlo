@@ -1,24 +1,43 @@
 package com.decoblog.www;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.decoblog.www.user.dao.UserRepository;
+
 @Controller
 public class HomeController {
+	@Autowired
+	UserRepository userRepository;
+	
 	
 	/**************************************/
 	/* 메인 컨트롤러; 수정하지 말아주세요 */
 	/**************************************/
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
-		return "index";
+	public String home(HttpSession session, Model model) {
+		if (session.getAttribute("loginNo") != null) {
+			return "redirect:/main";
+		} else {
+			int nUser = userRepository.getNUser();
+			model.addAttribute("nUser", nUser);
+			return "index";
+		}
+		
 	}
 	
 	@RequestMapping(value = "/customer", method = RequestMethod.GET)
 	public String customer() {
 		return "common/customer";
 	}
+	
+	
+	
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main() {
@@ -26,19 +45,31 @@ public class HomeController {
 	}
 	
 	
+
+	
+	
+
+	@RequestMapping(value = "/view2", method = RequestMethod.GET)
+	public String view2(){
+			return "common/main";
+		
+		
+	}
+
+
 	/**************************************/
 	/* 테스트 컨트롤러; 테스트는 여기서 ! */
 	/**************************************/
 	// 박치현
 	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
 	public String chtest() {
-		return "user/pop_login";
+		return "blog/config_bak_20180830";
 	}
 	
 	// 이가현
 	@RequestMapping(value = "/ghtest", method = RequestMethod.GET)
 	public String ghtest() {
-		return "blog/metaEdit";
+		return "redirect:/bbsList";
 	}
 	
 	// 최용락
@@ -47,11 +78,15 @@ public class HomeController {
 		return "blog/blogEdit1";
 	}
 	
+	
 	// 안정민
 	@RequestMapping(value = "/jmtest", method = RequestMethod.GET)
 	public String jmtest() {
 		return "blog/test";
 	}
+
+
+
 	
 	// 이준호
 	@RequestMapping(value = "/jhtest", method = RequestMethod.GET)
@@ -67,7 +102,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value="/titleTest1",method=RequestMethod.GET)
-	public String titleTest1() {
+public String titleTest1() {
 		return "templates/title/titleTest1";
 	}
 

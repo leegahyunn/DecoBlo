@@ -80,32 +80,7 @@
 <body class="landing">
 
 <!-- Header -->
-<header id="header" class="alt ">
-	<h1><a href="index.html">Decoblo</a></h1>
-	<nav id="nav">
-		<ul>
-			<li><a href="login">로그인</a></li>
-			<li><a href="join">무료회원가입</a></li>
-			<li>
-				<a href="#" class="icon fa-angle-down">한국어(KO)</a>
-				<ul>
-					<li><a href="#">한국어(KO)</a></li>
-					<li><a href="#">日本語(JP)</a></li>
-					
-					<li>
-						<a href="#">Submenu</a>
-						<ul>
-							<li><a href="#">한국어(KO)</a></li>
-							<li><a href="#">日本語(JP)</a></li>
-						</ul>
-					</li>
-				</ul>
-			</li>
-			
-		</ul>
-	</nav>
-</header>
-
+<jsp:include page="../common/header.jsp"></jsp:include>
 
 
 <!-- 소개 사진 -->

@@ -14,14 +14,15 @@
 </head>
 <body class="landing">
 	<input type="hidden" id="isAuthed" value="${isAuthed}">
+	<input type="hidden" id="type" value="${type}">
 	<!-- Header -->
 	<header id="header" class="alt ">
 		<h1>
-			<a href="index.html">Deco <span>Blong</span></a>
+			<a href="index.html">Deco <span>Blo</span></a>
 		</h1>
 		<nav id="nav">
 			<ul>
-				<li id="login">로그인</li>
+				<li id="login" class="main-login">로그인</li>
 				<li><a href="user/join">무료회원가입</a></li>
 				<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
 					<ul>
@@ -29,10 +30,15 @@
 						<li><a href="#">日本語(JP)</a></li>
 					</ul>
 				</li>
-				<li><a href="main">메인</a></li>
-				<li><a href="dashboard">대시보드</a></li>
-				<li><a href="config">블로그 수정</a></li>
-				<li><a href="customer">고객센터</a></li>	
+				<li><a href="#" class="icon fa-angle-down">테스트</a>
+					<ul>
+						<li><a href="main">메인</a></li>
+						<li><a href="customer">정보수정</a></li>
+						<li><a href="dashboard">대시보드</a></li>
+						<li><a href="config">블로그 수정</a></li>
+						<li><a href="customer">고객센터</a></li>						
+					</ul>
+				</li>	
 
 			</ul>
 		</nav>
@@ -42,13 +48,13 @@
 	<section id="banner" style="background-image: url('pixelarity/images/background.png'); background-size: cover; ; ">
 		<div class="inner">
 			<h2>자신만의 특별한 블로그 제작</h2>
-			<p>코딩을 몰라도 누구나 자신만에 특별한 블로그를 만들 수 있습니다.</p>
+			<p>코딩을 몰라도 누구나 자신만의 특별한 블로그를 만들 수 있습니다.</p>
 			<ul class="actions">
-				<li><a href="#one" class="button big scrolly">제작하기</a></li>
+				<li><a href="#" class="button big scrolly main-login">시작하기</a></li>
 			</ul>
 		</div>
 			<div class="a" style="bottom: 0; position: absolute; right: 0;">
-				<p  style="font-size: 12px;">현재 00000명이 DecoBlog를
+				<p  style="font-size: 1.4em;">현재 ${nUser}명이 DecoBlog를
 					이용하고 있습니다.</p>
 			</div>
 	</section>
@@ -196,10 +202,10 @@
 	            <a class="join" href="user/join">회원가입</a>
 	        </div>
 	        <div class="login-form user-form form-group">
-	            <input type="text" id="userEmail" name="userEmail" class="form-control valid" placeholder="이메일">
+	            <input type="text" id="userEmail" name="userEmail" class="form-control valid" placeholder="이메일" autocomplete="new-password">
 	            <input type="password" id="userPassword" name="userPassword" class="form-control valid" placeholder="비밀번호">
 	        	<div class="row">
-		        	<label class="forget col-md-12 col-sm-12 col-xs-12"><a href="/member/support/password_reset" data-lang="page.member.login-modal.password-reset">비밀번호를 잊으셨나요?</a></label>
+		        	<label class="forget col-md-12 col-sm-12 col-xs-12"><a href="user/password_reset">비밀번호를 잊으셨나요?</a></label>
 	        	</div>
 	        </div>
 	        <div class="btn-wrapper">

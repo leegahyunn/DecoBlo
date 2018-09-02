@@ -1,7 +1,10 @@
 package com.decoblog.www.blog.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.decoblog.www.blog.dao.BlogRepository;
+import com.decoblog.www.blog.vo.BlockTemplate;
 import com.decoblog.www.blog.vo.Menu;
 import com.google.gson.Gson;
 
@@ -97,4 +101,22 @@ public class BlogController {
 		
 		return "success";
 	}
+	@RequestMapping(value="getThumnail",method=RequestMethod.POST)
+	public List<Integer> getThumnail(String tmpType) {
+		List<Integer> blockNoList = blogRepository.selectThumnail(tmpType);
+		return blockNoList;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="getBlockContent",method=RequestMethod.POST)
+	public String getBlockContent(int blockTmpNo) {
+		String blockContent = blogRepository.selectBlockContent(blockTmpNo);
+		try {
+			blockContent = URLEncoder.encode(blockContent, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return blockContent;
+	}
+	
 }

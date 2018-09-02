@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>DecoBlo - 회원가입</title>
+<title>DecoBlo - 비밀번호 찾기</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="../pixelarity/assets/css/main.css" />
 <link rel="stylesheet" href="../decoblo/css/user.css" />
@@ -13,22 +13,22 @@
 	<div class="join-wrapper user-wrapper" >
 	    <div class="join-content user-content">
 	      <div class="join-header user-header">
-	        <a href="/www"><i class="fa fa-times"></i></a>
+	        <a href="/www/"><i class="fa fa-times"></i></a>
 	      </div>
 	      <div class="join-body user-body">
 	        <div class="text-center logo"><img src="//i.addblock.net/modal-logo-dark.png" alt="creatorlink logo"></div>
 	        <div class="text-center">
-	            <span class="join-text">크리에이티브한 당신을 위한 사이트를 만들어보세요!</span> 
+	            <span class="join-text"><b>비밀번호 재설정</b></span>
+	            <br>
+	            <span class="join-text">가입 시 등록한 이메일을 입력해주세요.</span> 
 	        </div>
 	        <div class="join-form user-form form-group">
 	        	<form method="post" action="join" id="join">
-	        	<input type="text" id="userName" name="userName" placeholder="이름" value="" autocomplete="new-password">
-	            <input type="text" id="userEmail" name="userEmail" placeholder="이메일" value="" autocomplete="new-password">
-	            <input type="password" id="userPassword" name="userPassword" placeholder="비밀번호" value="" autocomplete="new-password">
+	        		<input type="text" id="reset-password-email" name="userEmail" placeholder="이메일" value="" autocomplete="new-password">
 	            </form>
 	        </div>
 	        <div class="btn-wrapper">
-	        	<div id="join-btn" class="join-btn user-btn">회원가입</div>
+	        	<div id="reset-password-btn" class="join-btn user-btn">비밀번호 재설정</div>
 	        </div>
 	      </div>
 	    </div>
@@ -36,11 +36,9 @@
 <script src="../pixelarity/assets/js/jquery.min.js"></script>
 <script>
 	$(function(){
-		$('#userName').val('');
-		$('#userEmail').val('');
-		$('#userPassword').val('');
+		$('#reset-password-email').val('');
 		
-		$('#join-btn').on('click', function(){
+		$('#reset-password-btn').on('click', function(){
 			$('#join').submit();
 		});
 	});

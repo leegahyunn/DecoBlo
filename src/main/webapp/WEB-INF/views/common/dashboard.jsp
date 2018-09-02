@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html >
 <html>
 <head>
@@ -12,6 +13,7 @@
 <!--[if lte IE 8]><link rel="stylesheet" href="pixelarity/assets/css/ie8.css" /><![endif]-->
 <!--[if lte IE 9]><link rel="stylesheet" href="pixelarity/assets/css/ie9.css" /><![endif]-->
 <link rel="stylesheet" href="resources/jchart/jquery-ui.min.css" type="text/css">
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">
 
 <style type="text/css">
 .maintop {
@@ -41,7 +43,11 @@
 .a {
 	position: relative;
 }
-
+.c{
+	position: absolute;
+	top: 12px;
+	left: 48%;
+}
 .b {
 	position: absolute;
 	right: 30px;
@@ -384,19 +390,24 @@ main p {
 
 .table-1{
 	position: relative;
-	height: 200px;
+	height: auto;
 
 }
 .table-2{
 	position: absolute;
-	width: 50%;
+	width: 92%;
+	bottom: 25%;
 
 }
 
-.table-3{
-	position: absolute; right: 1px;
-	width: 50%;
-	
+td{
+	text-align: center;
+
+}
+
+pmydate{
+	height: auto;
+
 }
 
 </style>
@@ -404,33 +415,7 @@ main p {
 <body>
 
 	<!-- Header -->
-	<header id="header">
-		<h1>
-			<a href="index.html">Deco <span>Blong</span></a>
-		</h1>
-		<nav id="nav">
-			<ul>
-				<li><a href="#" class="icon fa-angle-down">이준호님</a>
-					<ul>
-						<li><a href="#">내 블로그</a></li>
-						<li><a href="#">계정설정</a></li>
-						<li><a href="#">1대1 문의</a></li>
-						<li><a href="#">로그아웃</a></li>
-					</ul>
-				<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
-
-					<ul>
-						<li><a href="#">한국어(KO)</a></li>
-						<li><a href="#">日本語(JP)</a></li>
-					</ul></li>
-				<li><a href="#">고객센터</a></li>
-
-
-
-			</ul>
-
-		</nav>
-	</header>
+	<jsp:include page="header.jsp"></jsp:include>
 
 	<!-- Main -->
 	<section id="main" class="wrapper style1">
@@ -455,9 +440,7 @@ main p {
 						<div class="mainbutton">
 							<a href="#" class="button special">블로그 가기</a> <a href="#"
 								class="button">블로그 편집</a>
-
-
-						</div>
+							</div>
 						<hr />
 					</div>
 				</section>
@@ -469,11 +452,15 @@ main p {
 
 				<div class="a">
 					<h2 align="left">일간 현황</h2>
-					<p align="center">
-						<a href="#"><</a> ${stat.statRegDate} <a href="#">달력</a> <a href="#">></a>
+					<p align="center" id="timer">
+						 ${stat.statRegDate}
 					</p>
-					<div id="mydate">   </div>
-					
+					<div class="c" ><img src="resources/jchart/calendar.png" class="calendar"></div>
+					<div id="pmydate">
+						<div id="mydate" style=" width: 250px; height:  340px; margin: 0 auto;"> 
+						 <hr/>
+						</div>	
+				</div>		
 					<div class="b">
 						<input type="button" class="button small" id='dd' value="일간"> <input type="button"
 							class="button small" id='week' value="주간"> <input type="button" class="button small" id='mm' value="월간">
@@ -489,15 +476,15 @@ main p {
 					</div>
 					<div class="two">
 						<p align="center">공감수</p>
-						<h3 align="center">0</h3>
+						<h3 align="center">${stat.statBlogCount}</h3>
 					</div>
 					<div class="three">
 						<p align="center">댓글수</p>
-						<h3 align="center">0</h3>
+						<h3 align="center">${stat.statReplyCount}</h3>
 					</div>
 					<div class="four">
 						<p align="center">구독 증감수</p>
-						<h3 align="center">0</h3>
+						<h3 align="center">${stat.statSubscribe}</h3>
 
 					</div>
 
@@ -529,7 +516,7 @@ main p {
 						<li id="li-for-panel-4"><label class="panel-label"
 							for="panel-4-ctrl">유입 경로</label></li>
 						<li id="li-for-panel-5"><label class="panel-label"
-							for="panel-5-ctrl">성별 연령분포</label></li>
+							for="panel-5-ctrl">구독자</label></li>
 					</ul>
 
 					<!-- THE PANELS -->
@@ -538,7 +525,7 @@ main p {
 							<section id="panel-1">
 								<main>
 								<p align="left" id="clock">기준</p>
-								chart </main>
+								+ </main>
 							</section>
 							<section id="panel-2">
 								<main>
@@ -569,89 +556,28 @@ main p {
 
 
 			<div class="table-1">
-				<div class="table-2">
-				<table>
-					<thead>
-						<tr>
-							<th style="text-align: center;">날짜</th>
-							<th style="text-align: center;">조회수</th>
-							
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td></td>
-							<td></td>
-							
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							
-						</tr>
-					</tbody>
-
-				</table>
-				</div>
 				
-				<div class="table-3">
-				<table>
+				<table class="mytable">
 					<thead>
 						<tr>
 							<th style="text-align: center;">날짜</th>
-							<th style="text-align: center;">조회수</th>
+							<th style="text-align: center;">블로그조회수</th>
+							<th style="text-align: center;">게시판조회수</th>
+							<th style="text-align: center;">구독자증감수 <p align="right" style="color: gray; font-size: x-small;">단위:건</p></th>
 							
 						</tr>
+						
+						
 					</thead>
-					<tbody>
-						<tr>
-							<td></td>
-							<td></td>
-							
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							
-						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							
-						</tr>
+					<tbody class="datein">
+					
 					</tbody>
 
 				</table>
 				</div>
-				<p align="right">단위:건</p>
 			</div>
-			<div>이웃관리</div>
-		</div>
+			
+		
 	</section>
 
 
@@ -684,10 +610,83 @@ main p {
 	<script src="pixelarity/assets/js/util.js"></script>
 	<!--[if lte IE 8]><script src="pixelarity/assets/js/ie/respond.min.js"></script><![endif]-->
 	<script src="pixelarity/assets/js/main.js"></script>
-	
+	<script src="resources/jchart/jquery.mtz.monthpicker.js"></script>
 	<script type="text/javascript" src="resources/jchart/jquery-ui.min.js"></script>
-	
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+	<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+	<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
+	<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 	<script type="text/javascript">
+	
+	$.datepicker.regional['ko'] = {
+
+			  closeText: '닫기',
+
+			  prevText: '이전달',
+
+			  nextText: '다음달',
+
+			  currentText: '오늘',
+
+			  monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+
+			  monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+
+			  dayNames: ['일','월','화','수','목','금','토'],
+
+			  dayNamesShort: ['일','월','화','수','목','금','토'],
+
+			  dayNamesMin: ['일','월','화','수','목','금','토'],
+
+			  weekHeader: 'Wk',
+
+			  dateFormat: 'yy-mm-dd',
+
+			  firstDay: 0,
+
+			  isRTL: false,
+
+			  duration:200,
+
+			  showAnim:'show',
+
+			  showMonthAfterYear: true,
+
+			  yearSuffix:'년'
+
+			 };
+
+			 
+
+
+			 $.datepicker.setDefaults($.datepicker.regional['ko']);
+			
+	 $.datepicker.setDefaults({
+	        dateFormat: 'yy-mm-dd',
+	        prevText: '이전 달',
+	        nextText: '다음 달',
+	        monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	        monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	        dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+	        dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+	        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+	        showMonthAfterYear: true,
+	        yearSuffix: '년'
+	    });
+	 
+	 
+	 
+	 var currentYear = (new Date()).getFullYear();
+
+	   var startYear = currentYear-10;
+
+	   
+
+	
+
+	   
 		function printTime() {
 
             var clock = document.getElementById("clock");
@@ -711,68 +710,427 @@ main p {
 			}
 		
 		
-		$('#mm').on('click', function() {
-			$(".box").html(div2);
-		});
-
-			window.onload = function() {                         // 페이지가 로딩되면 실행
-
-            printTime();
-            $("#mydate").datepicker();
-
-				}
-			
+	// 일간 클릭시 실행
 			$('#dd').on('click', function() {
+				tablereset();
+				$("#timer").html(cal);
 				$(".box").html(div2);
 				$("#panel-1").html(chart2);
 				$("#panel-2").html(chart2);
 				$("#panel-3").html(chart2);
 				$("#panel-4").html(chart2);
-			});
-
+				$("#pmydate").html(mydate);
+				ddate();
+				 $("#mydate").datepicker({ onSelect: function(dateText) {  
+						
+				    	
+				    	var send = dateText;
+				    	var senddate = {'statRegDate':send}
+				    	
+				    	 $.ajax({
+						    	method : 'POST'
+								, url  : 'selectday'
+								, data : JSON.stringify(senddate)
+								, dataType : 'json'
+								, contentType : 'application/json; charset:utf-8' 
+								, success : function(resp){
+									var succ = '<p align="center">조회수</p>'
+										succ += '<h3 align="center">'+resp.statBlogCount+'</h3>';
+									$(".one").html(succ);
+									var succ2 = '<p align="center">공감수예정</p>'
+										succ2 += '<h3 align="center">'+resp.statBbsCount+'</h3>';
+									$(".two").html(succ2);
+									var succ3 = '<p align="center">댓글수</p>'
+										succ3 += '<h3 align="center">'+resp.statReplyCount+'</h3>';
+									$(".three").html(succ3);
+									var sub = ${stat.statSubscribe}-resp.statSubscribe;
+									var succ4 = '<p align="center">구독 중감수</p>'
+										succ4 += '<h3 align="center">'+sub+'</h3>';
+									$(".four").html(succ4);
+								}
+							});
+				    	  }
+				    	});  
+			})
+    // 월간 클릭시 실행
 			$('#mm').on('click', function() {
-				$(".box").html(div2);
+				tablereset();
+				mdate();
+				$("#timer").html(cal3);
+				$(".box").html(div3);
 				$("#panel-1").html(chart2);
 				$("#panel-2").html(chart2);
 				$("#panel-3").html(chart2);
 				$("#panel-4").html(chart2);
+				
+				var datepicker_default = {
+			            
+			            prevText : "이전달",
+			            nextText : "다음달",
+			            changeMonth: true,
+			            changeYear: true,
+			            monthNames : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+			            monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+			            isRTL : false,
+			            showMonthAfterYear : true,
+			            viewMode: "months", 
+			            minViewMode: "months"
+			            
+			        }
+					
+			        datepicker_default.closeText = "선택";
+			        datepicker_default.dateFormat = "yy-mm";
+			        datepicker_default.onClose = function (dateText, inst) {
+			            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+			            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+			            $(this).datepicker( "option", "defaultDate", new Date(year, month, 1) );
+			            $(this).datepicker('setDate', new Date(year, month, 1));
+			        }
+			       datepicker_default.beforeShow = function () {
+			            var selectDate = $("#sdate").val().split("-");
+           			            var year = Number(selectDate[0]);
+			            var month = Number(selectDate[1]) - 1;
+			            alert(month);
+			            $(this).datepicker( "option", "defaultDate", new Date(year, month, 1) );
+			            $(this).datepicker({
+			                viewMode: 'months',
+			                format: 'yyyy-mm'
+			           });
+			            console.log( $("#sdate").val()); 
+			           	alert($("#sdate").val());
+			        }
+			        $("#pmydate").html(mydate3);
+			$("#sdate").datepicker(datepicker_default);
+			
 			});
-	
+	// 주간 클릭시 실행
 			$('#week').on('click', function() {
-				$(".box").html(div2);
+				
+				tablereset();
+				wdate();
+				$("#timer").html(cal2);
+				$(".box").html(div4);
 				$("#panel-1").html(chart2);
 				$("#panel-2").html(chart2);
 				$("#panel-3").html(chart2);
 				$("#panel-4").html(chart2);
+				$("#pmydate").html(mydate2);
+				//주 간 달 력
+				 $('#week-picker').datepicker( {
+				        showOtherMonths: true,
+				        selectOtherMonths: true,
+						selectWeek:true,
+				        onSelect: function(dateText, inst) { 
+				            var date = $(this).datepicker('getDate');
+				            startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() );
+				            endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
+							var dateFormat = 'yy/mm/dd'
+				            startDate = $.datepicker.formatDate( dateFormat, startDate, inst.settings );
+				            endDate = $.datepicker.formatDate( dateFormat, endDate, inst.settings );
+
+							$('#week-picker').val(startDate + '~' + endDate);
+				            setTimeout("applyWeeklyHighlight()", 100);
+				            var send = startDate+'~'+endDate;
+				            var senddate = {'statRegDate':send};
+				            alert(JSON.stringify(senddate));
+				            $.ajax({
+						    	method : 'POST'
+								, url  : 'selectweek'
+								, data : JSON.stringify(senddate)
+								, dataType : 'json'
+								, contentType : 'application/json; charset:utf-8' 
+								, success : function(resp){
+									var succ = '<p align="center">조회수</p>'
+										succ += '<h3 align="center">'+resp.statBlogCount+'</h3>';
+									$(".one").html(succ);
+									var succ2 = '<p align="center">공감수예정</p>'
+										succ2 += '<h3 align="center">'+resp.statBbsCount+'</h3>';
+									$(".two").html(succ2);
+									var succ3 = '<p align="center">댓글수</p>'
+										succ3 += '<h3 align="center">'+resp.statReplyCount+'</h3>';
+									$(".three").html(succ3);
+									var sub = ${stat.statSubscribe}-resp.statSubscribe;
+									var succ4 = '<p align="center">구독 중감수</p>'
+										succ4 += '<h3 align="center">'+sub+'</h3>';
+									$(".four").html(succ4);
+									
+								}
+				            })
+				        },
+						beforeShow : function() {
+							setTimeout("applyWeeklyHighlight()", 100);
+						}
+				    });
 			});
-	
+			// 캘 린 더 클 릭 시 보 이 고 숨 기 기
+			 $('.calendar').on('click',function(){
+				 if($("#pmydate").css("display") == "none"){   
+					 $("#pmydate").show(); 
+				    } else {  
+				    	$("#pmydate").hide();
+				    }  
+			});
 			
-			
+			 var mydate =  '<div id="mydate" style=" width: 250px; height:  340px; margin: 0 auto;">';  
+				 mydate += '<hr/>';
+				 mydate += '</div>';	
+				
+				 var mydate2 =  '<input type="text" id ="week-picker">';
+				 var mydate3 =  '<input type="text" id ="sdate">';
+				
+				
 		
 			
 			
 		var div2 = '<div class="one">';
 		div2 +=	'<p align="center">오늘 조회수</p>';
-		div2 +=	'<h3 align="center">0</h3>'
+		div2 +=	'<h3 align="center">${stat.statBlogCount}</h3>'
 		div2 +=	'</div>'
 		div2 += '<div class="two">'
 		div2 +=	'<p align="center">공감수</p>'
-		div2 +=	'<h3 align="center">0</h3>'
+		div2 +=	'<h3 align="center">${stat.statBlogCount}</h3>'
 		div2 +=	'</div>'
 	    div2 +=	'<div class="three">'
 	    div2 +=	'<p align="center">댓글수</p>'
-	    div2 +=	'<h3 align="center">0</h3>'
+	    div2 +=	'<h3 align="center">${stat.statReplyCount}</h3>'
 	    div2 +=	'</div>'
 	    div2 +=	'<div class="four">'
 	    div2 +=	'<p align="center">구독 증감수</p>'
-	    div2 +=	'<h3 align="center">0</h3>'
+	    div2 +=	'<h3 align="center">${stat.statSubscribe}</h3>'
 	    div2 +=	'</div>'
+	   
+	    var cal="${stat.statRegDate}"
+	    
+	    var cal2= "${wwdate}&nbsp;~&nbsp;${stat.statRegDate}"
+	    
+	    var cal3= "${mmdate}"
+	    	
+	    
+	    var div3 = '<div class="one">';
+		div3 +=	'<p align="center">이번 달 조회수</p>';
+		div3 +=	'<h3 align="center">${mstat.statBlogCount}</h3>'
+		div3 +=	'</div>'
+		div3 += '<div class="two">'
+		div3 +=	'<p align="center">공감수</p>'
+		div3 +=	'<h3 align="center">${mstat.statBlogCount}</h3>'
+		div3 +=	'</div>'
+	    div3 +=	'<div class="three">'
+	    div3 +=	'<p align="center">댓글수</p>'
+	    div3 +=	'<h3 align="center">${mstat.statReplyCount}</h3>'
+	    div3 +=	'</div>'
+	    div3 +=	'<div class="four">'
+	    div3 +=	'<p align="center">구독 증감수</p>'
+	    div3 +=	'<h3 align="center">${mstat.statSubscribe}</h3>'
+	    div3 +=	'</div>'
+	    
+	    
+	    	var div4 = '<div class="one">';
+		div4 +=	'<p align="center">이번 달 조회수</p>';
+		div4 +=	'<h3 align="center">${wstat.statBlogCount}</h3>'
+		div4 +=	'</div>'
+		div4 += '<div class="two">'
+		div4 +=	'<p align="center">공감수</p>'
+		div4 +=	'<h3 align="center">${wstat.statBlogCount}</h3>'
+		div4 +=	'</div>'
+	    div4 +=	'<div class="three">'
+	    div4 +=	'<p align="center">댓글수</p>'
+	    div4 +=	'<h3 align="center">${wstat.statReplyCount}</h3>'
+	    div4 +=	'</div>'
+	    div4 +=	'<div class="four">'
+	    div4 +=	'<p align="center">구독 증감수</p>'
+	    div4 +=	'<h3 align="center">${wstat.statSubscribe}</h3>'
+	    div4 +=	'</div>'
 	    
 	    var chart2 =  '<main>'
 			chart2 += '<p align="left">기준</p>'
 			chart2 += '변경차트</main>'
 		
+				  var currentYear = (new Date()).getFullYear();
 
+		    var startYear = currentYear-10;
 
+		    
+		   
+		    window.onload = function() {                         // 페이지가 로딩되면 실행
+				
+	            printTime();
+	         
+	            $("#pmydate").hide();
+	            $('#mydate').datepicker({
+			        altField : '#getdate'
+			        
+			    });
+	            ddate();
+			    }
+		    
+	   
+		    function applyWeeklyHighlight() {
+
+		    	$('.ui-datepicker-calendar tr').each(function() {
+
+		    		if ($(this).parent().get(0).tagName == 'TBODY') {
+		    			$(this).mouseover(function() {
+		    				$(this).find('a').css({
+		    					'background' : '#ffffcc',
+		    					'border' : '1px solid #dddddd'
+		    				});
+		    				$(this).find('a').removeClass('ui-state-default');
+		    				$(this).css('background', '#ffffcc');
+		    			});
+		    			
+		    			$(this).mouseout(function() {
+		    				$(this).css('background', '#ffffff');
+		    				$(this).find('a').css('background', '');
+		    				$(this).find('a').addClass('ui-state-default');
+		    			});
+		    		}
+
+		    	});
+		    }
+		    
+		    var startDate;
+		    var endDate;
+		    
+		    
+		    var send = $('.getdate').val();
+		    var senddate = {"slday":send}
+		    
+		   
+		    
+		    
+		    
+		    
+		    
+		    
+		    $("#mydate").datepicker({ onSelect: function(dateText) {  
+				var send = dateText;
+		    	var senddate = {'statRegDate':send}
+		    	$.ajax({
+				    	method : 'POST'
+						, url  : 'selectday'
+						, data : JSON.stringify(senddate)
+						, dataType : 'json'
+						, contentType : 'application/json; charset:utf-8' 
+						, success : function(resp){
+							var succ = '<p align="center">조회수</p>'
+								succ += '<h3 align="center">'+resp.statBlogCount+'</h3>';
+							$(".one").html(succ);
+							var succ2 = '<p align="center">공감수예정</p>'
+								succ2 += '<h3 align="center">'+resp.statBbsCount+'</h3>';
+							$(".two").html(succ2);
+							var succ3 = '<p align="center">댓글수</p>'
+								succ3 += '<h3 align="center">'+resp.statReplyCount+'</h3>';
+							$(".three").html(succ3);
+							var sub = ${stat.statSubscribe}-resp.statSubscribe;
+							var succ4 = '<p align="center">구독 중감수</p>'
+								succ4 += '<h3 align="center">'+sub+'</h3>';
+							$(".four").html(succ4)
+						}
+						
+					});
+		    	  }
+		    	});
+			
+		    function ddate() {
+				$.ajax({
+					method : 'GET'
+				 , url  : 'selectchart'
+				 , dataType : 'json'
+				 , success : function(data) {
+					var c = data.length;
+				
+					 
+						 
+					$.each(data, function(i, arrjson) {
+						var a = data[i].statRegDate;
+						var res = a.substring(0, 10)
+						
+						
+						$('<tr>').html("<td>" + res+ "</td>"+
+							 "<td >" +  data[i].statBlogCount+ "</td>"+
+							  "<td >" +  data[i].statBbsCount+ "</td>"+
+							 "<td >" +  data[i].statSubscribe + "</td>").appendTo('.datein');
+					
+							 }
+							
+						)
+					
+				 }
+				
+					})
+				}
+			// 주간 데이터 출력
+		    function wdate() {
+				$.ajax({
+					method : 'GET'
+				 , url  : 'selectchart2'
+				 , dataType : 'json'
+				 , success : function(data) {
+					
+						 
+					$.each(data, function(i, arrjson) {
+						var a = data[i].statRegDate;
+						var res = a.substring(0, 10)
+						
+						var formattedDate = new Date(a); 
+						var d = formattedDate.getDate(); d += 6;
+						var m = formattedDate.getMonth();
+						var ma = ("0" + (m + 1)).slice(-2);
+						
+						var y = formattedDate.getFullYear(); 
+						var ers = y + "-" + ma + "-" + d;
+
+						$('<tr>').html("<td>" +res+ "&nbsp "+'~'+ "&nbsp "+ers+ "</td>"+
+							 "<td >" +  data[i].statBlogCount+ "</td>"+
+							  "<td >" +  data[i].statBbsCount+ "</td>"+
+							 "<td >" +  data[i].statSubscribe + "</td>").appendTo('.datein');
+					
+							 }
+							
+						)
+					
+				 }
+				
+					})
+				}
+		
+			
+		    //월 간 데이터 출력
+		    function mdate() {
+				$.ajax({
+					method : 'GET'
+				 , url  : 'selectchart3'
+				 , dataType : 'json'
+				 , success : function(data) {
+					
+						 
+					$.each(data, function(i, arrjson) {
+						var a = data[i].statRegDate;
+						var res = a.substring(0, 7)
+					
+
+						$('<tr>').html("<td>" +res+ "</td>"+
+							 "<td >" +  data[i].statBlogCount+ "</td>"+
+							  "<td >" +  data[i].statBbsCount+ "</td>"+
+							 "<td >" +  data[i].statSubscribe + "</td>").appendTo('.datein');
+					
+							 }
+							
+						)
+					
+				 }
+				
+					})
+				}
+		    
+		    
+		   // 테이블 리셋
+		    function tablereset() {
+		       $( '.mytable > tbody').empty();
+		        }
+			
+		   	
+			
+		
 </script>
 </html>
