@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,25 +38,12 @@ public class BlogController {
 	 * @return ArrayList<HashMap<String, ArrayList<Menu>>> JSON
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/menuConfig2", method = RequestMethod.POST)
-	public ArrayList<Menu> menuConfig2() {
-		ArrayList<HashMap<String, ArrayList<Menu>>> list= blogRepository.selectMenu();
-		ArrayList<Menu> menuList = new ArrayList<Menu>();
-		for(int i = 0; i<list.size(); i++) {
-			for(int j = 0; j<list.get(i).get("Menu").size(); j++) {
-				menuList.add(list.get(i).get("Menu").get(j));
-			}
-		}
-		return menuList;
-	}
-	@ResponseBody
 	@RequestMapping(value = "/menuConfig", method = RequestMethod.POST)
 	public String menuConfig() {
-		ArrayList<HashMap<String, ArrayList<Menu>>> lists = blogRepository.selectMenu();
-		System.out.println(lists);
-		
+		ArrayList<HashMap<String, ArrayList<Menu>>> list= blogRepository.selectMenu();
+	//	System.out.println(list);
 		Gson gson = new Gson();
-		String result = gson.toJson(lists);
+		String result = gson.toJson(list);
 		return result;
 	}
 	/**
@@ -67,11 +53,54 @@ public class BlogController {
 	@RequestMapping(value = "/editMenu", method = RequestMethod.POST)
 	public String editMenu(@RequestBody Menu menu) {
 		System.out.println(menu); 
-		blogRepository.updateMenu(menu);
+		blogRepository.updateMenuTitle(menu);
 		return "blog/config";
 	}
 	
 	@ResponseBody
+	@RequestMapping(value="/updateMenu", method=RequestMethod.POST)
+	public String updateMenu(@RequestBody HashMap<String, String> map) {
+		if (map.isEmpty()) {
+			return "false";
+		}
+
+		// TODO userNo 세션값으로 바꾸기 
+		map.put("menuUserNo", "1");
+		String depth = String.valueOf(map.get("menuDepth"));
+		
+		if(depth.equals("1")) {//움직인 애가 소메뉴일 경우
+			if(map.get("menuParent").equals("newMenuParent")){//대메뉴 내에서 소메뉴가 이동한 경우(부모가 그대로인 경우)
+				blogRepository.updateSmallMenuPull(map);
+				blogRepository.updateSmallMenuPush(map);
+				blogRepository.updateMenu(map);
+			} else {
+				if(!(map.containsKey("newMenuParent"))) { //소메뉴가 대메뉴가 된 경우
+					map.put("newMenuParent", "0");
+					blogRepository.updateSmallMenuPull(map);
+					blogRepository.updateLargeMenuPush(map);
+					blogRepository.updateMenu(map);
+				}else {//소메뉴가 다른 대메뉴의 소메뉴로 이동한 경우
+					System.out.println("??");
+					blogRepository.updateSmallMenuPull(map);
+					blogRepository.updateSmallMenuPush(map);
+					blogRepository.updateMenu(map);
+				}
+			}
+		} else {//움직인 애가 대메뉴일 경우
+			if(!(map.containsKey("newMenuParent"))) { //대메뉴 순서만 바뀐 경우
+				map.put("newMenuParent", "0");
+				blogRepository.updateLargeMenuPull(map);
+				blogRepository.updateLargeMenuPush(map);
+				blogRepository.updateMenu(map);
+			}else {//대메뉴가 다른 대메뉴의 소메뉴로 들어간 경우
+				blogRepository.updateLargeMenuPull(map);
+				blogRepository.updateSmallMenuPush(map);
+				blogRepository.updateMenu(map);
+			}
+		}
+		
+		return "success";
+	}
 	@RequestMapping(value="getThumnail",method=RequestMethod.POST)
 	public List<Integer> getThumnail(String tmpType) {
 		List<Integer> blockNoList = blogRepository.selectThumnail(tmpType);

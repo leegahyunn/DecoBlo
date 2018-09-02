@@ -32,9 +32,9 @@ public class BlogRepository {
 	 * 메뉴 타이틀 수정
 	 * @return 성공 여부
 	 */
-	public int updateMenu(Menu menu) {
+	public int updateMenuTitle(Menu menu) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
-		int result = mapper.updateMenu(menu);
+		int result = mapper.updateMenuTitle(menu);
 		
 		return result;
 	}
@@ -53,5 +53,40 @@ public class BlogRepository {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		String blockContent = mapper.selectBlockContent(blockTemplateNo);
 		return blockContent;
+	}
+
+	public int updateSmallMenuPull(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateSmallMenuPull(map);
+		
+		return result;
+	}
+
+	public int updateSmallMenuPush(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateSmallMenuPush(map);
+		
+		return result;
+	}
+
+	public int updateLargeMenuPull(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateLargeMenuPull(map);
+		
+		return result;
+	}
+
+	public int updateLargeMenuPush(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateLargeMenuPush(map);
+		
+		return result;
+	}
+
+	public int updateMenu(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateMenu(map);
+		
+		return result;
 	}
 }
