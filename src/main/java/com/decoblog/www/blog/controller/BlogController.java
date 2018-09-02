@@ -9,11 +9,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.decoblog.www.blog.dao.BlogRepository;
+import com.decoblog.www.blog.vo.Block;
 import com.decoblog.www.blog.vo.BlockTemplate;
 import com.decoblog.www.blog.vo.Menu;
 
@@ -66,4 +68,25 @@ public class BlogController {
 		return blockContent;
 	}
 	
+	@RequestMapping(value = "/yrtest", method = RequestMethod.GET)
+	public String yrtest(Menu menu,Model model) {
+		menu.setMenuNo(1);
+		menu.setMenuUserNo(1);
+		List<Block> blockList = blogRepository.selectBlockList(menu);
+		model.addAttribute("blockList", blockList);
+		return "blog/blogEdit1";
+	}
+	
+	@RequestMapping(value="setBlockContent",method=RequestMethod.POST)
+	public @ResponseBody String setBlockContent(@RequestBody Block block) {
+		int blockSeq = block.getBlockSeq();
+		blogRepository.updateBlockSeq(blockSeq);
+		blogRepository.insertBlock(block);
+		return "redirect:yrtest";
+	}
+	
+	@RequestMapping(value="deleteBlock",method=RequestMethod.POST)
+	public String deleteBlock(int blockSeq) {
+		return "redirect:yrtest";
+	}
 }

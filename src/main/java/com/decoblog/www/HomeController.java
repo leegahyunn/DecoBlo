@@ -42,10 +42,10 @@ public class HomeController {
 	}
 	
 	// 최용락
-	@RequestMapping(value = "/yrtest", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/yrtest", method = RequestMethod.GET)
 	public String yrtest() {
 		return "blog/blogEdit1";
-	}
+	}*/
 	
 	// 안정민
 	@RequestMapping(value = "/jmtest", method = RequestMethod.GET)

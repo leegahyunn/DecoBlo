@@ -1,14 +1,15 @@
 @charset "UTF-8";
 
-* {
-	margin: 0;
-	padding: 0;
-}
-
-
 div.block-config {
 	border: 1px solid #DDD;		
 	color: #808080;
+	width: 260px;
+	background-color: #fff;
+	position: absolute;
+	display: none;
+	top:50px;
+	right:50px;
+	z-index: 22;
 }
 
 div.block-config-header {		
@@ -16,11 +17,13 @@ div.block-config-header {
 	padding: 3px 10px;
 	color: #FFF;
 	font-size: 1em;
+	cursor: move;
 }
 
 div.block-config-header i.fa-times {
 	float: right;	
 	color: #111;
+	cursor: pointer;
 }
 
 div.block-config-section {		
@@ -56,7 +59,11 @@ div.block-config-section div.inner-config div.config-row.additional-option {
 div.block-config-footer {
 	overflow: hidden;
 	font-size: 0.8em;
-	padding: 5px 0;
+    display: table;
+    border-top: 1px solid #ddd;
+    width: 100%;
+    background-color: #f0f0f0;
+    cursor: pointer;
 }
 
 div.block-config-footer div {
@@ -64,6 +71,10 @@ div.block-config-footer div {
 	float: left;
 	text-align: center;
 	border-right: 1px solid #DDD;
+}
+
+div.block-config-footer div:hover{
+	background-color: #4789e7;
 }
 
 div.block-config-footer div:nth-child(4) {
