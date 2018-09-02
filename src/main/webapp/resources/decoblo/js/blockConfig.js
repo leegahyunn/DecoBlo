@@ -84,7 +84,7 @@ $('#element3').newColpick({
   submitColor: 'default',
   variant: 'standard',
   
-});
+});	
 
 
 

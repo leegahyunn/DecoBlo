@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 
 import com.decoblog.www.blog.vo.Menu;
+import com.decoblog.www.user.vo.User;
+import com.decoblog.www.blog.vo.Block;
 import com.decoblog.www.blog.vo.BlockTemplate;
 
 @Repository
@@ -53,5 +55,29 @@ public class BlogRepository {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		String blockContent = mapper.selectBlockContent(blockTemplateNo);
 		return blockContent;
+	}
+	/*블록 가져오기 */
+	public List<Block> selectBlockList(Menu menu){
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		List<Block> blockList = mapper.selectBlockList(menu);
+		return blockList;
+	}
+	/*블록 입력하기*/
+	public int insertBlock(Block block) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.insertBlock(block);
+		return result;
+	}
+	/*블록 Seq 한자리씩 미루기*/
+	public int updateBlockSeq(int blockSeq) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateBlockSeq(blockSeq);
+		return result;
+	}
+	/*블록 삭제*/
+	public int deleteBlock(int blockSeq) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.deleteBlock(blockSeq);
+		return result;
 	}
 }
