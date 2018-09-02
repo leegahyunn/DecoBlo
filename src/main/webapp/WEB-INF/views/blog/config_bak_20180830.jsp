@@ -334,37 +334,99 @@ menuConfig();
 function menuConfig() {
 	$.ajax({
 		method   : 'post'
-		, url    : 'menuConfig'
+		, url    : 'menuConfig2'
 		, contentType : 'application/json; charset=UTF-8'
 		, success: function(resp) {
-			var menuJson = JSON.parse(resp);
-			var result = '';
-			result += '<ol class="dd-list">';
+			var result1 ='';
+			var result2 ='';
+			for(var i in resp){
+				if(resp[i].menuDepth==0){
+					result1 += '</ul></li><li id="menuParent' + resp[i].menuParent + '"><a href="#">'+resp[i].menuName+'</a><ul>';
+				} else if(resp[i].menuDepth==1){
+					result1 += '<li><a href="#">'+resp[i].menuName +'</a></li>'
+				}
+			}
+			result1 += '</ul></li>';
 			
-			$.each(menuJson, function(mainIndex, mainMenu){
-				$.each(mainMenu.Menu, function(subIndex, subMenu){
-					console.log(subMenu);	
-					result += '<li class="dd-item" data-rno="'+ subMenu.menuSeq + '" data-parent="'+ subMenu.menuParent+'">';	
-					result += '<div class="default-config">';
-					result += '<div class="outer-config aa-handle">';
-					result += '<div class="dd-handle" style="display: inline-block; width: 80%;">';
-					result += '<span>' + subMenu.menuName + '</span>';
-					result += '</div>';
-					result += '<div class="outer-config"  style="display: inline-block;">';
-					result += '<i class="fa fa-trash deletebtn" data-rno="'+ subMenu.menuSeq + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					result += '<i class="fa fa-pencil editbtn" data-rno="'+ subMenu.menuSeq + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					result += '<i class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuSeq + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					result += '</div>';
-					result += '<div class="fold outer-config" style="display:none;">';
-					result += '<input type="text" style="width:200px;">';
-					result += '<i class="right-icon fa fa-check checkbtn" data-rno="'+ subMenu.menuSeq + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					result += '</div>';
-					result += '</div>';
-					result += '</div>';
-				});
-			});
-			result += '</ol'>;
-		}
+			$('.menu-block').html(result1);
+			result2 += '<ol class="dd-list">';
+			for(var i in resp){
+				if(resp[i].menuDepth==0){
+					result2 += '</ol></li><li class="dd-item" data-rno="'+ resp[i].menuSeq + '" data-parent="'+ resp[i].menuParent+'">';
+					result2 += '<div class="default-config">';
+					result2 += '<div class="outer-config aa-handle">';
+					result2 += '<div class="dd-handle" style="display: inline-block; width: 80%;">';
+					result2 += '<span>' + resp[i].menuName + '</span>';
+					result2 += '</div>';
+					result2 += '<div class="outer-config"  style="display: inline-block;">';
+					result2 += '<i class="fa fa-trash deletebtn" data-rno="'+ resp[i].menuSeq + '" data-parent="'+ resp[i].menuParent+'"></i>';
+					result2 += '<i class="fa fa-pencil editbtn" data-rno="'+ resp[i].menuSeq + '" data-parent="'+ resp[i].menuParent+'"></i>';
+					result2 += '<i class="fa fa-eye hidebtn" data-rno="'+ resp[i].menuSeq + '" data-parent="'+ resp[i].menuParent+'"></i>';
+					result2 += '</div>';
+					result2 += '<div class="fold outer-config" style="display:none;">';
+					result2 += '<input type="text" style="width:200px;">';
+					result2 += '<i class="right-icon fa fa-check checkbtn" data-rno="'+ resp[i].menuSeq + '" data-parent="'+ resp[i].menuParent+'"></i>';
+					result2 += '</div>';
+					result2 += '</div>';
+					result2 += '</div>';
+				}  else if(resp[i].menuDepth==1){
+					if(resp[i].menuSeq<2){
+						result2 += '<ol class="dd-list">';
+						result2 += '<li class="dd-item" data-rno="'+ resp[i].menuSeq + '" data-parent="'+ resp[i].menuParent+'">';
+						result2 += '<div class="default-config">';
+						result2 += '<div class="outer-config aa-handle">';
+						result2 += '<div class="dd-handle" style="display: inline-block; width: 80%;">';
+						result2 += '<span>' + resp[i].menuName + '</span>';
+						result2 += '</div>';
+						result2 += '<div class="outer-config"  style="display: inline-block;">';
+						result2 += '<i class="fa fa-trash deletebtn" data-rno="'+ resp[i].menuSeq + '" data-parent="'+ resp[i].menuParent+'"></i>';
+						result2 += '<i class="fa fa-pencil editbtn" data-rno="'+ resp[i].menuSeq + '" data-parent="'+ resp[i].menuParent+'"></i>';
+						result2 += '<i class="fa fa-eye hidebtn" data-rno="'+ resp[i].menuSeq + '" data-parent="'+ resp[i].menuParent+'"></i>';
+						result2 += '</div>';
+						result2 += '<div class="fold outer-config" style="display:none;">';
+						result2 += '<input type="text" style="width:200px;">';
+						result2 += '<i class="right-icon fa fa-check checkbtn" data-rno="'+ resp[i].menuSeq + '" data-parent="'+ resp[i].menuParent+'"></i>';
+						result2 += '</div>';
+						result2 += '</div>';
+						result2 += '</div>';
+						result2 += '</div>';
+						result2 += '</li>';	
+					}else {
+						result2 += '<li class="dd-item" data-rno="'+ resp[i].menuSeq + '" data-parent="'+ resp[i].menuParent+'">';
+						result2 += '<div class="default-config">';
+						result2 += '<div class="outer-config aa-handle">';
+						result2 += '<div class="dd-handle" style="display: inline-block; width: 80%;">';
+						result2 += '<span>' + resp[i].menuName + '</span>';
+						result2 += '</div>';
+						result2 += '<div class="outer-config"  style="display: inline-block;">';
+						result2 += '<i class="fa fa-trash deletebtn" data-rno="'+ resp[i].menuSeq + '" data-parent="'+ resp[i].menuParent+'"></i>';
+						result2 += '<i class="fa fa-pencil editbtn" data-rno="'+ resp[i].menuSeq + '" data-parent="'+ resp[i].menuParent+'"></i>';
+						result2 += '<i class="fa fa-eye hidebtn" data-rno="'+ resp[i].menuSeq + '" data-parent="'+ resp[i].menuParent+'"></i>';
+						result2 += '</div>';
+						result2 += '<div class="fold outer-config" style="display:none;">';
+						result2 += '<input type="text" style="width:200px;">';
+						result2 += '<i class="right-icon fa fa-check checkbtn" data-rno="'+ resp[i].menuSeq + '" data-parent="'+ resp[i].menuParent+'"></i>';
+						result2 += '</div>';
+						result2 += '</div>';
+						result2 += '</div>';
+						result2 += '</div>';
+						result2 += '</li>';	
+					}
+				}
+			}
+			result2 +='</ol>';
+			result2 +='<div class="default-config" style="text-align: right; padding-right: 5px">';
+			result2 +='<div class="outer-config menu-plus"  style="display: inline-block;">';
+			result2 +='<span style="font-size: 14px;">메뉴추가</span>';
+			result2 +='<i class="fa fa-plus"></i>';
+			result2 +='</div>';
+			result2 +='<div class="fold outer-config menu-plus-box" style="display:none;">';
+			result2 +='<input type="text" style="width:200px;">';
+			result2 +='<i class="right-icon fa fa-check checkBtn-1"></i>';
+			result2 +='</div>';
+			result2 +='</div>'; 
+			$('.menu-config-panel').html(result2);
+		} 
 	});
 }
 $(function(){
@@ -432,10 +494,14 @@ $(function(){
 	};
 	
 	$('#nestable').nestable({
-		group: 1
+		group: 1		
 	})
 	.on('change', updateOutput);
 	
+	$(document).on('change', '.dd', function(){
+		console.log('serialize1');
+		console.log($('.dd').nestable('serialize'));
+	});
 	
 	var target;
 	$('#nestable')
@@ -465,6 +531,8 @@ $(function(){
 		} */
 		
 		target.removeClass("changed222");
+		
+		console.log($('#nestable').nestable('serialize'));
 	});
 	
 	/*********************/
@@ -524,7 +592,7 @@ _gaq.push(['_trackPageview']);
 
 <header id="header">
 	<div class="left-menu menu-config-flip folder"><!-- menu-flip 클래스 추가-->
-		<div>메뉴 s설정</div>
+		<div>메뉴 설정</div>
 		<i class="fa fa-chevron-down"></i>
 	</div>
 	<div class="left-menu site-config-flip folder"><!-- site-flip 클래스 추가-->
@@ -555,9 +623,6 @@ _gaq.push(['_trackPageview']);
 	<nav id="menu-config-nav">
       <!-- config-section -->
       <div class="menu-config-panel dd" id="nestable" >
-      
-		<!-- 메뉴 들어갈 부분 -->
-      
           <div class="default-config" style="text-align: right; padding-right: 5px">
             <div class="outer-config menu-plus"  style="display: inline-block;">
             	<span style="font-size: 14px;">메뉴추가</span> 

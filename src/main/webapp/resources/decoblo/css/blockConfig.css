@@ -79,6 +79,10 @@ div.block-config-footer i {
 div i.right-icon{
 	float: right;
 }
+.panel-config{
+	position: fixed;
+	z-index: 9;
+}
 
 
 

@@ -78,26 +78,9 @@
 <link rel="stylesheet" href="decoblo/css/customer.css" />
 </head>
 <body class="landing">
-<header id="header" class="alt ">
-	<h1>
-		<a href="index.html">Deco <span>Blong</span></a>
-	</h1>
-	<nav id="nav">
-		<ul>
-			<li id="login">로그인</li>
-			<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
-				<ul>
-				<li><a href="#">한국어(KO)</a></li>
-					<li><a href="#">日本語(JP)</a></li>
-				</ul>
-			</li>
-			<li><a href="main">메인</a></li>
-			<li><a href="dashboard">대시보드</a></li>
-			<li><a href="config">블로그 수정</a></li>
-			<li><a href="customer">고객센터</a></li>	
-		</ul>
-	</nav>
-</header>
+
+<!-- Header -->
+<jsp:include page="../common/header.jsp"></jsp:include>
 
 
 <!-- 소개 사진 -->
