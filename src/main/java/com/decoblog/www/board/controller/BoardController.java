@@ -2,6 +2,8 @@ package com.decoblog.www.board.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -141,7 +143,6 @@ public class BoardController {
 
 		// 수정할 글 가져오기
 		Bbs bbsUpdate = repository.selectOneBbs(bbs.getBbsNo());
-
 		// 수정한 글 넣어주기
 		repository.updateBbs(bbs);
 
@@ -153,10 +154,6 @@ public class BoardController {
 	// 글 삭제
 	@RequestMapping(value = "/deleteBbs", method = RequestMethod.GET)
 	public String deleteBbs(int bbsNo) {
-
-		// Bbs bbs = repository.selectOneBbs(bbsNo);
-
-		System.out.println(bbsNo);
 
 		int result = repository.deleteBbs(bbsNo);
 
@@ -184,8 +181,14 @@ public class BoardController {
 	
 	// 댓글 입력
 	@RequestMapping(value="/replySave", method=RequestMethod.POST)
-	public @ResponseBody Integer replySave (@RequestBody Reply reply) {
+	public @ResponseBody Integer replySave (@RequestBody Reply reply, HttpSession session, Model model
+											, @RequestParam(value = "replyBbsNo", defaultValue = "0") int replyBbsNo
+											, @RequestParam(value = "replyParent", defaultValue = "0") int replyParent) {
 		
+		model.addAttribute("replyBbsNo", replyBbsNo);
+		model.addAttribute("replyParent", replyParent);
+		
+		reply.setReplyRegUser((int)session.getAttribute("loginNo"));
 		int result = repository.insertReply(reply);
 		
 		return result;
@@ -205,7 +208,6 @@ public class BoardController {
 	// 댓글 수정
 	@RequestMapping(value="/replyUpdate", method=RequestMethod.POST)
 	public @ResponseBody Integer replyUpdate(@RequestBody Reply reply) {
-		
 		
 		int result = repository.updateReply(reply);
 		

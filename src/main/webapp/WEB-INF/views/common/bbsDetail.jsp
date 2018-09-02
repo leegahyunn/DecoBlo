@@ -30,18 +30,21 @@ function writeAnswer(){
 	location.href = "${pageContext.request.contextPath}/writeBbs?type=write&bbsParent=${bbsDetail.bbsNo}";
 }
 
+
 /* 댓글 */
 $(function(){
 	init();
 	$('#replySave').on('click', replySave);
+	$('#replyForm').on('click', '.re-reply', writeReReply2);
+	$('#replyForm').on('click', '#re_replySave', re_replySave);
 });
 
 function init(){
 	
 	// 댓글 입력칸 reset
-	$('#replytext').val('');
+	$('#content').val('');
 	
-	var replyBbsNo = $('#bbsNo').val();
+	var replyBbsNo = $('#replyBbsNo').val();
 	
 	$.ajax({
 		method : 'get'
@@ -55,53 +58,37 @@ function init(){
 function output(resp){
 	
 	var replyAll = '';
-	
-	
-	
+
 	for(var i in resp){
-		replyAll += '<ul class="replyList" id=reply_list>';
-		replyAll += '<li class>';
-		replyAll += '<div class="r">';
-		replyAll += '<div class="userid">' + resp[i].replyRegUser;
-		replyAll += '<span class="regdate">' + resp[i].replyRegDate + '</span>';
-		replyAll += '<span class="rereply"><a href="#" class="btnReply">&nbsp;&nbsp;&nbsp;<i class="fas fa-reply fa-rotate-180"></i>&nbsp;답글</a></span>';
-		replyAll += '<p><span class="replyContent">' + resp[i].replyContent + '</span></p>';
-		replyAll += '<input class="replyUpdate" type="button" data-rno="'+ resp[i].replyNo + '" value="수정"  style="line-height:normal; text-align: center; margin: 5px;"/>';
-		replyAll += '<input class="replyDelete" type="button" data-rno="'+ resp[i].replyNo + '" value="삭제"  style="line-height:normal; text-align: center; margin: 5px;"/>';
-		replyAll += '</li>';
-		replyAll += '<hr style="display:block; border:black 0 none; border-top:black 1px dotted; height: 1px;">';
+		replyAll += '<div class="replyContent">';
+		replyAll += '<p class="userid">'+ resp[i].replyRegUser +'</p> ';
+// 		replyAll += '<span class="re-reply"><a href="javascript:writeReReply()"  class="btnReply">&nbsp;&nbsp;&nbsp;<i class="fas fa-reply fa-rotate-180"></i>&nbsp;답글</a></span>';
+		replyAll += '<span class="re-reply" style="cursor: pointer">&nbsp;&nbsp;&nbsp;<i class="fas fa-reply fa-rotate-180"></i>&nbsp;답글</span>';
+		replyAll += '<p class="replyContent">'+ resp[i].replyContent +'</p> ';
+		replyAll += '<p class="regdate">'+ resp[i].replyRegDate +'</p> ';
+		replyAll += '<input class="replyUpdate" type="button" data-rno="'+ resp[i].replyNo +'" value="수정"  style="line-height:normal; text-align: center; margin: 5px;"/>     ';
+		replyAll += '<input class="replyDelete" type="button" data-rno="'+ resp[i].replyNo +'" value="삭제"  style="line-height:normal; text-align: center; margin: 5px;"/> ';
 		replyAll += '</div>';
-		replyAll += '</div>';
+		replyAll += '<hr id="reply_hr"/>';
 	}
-	
-	
-/* 	
-	
-	for(var i in resp){
-		replyAll += '<div class="replyBox">';
-		replyAll += '<p class="userid">' + resp[i].replyRegUser + '</p>';
-		replyAll += '<p class="replyContent">' + resp[i].replyContent + '</p>';
-		replyAll += '<p class="regdate">' + resp[i].replyRegDate  + '</p>';
-		replyAll += '<input class="replyDelete" type="button" data-rno="'+ resp[i].replyNo + '" value="삭제"  style="line-height:normal; text-align: center; margin: 5px;"/>';
-		replyAll += '<input class="replyUpdate" type="button" data-rno="'+ resp[i].replyNo + '" value="수정"  style="line-height:normal; text-align: center; margin: 5px;"/>';
-		replyAll += '</div>';
-	} */
-	
+	 
 	$('#result').html(replyAll);
 	
 	$('input:button.replyDelete').click(replyDelete);
+	$('input:button.replyUpdate').click(replyUpdate);
 	
 }
 
+// 댓글 저장
 function replySave(){
 	
-	var replyRegUser = $('#replyRegUser').val();
-	var replytext = $('#content').val();
+	var replyBbsNo = $('#replyBbsNo').val();
+	var replyContent = $('#content').val();
 	
 	var sendData = {
-				"replyRegUser" : replyRegUser
-				, "replytext" : replytext
-				};
+				"replyBbsNo" : replyBbsNo
+				, "replyContent" : replyContent
+	};
 	
 	$.ajax({
 		method : 'post'
@@ -134,18 +121,16 @@ function replyUpdate(){
 	
 	var replyNo = $(this).attr('data-rno');
 	var replytext = $(this).parent().children('.replyContent').text();
-	
+
 	$('#content').val(replytext);
-	
 	$('#replySave').off('click', replySave);
-	$('#replySave').on('click', update);
+	$('#replySave').one('click', update);
 	
 	function update(){
 		
-		alert(replynum);
-		var replytext =  $('#content').val();
+		var replyContent =  $('#content').val();
 		var sendData = {"replyNo" : replyNo
-						, "replytext" : replytext};
+						, "replyContent" : replyContent};
 		
 		$.ajax({
 			method : 'post'
@@ -155,10 +140,72 @@ function replyUpdate(){
 			, contentType : 'application/json; charset=UTF-8'
 			, success : function(){
 				init();
+				$('#replySave').on('click', replySave);
 			}
 		});
 	}
 }
+
+
+function writeReReply(){
+	alert('넘어온당');
+	console.log($(this));
+	$('#reply_hr').append('<table id="replytable">');
+	$('#reply_hr').append('<tr>');
+	$('#reply_hr').append('<td style="padding-right: 5px;">');
+	$('#reply_hr').append('<textarea id="content" name="content" cols="1000" rows="100" maxlength="6000"  style="overflow: hidden; line-height: 14px; height: 39px;"></textarea></td>');
+	$('#reply_hr').append('<td><div><input id="re_replySave" type="button" class="button" value="등록" style="height:53px; border-radius: 0px;"/></div></td>');
+	$('#reply_hr').append('</tr></table>');
+	
+	
+	
+
+}
+
+function writeReReply2(){
+	var replyContentDiv =$(this).parent('div.replyContent');
+	
+	
+	replyContentDiv.append('<table id="replytable">');
+	replyContentDiv.append('<tr>');
+	replyContentDiv.append('<td style="padding-right: 5px;">');
+	replyContentDiv.append('<textarea id="content" name="content" cols="1000" rows="100" maxlength="6000"  style="overflow: hidden; line-height: 14px; height: 39px;"></textarea></td>');
+	replyContentDiv.append('<td><div><input id="re_replySave" type="button" class="button" value="등록" style="height:53px; border-radius: 0px;"/></div></td>');
+	replyContentDiv.append('</tr></table>');
+	
+	
+}
+
+function re_replySave(){
+	
+	alert('조장님~~~~~');
+	var replyBbsNo = $('#replyBbsNo').val();
+	var replyContent = $('#content').val();
+	var replyNo = $(this).parents('div.replyContent').children('input.replyUpdate').attr('data-rno');
+	//console.log($(this).parents('div.replyContent').children('input.replyUpdate').attr('data-rno'));
+	alert(replyNo);
+
+	var sendData = {
+				"replyBbsNo" : replyBbsNo
+				, "replyContent" : replyContent
+				, "replyParent" : replyNo
+	};
+	
+	
+	$.ajax({
+		method : 'post'
+		, url : 'replySave'
+		, data : JSON.stringify(sendData)
+		, dataType : 'text'
+		, contentType : 'application/json; charset=utf-8'
+		, success : init
+		
+	});
+	
+}
+
+
+
 
 </script>
 <style type="text/css">
@@ -215,8 +262,6 @@ function replyUpdate(){
 		padding-right: 15px;
 	}
 	
-	
-
 	textarea {
 		background-color: #ffffff;
 	    width: 100%;
@@ -233,24 +278,34 @@ function replyUpdate(){
 <script src="resources/library/js/jquery-3.3.1.min.js"></script>
 </head>
 <body class="landing">
-
 	<!-- Header -->
-		<header id="header" class="alt ">
-			<h1><a href="index.html">Decoblo</a></h1>
-			<nav id="nav">
-				<ul>
-					<li><a href="login">로그인</a></li>
-					<li><a href="join">무료회원가입</a></li>
-					<li>
-						<a href="#" class="icon fa-angle-down">한국어(KO)</a>
-						<ul>
-							<li><a href="#">한국어(KO)</a></li>
-							<li><a href="#">日本語(JP)</a></li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
-		</header>
+	<header id="header" class="alt ">
+		<h1>
+			<a href="index.html">Deco <span>Blo</span></a>
+		</h1>
+		<nav id="nav">
+			<ul>
+				<li id="login" class="main-login">로그인</li>
+				<li><a href="user/join">무료회원가입</a></li>
+				<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
+					<ul>
+						<li><a href="#">한국어(KO)</a></li>
+						<li><a href="#">日本語(JP)</a></li>
+					</ul>
+				</li>
+				<li><a href="#" class="icon fa-angle-down">테스트</a>
+					<ul>
+						<li><a href="main">메인</a></li>
+						<li><a href="customer">정보수정</a></li>
+						<li><a href="dashboard">대시보드</a></li>
+						<li><a href="config">블로그 수정</a></li>
+						<li><a href="customer">고객센터</a></li>						
+					</ul>
+				</li>	
+
+			</ul>
+		</nav>
+	</header>
 
 
 
@@ -293,15 +348,16 @@ function replyUpdate(){
 	
 		<!-- 댓글 폼 영역 -->	
 	<div id="replyForm" class="right"  style="background-color:white; width:1100px; justify-content: space-between; ">
-		<form action="replyWrite" method="post" onsubmit="return replyCheck()" autocomplete="off"  style="display:inline;" >
-			<input type="hidden" id="bbsNo" name="bbsNo" value="${bbsDetail.bbsNo}" />
+		<form action="replySave" method="post" onsubmit="return replyCheck()" autocomplete="off"  style="display:inline;" >
+			
+			<input type="hidden" id="replyBbsNo" name="replyBbsNo" value="${bbsDetail.bbsNo}" />
 			<!-- 댓글 입력 영역 -->
 			
 			<table id="replytable">
 				<tbody>
 					<tr>
 						<td style="padding-right: 5px;">
-							<textarea id="content" cols="1000" rows="100" maxlength="6000"  style="overflow: hidden; line-height: 14px; height: 39px;"></textarea>
+							<textarea id="content" name="content" cols="1000" rows="100" maxlength="6000"  style="overflow: hidden; line-height: 14px; height: 39px;"></textarea>
 						</td>
 						<td>
 							<div>

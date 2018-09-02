@@ -22,7 +22,7 @@
 	WHERE
 		${searchItem} like '%' || #{searchWord} || '%'
 	ORDER BY
-		bbsParent desc, bbsDepth asc
+		bbsParent desc, bbsDepth asc, bbsSeq desc
 </select>
 
 <!-- 글 상세보기 -->
@@ -86,10 +86,12 @@
 			<when test="bbsParent==0">
 				, db_bbs_seq.NEXTVAL
 				, 0
+				, 0
 			</when>
 			<otherwise>
 				, #{bbsParent}
 				, 1
+				, (SELECT MAX(bbsSeq)+1 FROM db_bbs WHERE bbsParent = #{bbsParent}) 
 			</otherwise>
 		</choose>
 		, 0
@@ -201,7 +203,7 @@
 	WHERE
 		replyBbsNo = #{replyBbsNo}
 	ORDER BY
-		replyParent desc, replyDepth asc
+		replyParent asc, replyDepth asc, replySeq asc
 </select>
 
 <!-- 댓글 입력 -->
@@ -223,13 +225,14 @@
 			<when test="replyParent==0">
 				, db_reply_seq.NEXTVAL
 				, 0
+				, 0
 			</when>
 			<otherwise>
 				, #{replyParent}
 				, 1
+				, (SELECT MAX(replySeq)+1 FROM db_reply WHERE replyParent = #{replyParent}) 
 			</otherwise>
 		</choose>
-		, 0		<!-- replySeq -->
 		, SYSDATE
 		, #{replyRegUser}
 	)
