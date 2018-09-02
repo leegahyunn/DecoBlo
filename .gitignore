@@ -7,8 +7,5 @@ target/
 src/main/webapp/WEB-INF/views/Index.jsp.rej
 src/main/resources/db/decoblog.xls
 src/main/java/com/decoblog/www/HomeController.java.rej
-<<<<<<< HEAD
-=======
 src/main/resources/db/decoblog.png
 
->>>>>>> 561b93f1eeb6da5b5c435b5c3518de0ad44ed89f
