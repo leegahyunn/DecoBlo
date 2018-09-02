@@ -38,7 +38,6 @@ public class UserRepository {
 		mapper.insertUser(vo); // 회원가입 DAO
 	
 		String key = new TempKey().getKey(50, false); // 인증키 생성
-	
 		mapper.createAuthKey(vo.getUserEmail(), key); // 인증키 DB저장
 	
 		// 메일 보내기

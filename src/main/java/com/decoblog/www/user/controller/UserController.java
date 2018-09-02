@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.decoblog.www.user.dao.Encrypt;
 import com.decoblog.www.user.dao.UserRepository;
@@ -73,8 +74,12 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value="/user/emailConfirm", method=RequestMethod.GET)
-	public String emailConfirm(String userEmail, String key) {
-		userRepository.emailConfirm(userEmail, key);
+	public String emailConfirm(String userEmail, String key, 
+			RedirectAttributes redirectAttributes) {
+		int result = userRepository.emailConfirm(userEmail, key);
+		redirectAttributes.addFlashAttribute("type", "emailConfirm");
+		redirectAttributes.addFlashAttribute("isAuthed", result);
+		System.out.println(result);
 		return "redirect:/";
 	}
 	
@@ -131,4 +136,16 @@ public class UserController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	/**
+	 * 비밀번호 찾기
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/user/password_reset", method=RequestMethod.GET)
+	public String passwordReset(HttpSession session) {
+		return "user/reset_password";
+	}
+	
+	
 }
