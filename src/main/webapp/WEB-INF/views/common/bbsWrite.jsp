@@ -66,11 +66,14 @@ function bbsCheck(){	// 글쓰기 유효성 검사
 <form action="writeBbs" method="post">
 <!-- 게시글작성 게시판번호 넘겨주기 -->
 <input type="hidden" name="boardNo" id="boardNo" value="7"/>
+<input type="hidden" name="bbsParent" id="bbsParent" value="${bbsParent}"/>
+<input type="hidden" name="type" id="type" value="${type}"/>
+
 
 	<table align="center">
 		<tr>
 			<th>제목</th>
-			<td><input type="text" name="bbsTitle" id="bbsTitle"></td>
+			<td><input type="text" name="bbsTitle" id="bbsTitle" value="${bbsUpdate.bbsTitle}"></td>
 		</tr>
 <%-- 		<tr>
 			<th>작성자</th>
@@ -82,12 +85,12 @@ function bbsCheck(){	// 글쓰기 유효성 검사
 		</tr> -->
 		<tr>
 			<th>내용</th>
-			<td><textarea rows="10" cols="50" name="bbsContent" id="bbsContent"></textarea> </td>
+			<td><textarea rows="10" cols="50" name="bbsContent" id="bbsContent">${bbsUpdate.bbsContent}</textarea> </td>
 		</tr>
 		<tr>
 			<td class="btn" colspan="2" align="center">
 				<input type="button" value="목록" onclick="bbsList()"/>
-				<input type="submit" value="글쓰기" onclick="return bbsCheck()"> 
+				<input type="submit" value="등록" onclick="return bbsCheck()"> 
 			</td>
 		</tr>
 	

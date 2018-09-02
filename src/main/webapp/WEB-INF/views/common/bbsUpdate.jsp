@@ -17,6 +17,11 @@ header#header.top-menu {
 	background-color: #000;
 }
 
+th.thtext{
+	text-align:center;
+}
+	
+
 </style>
 <script src="resources/library/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
@@ -63,6 +68,7 @@ function bbsCheck(){	// 글쓰기 유효성 검사
 	
 <section id="main">
 <!-- <form action="writeBbs" method="post" enctype="multipart/form-data"> -->
+<div align="center" style="width:1200px;">
 <form action="updateBbs" method="post">
 <!-- 게시글작성 게시판번호 넘겨주기 -->
 <input type="hidden" name="boardNo" id="boardNo" value="7"/>
@@ -70,7 +76,7 @@ function bbsCheck(){	// 글쓰기 유효성 검사
 
 	<table align="center">
 		<tr>
-			<th>제목</th>
+			<th class="thtext">제목</th>
 			<td><input type="text" name="bbsTitle" id="bbsTitle" value="${bbsUpdate.bbsTitle}"></td>
 		</tr>
 <%-- 		<tr>
@@ -82,7 +88,7 @@ function bbsCheck(){	// 글쓰기 유효성 검사
 			<td><input type="file" name="upload"></td>
 		</tr> -->
 		<tr>
-			<th>내용</th>
+			<th class="thtext">내용</th>
 			<td>
 				<textarea rows="10" cols="50" name="bbsContent" id="bbsContent">${bbsUpdate.bbsContent}</textarea> 
 			</td>
@@ -100,7 +106,7 @@ function bbsCheck(){	// 글쓰기 유효성 검사
 	
 </form>
 
-
+</div>
 </section>
 
 </body>

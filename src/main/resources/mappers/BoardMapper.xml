@@ -22,7 +22,7 @@
 	WHERE
 		${searchItem} like '%' || #{searchWord} || '%'
 	ORDER BY
-		bbsNo desc
+		bbsParent desc, bbsDepth asc, bbsSeq desc
 </select>
 
 <!-- 글 상세보기 -->
@@ -75,7 +75,6 @@
 		, bbsDepth
 		, bbsSeq
 		, bbsRegdate
-		, bbsEditDate
 	) VALUES (
 		db_bbs_seq.NEXTVAL
 		, #{boardNo}
@@ -83,11 +82,20 @@
 		, UTL_RAW.CAST_TO_RAW(#{bbsContent})
         , 0
 		, 0
-		, db_bbs_seq.NEXTVAL
-		, 0
+		<choose>
+			<when test="bbsParent==0">
+				, db_bbs_seq.NEXTVAL
+				, 0
+				, 0
+			</when>
+			<otherwise>
+				, #{bbsParent}
+				, 1
+				, (SELECT MAX(bbsSeq)+1 FROM db_bbs WHERE bbsParent = #{bbsParent}) 
+			</otherwise>
+		</choose>
 		, 0
 		, SYSDATE
-		, SYSDATE	
 	)
 </insert>
 
@@ -179,9 +187,73 @@
 <!-- 댓글 -->
 
 <!-- 댓글 목록 -->
+<select id="selectReply" resultType="Reply" parameterType="int">
+	SELECT
+		replyNo
+		, replyBbsNo
+		, replyContent
+		, replyParent
+		, replyDepth 
+		, replySeq 
+		, to_char(replyRegDate, 'YYYY-MM-DD') as replyRegDate 
+		, replyRegUser
+		, to_char(replyEditDate, 'YYYY-MM-DD') as replyEditDate
+	FROM
+		DB_REPLY
+	WHERE
+		replyBbsNo = #{replyBbsNo}
+	ORDER BY
+		replyParent asc, replyDepth asc, replySeq asc
+</select>
+
+<!-- 댓글 입력 -->
+<insert id="insertReply" parameterType="Reply">
+	INSERT INTO DB_REPLY(
+		replyNo
+		, replyBbsNo
+		, replyContent
+		, replyParent
+		, replyDepth 
+		, replySeq 
+		, replyRegDate 
+		, replyRegUser
+	) VALUES(
+		db_reply_seq.nextval
+		, #{replyBbsNo}
+		, #{replyContent}
+		<choose>
+			<when test="replyParent==0">
+				, db_reply_seq.NEXTVAL
+				, 0
+				, 0
+			</when>
+			<otherwise>
+				, #{replyParent}
+				, 1
+				, (SELECT MAX(replySeq)+1 FROM db_reply WHERE replyParent = #{replyParent}) 
+			</otherwise>
+		</choose>
+		, SYSDATE
+		, #{replyRegUser}
+	)
+</insert>
 
 
+<!-- 댓글 삭제 -->
+<delete id="deleteReply" parameterType="int">
+	DELETE FROM DB_REPLY
+	WHERE 
+		replyNo = #{replyNo}
+</delete>
 
 
-
+<!-- 댓글 수정 -->
+<update id="updateReply" parameterType="Reply">
+	UPDATE DB_REPLY
+	SET	
+		replyContent = #{replyContent}
+		, replyEditDate = SYSDATE
+	WHERE
+		replyNo = #{replyNo}
+</update>
 </mapper>
