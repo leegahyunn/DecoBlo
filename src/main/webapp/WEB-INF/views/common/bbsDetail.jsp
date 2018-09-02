@@ -7,8 +7,9 @@
 <title>Notice</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link type="text/css" rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 <link rel="stylesheet" href="decoblo/css/boardDetail.css" />
+<script src="resources/library/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 function bbsList() { 	// 글목록으로 이동
 	location.href = "${pageContext.request.contextPath}/bbsList";
@@ -23,6 +24,142 @@ function deleteBbs(bbsNo) { 	// 글삭제
 		location.href = "deleteBbs?bbsNo=" + bbsNo;
 	}
 }
+
+function writeAnswer(){
+
+	location.href = "${pageContext.request.contextPath}/writeBbs?type=write&bbsParent=${bbsDetail.bbsNo}";
+}
+
+/* 댓글 */
+$(function(){
+	init();
+	$('#replySave').on('click', replySave);
+});
+
+function init(){
+	
+	// 댓글 입력칸 reset
+	$('#replytext').val('');
+	
+	var replyBbsNo = $('#bbsNo').val();
+	
+	$.ajax({
+		method : 'get'
+		, url : 'replyList'
+		, data : 'replyBbsNo=' + replyBbsNo
+		, contentType : 'application/json; charset=utf-8'
+		, success : output
+	});
+}
+
+function output(resp){
+	
+	var replyAll = '';
+	
+	
+	
+	for(var i in resp){
+		replyAll += '<ul class="replyList" id=reply_list>';
+		replyAll += '<li class>';
+		replyAll += '<div class="r">';
+		replyAll += '<div class="userid">' + resp[i].replyRegUser;
+		replyAll += '<span class="regdate">' + resp[i].replyRegDate + '</span>';
+		replyAll += '<span class="rereply"><a href="#" class="btnReply">&nbsp;&nbsp;&nbsp;<i class="fas fa-reply fa-rotate-180"></i>&nbsp;답글</a></span>';
+		replyAll += '<p><span class="replyContent">' + resp[i].replyContent + '</span></p>';
+		replyAll += '<input class="replyUpdate" type="button" data-rno="'+ resp[i].replyNo + '" value="수정"  style="line-height:normal; text-align: center; margin: 5px;"/>';
+		replyAll += '<input class="replyDelete" type="button" data-rno="'+ resp[i].replyNo + '" value="삭제"  style="line-height:normal; text-align: center; margin: 5px;"/>';
+		replyAll += '</li>';
+		replyAll += '<hr style="display:block; border:black 0 none; border-top:black 1px dotted; height: 1px;">';
+		replyAll += '</div>';
+		replyAll += '</div>';
+	}
+	
+	
+/* 	
+	
+	for(var i in resp){
+		replyAll += '<div class="replyBox">';
+		replyAll += '<p class="userid">' + resp[i].replyRegUser + '</p>';
+		replyAll += '<p class="replyContent">' + resp[i].replyContent + '</p>';
+		replyAll += '<p class="regdate">' + resp[i].replyRegDate  + '</p>';
+		replyAll += '<input class="replyDelete" type="button" data-rno="'+ resp[i].replyNo + '" value="삭제"  style="line-height:normal; text-align: center; margin: 5px;"/>';
+		replyAll += '<input class="replyUpdate" type="button" data-rno="'+ resp[i].replyNo + '" value="수정"  style="line-height:normal; text-align: center; margin: 5px;"/>';
+		replyAll += '</div>';
+	} */
+	
+	$('#result').html(replyAll);
+	
+	$('input:button.replyDelete').click(replyDelete);
+	
+}
+
+function replySave(){
+	
+	var replyRegUser = $('#replyRegUser').val();
+	var replytext = $('#content').val();
+	
+	var sendData = {
+				"replyRegUser" : replyRegUser
+				, "replytext" : replytext
+				};
+	
+	$.ajax({
+		method : 'post'
+		, url : 'replySave'
+		, data : JSON.stringify(sendData)
+		, dataType : 'text'
+		, contentType : 'application/json; charset=utf-8'
+		, success : init
+		
+	});
+}
+
+
+function replyDelete(){
+	
+var replyNo = $(this).attr('data-rno');
+
+	$.ajax({
+		method : 'get'
+		, url : 'replyDelete'
+		, data : 'replyNo=' + replyNo
+		, contentType : 'application/json; charset=utf-8'
+		, success : init
+	});
+}
+
+
+//댓글 수정
+function replyUpdate(){
+	
+	var replyNo = $(this).attr('data-rno');
+	var replytext = $(this).parent().children('.replyContent').text();
+	
+	$('#content').val(replytext);
+	
+	$('#replySave').off('click', replySave);
+	$('#replySave').on('click', update);
+	
+	function update(){
+		
+		alert(replynum);
+		var replytext =  $('#content').val();
+		var sendData = {"replyNo" : replyNo
+						, "replytext" : replytext};
+		
+		$.ajax({
+			method : 'post'
+			, url : 'replyUpdate'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success : function(){
+				init();
+			}
+		});
+	}
+}
+
 </script>
 <style type="text/css">
 	#main {
@@ -79,17 +216,18 @@ function deleteBbs(bbsNo) { 	// 글삭제
 	}
 	
 	
-	#replyForm2{
-		text-align : center;
-		display: flex;
-		clear : both;
-		margin-left: 5px;
-		margin-right: 5px;
-		vertical-align: middle;
-		align-items: center;
-		justify-content: space-between;
+
+	textarea {
+		background-color: #ffffff;
+	    width: 100%;
+	    margin: 0;
+	    padding: 1px 0;
+	    overflow: auto;
+	    -webkit-appearance: none;
+	    -webkit-border-radius: 0;
+	    resize: none;
 	}
-	
+
 
 </style>
 <script src="resources/library/js/jquery-3.3.1.min.js"></script>
@@ -131,7 +269,7 @@ function deleteBbs(bbsNo) { 	// 글삭제
 	<div class="detail" align="left" style="width:1200px">
 		<h1 style="font-size: 30px;">${bbsDetail.bbsTitle}</h1>
 		<div style="text-align: right;">
-			<a href="updateBbs?bbsNo=${bbsDetail.bbsNo}" style="font-size:12px; padding-right: 20px;">수정</a>
+			<a href="writeBbs?type=update&bbsNo=${bbsDetail.bbsNo}&bbsParent=${bbsDetail.bbsParent}" style="font-size:12px; padding-right: 20px;">수정</a>
 			<a href="javascript:deleteBbs('${bbsDetail.bbsNo}')"  style="font-size:12px; padding-right: 20px;">삭제</a>
 		</div>
 		<hr/>
@@ -149,49 +287,47 @@ function deleteBbs(bbsNo) { 	// 글삭제
 	<br>
 
 	<!-- 댓글부분 -->
-		<!-- 댓글 폼 영역 -->
-	<div id="replyForm">
+	<div id="replyForm"  style="background-color:#EDF6E9; width:1200px; display:block; padding: 30px;">
+		<!-- 댓글 목록 영역 -->
+	<div id="result"></div>
 	
-	
-		<div id="replyForm" class="right"  style="width:1000px; justify-content: space-between; ">
+		<!-- 댓글 폼 영역 -->	
+	<div id="replyForm" class="right"  style="background-color:white; width:1100px; justify-content: space-between; ">
 		<form action="replyWrite" method="post" onsubmit="return replyCheck()" autocomplete="off"  style="display:inline;" >
-			<input type="hidden" name="action" value="insertReply" />
-			<input type="hidden" name="boardnum" value="${bdetail.boardnum}" />
-			<div id="replyForm2">
-			<input type="text" id="replytext" name="replytext" style="width:1000px"><input class="buttons" type="button" value="등록"/>
-			</div>
+			<input type="hidden" id="bbsNo" name="bbsNo" value="${bbsDetail.bbsNo}" />
+			<!-- 댓글 입력 영역 -->
+			
+			<table id="replytable">
+				<tbody>
+					<tr>
+						<td style="padding-right: 5px;">
+							<textarea id="content" cols="1000" rows="100" maxlength="6000"  style="overflow: hidden; line-height: 14px; height: 39px;"></textarea>
+						</td>
+						<td>
+							<div>
+								<input id="replySave" type="button" class="button" value="등록" style="height:53px; border-radius: 0px;"/>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			
+			</table>
+			
 		</form>
 		</div>
 
-	<!-- 댓글 목록 영역 2 -->
-	<div id="replyList"></div>
+	
+	
 	
 
-	
-	<!-- 댓글 목록 영역 -->
-	<table class="replyList">
-		<c:forEach var="reply" items="${replyList}">
-		<tr>
-			<td class="replyid">${reply.userid}</td>
-			<td class="replytext">${reply.replytext}</td>
-			<td class="replydate">${reply.regdate}</td>
-			<td class="replybutton">
-				<c:if test="${loginId == reply.userid}">
-				<a>수정</a>
-				<a href="javascript:deleteReply(${reply.replynum}, ${reply.boardnum})">삭제</a>
-				</c:if>
-			</td>
-		</tr>
-		</c:forEach>
-	</table>
-	
+
 	
 	</div> <!--  end #reply -->	
 	
 	
 	<!-- 게시글 답변달기 -->
 	<div>
-		<input type="button" value="답변" onclick="" style="line-height:normal; text-align: center; margin: 5px;"/>
+		<input type="button" value="답변" onclick="writeAnswer()" style="line-height:normal; text-align: center; margin: 5px;"/>
 	</div>
 	<br>
 	<br>

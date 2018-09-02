@@ -12,12 +12,19 @@ import org.springframework.stereotype.Repository;
 
 import com.decoblog.www.board.vo.Bbs;
 import com.decoblog.www.board.vo.BbsAttach;
+import com.decoblog.www.board.vo.Reply;
 
 @Repository
 public class BoardRepository {
 	@Autowired
 	SqlSession session;
 
+
+	/**************************************/
+	/* BOARD ******************************/
+	/**************************************/
+	
+	
 	// 글 목록 + 검색
 	public List<Bbs> select(String searchItem, String searchWord, int startRecord, int countPerPage){
 		
@@ -135,5 +142,53 @@ public class BoardRepository {
 		
 		return total;
 	}
+
+
+	
+	
+	/**************************************/
+	/* REPLY ******************************/
+	/**************************************/
+	
+	// 댓글 목록
+	public List<Reply> selectReply(int replyBbsNo) {
+		
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		List<Reply> replyList = mapper.selectReply(replyBbsNo);
+		
+		return replyList;
+	}
+
+	
+	// 댓글 입력
+	public int insertReply(Reply reply) {
+		
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		int result = mapper.insertReply(reply);
+		
+		return result;
+	}
+
+	
+	// 댓글 삭제
+	public int deleteReply(int replyNo) {
+
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		int result = mapper.deleteReply(replyNo);
+		
+		return result;
+	}
+
+	
+	// 댓글 수정
+	public int updateReply(Reply reply) {
+		
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		int result = mapper.updateReply(reply);
+		
+		return result;
+	}
+	
+
 	
 }
