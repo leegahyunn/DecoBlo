@@ -24,6 +24,11 @@
 	<resources mapping="/upload/**" location="/resources/upload/" />
 	<!-- libarary -->
 	<resources mapping="/library/**" location="/resources/library/" />
+	<!-- templates -->
+	<resources mapping="/templates/**" location="/resources/templates/" />
+	
+	
+	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />

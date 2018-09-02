@@ -63,7 +63,12 @@ public class HomeController {
 	// 박치현
 	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
 	public String chtest() {
-		return "blog/config_bak_20180830";
+		return "templates/1/block-1";
+	}
+	
+	@RequestMapping(value = "/chtest2", method = RequestMethod.GET)
+	public String chtest2() {
+		return "templates/1/block-2";
 	}
 	
 	// 이가현
