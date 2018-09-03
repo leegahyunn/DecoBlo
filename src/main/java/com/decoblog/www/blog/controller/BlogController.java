@@ -8,10 +8,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.decoblog.www.blog.dao.BlogRepository;
 import com.decoblog.www.blog.vo.Block;
@@ -105,6 +107,7 @@ public class BlogController {
 	@RequestMapping(value="getThumnail",method=RequestMethod.POST)
 	public List<Integer> getThumnail(String tmpType) {
 		List<Integer> blockNoList = blogRepository.selectThumnail(tmpType);
+		System.out.println(blockNoList);
 		return blockNoList;
 	}
 	
@@ -130,15 +133,25 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value="setBlockContent",method=RequestMethod.POST)
-	public @ResponseBody String setBlockContent(@RequestBody Block block) {
+	public @ResponseBody String setBlockContent(@RequestBody Block block,Menu menu,Model model) {
 		int blockSeq = block.getBlockSeq();
 		blogRepository.updateBlockSeq(blockSeq);
 		blogRepository.insertBlock(block);
+		menu.setMenuNo(1);
+		menu.setMenuUserNo(1);
+		List<Block> blockList = blogRepository.selectBlockList(menu);
+		model.addAttribute("blockList", blockList);
 		return "redirect:yrtest";
 	}
 	
 	@RequestMapping(value="deleteBlock",method=RequestMethod.POST)
-	public String deleteBlock(int blockSeq) {
+	public String deleteBlock(int blockSeq , Menu menu,RedirectAttributes rttr) {
+		System.out.println(blockSeq);
+		blogRepository.deleteBlock(blockSeq);
+		menu.setMenuNo(1);
+		menu.setMenuUserNo(1);
+		List<Block> blockList = blogRepository.selectBlockList(menu);
+		rttr.addAttribute("blockList", blockList);
 		return "redirect:yrtest";
 	}
 }

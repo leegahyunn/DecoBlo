@@ -32,6 +32,6 @@ public interface BlogMapper {
 	public int insertBlock(Block block);
 	//블록 한자리 미루기 
 	public int updateBlockSeq(int blockSeq);
-	//블록 지우기
+	//블록 삭제
 	public int deleteBlock(int blockSeq);
 }
