@@ -66,4 +66,26 @@ public class UserController {
 		userRepository.emailConfirm(userEmail, key);
 		return "redirect:/";
 	}
+	
+	/**
+	 * User Profile 페이지로 이동
+	 * @return profile 페이지
+	 */
+	@RequestMapping(value="/user/profile", method=RequestMethod.GET)
+	public String userProfilePage() {
+		return "user/profile";
+	}
+	
+	/**
+	 * User Profile 가져오기
+	 * @param session 세션 (유저 번호를 가져오기 위함)
+	 * @return User Profile
+	 */
+	@RequestMapping(value="/user/profile", method=RequestMethod.POST)
+	public @ResponseBody User userProfile(HttpSession session) {
+		String userNo = String.valueOf(session.getAttribute("loginNo"));
+		User userProfile = userRepository.getProfile(userNo);
+		return userProfile;
+	}
+	
 }

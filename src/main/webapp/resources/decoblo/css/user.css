@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+li#login {
+	cursor: pointer;
+}
+
 /***************/
 /* user Popup */
 /***************/

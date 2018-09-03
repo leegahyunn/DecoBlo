@@ -54,7 +54,7 @@ public class HomeController {
 	@RequestMapping(value = "/ghtest", method = RequestMethod.GET)
 	public String ghtest() {
 
-		return "blog/metaEdit";
+		return "redirect:/bbsList";
 	}
 	
 	// 최용락
