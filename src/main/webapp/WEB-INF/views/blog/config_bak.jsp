@@ -184,8 +184,8 @@ div label.right-icon{
     border-bottom: 1px solid #CCC;
 }
 
-.aa-handle:hover { color: #000; background: #fff; }
-.aa-handle i:hover { color: #2ea8e5; background: #fff; }
+.aa-handle:hover { color: #000; background: #fff;}
+.aa-handle .deletebtn:hover, .aa-handle .editbtn:hover { color: #2ea8e5; background: #fff;}
 
 .dd-item > button { display: block; position: relative; cursor: pointer; float: left; width: 25px; height: 20px; margin: 5px 0; padding: 0; text-indent: 100%; white-space: nowrap; overflow: hidden; border: 0; background: transparent; font-size: 12px; line-height: 1; text-align: center; font-weight: bold; }
 .dd-item > button:before { content: '+'; display: block; position: absolute; width: 100%; text-align: center; text-indent: 0; }
@@ -328,74 +328,96 @@ body { margin: 0; }
 </style>
 <script type="text/javascript">
 /*******************/
-/*  메뉴 블럭 불러오기  */
+/*  메뉴 블럭 불러오기    */
 /*******************/
 menuConfig();
 function menuConfig() {
 	$.ajax({
 		method   : 'post'
-		, url    : 'menuConfig2'
+		, url    : 'menuConfig'
 		, contentType : 'application/json; charset=UTF-8'
 		, success: function(resp) {
 			var menuJson = JSON.parse(resp);
-			var result = '';
+			var result2 = '';
+			var result1 = '';
 			
-			result += '<ol class="dd-list>';
+			result2 += '<ol class="dd-list">';
 			$.each(menuJson, function(mainIndex, mainMenu){
 				$.each(mainMenu.Menu, function(subIndex, subMenu){
-					if(mainMenu.Menu.length != 1){
+					/* menu-bar */
+					if(subMenu.menuDepth==0){
 						result1 += '</ul></li><li data-parent="'+ subMenu.menuParent+'"><a href="#">'+ subMenu.menuName +'</a><ul>';
-					} else if(subIndex == mainMenu.Menu.length - 1 && mainMenu.Menu.length != 1){
+					} else if(subMenu.menuDepth==1){
 						result1 += '<li><a href="#">'+ subMenu.menuName +'</a></li>'
 					}
 					
+					if (subIndex == 1 && mainMenu.Menu.length != 1) {
+						result2 += '<ol class="dd-list">';
+					}
+					
+					result2 += '<li class="dd-item '; 
+					
+					if (subIndex == 0) {
+						result2 += 'mainMenuWrapper';
+					} 
+					
+					result2 += '" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+ '" data-menu-seq="'+ subMenu.menuSeq +'" data-menu-depth="'+ subMenu.menuDepth +'" data-menu-parent-seq="'+ subMenu.menuParentSeq +'">';
+					result2 += '<div class="default-config">';
+					result2 += '<div class="outer-config aa-handle">';
+					result2 += '<div class="dd-handle" style="display: inline-block; width: 80%;">';
+					result2 += '<span>' + subMenu.menuName + '</span>';
+					result2 += '</div>';
+					result2 += '<div class="outer-config"  style="display: inline-block;">';
+					result2 += '<i class="fa fa-trash deletebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+					result2 += '<i class="fa fa-pencil editbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+					
+					if(subMenu.menuVisible == 1){
+						result2 += '<i style="color:#2ea8e5"class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+					} else {
+						result2 += '<i class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+					}	 
+					//result2 += '<i class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+					
+					result2 += '</div>';
+					result2 += '<div class="fold outer-config" style="display:none;">';
+					result2 += '<input type="text" style="width:200px;">';
+					result2 += '<i class="right-icon fa fa-check checkbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+					result2 += '</div>';
+					result2 += '</div>';
+					result2 += '</div>';
+					
 					if (subIndex == mainMenu.Menu.length - 1 && mainMenu.Menu.length != 1) {
-						result += '<ol class="dd-list">';
+						result2 += '</ol>';
+						result2 += '</li>';
 					}
 					
-					result += '<li class="dd-item" data-rno="'+ subMenu.menuSeq + '" data-parent="'+ subMenu.menuParent+'">';	
-					result += '<div class="default-config">';
-					result += '<div class="outer-config aa-handle">';
-					result += '<div class="dd-handle" style="display: inline-block; width: 80%;">';
-					result += '<span>' + subMenu.menuName + '</span>';
-					result += '</div>';
-					result += '<div class="outer-config"  style="display: inline-block;">';
-					result += '<i class="fa fa-trash deletebtn" data-rno="'+ subMenu.menuSeq + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					result += '<i class="fa fa-pencil editbtn" data-rno="'+ subMenu.menuSeq + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					result += '<i class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuSeq + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					result += '</div>';
-					result += '<div class="fold outer-config" style="display:none;">';
-					result += '<input type="text" style="width:200px;">';
-					result += '<i class="right-icon fa fa-check checkbtn" data-rno="'+ subMenu.menuSeq + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					result += '</div>';
-					result += '</div>';
-					result += '</div>';
-					
-					if (subMenu.menuNo != subMenu.parentNo) {
-						result += '</li>';
+					if (mainMenu.Menu.length == 1) {
+						result2 += '</li>';
 					}
-					
-					if (subIndex == mainMenu.Menu.length - 1 && mainMenu.Menu.length != 1) {
-						result += '</ol>';
-						result += '</li>';
-					}
-					
-					if (mainMenu.length == 1) {
-						result += '</li>';
-					}
-					
-					
 					
 				});
 			});
-			result += '</ol>';
-			$('.menu-config-panel').html(result);
+			result2 += '</ol>';
+			result2 +='<div class="default-config" style="text-align: right; padding-right: 5px">';
+			result2 +='<div class="outer-config"  style="display: inline-block;">';
+			result2 +='<span style="font-size: 14px;">메뉴추가</span> ';
+			result2 +='<i class="fa fa-plus menu-plus"></i>';
+			result2 +='</div>';
+			result2 +='<div class="fold outer-config menu-plus-box" style="display:none;">';
+			result2 +='<input type="text" style="width:200px;">';
+			result2 +='<i class="right-icon fa fa-check menu-plus-check"></i>';
+			result2 +='</div>';
+			result2 +='</div>';
+			
+			$('.menu-config-panel').html(result2);
 			
 			result1 += '</ul></li>';
 			$('.menu-block').html(result1);
-		}
+		} 
 	});
 }
+
+
 $(function(){
 	/**********************/
 	/* 메뉴블럭 마우스오버   */
@@ -453,54 +475,93 @@ $(function(){
 	
 	/**************/
 	/*메뉴 드래그앤드롭*/
-	/**************/	
-	var updateOutput = function(e)
-	{
-		var list   = e.length ? e : $(e.target),
-	    output = list.data('output');
+	/**************/
+	var target;
+	
+	var updateOutput = function(e){
+		/* var list   = e.length ? e : $(e.target),
+				output = list.data('output');
+		if (window.JSON) {
+			output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
+		} else {
+	        output.val('JSON browser support required for this demo.');
+	    } */
+	        
+	    var menuNo = $(target).parents('li').data('rno');//누른 애의 menuNo, 옮겨져도 바뀌지 않음
+	    var newMenuParent = $(target).parents('li').parents('li').data('rno');//누른 애 부모의 menuNo 옮겨지면 새 부모 menuNo로 바뀜 대메뉴일 경우 undefined
+	    var newMenuSeq;
+	    var menuParent = $(target).parents('li').data('parent');
+	    var menuSeq = $(target).parents('li').data('menu-seq')
+	    var menuDepth = $(target).parents('li').data('menu-depth')
+	    var menuParentSeq = $(target).parents('li').data('menu-parent-seq');
+	    var newMenuParentSeq;
+	    var newMenuDepth;
+		$(target).parents('li').addClass("changed");
+		
+// 			대메뉴
+		if ($(target).parents('ol').length == 1) {
+			$.each($($(target).parents('ol')[0]).children('li'), function(index, item){
+				if ($(item).hasClass('changed')){
+					newMenuSeq = index + 1;
+					newMenuDepth = 0
+				//	newMenuParentSeq = index + 1;
+					$(item).removeClass("changed");
+				}
+			});
+// 			소메뉴	
+		} else if ($(target).parents('ol').length == 2) {
+			$.each($($(target).parents('ol')[0]).children('li'), function(index, item){
+				if ($(item).hasClass('changed')){
+					// menuSeq
+					newMenuSeq = index + 1;
+					newMenuDepth = 1
+				//	newMenuParentSeq = newMenuParent
+					$(item).removeClass("changed");
+				}
+			});
+		}
+		
+		var sendData = {
+				"menuNo" : menuNo
+				, "menuParent" : menuParent
+				, "menuSeq" : menuSeq
+				, "menuParentSeq" : menuParentSeq
+				, "menuDepth" : menuDepth
+				, "newMenuParent" : newMenuParent
+				, "newMenuSeq" : newMenuSeq
+				, "newMenuDepth" : newMenuDepth
+			};
+		
+	
+		$.ajax({
+			method   : 'post'
+			, url    : 'updateMenu'
+			, data   : JSON.stringify(sendData)
+			, dataType : 'json'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+				console.log(resp);
+			} 
+		});
+		
 	};
 	
+	
+	
 	$('#nestable').nestable({
-		group: 1		
+		group: 1
 	})
 	.on('change', updateOutput);
 	
-	$(document).on('change', '.dd', function(){
-		console.log('serialize1');
-		console.log($('.dd').nestable('serialize'));
-	});
+	// output initial serialised data
+    updateOutput($('#nestable').data('output', $('#nestable-output')));
 	
-	var target;
+
 	$('#nestable')
 	.on('mousedown', '.outer-config', function(){
 		target = $(this);
-	})	
-	
-	.mouseup(function(item){
-		target.addClass("changed222");
-		var menuseq2 = $('.changed').parents('.dd-item').parents('.dd-item').data('parent');// 누른 애의 부모메뉴의 seq
-		console.log("33");
-		console.log($('.changed222'));
-		
-		var mynum = $(target).parent().parent().data('rno');//누른 애의 시퀀스
-		var menuseq = $(target).parent().parents('.dd-item').data('parent');// 누른 애의 부모메뉴의 seq
-		
-		console.log(menuseq);
-		var w = $(target).parent().parent().next().data('rno');//누른애의 형제
-		/* if(mynum==0){
-			var ptnum = $(target).parent().parent().parents('.dd-item').data('parent');
-			var aa = $(target).parent().parent().next().data('rno'); 
-			console.log("대메뉴를 움직였을 때: " + ptnum + ", " + aa); //이동한 곳의 대메뉴와 형제번호
-		}else if(mynum>0){
-			var parentnum = $(target).parent().parent().parents('.dd-item').data('parent');// 소메뉴로 들어갓을 경우, 부모 메뉴의 번호
-			var siblingnum = $(target).parent().parent().next().data('rno'); // 다른 자식의 번호
-			console.log("소메뉴를 움직였을 때: " + parentnum + ", " + siblingnum)
-		} */
-		
-		target.removeClass("changed222");
-		
-		console.log($('#nestable').nestable('serialize'));
 	});
+
 	
 	/*********************/
 	/*메뉴 수정 버튼 이벤트*/
@@ -517,14 +578,14 @@ $(function(){
 	
 	$(document).on('click', '.hidebtn', function(){
 		
+	}); 
+	$(document).on('click', '.menu-plus', function(){
 		
 	}); 
-	
 	$(document).on('click', '.checkbtn', function(){
 		var menuname = $(this).prev().val();
-		var menuseq  = $(this).attr("data-rno");
-		var menuparent  = $(this).attr("data-parent");
-		var sendData = {"menuName" : menuname, "menuSeq" : menuseq, "menuParent" : menuparent};
+		var menuno  = $(this).attr("data-rno");
+		var sendData = {"menuName" : menuname,  "menuNo" : menuno};
 		$.ajax({
 			method : 'post'
 			, url  : 'editMenu'
@@ -537,36 +598,6 @@ $(function(){
 		});
 		
 	});
-});
-</script>
-<script>
-/* 테스트 출력 */
-$(document).ready(function()
-{
-
-    var updateOutput = function(e)
-    {
-        var list   = e.length ? e : $(e.target),
-            output = list.data('output');
-        if (window.JSON) {
-            output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
-        } else {
-            output.val('JSON browser support required for this demo.');
-        }
-    };
-
-    // activate Nestable for list 1
-    $('#nestable').nestable({
-        group: 1
-    })
-    .on('change', updateOutput);
-
-
-    // output initial serialised data
-    updateOutput($('#nestable').data('output', $('#nestable-output')));
-
-
-
 });
 </script>
 <script type="text/javascript">
@@ -589,7 +620,7 @@ _gaq.push(['_trackPageview']);
 
 <header id="header">
 	<div class="left-menu menu-config-flip folder"><!-- menu-flip 클래스 추가-->
-		<div>메뉴 설정</div>
+		<div>메뉴 설정1</div>
 		<i class="fa fa-chevron-down"></i>
 	</div>
 	<div class="left-menu site-config-flip folder"><!-- site-flip 클래스 추가-->
@@ -620,21 +651,8 @@ _gaq.push(['_trackPageview']);
 	<nav id="menu-config-nav">
       <!-- config-section -->
       <div class="menu-config-panel dd" id="nestable" >
-      
-		<!-- 메뉴 들어갈 부분 -->
-      
-          <div class="default-config" style="text-align: right; padding-right: 5px">
-            <div class="outer-config menu-plus"  style="display: inline-block;">
-            	<span style="font-size: 14px;">메뉴추가</span> 
-	           	<i class="fa fa-plus"></i>
-	        </div>
-			<div class="fold outer-config menu-plus-box" style="display:none;">
-				<input type="text" style="width:200px;">
-				<i class="right-icon fa fa-check checkBtn-1"></i>
-			</div>
-         </div>
+          <!-- 메뉴 불러오는 곳 -->
       </div>
-      
       <!-- /config-section -->
    </nav>
 	
@@ -776,9 +794,7 @@ _gaq.push(['_trackPageview']);
 		</div>
 	</div>
 </div>
-
 <!-- 테스트 출력창 -->
-<textarea style="float: right;"id="nestable-output" cols="70" rows="70"></textarea>
 
 <nav id="block-config-nav">
 <div class="blockMenu-sidebar-div">

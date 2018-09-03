@@ -32,6 +32,11 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/config", method = RequestMethod.GET)
 	public String config() {		
+	public String config(Menu menu, Model model) {	
+		menu.setMenuNo(1);
+		menu.setMenuUserNo(1);
+		List<Block> blockList = blogRepository.selectBlockList(menu);
+		model.addAttribute("blockList", blockList);
 		return "blog/config";
 	}
 	
@@ -111,6 +116,7 @@ public class BlogController {
 		return blockNoList;
 	}
 	
+	
 	@ResponseBody
 	@RequestMapping(value="getBlockContent",method=RequestMethod.POST)
 	public String getBlockContent(int blockTmpNo) {
@@ -123,20 +129,12 @@ public class BlogController {
 		return blockContent;
 	}
 	
-	@RequestMapping(value = "/yrtest", method = RequestMethod.GET)
-	public String yrtest(Menu menu,Model model) {
-		menu.setMenuNo(1);
-		menu.setMenuUserNo(1);
-		List<Block> blockList = blogRepository.selectBlockList(menu);
-		model.addAttribute("blockList", blockList);
-		return "blog/blogEdit1";
-	}
-	
 	@RequestMapping(value="setBlockContent",method=RequestMethod.POST)
 	public @ResponseBody String setBlockContent(@RequestBody Block block,Menu menu,Model model) {
 		int blockSeq = block.getBlockSeq();
 		blogRepository.updateBlockSeq(blockSeq);
 		blogRepository.insertBlock(block);
+<<<<<<< HEAD
 		menu.setMenuNo(1);
 		menu.setMenuUserNo(1);
 		List<Block> blockList = blogRepository.selectBlockList(menu);
@@ -153,5 +151,13 @@ public class BlogController {
 		List<Block> blockList = blogRepository.selectBlockList(menu);
 		rttr.addAttribute("blockList", blockList);
 		return "redirect:yrtest";
+=======
+		return "redirect:/config";
+	}
+	
+	@RequestMapping(value="deleteBlock",method=RequestMethod.POST)
+	public String deleteBlock(int blockSeq) {
+		return "redirect:/config";
+>>>>>>> 63a12e6d38d2485c812c619cab97cf36a97ce4a3
 	}
 }
