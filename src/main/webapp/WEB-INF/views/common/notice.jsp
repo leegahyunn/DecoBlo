@@ -12,7 +12,7 @@
 <script src="resources/library/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 function writeBbs() { 	// 글쓰기로 이동
-	location.href = "${pageContext.request.contextPath}/writeBbs";
+	location.href = "${pageContext.request.contextPath}/writeBbs?type=write";
 }
 </script>
 <style type="text/css">
@@ -79,6 +79,22 @@ function writeBbs() { 	// 글쓰기로 이동
 		 padding-bottom: 20px;
 	}
 	
+	p.title{
+		font-size: 52px;
+		margin-bottom: 30px;
+	}
+	
+	
+	.select-items div,.select-selected {
+		  font-size:10px;
+		  color: black;
+		  padding: 8px 16px;
+		  border: 1px solid transparent;
+		  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+		  cursor: pointer;
+		  user-select: none;
+}
+	
 </style>
 </head>
 <body class="landing">
@@ -117,18 +133,17 @@ function writeBbs() { 	// 글쓰기로 이동
 
 <!-- 글목록 -->
 <section id="main" class="wrapper">
-	<div class="heading" align="center">
-		<h1 class="title">NOTICE</h1>
-		<p>데코블로의 기능 개선 및 서비스 점검 등 새로운 소식을 안내 드립니다.</p>
+	<div class="heading" align="center" style="margin-bottom: 70px;">
+		<p class="title"><b>NOTICE</b></p>
+		<p style="font-size: 16px;">데코블로의 기능 개선 및 서비스 점검 등 새로운 소식을 안내 드립니다.</p>
 	</div>
 
 
 
 	<div align="center"><!-- 큰div태그 -->	
 	 <!-- 일단 여기도 검색 기능 -->
-		<div align="right" style="width:1170px">
+		<div class="custom-select" align="right" style="width:1170px">
 			<form class="qalist" action="bbsList" method="get">
-			
 				<select name="searchItem" class="searchItem" style="margin: 5px;">
 	
 	<!-- 여기 검색에는 작성자 검색 X => 특별히 필요할 것 같지 않아서 넣지 않음 -->
@@ -162,7 +177,15 @@ function writeBbs() { 	// 글쓰기로 이동
 					<c:forEach var="bbs" items="${bbsList}" varStatus="status">
 						<tr>
 							<td class="center">${status.count + navi.startRecord}</td>
-							<td><a href="bbsDetail?bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></td>
+							
+							<c:if test="${bbs.bbsDepth eq 0}">
+								<td><a href="bbsDetail?bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></td>
+							</c:if>
+							<c:if test="${bbs.bbsDepth ne 0}">
+								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-reply fa-rotate-180"></i>&nbsp;&nbsp;&nbsp;<a href="bbsDetail?bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></td>
+							</c:if>
+							
+							
 							<td>${bbs.bbsRegDate}</td>
 						</tr>
 					</c:forEach>

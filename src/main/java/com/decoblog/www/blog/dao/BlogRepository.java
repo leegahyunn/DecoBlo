@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 
 import com.decoblog.www.blog.vo.Menu;
+import com.decoblog.www.user.vo.User;
+import com.decoblog.www.blog.vo.Block;
 import com.decoblog.www.blog.vo.BlockTemplate;
 
 @Repository
@@ -25,7 +27,6 @@ public class BlogRepository {
 	public ArrayList<HashMap<String, ArrayList<Menu>>> selectMenu() {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		ArrayList<HashMap<String, ArrayList<Menu>>> result = mapper.selectMenu();
-		
 		return result;
 	}
 	
@@ -33,11 +34,12 @@ public class BlogRepository {
 	 * 메뉴 타이틀 수정
 	 * @return 성공 여부
 	 */
-	public int updateMenu(Menu menu) {
+	public int updateMenuTitle(Menu menu) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
-		int result = mapper.updateMenu(menu);
+		int result = mapper.updateMenuTitle(menu);
 		
 		return result;
+	}
 	
 	/*
 	 * 블록 썸네일 가져오기
@@ -53,5 +55,64 @@ public class BlogRepository {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		String blockContent = mapper.selectBlockContent(blockTemplateNo);
 		return blockContent;
+	}
+	/*블록 가져오기 */
+	public List<Block> selectBlockList(Menu menu){
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		List<Block> blockList = mapper.selectBlockList(menu);
+		return blockList;
+	}
+	/*블록 입력하기*/
+	public int insertBlock(Block block) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.insertBlock(block);
+		return result;
+	}
+	/*블록 Seq 한자리씩 미루기*/
+	public int updateBlockSeq(int blockSeq) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateBlockSeq(blockSeq);
+		return result;
+	}
+	/*블록 삭제*/
+	public int deleteBlock(int blockSeq) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.deleteBlock(blockSeq);
+		return result;
+	}
+
+	public int updateSmallMenuPull(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateSmallMenuPull(map);
+		
+		return result;
+	}
+
+	public int updateSmallMenuPush(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateSmallMenuPush(map);
+		
+		return result;
+	}
+
+	public int updateLargeMenuPull(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateLargeMenuPull(map);
+		
+		return result;
+	}
+
+	public int updateLargeMenuPush(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateLargeMenuPush(map);
+		
+		return result;
+	}
+
+	public int updateMenu(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateMenu(map);
+		
+		return result;
 	}
 }

@@ -35,7 +35,7 @@
 }
 /*블록이 생성되는 바디 */
 .templates-wrapper{
-	position:absolute;
+/* 	position:absolute; */
 	top:0;
 	left:0;
 	right:0;
@@ -76,12 +76,6 @@
 	border-radius: 3px;
 	font-size: 13px;
 	cursor: pointer;
-}
-.block-no{
-	width: 100%;
-	height: auto;
-	text-align: center;
-	vertical-align: middle;
 }
 
 /*블럭 추가 버튼 ul*/
@@ -208,4 +202,44 @@
 .block-thumnail img{
 	width: 100%;
 	height : 50px;
+}
+
+.testHead{
+	position: absolute;
+	top:0;
+	left: 0;
+	margin: 0 auto;
+	width: 100%;
+	height: 100px;	
+	z-index: 9999;
+}
+
+/*설정 아이콘*/
+.settingIcon{
+	display: none;
+}
+
+/*설정 버튼*/
+.settingButton{
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	display: inline-block;
+	color: #fff;
+	background-color: #4789e7;
+	border: 1px solid #0073ac;
+	font-family: 'Open Sans', 'Nanum Gothic';
+    font-size: 13px;
+    cursor: pointer;
+    text-align: center;
+    width: 35px;
+    height: 35px;
+	border-radius: 50%;    
+    
+}
+/*설정 버튼*/
+.settingButton img{
+	vertical-align: middle;
+	border: 0;
+	margin-top: 8px;
 }

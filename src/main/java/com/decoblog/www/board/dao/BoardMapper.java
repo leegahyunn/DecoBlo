@@ -7,11 +7,17 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.decoblog.www.board.vo.Bbs;
 import com.decoblog.www.board.vo.BbsAttach;
+import com.decoblog.www.board.vo.Reply;
 
 public interface BoardMapper {
-
 	
-	// 글 전체 조회 + 검색
+	
+	/**************************************/
+	/* BOARD ******************************/
+	/**************************************/
+	
+	
+	// 글 목록 + 검색
 	public List<Bbs> select(Map<String, Object> map, RowBounds rb);
 	
 	// 글 상세 조회
@@ -41,6 +47,26 @@ public interface BoardMapper {
 	public int updateBbsCount(int bbsNo);
 	// 글 전체 개수 조회
 	public int getTotalBbs(Map<String, String> map);
+
+	
+
+	
+	/**************************************/
+	/* REPLY ******************************/
+	/**************************************/
+	
+	// 댓글 목록
+	public List<Reply> selectReply(int replyBbsNo);
+
+	// 댓글 입력
+	public int insertReply(Reply reply);
+
+	// 댓글 삭제
+	public int deleteReply(int replyNo);
+
+	// 댓글 수정
+	public int updateReply(Reply reply);
+
 
 
 }

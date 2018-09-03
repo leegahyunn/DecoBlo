@@ -10,6 +10,14 @@
 <link rel="stylesheet" href="../pixelarity/assets/css/main.css" />
 
 <style>
+i {
+	margin: 0 5px;
+	cursor: pointer;
+}
+
+button {
+	cursor: pointer;
+}
 .top {
 	position: relative;
 	height: 120px;
@@ -122,6 +130,7 @@ section.account div.left-one {
 }
 section.account div.left-two {
 	width: 25%;
+	font-weight: bold;
 }
 
 section.account div.left-three {
@@ -136,13 +145,18 @@ section.additional-info .left-two p {
 	text-align: center;
 }
 
-section.additional-info #update-profile {
+.profile-edit-button {
 	margin: 10px 0;
 	padding: 8px 15px;
 	border: 0;
 	background-color: black;
 	color: #FFF;
 	float: right;
+}
+
+section.account .left-two p span, section.account .left-three input[type="password"]{
+	height: 30px;
+	margin: 5px 0;
 }
 </style>
 
@@ -151,29 +165,7 @@ section.additional-info #update-profile {
 <body>
 
 	<!-- Header -->
-	<header id="header">
-		<h1>
-			<a href="index.html">Deco <span>Blo</span></a>
-		</h1>
-		<nav id="nav">
-			<ul>
-				<li><a href="#" class="icon fa-angle-down">이준호님</a>
-					<ul>
-						<li><a href="#">계정설정</a></li>
-						<li><a href="#">내 블로그</a></li>
-						<li><a href="#">대시보드</a></li>
-						<li><a href="#">1대1 문의</a></li>
-						<li><a href="#">로그아웃</a></li>
-					</ul>
-				<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
-					<ul>
-						<li><a href="#">한국어(KO)</a></li>
-						<li><a href="#">日本語(JP)</a></li>
-					</ul></li>
-				<li><a href="#">고객센터</a></li>
-			</ul>
-		</nav>
-	</header>
+	<jsp:include page="../common/header.jsp"></jsp:include>
 
 	<!-- Main -->
 	<section id="main" class="wrapper style1 account-profile">
@@ -193,10 +185,16 @@ section.additional-info #update-profile {
 						<p>도메인</p>												
 					</div>
 					<div class="left-three">
-						<p id="profile-user-name">관리자</p>
-						<p id="profile-user-email">admin@decoblo.com</p>
-						<p id="profile-user-nickname">관리자</p>
-						<p id="profile-user-blog-address">admin</p>
+						<p id="profile-user-name"></p>
+						<p id="profile-user-email"></p>
+						<p id="profile-user-nickname">
+							<span class="basic-message"></span>
+							<span class="additional-option"></span>
+						</p>
+						<p id="profile-user-blog-address">
+							<span class="basic-message"></span>
+							<span class="additional-option"></span>
+						</p>
 					</div>
 				</section>
 				<hr>
@@ -212,7 +210,24 @@ section.additional-info #update-profile {
 					</div>
 					<div class="left-three">
 						<textarea id="profile-user-info" rows="5" cols="25"></textarea>
-						<button id="update-profile">수정하기</button>
+						<button id="update-profile" class="profile-edit-button">수정하기</button>
+					</div>
+				</section>
+				<hr>
+				<section class="account password">
+					<div class="left-one">
+						<h3>비밀번호</h3>
+					</div>
+					<div class="left-two">
+						<p>기존 비밀번호</p>
+						<p>새 비밀번호</p>
+						<p>새 비밀번호 확인</p>						
+					</div>
+					<div class="left-three">
+						<input type="password" name="currentPassword" id="currentPassword">
+						<input type="password" name="newPassword" id="newPassword">
+						<input type="password" name="newPasswordCheck" id="newPasswordCheck">
+						<button id="update-password-btn" class="profile-edit-button">수정하기</button>
 					</div>
 				</section>
 
@@ -252,6 +267,12 @@ section.additional-info #update-profile {
 	<script>
 		$(function(){
 			printUserProfile();
+			$('#update-password-btn').on('click', changePassword);
+			$('#newPasswordCheck').keydown(function(key) {
+				if (key.keyCode == 13) {
+					changePassword();
+				}
+			});
 		});
 		
 		function printUserProfile() {
@@ -260,10 +281,24 @@ section.additional-info #update-profile {
 				method: 'post',
 				contentType: 'application/json; charset=utf-8',
 				success: function(resp){
-					$('#profile-user-name').text(resp.userName);
-					$('#profile-user-email').text(resp.userEmail);
-					$('#profile-user-nickname').text(resp.userNickName);
-					$('#profile-user-blog-address').text(resp.blogAddress);
+					$('#profile-user-name').text(resp.userName).css('font-weight', 'bold');
+					$('#profile-user-email').text(resp.userEmail).css('font-weight', 'bold');
+					if (resp.userNickName == ''){
+						$('#profile-user-nickname .basic-message').text("닉네임을 설정하지 않았습니다.");
+					} else {
+						$('#profile-user-nickname .basic-message').text(resp.userNickName);
+					}
+					$('#profile-user-nickname .additional-option').html('<i class="fa fa-pencil"></i>');
+					
+					if (resp.blogAddress == ''){
+						$('#profile-user-blog-address .basic-message').text("아직 블로그를 생성하지 않았습니다.");
+						$('#profile-user-blog-address .additional-option').html('<a href="#">블로그 생성</a>').css({'text-weight':'bold'});
+
+					} else {
+						$('#profile-user-blog-address .basic-message').text(resp.blogAddress);
+						$('#profile-user-blog-address .additional-option').html('<i class="fa fa-pencil"></i>');
+					}
+					
 					if (resp.userProfileSavedName != null) {
 						$('#profile-user-image').attr('src', '../upload/profile/'+resp.userProfileSavedName);
 					} else {
@@ -271,7 +306,51 @@ section.additional-info #update-profile {
 					}
 					$('#profile-user-info').text(resp.userInfo);
 				}
-			});
+			});		
+			
 		};
+		
+		function changePassword(){
+			var currentPassword = $('#currentPassword').val();
+			var newPassword = $('#newPassword').val();
+			var newPasswordCheck = $('#newPasswordCheck').val();
+			
+			if (currentPassword == "") {
+				alert('비밀번호를 입력하여 주십시오');
+				$('#currentPassword').focus();
+				return false;
+			} 
+			
+			if (newPassword == "") {
+				alert('새로운 비밀번호를 입력하여 주십시오');
+				$('#newPassword').focus();
+				return false;
+			}
+			
+			if (newPassword != newPasswordCheck) {
+				alert('새 비밀번호와 확인이 일치하지 않습니다.');
+				$('#newPassword').focus();
+				return false;
+			}
+			
+			$.ajax({
+				url: 'changePassword',
+				method: 'post',
+				data: {
+					"currentPassword" : currentPassword,
+					"newPassword" : newPassword,
+				},
+				success: function(resp){
+					if (resp == "Success") {
+						alert('비밀번호가 변경되었습니다. \n'
+								+ '다시 로그인해주시기 바랍니다.');
+						location.href = '/www';
+					} else {
+						alert('현재 비밀번호가 맞지 않습니다.');
+					}
+				}
+			});
+			
+		}
 	</script>	
 </html>

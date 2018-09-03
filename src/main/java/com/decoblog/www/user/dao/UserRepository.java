@@ -1,6 +1,7 @@
 package com.decoblog.www.user.dao;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 
 import javax.inject.Inject;
 import javax.mail.MessagingException;
@@ -37,7 +38,6 @@ public class UserRepository {
 		mapper.insertUser(vo); // 회원가입 DAO
 	
 		String key = new TempKey().getKey(50, false); // 인증키 생성
-	
 		mapper.createAuthKey(vo.getUserEmail(), key); // 인증키 DB저장
 	
 		// 메일 보내기
@@ -85,6 +85,24 @@ public class UserRepository {
 		
 		UserMapper mapper = session.getMapper(UserMapper.class);
 		result = mapper.getProfile(userNo);
+		
+		return result;
+	}
+
+	public int changePassword(HashMap<String, String> passwords) {
+		int result = 0;
+		
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		result = mapper.changePassword(passwords);
+		
+		return result;
+	}
+
+	public int getNUser() {
+		int result = 0;
+		
+		UserMapper mapper = session.getMapper(UserMapper.class);
+		result = mapper.getNUser();
 		
 		return result;
 	}

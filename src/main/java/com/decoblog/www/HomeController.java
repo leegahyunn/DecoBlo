@@ -1,18 +1,34 @@
 package com.decoblog.www;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.decoblog.www.user.dao.UserRepository;
+
 @Controller
 public class HomeController {
+	@Autowired
+	UserRepository userRepository;
+	
 	
 	/**************************************/
 	/* 메인 컨트롤러; 수정하지 말아주세요 */
 	/**************************************/
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
-		return "index";
+	public String home(HttpSession session, Model model) {
+		if (session.getAttribute("loginNo") != null) {
+			return "redirect:/main";
+		} else {
+			int nUser = userRepository.getNUser();
+			model.addAttribute("nUser", nUser);
+			return "index";
+		}
+		
 	}
 	
 	@RequestMapping(value = "/customer", method = RequestMethod.GET)
@@ -45,9 +61,14 @@ public class HomeController {
 	/* 테스트 컨트롤러; 테스트는 여기서 ! */
 	/**************************************/
 	// 박치현
-	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
-	public String chtest() {
-		return "blog/blockConfig";
+//	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
+//	public String chtest() {
+//		return "blog/blogConfig";
+//	}
+	
+	@RequestMapping(value = "/chtest2", method = RequestMethod.GET)
+	public String chtest2() {
+		return "templates/1/block-2";
 	}
 	
 	// 이가현
@@ -60,7 +81,7 @@ public class HomeController {
 	// 최용락
 	@RequestMapping(value = "/yrtest", method = RequestMethod.GET)
 	public String yrtest() {
-		return "blog/blogEdit1";
+		return "redirect:/config";
 	}
 	
 	

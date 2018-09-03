@@ -1,24 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>DecoBlo - Config</title>
-<link rel="stylesheet" type="text/css" href="pixelarity/assets/css/font-awesome.min.css">
-<link rel="stylesheet" type="text/css" href="http://www.jqueryscript.net/css/jquerysctipttop.css">
-<link rel="stylesheet" type="text/css" href="decoblo/css/blockConfig.css">
-<link rel="stylesheet" type="text/css" href="decoblo/css/menuConfig.css">
-<link rel="stylesheet" type="text/css" href="decoblo/css/blockSetting.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
 
-<script src="resources/library/js/jquery-3.3.1.min.js"></script>
-<script src="resources/library/js/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="decoblo/css/blockSetting.css">
+<link rel="stylesheet" href="decoblo/css/blockTemplate.css">
+<link rel="stylesheet" href="decoblo/css/blockConfig.css">
+<link rel="stylesheet" href="decoblo/css/menuConfig.css">
+<link rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="http://www.jqueryscript.net/css/jquerysctipttop.css">
+
+
+<script src="library/js/jquery-3.3.1.min.js"></script>
+<script src="library/js/jquery-ui.min.js"></script>
+<script src="library/js/colpickRmx.js"></script>
+<script src="decoblo/js/blockConfig.js"></script>
 <script src="decoblo/js/jquery.nestable.js"></script>
 <script src="resources/library/js/wcolpick.js"></script>
-<script src="resources/library/js/colpickRmx.js"></script>
 <script src="decoblo/js/blockConfig.js"></script>
 <script src="decoblo/js/menuConfig.js"></script>
 <script src="decoblo/js/blockSetting.js"></script>
+
+
 
 <style>
 /**********/
@@ -184,8 +192,8 @@ div label.right-icon{
     border-bottom: 1px solid #CCC;
 }
 
-.aa-handle:hover { color: #000; background: #fff; }
-.aa-handle i:hover { color: #2ea8e5; background: #fff; }
+.aa-handle:hover { color: #000; background: #fff;}
+.aa-handle .deletebtn:hover, .aa-handle .editbtn:hover { color: #2ea8e5; background: #fff;}
 
 .dd-item > button { display: block; position: relative; cursor: pointer; float: left; width: 25px; height: 20px; margin: 5px 0; padding: 0; text-indent: 100%; white-space: nowrap; overflow: hidden; border: 0; background: transparent; font-size: 12px; line-height: 1; text-align: center; font-weight: bold; }
 .dd-item > button:before { content: '+'; display: block; position: absolute; width: 100%; text-align: center; text-indent: 0; }
@@ -327,182 +335,7 @@ body { margin: 0; }
 }
 </style>
 <script type="text/javascript">
-/*******************/
-/*  메뉴 블럭 불러오기    */
-/*******************/
-menuConfig();
-function menuConfig() {
-	$.ajax({
-		method   : 'post'
-		, url    : 'menuConfig'
-		, contentType : 'application/json; charset=UTF-8'
-		, success: function(resp) {
-			var menuJson = JSON.parse(resp);
-			var result = '';
-			result += '<ol class="dd-list">';
-			
-			$.each(menuJson, function(mainIndex, mainMenu){
-				$.each(mainMenu.Menu, function(subIndex, subMenu){
-					console.log(subMenu);	
-					result += '<li class="dd-item" data-rno="'+ subMenu.menuSeq + '" data-parent="'+ subMenu.menuParent+'">';	
-					result += '<div class="default-config">';
-					result += '<div class="outer-config aa-handle">';
-					result += '<div class="dd-handle" style="display: inline-block; width: 80%;">';
-					result += '<span>' + subMenu.menuName + '</span>';
-					result += '</div>';
-					result += '<div class="outer-config"  style="display: inline-block;">';
-					result += '<i class="fa fa-trash deletebtn" data-rno="'+ subMenu.menuSeq + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					result += '<i class="fa fa-pencil editbtn" data-rno="'+ subMenu.menuSeq + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					result += '<i class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuSeq + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					result += '</div>';
-					result += '<div class="fold outer-config" style="display:none;">';
-					result += '<input type="text" style="width:200px;">';
-					result += '<i class="right-icon fa fa-check checkbtn" data-rno="'+ subMenu.menuSeq + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					result += '</div>';
-					result += '</div>';
-					result += '</div>';
-				});
-			});
-			result += '</ol'>;
-		}
-	});
-}
-$(function(){
-	/**********************/
-	/* 메뉴블럭 마우스오버   */
-	/**********************/
-	$(document).on('mouseenter', '.menu-block li', function(){
-		$('ul:first',this).show();
-	});
-	
-	$(document).on('mouseleave', '.menu-block li', function(){
-		$('ul:first',this).hide();
-	});
-	
-	/***********************/
-	/* 사이트 설정(타이틀) 수정    */
-	/***********************/
-	$(".titleBtn").click(function(){
-		$(".title").css('display','none');
-		$(".titleEdit").css('display','block');
-	})
-	$(".checkBtn").click(function(){
-		$(".titleEdit").css('display','none');
-		$(".title").css('display','block');
-	})
-	
-	/**************/
-	/*   메타태그     */
-	/**************/
-	$(".metaBtn").click(function(){
-		  window.open("metaEdit", "metaEdit", "top=120, left=700, width=400, height=400")
-	})
-	
-	/**************/
-	/*    드롭다운     */
-	/**************/
-	$(".site-config-flip").click(function(){
-	    $(".site-config-panel").slideToggle("slow")
-	    $(".site-config-panel").css("border-bottom","1px solid #333e4e").css("border-left","1px solid #333e4e").css("border-right","1px solid #333e4e")
-	  	
-	});
-	
-	$(".menu-config-flip").click(function(){
-		$(".menu-config-panel").slideToggle("slow")
-	    $(".menu-config-panel").css("border-bottom","1px solid #333e4e").css("border-left","1px solid #333e4e").css("border-right","1px solid #333e4e")
-	  	
-	});
-	 
-	$(document).on('click', 'div.folder', function() {
-		$(this).removeClass('folder').addClass('unfolder');
-		$(this).children('i.fa-chevron-right').removeClass('fa-chevron-right').addClass('fa-chevron-down');	
-	});
-	$(document).on('click', 'div.unfolder', function() {
-		$(this).removeClass('unfolder').addClass('folder');
-		$(this).children('i.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-right');	
-	});
-	
-	/**************/
-	/*메뉴 드래그앤드롭*/
-	/**************/	
-	var updateOutput = function(e)
-	{
-		var list   = e.length ? e : $(e.target),
-	    output = list.data('output');
-	};
-	
-	$('#nestable').nestable({
-		group: 1
-	})
-	.on('change', updateOutput);
-	
-	
-	var target;
-	$('#nestable')
-	.on('mousedown', '.outer-config', function(){
-		target = $(this);
-	})	
-	
-	.mouseup(function(item){
-		target.addClass("changed222");
-		var menuseq2 = $('.changed').parents('.dd-item').parents('.dd-item').data('parent');// 누른 애의 부모메뉴의 seq
-		console.log("33");
-		console.log($('.changed222'));
-		
-		var mynum = $(target).parent().parent().data('rno');//누른 애의 시퀀스
-		var menuseq = $(target).parent().parents('.dd-item').data('parent');// 누른 애의 부모메뉴의 seq
-		
-		console.log(menuseq);
-		var w = $(target).parent().parent().next().data('rno');//누른애의 형제
-		/* if(mynum==0){
-			var ptnum = $(target).parent().parent().parents('.dd-item').data('parent');
-			var aa = $(target).parent().parent().next().data('rno'); 
-			console.log("대메뉴를 움직였을 때: " + ptnum + ", " + aa); //이동한 곳의 대메뉴와 형제번호
-		}else if(mynum>0){
-			var parentnum = $(target).parent().parent().parents('.dd-item').data('parent');// 소메뉴로 들어갓을 경우, 부모 메뉴의 번호
-			var siblingnum = $(target).parent().parent().next().data('rno'); // 다른 자식의 번호
-			console.log("소메뉴를 움직였을 때: " + parentnum + ", " + siblingnum)
-		} */
-		
-		target.removeClass("changed222");
-	});
-	
-	/*********************/
-	/*메뉴 수정 버튼 이벤트*/
-	/*********************/
-	$(document).on('click', '.deletebtn', function(){
-		
-	});
-	
-	$(document).on('click', '.editbtn', function(){
-		$(this).parent().css('display','none');
-		$(this).parent().prev().css('display','none');
-		$(this).parent().next().css('display','block');
-	});
-	
-	$(document).on('click', '.hidebtn', function(){
-		
-		
-	}); 
-	
-	$(document).on('click', '.checkbtn', function(){
-		var menuname = $(this).prev().val();
-		var menuseq  = $(this).attr("data-rno");
-		var menuparent  = $(this).attr("data-parent");
-		var sendData = {"menuName" : menuname, "menuSeq" : menuseq, "menuParent" : menuparent};
-		$.ajax({
-			method : 'post'
-			, url  : 'editMenu'
-			, data : JSON.stringify(sendData)
-			, dataType : 'text'
-			, contentType : 'application/json; charset=UTF-8'
-			, success: function(resp) {
-				menuConfig();
-			} 
-		});
-		
-	});
-});
+
 </script>
 <script type="text/javascript">
 /**************/
@@ -521,10 +354,9 @@ _gaq.push(['_trackPageview']);
 
 </head>
 <body id="body-config">
-
 <header id="header">
 	<div class="left-menu menu-config-flip folder"><!-- menu-flip 클래스 추가-->
-		<div>메뉴 s설정</div>
+		<div>메뉴 설정1</div>
 		<i class="fa fa-chevron-down"></i>
 	</div>
 	<div class="left-menu site-config-flip folder"><!-- site-flip 클래스 추가-->
@@ -555,21 +387,8 @@ _gaq.push(['_trackPageview']);
 	<nav id="menu-config-nav">
       <!-- config-section -->
       <div class="menu-config-panel dd" id="nestable" >
-      
-		<!-- 메뉴 들어갈 부분 -->
-      
-          <div class="default-config" style="text-align: right; padding-right: 5px">
-            <div class="outer-config menu-plus"  style="display: inline-block;">
-            	<span style="font-size: 14px;">메뉴추가</span> 
-	           	<i class="fa fa-plus"></i>
-	        </div>
-			<div class="fold outer-config menu-plus-box" style="display:none;">
-				<input type="text" style="width:200px;">
-				<i class="right-icon fa fa-check checkBtn-1"></i>
-			</div>
-         </div>
+          <!-- 메뉴 불러오는 곳 -->
       </div>
-      
       <!-- /config-section -->
    </nav>
 	
@@ -702,15 +521,6 @@ _gaq.push(['_trackPageview']);
 	</nav>
 </div>
 </div>
-<!-- menu-bar -->
-<div class="menu-wrapper">
-	<div class="block-wrapper">
-		<div class='menu-bar'>
-			<ul class = "menu-block">
-			</ul>
-		</div>
-	</div>
-</div>
 
 <nav id="block-config-nav">
 <div class="blockMenu-sidebar-div">
@@ -739,6 +549,14 @@ _gaq.push(['_trackPageview']);
 			<img  alt="구분선" src="resources/images/blockSettingimg/icon-divider.png">
 			<div>구분선</div>
 		</li>
+		<li class="">
+			<img  alt="게시판" src="resources/images/blockSettingimg/icon-forum.png">
+			<div>게시판</div>
+		</li>
+	</ul>
+	<!--  썸네일 쌓이는 부분 -->
+	<ul class="block-thumnail">
+		
 	</ul>
 	<ul class="blockMenu-sidebar-close">
 		<li id="blockMenu-sidebar-close">
@@ -747,49 +565,220 @@ _gaq.push(['_trackPageview']);
 	</ul>
 </div>
 </nav>
+
+<div id="mask"></div>
 <!-- 전체 블록 section 시작 -->
 <section id="blog-wrapper">
-	<!-- 블록 추가 버튼 top -->
-	<ul class="add-button" id="add-button-top">
-		<li class="add-button-li">
-			<div class="add-block">
-				<img alt='Plus' src='resources/images/blockSettingimg/fa_plus_icon.png'/>
-			</div>
-		</li>
-	</ul>
-	<!-- 블록이 쌓이는 section -->
-	<section class="block" id="blockNo">
-		<div class="block-setting-cover"></div>
-	</section>
-	<!-- 블록 추가 버튼 bottom -->
-	<ul class="add-button" id="add-button-bottom">
-		<li class="add-button-li">
-			<div class="add-block">
-				<img alt='Plus' src='resources/images/blockSettingimg/fa_plus_icon.png'/>
-			</div>
-		</li>
-	</ul>
+	<div class="templates-wrapper" style="background-color: gray;">
 	
-	<ul class="add-button" id="add-button-top">
-		<li class="add-button-li">
-			<div class="add-block">
-				<img alt='Plus' src='resources/images/blockSettingimg/fa_plus_icon.png'/>
+	<c:if test="${empty blockList}" var="seletedBlockList">
+		<div class="intro-block-wrapper" id="intro-block-wrapper">
+			<div class="text-shadow">
+				<div>
+					<img alt="추가" src="resources/images/blockSettingimg/addblock.png"/>
+				</div>
+				<b>메뉴가 비어있습니다. 블럭을 추가하시려면 여기를 클릭하세요.</b>
 			</div>
-		</li>
-	</ul>
-	<!-- 블록이 쌓이는 section -->
-	<section class="block" id="blockNo-2">
-		<div class="block-setting-cover"></div>
-	</section>
-	<!-- 블록 추가 버튼 bottom -->
-	<ul class="add-button" id="add-button-bottom">
-		<li class="add-button-li">
-			<div class="add-block">
-				<img alt='Plus' src='resources/images/blockSettingimg/fa_plus_icon.png'/>
+		</div>
+	</c:if>
+	
+	<c:if test="${!empty blockList}">
+		
+		<section class="menu-wrapper" >
+		<c:forEach items="${blockList}" var="blockList">
+			<ul class='add-button ${blockList.blockSeq}' id='${blockList.blockSeq}'>
+				<li class='add-button-li'>
+					<div class='add-block'>
+					<img alt='Plus' src='resources/images/blockSettingimg/fa_plus_icon.png'/>
+					</div>
+				</li>
+			</ul>
+			<section class="block-wrapper" data-block-seq="${blockList.blockSeq}">
+			${blockList.blockContent}
+			
+			<div class="settingIcon ${blockList.blockSeq}" id='${blockList.blockSeq}'>
+				<div class="settingButton">
+				<img alt="+" src="resources/images/blockSettingimg/settingButton.png">
+				</div>
 			</div>
-		</li>
-	</ul>
+			
+			<div class="block-config ${blockList.blockSeq}" id="${blockList.blockSeq}">
+				<div class="block-config-header">
+					<i class="fa fa-cog"></i> <span>블럭 설정</span><i class="fa fa-times" id="block-config-close"></i>
+				</div>
+				<!-- config-section -->
+				<div class="block-config-section">
+					<!-- 여백 -->
+					<div class="default-config margin-config">
+						<div class="fold outer-config">
+							<span>여백</span> 
+							<i class="fa fa-chevron-right right-icon fold-icon"></i>
+						</div>
+						<div class="inner-config">
+							<div class="config-row">
+								<label>좌우여백</label>
+								<label class="switch">
+			  						<input type="checkbox" checked>
+			  						<span class="slider round"></span>
+								</label>
+							</div>
+							<div class="config-row">
+								<label>상<span class="slider-result">0</span>px</label>
+								<div class="range-slider">
+								</div>
+							</div>
+							<div class="config-row">
+								<label>하<span class="slider-result">0</span>px</label>
+								<span class="range-slider">
+								</span>
+							</div>
+							
+						</div>
+					</div>
+					<!-- /여백 -->
+					<!-- 배경 -->
+					<div class="default-config background-config">
+						<div class="fold outer-config">
+							<span>배경</span> 
+							<i class="fa fa-chevron-right right-icon fold-icon"></i>
+						</div>
+						<div class="inner-config">
+							<div class="config-row">
+								<label>색상</label>
+								<input type="color" class="color color-picker transparent">
+							</div>
+							<div class="config-row filebox">
+								<label>이미지</label>
+								<label for="backgroundfile" class="bg-label"><i class="fa fa-folder-open"></i></label>
+								<input type="file" id="backgroundfile">
+								<span id="backgroundfile-name"></span>
+							</div>	
+							<div class="config-row additional-option background">
+								<label>POSITION</label>
+								<select>
+									<option>sss</option>
+								</select>
+							</div>	
+							<div class="config-row additional-option background">
+								<label>REPEAT</label>
+								<select>
+									<option>sss</option>
+								</select>
+							</div>
+							<div class="config-row additional-option background">
+								<label>SIZE</label>
+								<select>
+									<option>sss</option>
+								</select>
+							</div>		
+						</div>
+					</div>
+					<!-- /배경 -->
+					<!-- 선 색상 -->
+					<div class="optional-config line-config">
+						<div class="fold outer-config">
+							<span>선 색상</span> 
+							<i class="fa fa-chevron-right right-icon fold-icon"></i>
+						</div>
+						<div class="inner-config">
+							<div class="config-row">
+								<label>색상</label>
+								<input type="color" class="color color-picker transparent">
+							</div>
+						</div>
+					</div>
+					<!-- /선 색상 -->
+					<!-- 버튼 색상 -->
+					<div class="optional-config button-config">
+						<div class="fold outer-config">
+							<span>버튼 색상</span> 
+							<i class="fa fa-chevron-right right-icon fold-icon"></i>
+						</div>
+						<div class="inner-config">
+							<div class="config-row">
+								<label>색상</label>
+								<input type="color" class="color color-picker transparent">
+							</div>
+						</div>
+					</div>
+					<!-- /버튼 색상 -->
+					<!-- 슬라이드 지연시간 -->
+					<div class="optional-config slide-delay-config">
+						<div class="fold outer-config">
+							<span>슬라이드 지연시간</span> 
+							<i class="fa fa-chevron-right right-icon fold-icon"></i>
+						</div>
+						<div class="inner-config">
+							<div class="config-row">
+								<label>지연시간</label>
+								<input type="text">
+							</div>
+						</div>
+					</div>
+					<!-- /슬라이드 지연시간 -->
+					<!-- /블럭링크 -->
+					<div class="default-config block-link-config">
+						<div class="fold outer-config">
+							<span>블럭 링크(앵커)</span> 
+							<i class="fa fa-chevron-right right-icon fold-icon"></i>
+						</div>
+						<div class="inner-config">
+							<div class="config-row">
+								<label>블럭링크</label>
+								<label class="switch">
+			  						<input type="checkbox" checked>
+			  						<span class="slider round"></span>
+								</label>
+							</div>
+							<div class="config-row">
+								<label>블럭이름</label>
+								<input type="text">
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /config-section -->
+				
+				<!-- footer -->
+				<div class="block-config-footer">
+					<div class="block-move">			
+						<i class="fa fa-sort"></i>
+						<span>블럭이동</span>
+					</div>
+					<div class="block-copy">
+						<i class="fa fa-files-o"></i>
+						<span>블럭복제</span>
+					</div>
+					<div class="block-html-css">
+						<i class="fa fa-file-code-o"></i>
+						<span>HTML/CSS</span>
+					</div>
+					<div class="block-remove" onclick="blockDelete(${blockList.blockSeq})">
+						<i class="fa fa-trash-o"></i>
+						<span>블럭삭제</span>
+					</div>
+				</div>
+				<!-- /footer -->
+			</div>
+			</section>
+			
+			<ul class='add-button ${blockList.blockSeq}' id='${blockList.blockSeq+1}'>
+				<li class='add-button-li'>
+					<div class='add-block'>
+					<img alt='Plus' src='resources/images/blockSettingimg/fa_plus_icon.png'/>
+					</div>
+				</li>
+			</ul>
+			
+			</c:forEach>
+		</section>
+	</c:if>
+		<div class="block-preview">
+				<!-- 사용하기 버튼 -->
+					<!-- 블록 코드 미리보기 -->
+		</div>
+		
+</div>	
 </section>
-
 </body>
 </html>

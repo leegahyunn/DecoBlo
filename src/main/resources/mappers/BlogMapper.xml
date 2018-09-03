@@ -26,27 +26,114 @@
 	FROM
 		db_menu
 	ORDER BY 
-		menuparent, menuseq
+		menuparentseq, menuseq
 </select>
 <!-- 블록 넘버 가져오기 -->
 <select id="selectThumnail" parameterType="string" resultType="int">
 	SELECT blocktmpno FROM DB_BLOCK_TEMPLATE WHERE blocktmptype=#{tmpType}
 </select>
 
-<update id="updateMenu" parameterType="Menu">
+<update id="updateMenuTitle" parameterType="Menu">
 	UPDATE 
 		db_menu
 	SET
 		menuName = #{menuName}
 	WHERE
-		menuParent = #{menuParent}
+		menuNo = #{menuNo}
+</update>
+<update id="updateSmallMenuPush" parameterType="map">
+	UPDATE 
+		db_menu
+	SET
+		menuSeq = menuSeq + 1
+	WHERE
+		menuSeq >= #{newMenuSeq}
 	AND 
-		menuSeq = #{menuSeq}
+		menuParent = #{newMenuParent}
+	AND
+		menuUserNo = #{menuUserNo}
+</update>
+<update id="updateSmallMenuPull" parameterType="map">
+	UPDATE 
+		db_menu
+	SET
+		menuSeq = menuSeq - 1
+	WHERE
+		menuSeq > #{menuSeq}
+	AND 
+		menuParent = #{menuParent}
+	AND
+		menuUserNo = #{menuUserNo}
 </update>
 
+<update id="updateLargeMenuPush" parameterType="map">
+	UPDATE 
+		db_menu
+	SET
+		menuParentSeq = menuParentSeq + 1
+	WHERE
+		menuParentSeq > #{menuParentSeq}
+	AND
+		menuUserNo = #{menuUserNo}
+		
+</update>
+<update id="updateLargeMenuPull" parameterType="map">
+	UPDATE 
+		db_menu
+	SET
+		menuParentSeq = menuParentSeq - 1
+	WHERE
+		menuParentSeq > #{menuParentSeq}
+	AND
+		menuUserNo = #{menuUserNo}
+</update>
+
+<update id="updateMenu" parameterType="map">
+	UPDATE 
+		db_menu
+	SET
+		<if test="newMenuDepth==0">
+			menuSeq = 0,
+			menuParent = #{menuNo},
+			menuParentSeq = #{newMenuSeq},
+		</if>
+		<if test="newMenuDepth!=0">
+			menuSeq = #{newMenuSeq},
+			menuParent = #{newMenuParent},
+			menuParentSeq = (SELECT menuParentSeq FROM db_menu WHERE menuNo=#{newMenuParent}),
+		</if>
+		menuDepth = #{newMenuDepth}
+	WHERE
+		menuNo = #{menuNo}
+</update>
 <!-- 블록 코드 가져오기 -->
+<!-- 블록 코드 가져오기 썸네일 -->
 <select id="selectBlockContent" parameterType="int" resultType="string">
 SELECT UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(blocktmpcontent)) AS blockTmpContent FROM db_block_template
  WHERE blocktmpno =#{blocktmpNo}
  </select>
+ 
+ <!-- 블록 가져오기 메뉴 -->
+ <select id="selectBlockList" parameterType="Menu" resultType="Block">
+ SELECT blockno,blockmenuno,UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(blockcontent)) as blockContent,blockseq
+FROM db_block,db_menu,db_user
+WHERE db_block.blockmenuno=db_menu.menuno AND db_menu.menuno=#{menuNo}
+AND db_menu.menuuserno = db_user.userno AND db_user.userno=#{menuUserNo}
+ORDER BY blockseq
+ </select> 
+ 
+ <!-- 블록 입력 -->
+<insert id="insertBlock" parameterType="Block">
+INSERT INTO db_block VALUES(
+db_block_seq.nextval,1,#{blockTmpNo},#{blockSeq},
+UTL_RAW.CAST_TO_RAW(#{blockContent}),344)
+</insert>
+<!-- 블록 Seq 한자리씩 미루기 -->
+<update id="updateBlockSeq" parameterType="int">
+UPDATE db_block SET blockseq = blockseq+1 WHERE blockseq >=#{blockSeq}
+</update>
+<!-- 블럭 삭제 -->
+<delete id="deleteBlock" parameterType="int">
+DELETE db_block WHERE blockseq=#{blockSeq}
+</delete>
 </mapper>

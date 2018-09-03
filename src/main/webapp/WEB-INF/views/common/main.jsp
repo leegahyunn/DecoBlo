@@ -4,14 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
+<title>DecoBlo - Create Your Own Blog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<!--[if lte IE 8]><script src="pixelarity/assets/js/ie/html5shiv.js"></script><![endif]-->
 <link rel="stylesheet" href="pixelarity/assets/css/main.css" />
-<!--[if lte IE 8]><link rel="stylesheet" href="pixelarity/assets/css/ie8.css" /><![endif]-->
-<!--[if lte IE 9]><link rel="stylesheet" href="pixelarity/assets/css/ie9.css" /><![endif]-->
-
 <style>
 .top {
 	position: relative;
@@ -98,40 +93,68 @@
 	position: relative;
 	height: 450px;
 }
-	</style>
+
+.showbox .thumbnails-wrapper {
+	width: 100%;
+	height: 40%;
+}
+
+.showbox .thumbnails-wrapper .img {
+	width: 100%;
+	height: 100%;
+}
+
+.post-thumbnails {
+	width: 20%;
+    height: 100%;
+}
+
+.post-contents {
+	text-overflow: ellipsis;
+	height: 100%;
+	overflow: hidden;
+	 
+	white-space: normal; 
+	line-height: 1.2; 
+	height: 3.6em; 
+	text-align: left; 
+	word-wrap: break-word; 
+	display: -webkit-box; 
+	-webkit-line-clamp: 3; 
+	-webkit-box-orient: vertical;
+
+}
+.hot-contents {
+	text-overflow: ellipsis;
+	height: 45%;
+	overflow: hidden;
+	 
+	white-space: normal; 
+	line-height: 1.2; 
+	height: 3.6em; 
+	text-align: left; 
+	word-wrap: break-word; 
+	display: -webkit-box; 
+	-webkit-line-clamp: 3; 
+	-webkit-box-orient: vertical;
+
+}
+
+.subscribe-new .top .ttext {
+	padding: 5px;
+}
+
+.show-box .hot-title, .show-box .hot-content {
+	padding: 5px;
+	margin: 5px;
+}
+</style>
 
 
 </head>
 <body>
-
 	<!-- Header -->
-	<header id="header">
-		<h1>
-			<a href="index.html">Deco <span>Blong</span></a>
-		</h1>
-		<nav id="nav">
-			<ul>
-				<li><a href="#" class="icon fa-angle-down">${sessionScope.loginName}</a>
-					<ul>
-						<li><a href="user/profile">계정설정</a></li>
-						<li><a href="#">내 블로그</a></li>
-						<li><a href="dashboard">대시보드</a></li>
-						<li><a href="#">1대1 문의</a></li>
-						<li><a href="#">로그아웃</a></li>
-					</ul>
-				<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
-					<ul>
-						<li><a href="#">한국어(KO)</a></li>
-						<li><a href="#">日本語(JP)</a></li>
-					</ul></li>
-				<li><a href="#">고객센터</a></li>
-
-
-
-			</ul>
-
-		</nav>
-	</header>
+	<jsp:include page="header.jsp"></jsp:include>
 
 	<!-- Main -->
 	<section id="main" class="wrapper style1">
@@ -147,10 +170,52 @@
 						<h2>HOT ISSUE</h2>
 						<a class="prev" onclick="plusSlides(-1)"></a>
 						<div class="slideshow">
+							<div class="thumbnails-wrapper">
+								<img width="100%" height="100%" src="resources/images/sample1.jpg">
+							</div>
+							<h3 class="hot-title">
+								Lorem Ipsum
+							</h3>
+							<p class="hot-title">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+								Nunc vitae iaculis ex, ut feugiat enim. Fusce vitae arcu magna. 
+								Nunc interdum ullamcorper blandit. Suspendisse pharetra dui 
+								vel augue posuere tincidunt. Integer fringilla nec tortor nec 
+								dignissim. Integer egestas, sem id ornare sollicitudin, nunc 
+								metus aliquet lorem, quis porta orci dolor at justo. 
+							</p>
 						</div>
 						<div class="slideshow2">
+							<div class="thumbnails-wrapper">
+								<img width="100%" height="100%" src="resources/images/sample2.jpg">
+							</div>
+							<h3 class="hot-title">
+								Lorem Ipsum
+							</h3>
+							<p class="hot-content">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+								Nunc vitae iaculis ex, ut feugiat enim. Fusce vitae arcu magna. 
+								Nunc interdum ullamcorper blandit. Suspendisse pharetra dui 
+								vel augue posuere tincidunt. Integer fringilla nec tortor nec 
+								dignissim. Integer egestas, sem id ornare sollicitudin, nunc 
+								metus aliquet lorem, quis porta orci dolor at justo. 
+							</p>
 						</div>
 						<div class="slideshow3">
+							<div class="thumbnails-wrapper">
+								<img width="100%" height="100%" src="resources/images/sample3.jpg">
+							</div>
+							<h3 class="hot-title">
+								Lorem Ipsum
+							</h3>
+							<p class="hot-content">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+								Nunc vitae iaculis ex, ut feugiat enim. Fusce vitae arcu magna. 
+								Nunc interdum ullamcorper blandit. Suspendisse pharetra dui 
+								vel augue posuere tincidunt. Integer fringilla nec tortor nec 
+								dignissim. Integer egestas, sem id ornare sollicitudin, nunc 
+								metus aliquet lorem, quis porta orci dolor at justo. 
+							</p>
 						</div>
 
 					</div>
@@ -163,47 +228,66 @@
 
 				<hr />
 				<div class="box"></div>
-
-
 			</header>
 
-
-
-			<div>
-				<h3>이웃새글</h3>
-				<hr />
+			
+			<h2>이웃 새글</h2>
+			<div class="subscribe-new">
 				<div class="top">
-					<div class="ttext">글씨</div>
-					<div class="timg">이미지</div>
-
-
-
-				</div>
-
-				<hr />
-				<div class="top">
-					<div class="ttext">글씨</div>
-					<div class="timg">이미지</div>
-
-
-
-				</div>
-
-
-
-				<hr />
-				<div class="top">
-					<div class="ttext">글씨</div>
-					<div class="timg">이미지</div>
-
-
-
+					<div class="ttext">
+						<h3 class="post-title">
+							Lorem Ipsum
+						</h3>
+						<p class="post-content">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+							Nunc vitae iaculis ex, ut feugiat enim. Fusce vitae arcu magna. 
+							Nunc interdum ullamcorper blandit. Suspendisse pharetra dui 
+							vel augue posuere tincidunt. Integer fringilla nec tortor nec 
+							dignissim. Integer egestas, sem id ornare sollicitudin, nunc 
+							metus aliquet lorem, quis porta orci dolor at justo. 
+						</p>
+					</div>
+					<div class="timg post-thumbnails">
+						<img width="100%" height="100%" src="resources/images/sample3.jpg">
+					</div>
 				</div>
 				<hr />
 				<div class="top">
-					<div class="ttext">글씨</div>
-					<div class="timg">이미지</div>
-
+					<div class="ttext">
+						<h3 class="post-title">
+							Lorem Ipsum
+						</h3>
+						<p class="post-content">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+							Nunc vitae iaculis ex, ut feugiat enim. Fusce vitae arcu magna. 
+							Nunc interdum ullamcorper blandit. Suspendisse pharetra dui 
+							vel augue posuere tincidunt. Integer fringilla nec tortor nec 
+							dignissim. Integer egestas, sem id ornare sollicitudin, nunc 
+							metus aliquet lorem, quis porta orci dolor at justo. 
+						</p>
+					</div>
+					<div class="timg post-thumbnails">
+						<img width="100%" height="100%" src="resources/images/sample3.jpg">
+					</div>
+				</div>
+				<hr />
+				<div class="top">
+					<div class="ttext">
+						<h3 class="post-title">
+							Lorem Ipsum
+						</h3>
+						<p class="post-content">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+							Nunc vitae iaculis ex, ut feugiat enim. Fusce vitae arcu magna. 
+							Nunc interdum ullamcorper blandit. Suspendisse pharetra dui 
+							vel augue posuere tincidunt. Integer fringilla nec tortor nec 
+							dignissim. Integer egestas, sem id ornare sollicitudin, nunc 
+							metus aliquet lorem, quis porta orci dolor at justo. 
+						</p>
+					</div>
+					<div class="timg post-thumbnails">
+						<img width="100%" height="100%" src="resources/images/sample3.jpg">
+					</div>
 				</div>
 			</div>
 		</div>
