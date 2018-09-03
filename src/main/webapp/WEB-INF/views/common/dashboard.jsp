@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -52,6 +54,11 @@
 	position: absolute;
 	right: 30px;
 	top: 10px;
+}
+.neighbor{
+	position: absolute;
+	top: 5px;
+	left: 48%;
 }
 
 .box {
@@ -161,11 +168,7 @@ label.panel-label:hover {
 	padding: 48px 24px;
 }
 
-#panel-5-ctrl:checked ~ #panels #panel-5 main {
-	max-height: initial;
-	opacity: 1;
-	padding: 48px 24px;
-}
+
 
 #panel-1-ctrl:checked ~ #tabs-list #li-for-panel-1 {
 	pointer-events: none;
@@ -275,34 +278,6 @@ label.panel-label:hover {
 }
 
 #panel-4-ctrl:checked ~ #tabs-list #li-for-panel-4 label.panel-label::after
-	{
-	height: 6px;
-}
-
-#panel-5-ctrl:checked ~ #tabs-list #li-for-panel-5 {
-	pointer-events: none;
-	cursor: default;
-	-webkit-transform: translate3d(0, 1px, 0);
-	transform: translate3d(0, 1px, 0);
-	box-shadow: none;
-	border-right: none;
-}
-
-#panel-5-ctrl:checked ~ #tabs-list #li-for-panel-5.last {
-	border-right: 1px solid transparent;
-}
-
-#panel-5-ctrl:checked ~ #tabs-list #li-for-panel-5+li {
-	border-left: 1px solid #dfdfdf;
-}
-
-#panel-5-ctrl:checked ~ #tabs-list #li-for-panel-5 label.panel-label {
-	background-color: white;
-	color: #003399;
-	padding-top: 24px;
-}
-
-#panel-5-ctrl:checked ~ #tabs-list #li-for-panel-5 label.panel-label::after
 	{
 	height: 6px;
 }
@@ -467,6 +442,9 @@ pmydate{
 							<a href="#" class="button special">블로그 가기</a> <a href="#"
 								class="button">블로그 편집</a>
 							</div>
+							<div class="neighbor">
+				<p>1111111111111111111111111</p>
+				</div>
 						<hr />
 					</div>
 				</section>
@@ -491,27 +469,46 @@ pmydate{
 						<input type="button" class="button small" id='dd' value="일간"> <input type="button"
 							class="button small" id='week' value="주간"> <input type="button" class="button small" id='mm' value="월간">
 					</div>
+				
 				</div>
-
-
 				<hr />
 				<div class="box">
 					<div class="one">
 						<p align="center">오늘 조회수</p>
-						<h3 align="center">${stat.statBlogCount}</h3>
+					<c:if test="${empty stat.statBlogCount}">
+					<h3 align="center">0</h3>
+					</c:if>
+					<c:if test="${not empty stat.statBlogCount}">
+					<h3 align="center">${stat.statBlogCount}</h3>
+					</c:if>
 					</div>
 					<div class="two">
 						<p align="center">공감수</p>
+						<c:if test="${empty stat.statBlogCount}">
+					<h3 align="center">0</h3>
+					</c:if>
+						<c:if test="${not empty stat.statBlogCount}">
 						<h3 align="center">${stat.statBlogCount}</h3>
+						</c:if>
 					</div>
 					<div class="three">
 						<p align="center">댓글수</p>
+						<c:if test="${empty stat.statReplyCount}">
+					<h3 align="center">0</h3>
+					</c:if>
+						<c:if test="${not empty stat.statReplyCount}">
 						<h3 align="center">${stat.statReplyCount}</h3>
+						</c:if>
+						
 					</div>
 					<div class="four">
 						<p align="center">구독 증감수</p>
+						<c:if test="${empty stat.statSubscribe}">
+					<h3 align="center">0</h3>
+					</c:if>
+						<c:if test="${not empty stat.statSubscribe}">
 						<h3 align="center">${stat.statSubscribe}</h3>
-
+						</c:if>
 					</div>
 
 
@@ -526,23 +523,20 @@ pmydate{
 						class="panel-radios" type="radio" name="tab-radios"> <input
 						id="panel-3-ctrl" class="panel-radios" type="radio"
 						name="tab-radios"> <input id="panel-4-ctrl"
-						class="panel-radios" type="radio" name="tab-radios"> <input
-						id="panel-5-ctrl" class="panel-radios" type="radio"
-						name="tab-radios">
+						class="panel-radios" type="radio" name="tab-radios"> 
 
 					<!-- TABS LIST -->
 					<ul id="tabs-list">
 						<!-- MENU TOGGLE -->
 						<li id="li-for-panel-1"><label class="panel-label"
-							for="panel-1-ctrl">조회수</label></li>
+							for="panel-1-ctrl">블로그조회수</label></li>
 						<li id="li-for-panel-2"><label class="panel-label"
-							for="panel-2-ctrl">방문횟수</label></li>
+							for="panel-2-ctrl">게시글조회수</label></li>
 						<li id="li-for-panel-3"><label class="panel-label"
-							for="panel-3-ctrl">조회수순위</label></li>
+							for="panel-3-ctrl">댓글수</label></li>
 						<li id="li-for-panel-4"><label class="panel-label"
-							for="panel-4-ctrl">유입 경로</label></li>
-						<li id="li-for-panel-5"><label class="panel-label"
-							for="panel-5-ctrl">구독자</label></li>
+							for="panel-4-ctrl">구독자</label></li>
+						
 					</ul>
 
 					<!-- THE PANELS -->
@@ -551,27 +545,31 @@ pmydate{
 							<section id="panel-1">
 								<main>
 								<p align="left" id="clock">기준</p>
-								+ </main>
+								<canvas id="chart1"></canvas>
+								</main>
 							</section>
 							<section id="panel-2">
 								<main>
 								<p align="left" id="clock2">기준</p>
-								chart </main>
+								<canvas id="chart2"></canvas> </main>
 							</section>
 							<section id="panel-3">
 								<main>
 								<p align="left" id="clock3">기준</p>
-								chart </main>
+								<canvas id="chart3"></canvas>
+								 </main>
 							</section>
 							<section id="panel-4">
 								<main>
 								<p align="left" id="clock4">기준</p>
-								chart </main>
+								<canvas id="chart4"></canvas>
+								 </main>
 							</section>
 							<section id="panel-5">
 								<main>
 								<p align="left" id="clock5">기준</p>
-								chart </main>
+								<canvas></canvas>
+								</main>
 							</section>
 						</div>
 					</article>
@@ -638,12 +636,13 @@ pmydate{
 	<script src="pixelarity/assets/js/main.js"></script>
 	<script src="resources/jchart/jquery.mtz.monthpicker.js"></script>
 	<script type="text/javascript" src="resources/jchart/jquery-ui.min.js"></script>
-	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 	<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
 	<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
 	<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
 	<script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+	
+	
 	<script type="text/javascript">
 	
 	$.datepicker.regional['ko'] = {
@@ -742,11 +741,15 @@ pmydate{
 				$("#timer").html(cal);
 				$(".box").html(div2);
 				$("#panel-1").html(chart2);
-				$("#panel-2").html(chart2);
-				$("#panel-3").html(chart2);
-				$("#panel-4").html(chart2);
+				$("#panel-2").html(chart3);
+				$("#panel-3").html(chart4);
+				$("#panel-4").html(chart5);
 				$("#pmydate").html(mydate);
 				ddate();
+				Chartdate();
+	            ChartBBsdate();
+	            Chartreplydate();
+	            Chartsubdate();
 				 $("#mydate").datepicker({ onSelect: function(dateText) {  
 						
 				    	
@@ -785,9 +788,13 @@ pmydate{
 				$("#timer").html(cal3);
 				$(".box").html(div3);
 				$("#panel-1").html(chart2);
-				$("#panel-2").html(chart2);
-				$("#panel-3").html(chart2);
-				$("#panel-4").html(chart2);
+				$("#panel-2").html(chart3);
+				$("#panel-3").html(chart4);
+				$("#panel-4").html(chart5);
+				MChartdate();
+	            MChartBBsdate();
+	            MChartreplydate();
+	            MChartsubdate();
 				
 				var datepicker_default = {
 			            
@@ -837,10 +844,15 @@ pmydate{
 				$("#timer").html(cal2);
 				$(".box").html(div4);
 				$("#panel-1").html(chart2);
-				$("#panel-2").html(chart2);
-				$("#panel-3").html(chart2);
-				$("#panel-4").html(chart2);
+				$("#panel-2").html(chart3);
+				$("#panel-3").html(chart4);
+				$("#panel-4").html(chart5);
 				$("#pmydate").html(mydate2);
+				 WChartsubdate();
+				 WChartdate();
+		         WChartBBsdate();
+		         WChartreplydate();
+		            
 				//주 간 달 력
 				 $('#week-picker').datepicker( {
 				        showOtherMonths: true,
@@ -969,8 +981,25 @@ pmydate{
 	    
 	    var chart2 =  '<main>'
 			chart2 += '<p align="left">기준</p>'
-			chart2 += '변경차트</main>'
+			chart2 += '<canvas id="chart1"></canvas>'
+			chart2 += '</main>'
+			
+		 var chart3 =  '<main>'
+			 chart3 += '<p align="left">기준</p>'
+			 chart3 += '<canvas id="chart2"></canvas>'
+			 chart3 += '</main>'	
+			 
+		 var chart4 =  '<main>'
+			 chart4 += '<p align="left">기준</p>'
+			 chart4 += '<canvas id="chart3"></canvas>'
+			 chart4 += '</main>'	 
 		
+		 var chart5 =  '<main>'
+			 chart5 += '<p align="left">기준</p>'
+			 chart5 += '<canvas id="chart4"></canvas>'
+			 chart5 += '</main>'
+					 
+					 
 				  var currentYear = (new Date()).getFullYear();
 
 		    var startYear = currentYear-10;
@@ -980,13 +1009,17 @@ pmydate{
 		    window.onload = function() {                         // 페이지가 로딩되면 실행
 				
 	            printTime();
-	         
+	         	
 	            $("#pmydate").hide();
 	            $('#mydate').datepicker({
 			        altField : '#getdate'
 			        
 			    });
 	            ddate();
+	            Chartdate();
+	            ChartBBsdate();
+	            Chartreplydate();
+	            Chartsubdate();
 			    }
 		    
 	   
@@ -1056,7 +1089,7 @@ pmydate{
 					});
 		    	  }
 		    	});
-			
+			// 일간 데이터 출력
 		    function ddate() {
 				$.ajax({
 					method : 'GET'
@@ -1071,20 +1104,16 @@ pmydate{
 						var a = data[i].statRegDate;
 						var res = a.substring(0, 10)
 						
-						
 						$('<tr>').html("<td>" + res+ "</td>"+
 							 "<td >" +  data[i].statBlogCount+ "</td>"+
 							  "<td >" +  data[i].statBbsCount+ "</td>"+
 							 "<td >" +  data[i].statSubscribe + "</td>").appendTo('.datein');
-					
-							 }
 							
-						)
-					
-				 }
 				
 					})
-				}
+				 }
+				})
+			}
 			// 주간 데이터 출력
 		    function wdate() {
 				$.ajax({
@@ -1155,8 +1184,664 @@ pmydate{
 		       $( '.mytable > tbody').empty();
 		        }
 			
+		   
+		   	// 일간 블로그 조회수 차트 
+		   	function Chartdate() {
+		   		var data2 = new Array();
+				var labal = new Array(); 
+				var dchart = $("#chart1")[0].getContext('2d');	 
+				$.ajax({
+					method : 'GET'
+				 , url  : 'selectchart'
+				 , dataType : 'json'
+				 , success : function(data) {
+					var c = data.length;
+					
+					$.each(data, function(i, arrjson) {
+						var a = data[i].statRegDate;
+						var res = a.substring(0, 10)
+						labal.push(res);
+						data2.push(data[i].statBlogCount)
+						
+					})
+					
+				 }
+				})
+				
+				new Chart(dchart, {
+					type: 'line',
+				    data: {
+
+				        labels: labal,
+
+				        datasets: [{
+
+				            label: "블로그조회수",
+				            fillColor: "rgba(220,220,220,0.2)",
+				            strokeColor: "rgba(220,220,220,1)",
+				            pointColor: "rgba(220,220,220,1)",
+				            pointStrokeColor: "#fff",
+				            pointHighlightFill: "#fff",
+				            pointHighlightStroke: "rgba(220,220,220,1)",
+				            data: data2
+				         
+						
+						 }]
+
+				    },
+				    options: {
+				    	 responsive: true,
+				    	    
+				    	    scales: { yAxes: [{ ticks: { beginAtZero:true } }] }  
+				    	
+				    	
+				    }
+				});
+				
+			}
 		   	
-			
+		 // 일간 게시글 조회수 차트 
+		   	function ChartBBsdate() {
+		   		var data2 = new Array();
+				var labal = new Array(); 
+				var dchart = $("#chart2")[0].getContext('2d');	 
+				$.ajax({
+					method : 'GET'
+				 , url  : 'selectchart'
+				 , dataType : 'json'
+				 , success : function(data) {
+					var c = data.length;
+					
+					$.each(data, function(i, arrjson) {
+						var a = data[i].statRegDate;
+						var res = a.substring(0, 10)
+						labal.push(res);
+						data2.push(data[i].statBbsCount)
+						
+					})
+					
+				 }
+				})
+				
+				new Chart(dchart, {
+					type: 'line',
+				    data: {
+
+				        labels: labal,
+
+				        datasets: [{
+
+				            label: "블로그조회수",
+				            fillColor: "rgba(220,220,220,0.2)",
+				            strokeColor: "rgba(220,220,220,1)",
+				            pointColor: "rgba(220,220,220,1)",
+				            pointStrokeColor: "#fff",
+				            pointHighlightFill: "#fff",
+				            pointHighlightStroke: "rgba(220,220,220,1)",
+				            data: data2
+				         
+						
+						 }]
+
+				    },
+				    options: {
+				    	 responsive: true,
+				    	    
+				    	    scales: { yAxes: [{ ticks: { beginAtZero:true } }] }  
+				    	
+				    	
+				    }
+				});
+				
+			}
+		 
+		    // 일간 댓글 조회수 차트 
+		   	function Chartreplydate() {
+		   		var data2 = new Array();
+				var labal = new Array(); 
+				var dchart = $("#chart3")[0].getContext('2d');	 
+				$.ajax({
+					method : 'GET'
+				 , url  : 'selectchart'
+				 , dataType : 'json'
+				 , success : function(data) {
+					var c = data.length;
+					
+					$.each(data, function(i, arrjson) {
+						var a = data[i].statRegDate;
+						var res = a.substring(0, 10)
+						labal.push(res);
+						data2.push(data[i].statReplyCount)
+						
+					})
+					
+				 }
+				})
+				
+				new Chart(dchart, {
+					type: 'line',
+				    data: {
+
+				        labels: labal,
+
+				        datasets: [{
+
+				            label: "댓글조회수",
+				            fillColor: "rgba(220,220,220,0.2)",
+				            strokeColor: "rgba(220,220,220,1)",
+				            pointColor: "rgba(220,220,220,1)",
+				            pointStrokeColor: "#fff",
+				            pointHighlightFill: "#fff",
+				            pointHighlightStroke: "rgba(220,220,220,1)",
+				            data: data2
+				         
+						
+						 }]
+
+				    },
+				    options: {
+				    	 responsive: true,
+				    	    
+				    	    scales: { yAxes: [{ ticks: { beginAtZero:true } }] }  
+				    	
+				    	
+				    }
+				});
+				
+			}
+		    // 일간 댓글 조회수 차트 
+		   	function Chartsubdate() {
+		   		var data2 = new Array();
+				var labal = new Array(); 
+				var dchart = $("#chart4")[0].getContext('2d');	 
+				$.ajax({
+					method : 'GET'
+				 , url  : 'selectchart'
+				 , dataType : 'json'
+				 , success : function(data) {
+					var c = data.length;
+					
+					$.each(data, function(i, arrjson) {
+						var a = data[i].statRegDate;
+						var res = a.substring(0, 10)
+						labal.push(res);
+						data2.push(data[i].statSubscribe)
+						
+					})
+					
+				 }
+				})
+				
+				new Chart(dchart, {
+					type: 'line',
+				    data: {
+
+				        labels: labal,
+
+				        datasets: [{
+
+				            label: "구독자",
+				            fillColor: "rgba(220,220,220,0.2)",
+				            strokeColor: "rgba(220,220,220,1)",
+				            pointColor: "rgba(220,220,220,1)",
+				            pointStrokeColor: "#fff",
+				            pointHighlightFill: "#fff",
+				            pointHighlightStroke: "rgba(220,220,220,1)",
+				            data: data2
+				         
+						
+						 }]
+
+				    },
+				    options: {
+				    	 responsive: true,
+				    	    
+				    	    scales: { yAxes: [{ ticks: { beginAtZero:true } }] }  
+				    	
+				    	
+				    }
+				});
+				
+			}
 		
+		    
+		    // 주간 댓글 조회수 차트 
+		   	function WChartsubdate() {
+		   		var data2 = new Array();
+				var labal = new Array(); 
+				var dchart = $("#chart4")[0].getContext('2d');	 
+				$.ajax({
+					method : 'GET'
+				 , url  : 'selectchart2'
+				 , dataType : 'json'
+				 , success : function(data) {
+					var c = data.length;
+					
+					$.each(data, function(i, arrjson) {
+						var a = data[i].statRegDate;
+						var res = a.substring(0, 10)
+						labal.push(res);
+						data2.push(data[i].statSubscribe)
+						
+					})
+					
+				 }
+				})
+				
+				new Chart(dchart, {
+					type: 'line',
+				    data: {
+
+				        labels: labal,
+
+				        datasets: [{
+
+				            label: "주간구독자",
+				            fillColor: "rgba(220,220,220,0.2)",
+				            strokeColor: "rgba(220,220,220,1)",
+				            pointColor: "rgba(220,220,220,1)",
+				            pointStrokeColor: "#fff",
+				            pointHighlightFill: "#fff",
+				            pointHighlightStroke: "rgba(220,220,220,1)",
+				            data: data2
+				         
+						
+						 }]
+
+				    },
+				    options: {
+				    	 responsive: true,
+				    	    
+				    	    scales: { yAxes: [{ ticks: { beginAtZero:true } }] }  
+				    	
+				    	
+				    }
+				});
+				
+			}
+		 	// 주간 블로그 조회수 차트 
+		   	function WChartdate() {
+		   		var data2 = new Array();
+				var labal = new Array(); 
+				var dchart = $("#chart1")[0].getContext('2d');	 
+				$.ajax({
+					method : 'GET'
+				 , url  : 'selectchart2'
+				 , dataType : 'json'
+				 , success : function(data) {
+					var c = data.length;
+					
+					$.each(data, function(i, arrjson) {
+						var a = data[i].statRegDate;
+						var res = a.substring(0, 10)
+						labal.push(res);
+						data2.push(data[i].statBlogCount)
+						
+					})
+					
+				 }
+				})
+				
+				new Chart(dchart, {
+					type: 'line',
+				    data: {
+
+				        labels: labal,
+
+				        datasets: [{
+
+				            label: "주간블로그조회수",
+				            fillColor: "rgba(220,220,220,0.2)",
+				            strokeColor: "rgba(220,220,220,1)",
+				            pointColor: "rgba(220,220,220,1)",
+				            pointStrokeColor: "#fff",
+				            pointHighlightFill: "#fff",
+				            pointHighlightStroke: "rgba(220,220,220,1)",
+				            data: data2
+				         
+						
+						 }]
+
+				    },
+				    options: {
+				    	 responsive: true,
+				    	    
+				    	    scales: { yAxes: [{ ticks: { beginAtZero:true } }] }  
+				    	
+				    	
+				    }
+				});
+				
+			}
+		   	
+		 // 주간 게시글 조회수 차트 
+		   	function WChartBBsdate() {
+		   		var data2 = new Array();
+				var labal = new Array(); 
+				var dchart = $("#chart2")[0].getContext('2d');	 
+				$.ajax({
+					method : 'GET'
+				 , url  : 'selectchart2'
+				 , dataType : 'json'
+				 , success : function(data) {
+					var c = data.length;
+					
+					$.each(data, function(i, arrjson) {
+						var a = data[i].statRegDate;
+						var res = a.substring(0, 10)
+						labal.push(res);
+						data2.push(data[i].statBbsCount)
+						
+					})
+					
+				 }
+				})
+				
+				new Chart(dchart, {
+					type: 'line',
+				    data: {
+
+				        labels: labal,
+
+				        datasets: [{
+
+				            label: "주간블로그조회수",
+				            fillColor: "rgba(220,220,220,0.2)",
+				            strokeColor: "rgba(220,220,220,1)",
+				            pointColor: "rgba(220,220,220,1)",
+				            pointStrokeColor: "#fff",
+				            pointHighlightFill: "#fff",
+				            pointHighlightStroke: "rgba(220,220,220,1)",
+				            data: data2
+				         
+						
+						 }]
+
+				    },
+				    options: {
+				    	 responsive: true,
+				    	    
+				    	    scales: { yAxes: [{ ticks: { beginAtZero:true } }] }  
+				    	
+				    	
+				    }
+				});
+				
+			}
+		 
+		    // 주간간 댓글 조회수 차트 
+		   	function WChartreplydate() {
+		   		var data2 = new Array();
+				var labal = new Array(); 
+				var dchart = $("#chart3")[0].getContext('2d');	 
+				$.ajax({
+					method : 'GET'
+				 , url  : 'selectchart2'
+				 , dataType : 'json'
+				 , success : function(data) {
+					var c = data.length;
+					
+					$.each(data, function(i, arrjson) {
+						var a = data[i].statRegDate;
+						var res = a.substring(0, 10)
+						labal.push(res);
+						data2.push(data[i].statReplyCount)
+						
+					})
+					
+				 }
+				})
+				
+				new Chart(dchart, {
+					type: 'line',
+				    data: {
+
+				        labels: labal,
+
+				        datasets: [{
+
+				            label: "주간댓글조회수",
+				            fillColor: "rgba(220,220,220,0.2)",
+				            strokeColor: "rgba(220,220,220,1)",
+				            pointColor: "rgba(220,220,220,1)",
+				            pointStrokeColor: "#fff",
+				            pointHighlightFill: "#fff",
+				            pointHighlightStroke: "rgba(220,220,220,1)",
+				            data: data2
+				         
+						
+						 }]
+
+				    },
+				    options: {
+				    	 responsive: true,
+				    	    
+				    	    scales: { yAxes: [{ ticks: { beginAtZero:true } }] }  
+				    	
+				    	
+				    }
+				});
+				
+			}
+		    
+		    //월간
+		     // 월간 댓글 조회수 차트 
+		   	function MChartsubdate() {
+		   		var data2 = new Array();
+				var labal = new Array(); 
+				var dchart = $("#chart4")[0].getContext('2d');	 
+				$.ajax({
+					method : 'GET'
+				 , url  : 'selectchart3'
+				 , dataType : 'json'
+				 , success : function(data) {
+					var c = data.length;
+					
+					$.each(data, function(i, arrjson) {
+						var a = data[i].statRegDate;
+						var res = a.substring(0, 10)
+						labal.push(res);
+						data2.push(data[i].statSubscribe)
+						
+					})
+					
+				 }
+				})
+				
+				new Chart(dchart, {
+					type: 'line',
+				    data: {
+
+				        labels: labal,
+
+				        datasets: [{
+
+				            label: "월간구독자",
+				            fillColor: "rgba(220,220,220,0.2)",
+				            strokeColor: "rgba(220,220,220,1)",
+				            pointColor: "rgba(220,220,220,1)",
+				            pointStrokeColor: "#fff",
+				            pointHighlightFill: "#fff",
+				            pointHighlightStroke: "rgba(220,220,220,1)",
+				            data: data2
+				         
+						
+						 }]
+
+				    },
+				    options: {
+				    	 responsive: true,
+				    	    
+				    	    scales: { yAxes: [{ ticks: { beginAtZero:true } }] }  
+				    	
+				    	
+				    }
+				});
+				
+			}
+		 	// 월간 블로그 조회수 차트 
+		   	function MChartdate() {
+		   		var data2 = new Array();
+				var labal = new Array(); 
+				var dchart = $("#chart1")[0].getContext('2d');	 
+				$.ajax({
+					method : 'GET'
+				 , url  : 'selectchart3'
+				 , dataType : 'json'
+				 , success : function(data) {
+					var c = data.length;
+					
+					$.each(data, function(i, arrjson) {
+						var a = data[i].statRegDate;
+						var res = a.substring(0, 10)
+						labal.push(res);
+						data2.push(data[i].statBlogCount)
+						
+					})
+					
+				 }
+				})
+				
+				new Chart(dchart, {
+					type: 'line',
+				    data: {
+
+				        labels: labal,
+
+				        datasets: [{
+
+				            label: "월간블로그조회수",
+				            fillColor: "rgba(220,220,220,0.2)",
+				            strokeColor: "rgba(220,220,220,1)",
+				            pointColor: "rgba(220,220,220,1)",
+				            pointStrokeColor: "#fff",
+				            pointHighlightFill: "#fff",
+				            pointHighlightStroke: "rgba(220,220,220,1)",
+				            data: data2
+				         
+						
+						 }]
+
+				    },
+				    options: {
+				    	 responsive: true,
+				    	    
+				    	    scales: { yAxes: [{ ticks: { beginAtZero:true } }] }  
+				    	
+				    	
+				    }
+				});
+				
+			}
+		   	
+		 // 주간 게시글 조회수 차트 
+		   	function MChartBBsdate() {
+		   		var data2 = new Array();
+				var labal = new Array(); 
+				var dchart = $("#chart2")[0].getContext('2d');	 
+				$.ajax({
+					method : 'GET'
+				 , url  : 'selectchart3'
+				 , dataType : 'json'
+				 , success : function(data) {
+					var c = data.length;
+					
+					$.each(data, function(i, arrjson) {
+						var a = data[i].statRegDate;
+						var res = a.substring(0, 10)
+						labal.push(res);
+						data2.push(data[i].statBbsCount)
+						
+					})
+					
+				 }
+				})
+				
+				new Chart(dchart, {
+					type: 'line',
+				    data: {
+
+				        labels: labal,
+
+				        datasets: [{
+
+				            label: "월간블로그조회수",
+				            fillColor: "rgba(220,220,220,0.2)",
+				            strokeColor: "rgba(220,220,220,1)",
+				            pointColor: "rgba(220,220,220,1)",
+				            pointStrokeColor: "#fff",
+				            pointHighlightFill: "#fff",
+				            pointHighlightStroke: "rgba(220,220,220,1)",
+				            data: data2
+				         
+						
+						 }]
+
+				    },
+				    options: {
+				    	 responsive: true,
+				    	    
+				    	    scales: { yAxes: [{ ticks: { beginAtZero:true } }] }  
+				    	
+				    	
+				    }
+				});
+				
+			}
+		 
+		    // 주간간 댓글 조회수 차트 
+		   	function MChartreplydate() {
+		   		var data2 = new Array();
+				var labal = new Array(); 
+				var dchart = $("#chart3")[0].getContext('2d');	 
+				$.ajax({
+					method : 'GET'
+				 , url  : 'selectchart3'
+				 , dataType : 'json'
+				 , success : function(data) {
+					var c = data.length;
+					
+					$.each(data, function(i, arrjson) {
+						var a = data[i].statRegDate;
+						var res = a.substring(0, 10)
+						labal.push(res);
+						data2.push(data[i].statReplyCount)
+						
+					})
+					
+				 }
+				})
+				
+				new Chart(dchart, {
+					type: 'line',
+				    data: {
+
+				        labels: labal,
+
+				        datasets: [{
+
+				            label: "월간댓글조회수",
+				            fillColor: "rgba(220,220,220,0.2)",
+				            strokeColor: "rgba(220,220,220,1)",
+				            pointColor: "rgba(220,220,220,1)",
+				            pointStrokeColor: "#fff",
+				            pointHighlightFill: "#fff",
+				            pointHighlightStroke: "rgba(220,220,220,1)",
+				            data: data2
+				         
+						
+						 }]
+
+				    },
+				    options: {
+				    	 responsive: true,
+				    	    
+				    	    scales: { yAxes: [{ ticks: { beginAtZero:true } }] }  
+				    	
+				    	
+				    }
+				});
+				
+			}
 </script>
 </html>
