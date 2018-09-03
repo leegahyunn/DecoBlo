@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -121,7 +122,7 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value = "/yrtest", method = RequestMethod.GET)
-	public String yrtest(Menu menu,Model model) {
+	public String yrtest(Menu menu, Model model) {
 		menu.setMenuNo(1);
 		menu.setMenuUserNo(1);
 		List<Block> blockList = blogRepository.selectBlockList(menu);

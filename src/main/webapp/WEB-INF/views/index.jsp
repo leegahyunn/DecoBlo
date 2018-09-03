@@ -64,20 +64,20 @@
 		<div class="container">
 			<header class="major">
 				<h2>마우스 클릭만으로 만들어지는 블로그</h2>
-				<p>전부 다른 여러가지에 블록들과 템플릿을 이용한 자신만의 블로그로!</p>
+				<p>여러가지의 블록들과 템플릿을 이용하여 만드는 나만의 블로그</p>
 			</header>
 			<div class="slider">
 				<span class="nav-previous"></span>
 				<div class="viewer">
 					<div class="reel">
 						<div class="slide">
-							<img src="pixelarity/images/slide01.jpg" alt="" />
+							<img src="resources/images/sample_blog.png" alt="" />
 						</div>
 						<div class="slide">
-							<img src="pixelarity/images/slide02.jpg" alt="" />
+							<img src="resources/images/sample2.jpg" alt="" />
 						</div>
 						<div class="slide">
-							<img src="pixelarity/images/slide03.jpg" alt="" />
+							<img src="resources/images/sample3.jpg" alt="" />
 						</div>
 					</div>
 				</div>
@@ -92,12 +92,12 @@
 	<section id="three" class="wrapper style1">
 		<div class="container">
 			<header class="major">
-				<h2>Deco Blog로 만든 0000개의 멋진 블로그들을 확인해보세요!</h2>
+				<h2>Deco Blog로 만든 ${nUser}개의 멋진 블로그들을 확인해보세요!</h2>
 			</header>
 			<div class="row">
 				<div class="4u 6u(medium) 12u$(small)">
 					<article class="box post">
-						<a href="#" class="image fit"><img src="pixelarity/images/pic01.jpg"
+						<a href="#" class="image fit"><img src="resources/images/sample1.jpg"
 							alt="" /></a>
 						<h3>블로그1</h3>
 						<p>Ipsum dolor tempus et commodo lorem accumsan et adipiscing
@@ -109,7 +109,7 @@
 				</div>
 				<div class="4u 6u$(medium) 12u$(small)">
 					<article class="box post">
-						<a href="#" class="image fit"><img src="pixelarity/images/pic02.jpg"
+						<a href="#" class="image fit"><img src="resources/images/sample2.jpg"
 							alt="" /></a>
 						<h3>블로그2</h3>
 						<p>Ipsum dolor tempus et commodo lorem accumsan et adipiscing
@@ -121,7 +121,7 @@
 				</div>
 				<div class="4u$ 6u(medium) 12u$(small)">
 					<article class="box post">
-						<a href="#" class="image fit"><img src="pixelarity/images/pic03.jpg"
+						<a href="#" class="image fit"><img src="resources/images/sample3.jpg"
 							alt="" /></a>
 						<h3>블로그3</h3>
 						<p>Ipsum dolor tempus et commodo lorem accumsan et adipiscing
@@ -133,7 +133,7 @@
 				</div>
 				<div class="4u 6u$(medium) 12u$(small)">
 					<article class="box post">
-						<a href="#" class="image fit"><img src="pixelarity/images/pic04.jpg"
+						<a href="#" class="image fit"><img src="resources/images/sample3.jpg"
 							alt="" /></a>
 						<h3>블로그4</h3>
 						<p>Ipsum dolor tempus et commodo lorem accumsan et adipiscing
@@ -145,7 +145,7 @@
 				</div>
 				<div class="4u 6u(medium) 12u$(small)">
 					<article class="box post">
-						<a href="#" class="image fit"><img src="pixelarity/images/pic05.jpg"
+						<a href="#" class="image fit"><img src="resources/images/sample2.jpg"
 							alt="" /></a>
 						<h3>블로그5</h3>
 						<p>Ipsum dolor tempus et commodo lorem accumsan et adipiscing
@@ -157,7 +157,7 @@
 				</div>
 				<div class="4u$ 6u$(medium) 12u$(small)">
 					<article class="box post">
-						<a href="#" class="image fit"><img src="pixelarity/images/pic06.jpg"
+						<a href="#" class="image fit"><img src="resources/images/sample1.jpg"
 							alt="" /></a>
 						<h3>블로그6</h3>
 						<p>Ipsum dolor tempus et commodo lorem accumsan et adipiscing
