@@ -31,7 +31,6 @@ public class BlogController {
 	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/config", method = RequestMethod.GET)
-	public String config() {		
 	public String config(Menu menu, Model model) {	
 		menu.setMenuNo(1);
 		menu.setMenuUserNo(1);
@@ -110,9 +109,8 @@ public class BlogController {
 		return "success";
 	}
 	@RequestMapping(value="getThumnail",method=RequestMethod.POST)
-	public List<Integer> getThumnail(String tmpType) {
+	public @ResponseBody List<Integer> getThumnail(String tmpType) {
 		List<Integer> blockNoList = blogRepository.selectThumnail(tmpType);
-		System.out.println(blockNoList);
 		return blockNoList;
 	}
 	
@@ -130,34 +128,17 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value="setBlockContent",method=RequestMethod.POST)
-	public @ResponseBody String setBlockContent(@RequestBody Block block,Menu menu,Model model) {
+	public @ResponseBody int setBlockContent(@RequestBody Block block,Menu menu) {
 		int blockSeq = block.getBlockSeq();
 		blogRepository.updateBlockSeq(blockSeq);
-		blogRepository.insertBlock(block);
-<<<<<<< HEAD
-		menu.setMenuNo(1);
-		menu.setMenuUserNo(1);
-		List<Block> blockList = blogRepository.selectBlockList(menu);
-		model.addAttribute("blockList", blockList);
-		return "redirect:yrtest";
+		int result=blogRepository.insertBlock(block);
+		System.out.println(result);
+		return result;
 	}
 	
 	@RequestMapping(value="deleteBlock",method=RequestMethod.POST)
-	public String deleteBlock(int blockSeq , Menu menu,RedirectAttributes rttr) {
-		System.out.println(blockSeq);
+	public @ResponseBody String deleteBlock(int blockSeq , Menu menu,RedirectAttributes rttr) {
 		blogRepository.deleteBlock(blockSeq);
-		menu.setMenuNo(1);
-		menu.setMenuUserNo(1);
-		List<Block> blockList = blogRepository.selectBlockList(menu);
-		rttr.addAttribute("blockList", blockList);
-		return "redirect:yrtest";
-=======
 		return "redirect:/config";
-	}
-	
-	@RequestMapping(value="deleteBlock",method=RequestMethod.POST)
-	public String deleteBlock(int blockSeq) {
-		return "redirect:/config";
->>>>>>> 63a12e6d38d2485c812c619cab97cf36a97ce4a3
 	}
 }

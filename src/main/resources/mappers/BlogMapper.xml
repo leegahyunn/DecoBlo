@@ -124,9 +124,11 @@ ORDER BY blockseq
  
  <!-- 블록 입력 -->
 <insert id="insertBlock" parameterType="Block">
-INSERT INTO db_block VALUES(
+INSERT INTO db_block(blockno,blockmenuno,blocktmpno,blockseq,blockcontent)
+ VALUES(
 db_block_seq.nextval,1,#{blockTmpNo},#{blockSeq},
-UTL_RAW.CAST_TO_RAW(#{blockContent}),344)
+UTL_RAW.CAST_TO_RAW(#{blockContent})
+)
 </insert>
 <!-- 블록 Seq 한자리씩 미루기 -->
 <update id="updateBlockSeq" parameterType="int">

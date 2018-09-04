@@ -43,6 +43,7 @@ body#body-config #header {
 	color: #FFFFFF;
 	height: 35px;
 	overflow: hidden;
+	z-index: 8000;
 }
 
 /* left-menu : menu-config & site-config */
@@ -569,7 +570,7 @@ _gaq.push(['_trackPageview']);
 <div id="mask"></div>
 <!-- 전체 블록 section 시작 -->
 <section id="blog-wrapper">
-	<div class="templates-wrapper" style="background-color: gray;">
+	<div class="templates-wrapper">
 	
 	<c:if test="${empty blockList}" var="seletedBlockList">
 		<div class="intro-block-wrapper" id="intro-block-wrapper">
@@ -595,7 +596,7 @@ _gaq.push(['_trackPageview']);
 			</ul>
 			<section class="block-wrapper" data-block-seq="${blockList.blockSeq}">
 			${blockList.blockContent}
-			
+			<div class="mask2" id="mask-2-${blockList.blockSeq}"></div>
 			<div class="settingIcon ${blockList.blockSeq}" id='${blockList.blockSeq}'>
 				<div class="settingButton">
 				<img alt="+" src="resources/images/blockSettingimg/settingButton.png">
@@ -606,6 +607,8 @@ _gaq.push(['_trackPageview']);
 				<div class="block-config-header">
 					<i class="fa fa-cog"></i> <span>블럭 설정</span><i class="fa fa-times" id="block-config-close"></i>
 				</div>
+				
+				
 				<!-- config-section -->
 				<div class="block-config-section">
 					<!-- 여백 -->
@@ -753,13 +756,15 @@ _gaq.push(['_trackPageview']);
 						<i class="fa fa-file-code-o"></i>
 						<span>HTML/CSS</span>
 					</div>
-					<div class="block-remove" onclick="blockDelete(${blockList.blockSeq})">
+					<div class="block-remove">
 						<i class="fa fa-trash-o"></i>
 						<span>블럭삭제</span>
 					</div>
+					
 				</div>
 				<!-- /footer -->
 			</div>
+			
 			</section>
 			
 			<ul class='add-button ${blockList.blockSeq}' id='${blockList.blockSeq+1}'>
@@ -777,7 +782,23 @@ _gaq.push(['_trackPageview']);
 				<!-- 사용하기 버튼 -->
 					<!-- 블록 코드 미리보기 -->
 		</div>
-		
+		<div class="delete-confirm">
+			<button class="confirm-close" onclick="deleteCancle()">
+				<span>
+					<img alt="close" src="resources/images/blockSettingimg/confirm-close.png">
+				</span>
+			</button>
+			<div class="confirm-boddy">
+				<h3 class="confirm-title">delete block</h3>
+				"블럭을 삭제하시면 변경한 내용이 삭제됩니다."
+				<br>
+				"삭제하시겠습니까 ?"
+			</div>
+			<div class="confirm-footer">
+				<button type="button" class="delete-confirm-cancle" onclick="deleteCancle()">취소</button>
+				<button type="button" class="delete-confirm-ok">확인</button>
+			</div>
+		</div>
 </div>	
 </section>
 </body>
