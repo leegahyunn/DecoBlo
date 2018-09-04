@@ -115,4 +115,56 @@ public class BlogRepository {
 		
 		return result;
 	}
+	
+	/**
+	 * 블로그 타이틀 수정
+	 * @return 성공 여부
+	 */
+	public int updateBlogTitle(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateBlogTitle(map);
+		
+		return result;
+	}
+
+	/*public String selectBlogTitle(int userNo) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		String result = mapper.selectBlogTitle(userNo);
+		return result;
+	}
+*/
+	public int updateMetaTag(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateMetaTag(map);
+		
+		return result;
+		
+	}
+
+	public int updateBackgroundColor(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateBackgroundColor(map);
+		
+		return result;
+	}
+
+	public int updateBackgroundImg(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateBackgroundImg(map);
+		
+		return result;
+	}
+
+	public User selectBlog(int userNo) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		User result = mapper.selectBlog(userNo);
+		return result;
+	}
+
+	public int updateBlogFont(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateBlogFont(map);
+		
+		return result;
+	}
 }

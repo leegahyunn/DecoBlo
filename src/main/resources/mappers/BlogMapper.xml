@@ -106,6 +106,54 @@
 	WHERE
 		menuNo = #{menuNo}
 </update>
+
+<!-- 블로그 타이틀 수정 -->
+<update id="updateBlogTitle" parameterType="map">
+	UPDATE 
+		db_user
+	SET
+		blogTitle = #{blogTitle}
+	WHERE
+		userNo = #{userNo}
+</update>
+<!-- 블로그 메타태그 수정 -->
+<update id="updateMetaTag" parameterType="map">
+	UPDATE 
+		db_user
+	SET
+		metaAuthor = #{metaAuthor},
+		metaKeyword = #{metaKeyword},
+		metaDescription = #{metaDescription}
+	WHERE
+		userNo = #{userNo}
+</update>
+<!-- 블로그 메타태그 수정 -->
+<update id="updateBackgroundColor" parameterType="map">
+	UPDATE 
+		db_user
+	SET
+		configBackgroundColor = #{configBackgroundColor}
+	WHERE
+		userNo = #{userNo}
+</update>
+<update id="updateBlogFont" parameterType="map">
+	UPDATE 
+		db_user
+	SET
+		configBasicFont = #{configBasicFont}
+	WHERE
+		userNo = #{userNo}
+</update>
+<!-- 블로그 타이틀 가져오기 -->
+<select id="selectBlog" resultType="User" parameterType="int">
+	SELECT 
+		*
+	FROM
+		db_user
+	WHERE
+		userNo = #{userNo}
+</select>
+
 <!-- 블록 코드 가져오기 -->
 <!-- 블록 코드 가져오기 썸네일 -->
 <select id="selectBlockContent" parameterType="int" resultType="string">

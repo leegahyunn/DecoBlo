@@ -1,9 +1,11 @@
 package com.decoblog.www.blog.controller;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.decoblog.www.blog.dao.BlogRepository;
 import com.decoblog.www.blog.vo.Block;
-import com.decoblog.www.blog.vo.BlockTemplate;
 import com.decoblog.www.blog.vo.Menu;
+import com.decoblog.www.user.vo.User;
 import com.google.gson.Gson;
 
 @Controller
@@ -48,16 +52,118 @@ public class BlogController {
 		String result = gson.toJson(list);
 		return result;
 	}
+	
+	/**
+	 * 타이틀 불러오기 Ajax
+	 * DB에 저장된 블로그 타이틀를 가져와서 JSP에 넘겨줌
+	 * @return ArrayList<HashMap<String, ArrayList<Menu>>> JSON
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/siteConfig", method = RequestMethod.POST)
+	public User siteConfig() {
+		int userNo = 2;
+		User user = blogRepository.selectBlog(userNo);
+		//System.out.println(user);
+		return user;
+	}
+
 	/**
 	 * 메뉴 수정 Ajax
 	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/editMenu", method = RequestMethod.POST)
 	public String editMenu(@RequestBody Menu menu) {
-		System.out.println(menu); 
+	//	System.out.println(menu); 
 		blogRepository.updateMenuTitle(menu);
 		return "blog/config";
 	}
+	
+	/**
+	 * 블로그 타이틀 수정 Ajax
+	 * @return 블로그 수정 페이지
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/editBlogTitle", method = RequestMethod.POST)
+	public String editBlogTitle(@RequestBody HashMap<String, String> map) {
+		map.put("userNo", "2");
+		//System.out.println(map); 
+		blogRepository.updateBlogTitle(map);
+		return  "blog/config";
+	}
+	
+	/**
+	 * 블로그 메타태그 수정 Ajax
+	 * @return 블로그 수정 페이지
+	 */
+	@RequestMapping(value = "/metaEdit", method = RequestMethod.POST)
+	public String metaEdit(@RequestBody HashMap<String, String> map) {
+		map.put("userNo", "2");
+	//	System.out.println(map); 
+		blogRepository.updateMetaTag(map);
+		return  "blog/config";
+	}
+	
+	/**
+	 * 블로그 배경색 수정 Ajax
+	 * @return 블로그 수정 페이지
+	 */
+	@RequestMapping(value = "/updateBackgroundColor", method = RequestMethod.POST)
+	public String updateBackgroundColor(@RequestBody HashMap<String, String> map) {
+		map.put("userNo", "2");
+	//	System.out.println(map); 
+		blogRepository.updateBackgroundColor(map);
+		return  "blog/config";
+	}
+     
+	/**
+	 * 블로그 폰트 수정 Ajax
+	 * @return 블로그 수정 페이지
+	 */
+	@RequestMapping(value = "/updateBlogFont", method = RequestMethod.POST)
+	public String updateBlogFont(@RequestBody HashMap<String, String> map) {
+		map.put("userNo", "2");
+	//	System.out.println(map); 
+		blogRepository.updateBlogFont(map);
+		return  "blog/config";
+	}
+	
+    @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
+    public String fileUp(MultipartHttpServletRequest multi) {
+        
+    	System.out.println("??");
+    	
+        // 저장 경로 설정
+        String root = multi.getSession().getServletContext().getRealPath("/");
+        String path = root+"resources/up/";
+         
+        String newFileName = ""; // 업로드 되는 파일명
+         
+        File dir = new File(path);
+        if(!dir.isDirectory()){
+            dir.mkdir();
+        }
+         
+        Iterator<String> files = multi.getFileNames();
+        while(files.hasNext()){
+            String uploadFile = files.next();
+                         
+            MultipartFile mFile = multi.getFile(uploadFile);
+            String fileName = mFile.getOriginalFilename();
+            System.out.println("실제 파일 이름 : " +fileName);
+            newFileName = System.currentTimeMillis()+"."
+                    +fileName.substring(fileName.lastIndexOf(".")+1);
+             
+            try {
+                mFile.transferTo(new File(path+newFileName));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+         
+        System.out.println("ㄴㄴ");
+         
+        return "blog/config";
+       }
 	
 	@ResponseBody
 	@RequestMapping(value="/updateMenu", method=RequestMethod.POST)

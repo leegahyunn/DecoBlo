@@ -272,17 +272,17 @@ div label.right-icon{
 
 
 /* 파일 업로드 */
-input.upload {  
+/* input.upload {  
 	opacity: 0;  
   	position: relative;
   	width: 0;
   	height: 0;
-}
+} */
 
-/* /* menu-block */
+/* menu-block */
 .menu-block{  
 	float:right;
-} */
+} 
 
 body { margin: 0; }
 .menu-bar {
@@ -331,6 +331,7 @@ body { margin: 0; }
 /*  메뉴 블럭 불러오기    */
 /*******************/
 menuConfig();
+siteConfig();
 function menuConfig() {
 	$.ajax({
 		method   : 'post'
@@ -416,9 +417,78 @@ function menuConfig() {
 		} 
 	});
 }
+function siteConfig() {
+	$.ajax({
+		method   : 'post'
+		, url    : 'siteConfig'
+		, contentType : 'application/json; charset=UTF-8'
+		, success: function(resp) {
+			$('title').text("DecoBlo - " + resp.blogTitle);
+			$('.blogTitle').html(resp.blogTitle);
+			$('.menu-config-flip').css('background-color', resp.configBackgroundColor)
+			$('.metaAuthor').val(resp.metaAuthor);
+			$('.metaKeyword').val(resp.metaKeyword);
+			$('.metaDescription').val(resp.metaDescription);
+			$('.menu-config-flip').css('font-family', resp.configBasicFont)
+		}
+	});
+}
+function metaEdit() {
+	var metaAuthor = $('.metaAuthor').val();
+	var metaKeyword = $('.metaKeyword').val();
+	var metaDescription = $('.metaDescription').val();
+	var sendData = {"metaAuthor" : metaAuthor
+					,"metaKeyword" : metaKeyword
+					,"metaDescription" : metaDescription};
+	
+	$.ajax({
+		method : 'post'
+		, url  : 'metaEdit'
+		, data : JSON.stringify(sendData)
+		, dataType : 'text'
+		, contentType : 'application/json; charset=UTF-8'
+		, success: function(resp) {
+			siteConfig();
+		}
+	});
+}
+
 
 
 $(function(){
+	$(document).on('change', '.color-picker', function(){
+		var configBackgroundColor = $(this).val()
+		
+		var sendData = {"configBackgroundColor" : configBackgroundColor};
+		$.ajax({
+			method : 'post'
+			, url  : 'updateBackgroundColor'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+				siteConfig();
+			}
+		}); 
+	});
+	
+	$(document).on('change', '.blogFont', function(){
+		var configBasicFont = $(this).val()
+		//alert(configBasicFont)
+		
+		var sendData = {"configBasicFont" : configBasicFont};
+		$.ajax({
+			method : 'post'
+			, url  : 'updateBlogFont'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+				siteConfig();
+			}
+		});  
+	});
+	
 	/**********************/
 	/* 메뉴블럭 마우스오버   */
 	/**********************/
@@ -429,25 +499,6 @@ $(function(){
 	$(document).on('mouseleave', '.menu-block li', function(){
 		$('ul:first',this).hide();
 	});
-	
-	/***********************/
-	/* 사이트 설정(타이틀) 수정    */
-	/***********************/
-	$(".titleBtn").click(function(){
-		$(".title").css('display','none');
-		$(".titleEdit").css('display','block');
-	})
-	$(".checkBtn").click(function(){
-		$(".titleEdit").css('display','none');
-		$(".title").css('display','block');
-	})
-	
-	/**************/
-	/*   메타태그     */
-	/**************/
-	$(".metaBtn").click(function(){
-		  window.open("metaEdit", "metaEdit", "top=120, left=700, width=400, height=400")
-	})
 	
 	/**************/
 	/*    드롭다운     */
@@ -479,13 +530,6 @@ $(function(){
 	var target;
 	
 	var updateOutput = function(e){
-		/* var list   = e.length ? e : $(e.target),
-				output = list.data('output');
-		if (window.JSON) {
-			output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
-		} else {
-	        output.val('JSON browser support required for this demo.');
-	    } */
 	        
 	    var menuNo = $(target).parents('li').data('rno');//누른 애의 menuNo, 옮겨져도 바뀌지 않음
 	    var newMenuParent = $(target).parents('li').parents('li').data('rno');//누른 애 부모의 menuNo 옮겨지면 새 부모 menuNo로 바뀜 대메뉴일 경우 undefined
@@ -562,7 +606,33 @@ $(function(){
 		target = $(this);
 	});
 
-	
+	$(document).on('click', '.blog-title-edit', function(){
+		$(this).parent().css('display','none');
+		$(this).parent().prev().css('display','none');
+		$(this).parent().next().css('display','block');
+	});
+	$(document).on('click', '.blog-title-check', function(){
+		var blogTitle = $(this).prev().val();
+		//alert(blogTitle)
+		
+		var sendData = {"blogTitle" : blogTitle};
+		$.ajax({
+			method : 'post'
+			, url  : 'editBlogTitle'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+				//alert("꺄~!")
+				//console.log($(this))
+				$('.blog-title-editbox').css('display', 'none')
+				$('.blog-title').css('display', 'block')
+				siteConfig();
+				
+			}
+		}); 
+		
+	});
 	/*********************/
 	/*메뉴 수정 버튼 이벤트*/
 	/*********************/
@@ -615,6 +685,28 @@ _gaq.push(['_trackPageview']);
  })();
 </script>
 
+<!-- 파일 업로드 -->
+<script>
+    function fileSubmit() {
+        var formData = new FormData($("#fileForm")[0]);
+        console.log($("#fileForm")[0]);
+        $.ajax({
+            type : 'post',
+            url : 'fileUpload',
+            data : formData,
+            processData : false,
+            contentType : false,
+            success : function(html) {
+                alert("파일 업로드하였습니다.");
+            },
+            error : function(error) {
+                alert("파일 업로드에 실패하였습니다.");
+                console.log(error);
+                console.log(error.status);
+            }
+        });
+    }
+</script>
 </head>
 <body id="body-config">
 
@@ -661,22 +753,60 @@ _gaq.push(['_trackPageview']);
     border-bottom-width: 0px;
     border-left-width: 0px;"
 	>
-	<form enctype="multipart/form-data">
 		<div class="block-config-section site-config-panel"><!-- site-panel 클래스 추가 -->
 			<div class="default-config">
-				<div class="outer-config title"><!-- title 클래스 추가-->
-					<span>타이틀</span> 
-					<i class="fa right-icon fa-pencil titleBtn"></i><!-- 수정아이콘 titleBtn 클래스 추가 -->
+				<div class="outer-config blog-title">
+					<span>타이틀 - </span><span class="blogTitle"></span>
+					<i class="fa right-icon fa-pencil blog-title-edit"></i>
 				</div>
-				<div class="fold outer-config titleEdit" style="display:none;"><!-- titleEdit 클래스 추가 -->
-					<input type="text" value="title" style="width:200px;">
-					<i class="right-icon fa fa-check checkBtn"></i><!-- 체크아이콘 checkBtn 클래스 추가 -->
+				<div class="fold outer-config blog-title-editbox" style="display:none;">
+					<input type="text" style="width:200px;">
+					<i class="right-icon fa fa-check blog-title-check"></i>
 				</div>
 			</div>
 			<div class="default-config">
-				<div class="outer-config">
+				<div class="fold outer-config">
 					<span>메타태그</span> 
-					<i class="fa right-icon fa-pencil metaBtn"></i><!-- metaBtn 클래스 추가 -->
+					<i class="fa fa-chevron-right right-icon fold-icon"></i>
+				</div>
+				<div class="inner-config">
+					<div class="config-row">
+						<table>
+							<tr>
+								<th>제작자 이름</th>
+								<td>
+									<input class="metaAuthor" type="text"/>
+								</td>
+							</tr>
+							
+							<tr>
+								<th>사이트 제목</th>
+								<td>
+									<span class="blogTitle"></span>
+									
+								</td>
+							</tr>
+							
+							<tr>
+								<th>사이트 설명</th>
+								<td>
+									<input class="metaDescription" type="text"/>
+								</td>
+							</tr>
+						
+							<tr>
+								<th>키워드</th>
+								<td>
+									<input class="metaKeyword" type="text"/>
+								</td>
+							</tr>
+							<tr>
+								<th colspan="2">
+									<input class="btn btn-secondary" type="button" value="확인" onclick = "metaEdit()"/>
+								</th>
+							</tr>
+						</table>
+					</div>	
 				</div>
 			</div>
 			<div class="default-config">
@@ -705,14 +835,14 @@ _gaq.push(['_trackPageview']);
 				<div class="inner-config">
 					<div class="config-row">
 						<label>색상</label>
-						<input type="color" class="color color-picker transparent">
+						<input type="color" class="color color-picker transparent" value="#888888">
 						<button id="example3"></button>
 					</div>
 					<div class="config-row">
-						<label>이미지</label>
-						<input type="file" name = "upload" class="upload"/> 
-						<i class="fa fa-folder-open"></i>
-						
+						<form id="fileForm" action="fileUpload" method="post" enctype="multipart/form-data">
+					        <input type="file" id="fileUp" name="fileUp"/>
+					   	 	<input type="button" value="전송하기" onClick="fileSubmit();" />
+					    </form>
 					</div>	
 					<div class="config-row">
 						<label>position</label>
@@ -754,15 +884,17 @@ _gaq.push(['_trackPageview']);
 				<div class="inner-config">
 					<div class="config-row">
 						<label>색상</label>
-						<input type="color" class="color color-picker transparent">
+						<input type="color" class="color color-picker transparent" value="#888888">
 						<button id="example3"></button>
 					</div>
 					<div class="config-row">
 						<label>폰트명</label>
-						<select>
-							<option>고딕</option>
-							<option>돋움</option>
-							<option>맑은고딕</option>
+						<select class="blogFont">
+							<option value="Gothic">고딕</option>
+							<option value="Dotum">돋움</option>
+							<option value="Batang">바탕</option>
+							<option value="Gungsuh">궁서</option>
+							<option value="Malgun Gothic">맑은고딕</option>
 						</select>
 					</div>	
 				</div>
@@ -781,7 +913,6 @@ _gaq.push(['_trackPageview']);
 				</div>
 			</div>
 		</div>
-		</form>
 	</nav>
 </div>
 </div>
