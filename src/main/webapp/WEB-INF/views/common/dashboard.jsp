@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="pixelarity/assets/css/main.css" />
 <!--[if lte IE 8]><link rel="stylesheet" href="pixelarity/assets/css/ie8.css" /><![endif]-->
 <!--[if lte IE 9]><link rel="stylesheet" href="pixelarity/assets/css/ie9.css" /><![endif]-->
-<link rel="stylesheet" href="resources/jchart/jquery-ui.min.css" type="text/css">
+
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">
 
 <style type="text/css">
@@ -524,24 +524,24 @@ pmydate{
 							</section>
 							<section id="panel-2">
 								<main>
-								<p align="left" id="clock2">기준</p>
+								<p align="left" id="clock">기준</p>
 								<canvas id="chart2"></canvas> </main>
 							</section>
 							<section id="panel-3">
 								<main>
-								<p align="left" id="clock3">기준</p>
+								<p align="left" id="clock">기준</p>
 								<canvas id="chart3"></canvas>
 								 </main>
 							</section>
 							<section id="panel-4">
 								<main>
-								<p align="left" id="clock4">기준</p>
+								<p align="left" id="clock">기준</p>
 								<canvas id="chart4"></canvas>
 								 </main>
 							</section>
 							<section id="panel-5">
 								<main>
-								<p align="left" id="clock5">기준</p>
+								<p align="left" id="clock">기준</p>
 								<canvas></canvas>
 								</main>
 							</section>
@@ -689,20 +689,14 @@ pmydate{
 		function printTime() {
 
             var clock = document.getElementById("clock");
-            var clock2 = document.getElementById("clock2");
-            var clock3 = document.getElementById("clock3");
-            var clock4 = document.getElementById("clock4");
-            var clock5 = document.getElementById("clock5");
+            
 
             var now = new Date();                                                  // 현재시간
 
             var nowTime = now.getFullYear() + "년" + (now.getMonth()+1) + "월" + now.getDate() + "일" + now.getHours() + "시" + now.getMinutes() + "분";
 
             clock.innerHTML = nowTime;           // 현재시간을 출력
-            clock2.innerHTML = nowTime;
-            clock3.innerHTML = nowTime;
-            clock4.innerHTML = nowTime;
-            clock5.innerHTML = nowTime;
+            
             
             setTimeout("printTime()",1000);         // setTimeout(“실행할함수”,시간) 시간은1초의 경우 1000
 
@@ -711,6 +705,7 @@ pmydate{
 		
 	// 일간 클릭시 실행
 			$('#dd').on('click', function() {
+				printTime();
 				tablereset();
 				$("#timer").html(cal);
 				$(".box").html(div2);
@@ -954,22 +949,22 @@ pmydate{
 	    div4 +=	'</div>'
 	    
 	    var chart2 =  '<main>'
-			chart2 += '<p align="left">기준</p>'
+			chart2 += '<p align="left" id="clock">기준</p>'
 			chart2 += '<canvas id="chart1"></canvas>'
 			chart2 += '</main>'
 			
 		 var chart3 =  '<main>'
-			 chart3 += '<p align="left">기준</p>'
+			 chart3 += '<p align="left" id="clock">기준</p>'
 			 chart3 += '<canvas id="chart2"></canvas>'
 			 chart3 += '</main>'	
 			 
 		 var chart4 =  '<main>'
-			 chart4 += '<p align="left">기준</p>'
+			 chart4 += '<p align="left" id="clock">기준</p>'
 			 chart4 += '<canvas id="chart3"></canvas>'
 			 chart4 += '</main>'	 
 		
 		 var chart5 =  '<main>'
-			 chart5 += '<p align="left">기준</p>'
+			 chart5 += '<p align="left" id="clock">기준</p>'
 			 chart5 += '<canvas id="chart4"></canvas>'
 			 chart5 += '</main>'
 					 
@@ -1092,36 +1087,36 @@ pmydate{
 		    function wdate() {
 				$.ajax({
 					method : 'GET'
-				 , url  : 'selectchart2'
-				 , dataType : 'json'
-				 , success : function(data) {
+					, url  : 'selectchart2'
+					, dataType : 'json'
+					, success : function(data) {
 					
 						 
-					$.each(data, function(i, arrjson) {
-						var a = data[i].statRegDate;
-						var res = a.substring(0, 10)
-						
-						var formattedDate = new Date(a); 
-						var d = formattedDate.getDate(); d += 6;
-						var m = formattedDate.getMonth();
-						var ma = ("0" + (m + 1)).slice(-2);
-						
-						var y = formattedDate.getFullYear(); 
-						var ers = y + "-" + ma + "-" + d;
-
-						$('<tr>').html("<td>" +res+ "&nbsp "+'~'+ "&nbsp "+ers+ "</td>"+
-							 "<td >" +  data[i].statBlogCount+ "</td>"+
-							  "<td >" +  data[i].statBbsCount+ "</td>"+
-							 "<td >" +  data[i].statSubscribe + "</td>").appendTo('.datein');
-					
-							 }
+						$.each(data, function(i, arrjson) {
+							var a = data[i].statRegDate;
+							var res = a.substring(0, 10)
 							
-						)
-					
-				 }
+							var formattedDate = new Date(a); 
+							var d = formattedDate.getDate(); d += 6;
+							var m = formattedDate.getMonth();
+							var ma = ("0" + (m + 1)).slice(-2);
+							
+							var y = formattedDate.getFullYear(); 
+							var ers = y + "-" + ma + "-" + d;
+	
+							$('<tr>').html("<td>" +res+ "&nbsp "+'~'+ "&nbsp "+ers+ "</td>"+
+								 "<td >" +  data[i].statBlogCount+ "</td>"+
+								  "<td >" +  data[i].statBbsCount+ "</td>"+
+								 "<td >" +  data[i].statSubscribe + "</td>").appendTo('.datein');
+						
+								 }
+								
+							)
+						
+					 }
 				
-					})
-				}
+				})
+			}
 		
 			
 		    //월 간 데이터 출력
@@ -1164,54 +1159,60 @@ pmydate{
 		   		var data2 = new Array();
 				var labal = new Array(); 
 				var dchart = $("#chart1")[0].getContext('2d');	 
+				var chart = null;
+				
 				$.ajax({
 					method : 'GET'
-				 , url  : 'selectchart'
-				 , dataType : 'json'
-				 , success : function(data) {
-					var c = data.length;
-					
-					$.each(data, function(i, arrjson) {
-						var a = data[i].statRegDate;
-						var res = a.substring(0, 10)
-						labal.push(res);
-						data2.push(data[i].statBlogCount)
+					 , url  : 'selectchart'
+					 , dataType : 'json'
+					 , success : function(data) {
+						var c = data.length;
 						
-					})
-					
-				 }
-				})
-				
-				new Chart(dchart, {
-					type: 'line',
-				    data: {
-
-				        labels: labal,
-
-				        datasets: [{
-
-				            label: "블로그조회수",
-				            fillColor: "rgba(220,220,220,0.2)",
-				            strokeColor: "rgba(220,220,220,1)",
-				            pointColor: "rgba(220,220,220,1)",
-				            pointStrokeColor: "#fff",
-				            pointHighlightFill: "#fff",
-				            pointHighlightStroke: "rgba(220,220,220,1)",
-				            data: data2
-				         
+						$.each(data, function(i, arrjson) {
+							var a = data[i].statRegDate;
+							var res = a.substring(0, 10)
+							labal.push(res);
+							data2.push(data[i].statBlogCount)
+							
+						})
 						
-						 }]
-
-				    },
-				    options: {
-				    	 responsive: true,
-				    	    
-				    	    scales: { yAxes: [{ ticks: { beginAtZero:true } }] }  
-				    	
-				    	
-				    }
+					 }
 				});
 				
+				
+				setTimeout(function(){
+					chart = new Chart(dchart, {
+						type: 'line',
+					    data: {
+	
+					        labels: labal,
+	
+					        datasets: [{
+	
+					            label: "블로그조회수",
+					            fillColor: "rgba(220,220,220,0.2)",
+					            strokeColor: "rgba(220,220,220,1)",
+					            pointColor: "rgba(220,220,220,1)",
+					            pointStrokeColor: "#fff",
+					            pointHighlightFill: "#fff",
+					            pointHighlightStroke: "rgba(220,220,220,1)",
+					            data: data2
+					         
+							
+							 }]
+	
+					    },
+					    options: {
+					    	 responsive: true,
+					    	    
+					    	    scales: { yAxes: [{ ticks: { beginAtZero:true } }] }  
+					    	
+					    	
+					    }
+					});
+					
+					chart.render();
+		   	}, 1000);
 			}
 		   	
 		 // 일간 게시글 조회수 차트 
@@ -1219,6 +1220,7 @@ pmydate{
 		   		var data2 = new Array();
 				var labal = new Array(); 
 				var dchart = $("#chart2")[0].getContext('2d');	 
+				var chart = null
 				$.ajax({
 					method : 'GET'
 				 , url  : 'selectchart'
@@ -1236,8 +1238,8 @@ pmydate{
 					
 				 }
 				})
-				
-				new Chart(dchart, {
+				setTimeout(function(){
+				chart = new Chart(dchart, {
 					type: 'line',
 				    data: {
 
@@ -1266,7 +1268,8 @@ pmydate{
 				    	
 				    }
 				});
-				
+				chart.render();
+			   	}, 1000);
 			}
 		 
 		    // 일간 댓글 조회수 차트 
@@ -1274,6 +1277,7 @@ pmydate{
 		   		var data2 = new Array();
 				var labal = new Array(); 
 				var dchart = $("#chart3")[0].getContext('2d');	 
+				var chart = null;
 				$.ajax({
 					method : 'GET'
 				 , url  : 'selectchart'
@@ -1291,8 +1295,8 @@ pmydate{
 					
 				 }
 				})
-				
-				new Chart(dchart, {
+				setTimeout(function(){
+				chart = new Chart(dchart, {
 					type: 'line',
 				    data: {
 
@@ -1321,12 +1325,14 @@ pmydate{
 				    	
 				    }
 				});
-				
+				chart.render();
+		   	}, 1000);
 			}
 		    // 일간 댓글 조회수 차트 
 		   	function Chartsubdate() {
 		   		var data2 = new Array();
 				var labal = new Array(); 
+				var chart = null;
 				var dchart = $("#chart4")[0].getContext('2d');	 
 				$.ajax({
 					method : 'GET'
@@ -1345,8 +1351,8 @@ pmydate{
 					
 				 }
 				})
-				
-				new Chart(dchart, {
+				setTimeout(function(){
+				chart = new Chart(dchart, {
 					type: 'line',
 				    data: {
 
@@ -1375,7 +1381,8 @@ pmydate{
 				    	
 				    }
 				});
-				
+				chart.render();
+			   	}, 1000);
 			}
 		
 		    
@@ -1383,6 +1390,7 @@ pmydate{
 		   	function WChartsubdate() {
 		   		var data2 = new Array();
 				var labal = new Array(); 
+				var chart = null;
 				var dchart = $("#chart4")[0].getContext('2d');	 
 				$.ajax({
 					method : 'GET'
@@ -1401,8 +1409,8 @@ pmydate{
 					
 				 }
 				})
-				
-				new Chart(dchart, {
+				setTimeout(function(){
+				chart = new Chart(dchart, {
 					type: 'line',
 				    data: {
 
@@ -1431,10 +1439,12 @@ pmydate{
 				    	
 				    }
 				});
-				
+				chart.render();
+		   	}, 1000);
 			}
 		 	// 주간 블로그 조회수 차트 
 		   	function WChartdate() {
+		 		var chart = null;
 		   		var data2 = new Array();
 				var labal = new Array(); 
 				var dchart = $("#chart1")[0].getContext('2d');	 
@@ -1455,8 +1465,8 @@ pmydate{
 					
 				 }
 				})
-				
-				new Chart(dchart, {
+				setTimeout(function(){
+			chart =	new Chart(dchart, {
 					type: 'line',
 				    data: {
 
@@ -1485,11 +1495,13 @@ pmydate{
 				    	
 				    }
 				});
-				
+			chart.render();
+			   	}, 1000);
 			}
 		   	
 		 // 주간 게시글 조회수 차트 
 		   	function WChartBBsdate() {
+			 	var chart = null;
 		   		var data2 = new Array();
 				var labal = new Array(); 
 				var dchart = $("#chart2")[0].getContext('2d');	 
@@ -1510,8 +1522,8 @@ pmydate{
 					
 				 }
 				})
-				
-				new Chart(dchart, {
+				setTimeout(function(){
+				chart = new Chart(dchart, {
 					type: 'line',
 				    data: {
 
@@ -1540,11 +1552,13 @@ pmydate{
 				    	
 				    }
 				});
-				
+				chart.render();
+		   	}, 1000);
 			}
 		 
 		    // 주간간 댓글 조회수 차트 
 		   	function WChartreplydate() {
+		    	var chart = null;
 		   		var data2 = new Array();
 				var labal = new Array(); 
 				var dchart = $("#chart3")[0].getContext('2d');	 
@@ -1565,8 +1579,8 @@ pmydate{
 					
 				 }
 				})
-				
-				new Chart(dchart, {
+				setTimeout(function(){
+				chart = new Chart(dchart, {
 					type: 'line',
 				    data: {
 
@@ -1595,15 +1609,19 @@ pmydate{
 				    	
 				    }
 				});
-				
+				chart.render();
+			   	}, 1000);
 			}
 		    
 		    //월간
 		     // 월간 댓글 조회수 차트 
 		   	function MChartsubdate() {
+		    	
+				var chart = null;		    
 		   		var data2 = new Array();
 				var labal = new Array(); 
 				var dchart = $("#chart4")[0].getContext('2d');	 
+				
 				$.ajax({
 					method : 'GET'
 				 , url  : 'selectchart3'
@@ -1621,8 +1639,8 @@ pmydate{
 					
 				 }
 				})
-				
-				new Chart(dchart, {
+				setTimeout(function(){
+				chart = new Chart(dchart, {
 					type: 'line',
 				    data: {
 
@@ -1651,13 +1669,16 @@ pmydate{
 				    	
 				    }
 				});
-				
+				chart.render();
+			   	}, 2000);
 			}
 		 	// 월간 블로그 조회수 차트 
 		   	function MChartdate() {
 		   		var data2 = new Array();
 				var labal = new Array(); 
+				var chart = null;
 				var dchart = $("#chart1")[0].getContext('2d');	 
+				
 				$.ajax({
 					method : 'GET'
 				 , url  : 'selectchart3'
@@ -1675,8 +1696,8 @@ pmydate{
 					
 				 }
 				})
-				
-				new Chart(dchart, {
+				setTimeout(function(){
+				chart = new Chart(dchart, {
 					type: 'line',
 				    data: {
 
@@ -1699,20 +1720,26 @@ pmydate{
 				    },
 				    options: {
 				    	 responsive: true,
-				    	    
-				    	    scales: { yAxes: [{ ticks: { beginAtZero:true } }] }  
-				    	
-				    	
+				    	 scales: { 
+				    		 yAxes: [{ 
+				    			ticks: { 
+				    				 beginAtZero:true
+				    			} 
+				    		 }] 
+				    	}  
 				    }
 				});
-				
+				chart.render();
+		   	}, 1000);
 			}
 		   	
-		 // 주간 게시글 조회수 차트 
+		 // 월간 게시글 조회수 차트 
 		   	function MChartBBsdate() {
 		   		var data2 = new Array();
 				var labal = new Array(); 
 				var dchart = $("#chart2")[0].getContext('2d');	 
+				var chart = null;
+				
 				$.ajax({
 					method : 'GET'
 				 , url  : 'selectchart3'
@@ -1730,8 +1757,8 @@ pmydate{
 					
 				 }
 				})
-				
-				new Chart(dchart, {
+				setTimeout(function(){
+				chart = new Chart(dchart, {
 					type: 'line',
 				    data: {
 
@@ -1760,14 +1787,17 @@ pmydate{
 				    	
 				    }
 				});
-				
+				chart.render();
+		   	}, 1000);
 			}
 		 
-		    // 주간간 댓글 조회수 차트 
+		    // 월간 댓글 조회수 차트 
 		   	function MChartreplydate() {
 		   		var data2 = new Array();
 				var labal = new Array(); 
 				var dchart = $("#chart3")[0].getContext('2d');	 
+				var chart = null;
+				
 				$.ajax({
 					method : 'GET'
 				 , url  : 'selectchart3'
@@ -1785,8 +1815,8 @@ pmydate{
 					
 				 }
 				})
-				
-				new Chart(dchart, {
+			setTimeout(function(){
+				chart = new Chart(dchart, {
 					type: 'line',
 				    data: {
 
@@ -1815,7 +1845,8 @@ pmydate{
 				    	
 				    }
 				});
-				
+				chart.render();
+		   	}, 1000);
 			}
 </script>
 </html>
