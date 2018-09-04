@@ -74,6 +74,7 @@ public class HomeController {
 	// 이가현
 	@RequestMapping(value = "/ghtest", method = RequestMethod.GET)
 	public String ghtest() {
+
 		return "redirect:/bbsList";
 	}
 	
@@ -87,7 +88,7 @@ public class HomeController {
 	// 안정민
 	@RequestMapping(value = "/jmtest", method = RequestMethod.GET)
 	public String jmtest() {
-		return "blog/test";
+		return "blog/config";
 	}
 
 
@@ -110,5 +111,9 @@ public class HomeController {
 	public String titleTest1() {
 		return "templates/title/titleTest1";
 	}
-
+	@RequestMapping(value = "/tmtest", method = RequestMethod.GET)
+	public String tmtest() {
+		return "templates/1/template-1";
+	}
+	
 }

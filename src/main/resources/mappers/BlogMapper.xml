@@ -20,13 +20,16 @@
 </resultMap>
 
 <!-- 메뉴 가져오기 -->
-<select id="selectMenu" resultMap="selectMap">
+<select id="selectMenu" parameterType="int" resultMap="selectMap">
 	SELECT 
 		*
 	FROM
 		db_menu
+	WHERE
+		menuUserNo = #{menuUserNo}
 	ORDER BY 
 		menuparentseq, menuseq
+	
 </select>
 <!-- 블록 넘버 가져오기 -->
 <select id="selectThumnail" parameterType="string" resultType="int">
@@ -106,6 +109,61 @@
 	WHERE
 		menuNo = #{menuNo}
 </update>
+<!-- 블로그 타이틀 수정 -->
+<update id="updateBlogTitle" parameterType="map">
+	UPDATE 
+		db_user
+	SET
+		blogTitle = #{blogTitle}
+	WHERE
+		userNo = #{userNo}
+</update>
+<!-- 블로그 메타태그 수정 -->
+<update id="updateMetaTag" parameterType="map">
+	UPDATE 
+		db_user
+	SET
+		metaAuthor = #{metaAuthor},
+		metaKeyword = #{metaKeyword},
+		metaDescription = #{metaDescription}
+	WHERE
+		userNo = #{userNo}
+</update>
+<!-- 블로그 메타태그 수정 -->
+<update id="updateBackgroundColor" parameterType="map">
+	UPDATE 
+		db_user
+	SET
+		configBackgroundColor = #{configBackgroundColor}
+	WHERE
+		userNo = #{userNo}
+</update>
+<update id="updateBlogFont" parameterType="map">
+	UPDATE 
+		db_user
+	SET
+		configBasicFont = #{configBasicFont}
+	WHERE
+		userNo = #{userNo}
+</update>
+<update id="updateOnepageStyle" parameterType="map">
+	UPDATE 
+		db_user
+	SET
+		configOnepageStyle = #{configOnepageStyle}
+	WHERE
+		userNo = #{userNo}
+</update>
+<!-- 사이트설정 가져오기 -->
+<select id="selectBlog" resultType="User" parameterType="int">
+	SELECT 
+		*
+	FROM
+		db_user
+	WHERE
+		userNo = #{userNo}
+</select>
+
 <!-- 블록 코드 가져오기 -->
 <!-- 블록 코드 가져오기 썸네일 -->
 <select id="selectBlockContent" parameterType="int" resultType="string">
