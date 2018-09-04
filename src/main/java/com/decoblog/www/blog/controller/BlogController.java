@@ -30,7 +30,11 @@ public class BlogController {
 	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/config", method = RequestMethod.GET)
-	public String config() {		
+	public String config(Menu menu, Model model) {	
+		menu.setMenuNo(1);
+		menu.setMenuUserNo(1);
+		List<Block> blockList = blogRepository.selectBlockList(menu);
+		model.addAttribute("blockList", blockList);
 		return "blog/config";
 	}
 	
@@ -103,11 +107,14 @@ public class BlogController {
 		
 		return "success";
 	}
+	
+	@ResponseBody
 	@RequestMapping(value="getThumnail",method=RequestMethod.POST)
 	public List<Integer> getThumnail(String tmpType) {
 		List<Integer> blockNoList = blogRepository.selectThumnail(tmpType);
 		return blockNoList;
 	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="getBlockContent",method=RequestMethod.POST)
@@ -121,25 +128,16 @@ public class BlogController {
 		return blockContent;
 	}
 	
-	@RequestMapping(value = "/yrtest", method = RequestMethod.GET)
-	public String yrtest(Menu menu, Model model) {
-		menu.setMenuNo(1);
-		menu.setMenuUserNo(1);
-		List<Block> blockList = blogRepository.selectBlockList(menu);
-		model.addAttribute("blockList", blockList);
-		return "blog/blogEdit1";
-	}
-	
 	@RequestMapping(value="setBlockContent",method=RequestMethod.POST)
 	public @ResponseBody String setBlockContent(@RequestBody Block block) {
 		int blockSeq = block.getBlockSeq();
 		blogRepository.updateBlockSeq(blockSeq);
 		blogRepository.insertBlock(block);
-		return "redirect:yrtest";
+		return "redirect:/config";
 	}
 	
 	@RequestMapping(value="deleteBlock",method=RequestMethod.POST)
 	public String deleteBlock(int blockSeq) {
-		return "redirect:yrtest";
+		return "redirect:/config";
 	}
 }
