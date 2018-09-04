@@ -20,13 +20,16 @@
 </resultMap>
 
 <!-- 메뉴 가져오기 -->
-<select id="selectMenu" resultMap="selectMap">
+<select id="selectMenu" parameterType="int" resultMap="selectMap">
 	SELECT 
 		*
 	FROM
 		db_menu
+	WHERE
+		menuUserNo = #{menuUserNo}
 	ORDER BY 
 		menuparentseq, menuseq
+	
 </select>
 <!-- 블록 넘버 가져오기 -->
 <select id="selectThumnail" parameterType="string" resultType="int">
@@ -106,7 +109,6 @@
 	WHERE
 		menuNo = #{menuNo}
 </update>
-
 <!-- 블로그 타이틀 수정 -->
 <update id="updateBlogTitle" parameterType="map">
 	UPDATE 
@@ -144,7 +146,15 @@
 	WHERE
 		userNo = #{userNo}
 </update>
-<!-- 블로그 타이틀 가져오기 -->
+<update id="updateOnepageStyle" parameterType="map">
+	UPDATE 
+		db_user
+	SET
+		configOnepageStyle = #{configOnepageStyle}
+	WHERE
+		userNo = #{userNo}
+</update>
+<!-- 사이트설정 가져오기 -->
 <select id="selectBlog" resultType="User" parameterType="int">
 	SELECT 
 		*

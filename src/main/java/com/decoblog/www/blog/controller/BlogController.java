@@ -34,7 +34,11 @@ public class BlogController {
 	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/config", method = RequestMethod.GET)
-	public String config() {		
+	public String config(Menu menu, Model model) {	
+		menu.setMenuNo(1);
+		menu.setMenuUserNo(1);
+		List<Block> blockList = blogRepository.selectBlockList(menu);
+		model.addAttribute("blockList", blockList);
 		return "blog/config";
 	}
 	
@@ -46,8 +50,8 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping(value = "/menuConfig", method = RequestMethod.POST)
 	public String menuConfig() {
-		ArrayList<HashMap<String, ArrayList<Menu>>> list= blogRepository.selectMenu();
-	//	System.out.println(list);
+		int menuUserNo = 1;
+		ArrayList<HashMap<String, ArrayList<Menu>>> list= blogRepository.selectMenu(menuUserNo);
 		Gson gson = new Gson();
 		String result = gson.toJson(list);
 		return result;
@@ -63,7 +67,6 @@ public class BlogController {
 	public User siteConfig() {
 		int userNo = 2;
 		User user = blogRepository.selectBlog(userNo);
-		//System.out.println(user);
 		return user;
 	}
 
@@ -73,7 +76,6 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/editMenu", method = RequestMethod.POST)
 	public String editMenu(@RequestBody Menu menu) {
-	//	System.out.println(menu); 
 		blogRepository.updateMenuTitle(menu);
 		return "blog/config";
 	}
@@ -86,7 +88,6 @@ public class BlogController {
 	@RequestMapping(value = "/editBlogTitle", method = RequestMethod.POST)
 	public String editBlogTitle(@RequestBody HashMap<String, String> map) {
 		map.put("userNo", "2");
-		//System.out.println(map); 
 		blogRepository.updateBlogTitle(map);
 		return  "blog/config";
 	}
@@ -98,7 +99,6 @@ public class BlogController {
 	@RequestMapping(value = "/metaEdit", method = RequestMethod.POST)
 	public String metaEdit(@RequestBody HashMap<String, String> map) {
 		map.put("userNo", "2");
-	//	System.out.println(map); 
 		blogRepository.updateMetaTag(map);
 		return  "blog/config";
 	}
@@ -110,7 +110,6 @@ public class BlogController {
 	@RequestMapping(value = "/updateBackgroundColor", method = RequestMethod.POST)
 	public String updateBackgroundColor(@RequestBody HashMap<String, String> map) {
 		map.put("userNo", "2");
-	//	System.out.println(map); 
 		blogRepository.updateBackgroundColor(map);
 		return  "blog/config";
 	}
@@ -122,8 +121,18 @@ public class BlogController {
 	@RequestMapping(value = "/updateBlogFont", method = RequestMethod.POST)
 	public String updateBlogFont(@RequestBody HashMap<String, String> map) {
 		map.put("userNo", "2");
-	//	System.out.println(map); 
 		blogRepository.updateBlogFont(map);
+		return  "blog/config";
+	}
+	
+	/**
+	 * 블로그 폰트 수정 Ajax
+	 * @return 블로그 수정 페이지
+	 */
+	@RequestMapping(value = "/updateOnepageStyle", method = RequestMethod.POST)
+	public String updateOnepageStyle(@RequestBody HashMap<String, String> map) {
+		map.put("userNo", "2");
+		blogRepository.updateOnepageStyle(map);
 		return  "blog/config";
 	}
 	
@@ -173,7 +182,7 @@ public class BlogController {
 		}
 
 		// TODO userNo 세션값으로 바꾸기 
-		map.put("menuUserNo", "1");
+		map.put("menuUserNo", "2");
 		String depth = String.valueOf(map.get("menuDepth"));
 		
 		if(depth.equals("1")) {//움직인 애가 소메뉴일 경우
@@ -209,11 +218,14 @@ public class BlogController {
 		
 		return "success";
 	}
+	
+	@ResponseBody
 	@RequestMapping(value="getThumnail",method=RequestMethod.POST)
 	public List<Integer> getThumnail(String tmpType) {
 		List<Integer> blockNoList = blogRepository.selectThumnail(tmpType);
 		return blockNoList;
 	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value="getBlockContent",method=RequestMethod.POST)
@@ -227,25 +239,16 @@ public class BlogController {
 		return blockContent;
 	}
 	
-	@RequestMapping(value = "/yrtest", method = RequestMethod.GET)
-	public String yrtest(Menu menu, Model model) {
-		menu.setMenuNo(1);
-		menu.setMenuUserNo(1);
-		List<Block> blockList = blogRepository.selectBlockList(menu);
-		model.addAttribute("blockList", blockList);
-		return "blog/blogEdit1";
-	}
-	
 	@RequestMapping(value="setBlockContent",method=RequestMethod.POST)
 	public @ResponseBody String setBlockContent(@RequestBody Block block) {
 		int blockSeq = block.getBlockSeq();
 		blogRepository.updateBlockSeq(blockSeq);
 		blogRepository.insertBlock(block);
-		return "redirect:yrtest";
+		return "redirect:/config";
 	}
 	
 	@RequestMapping(value="deleteBlock",method=RequestMethod.POST)
 	public String deleteBlock(int blockSeq) {
-		return "redirect:yrtest";
+		return "redirect:/config";
 	}
 }
