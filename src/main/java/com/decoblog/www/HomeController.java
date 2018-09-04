@@ -108,8 +108,12 @@ public class HomeController {
 	}
 
 	@RequestMapping(value="/titleTest1",method=RequestMethod.GET)
-public String titleTest1() {
+	public String titleTest1() {
 		return "templates/title/titleTest1";
 	}
-
+	@RequestMapping(value = "/tmtest", method = RequestMethod.GET)
+	public String tmtest() {
+		return "templates/1/template-1";
+	}
+	
 }
