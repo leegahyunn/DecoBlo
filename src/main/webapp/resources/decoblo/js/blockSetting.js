@@ -1,11 +1,8 @@
-/**
- * 
- */
-
 /*******************/
 /*  메뉴 블럭 불러오기    */
 /*******************/
 menuConfig();
+siteConfig();
 function menuConfig() {
 	$.ajax({
 		method   : 'post'
@@ -51,7 +48,6 @@ function menuConfig() {
 					} else {
 						result2 += '<i class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
 					}	 
-					//result2 += '<i class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
 					
 					result2 += '</div>';
 					result2 += '<div class="fold outer-config" style="display:none;">';
@@ -91,8 +87,111 @@ function menuConfig() {
 		} 
 	});
 }
+/* 사이트 설정 불러오기*/
+function siteConfig() {
+	$.ajax({
+		method   : 'post'
+		, url    : 'siteConfig'
+		, contentType : 'application/json; charset=UTF-8'
+		, success: function(resp) {
+			$('title').text("DecoBlo - " + resp.blogTitle);
+			$('.blogTitle').html(resp.blogTitle);
+			$('.menu-config-flip').css('background-color', resp.configBackgroundColor)
+			$('.metaAuthor').val(resp.metaAuthor);
+			$('.metaKeyword').val(resp.metaKeyword);
+			$('.metaDescription').val(resp.metaDescription);
+			$('.menu-config-flip').css('font-family', resp.configBasicFont)
+			if(resp.configOnepageStyle==0){
+				$('.configOnepageStyle').val(resp.configOnepageStyle);
+				$('.configOnepageStyle').removeAttr( "checked" );
+			}
+			if(resp.configOnepageStyle==1){
+				$('.configOnepageStyle').val(resp.configOnepageStyle);
+				$('.configOnepageStyle').attr('checked',' checked');
+			}
+		}
+	});
+}
+function metaEdit() {
+	var metaAuthor = $('.metaAuthor').val();
+	var metaKeyword = $('.metaKeyword').val();
+	var metaDescription = $('.metaDescription').val();
+	var sendData = {"metaAuthor" : metaAuthor
+					,"metaKeyword" : metaKeyword
+					,"metaDescription" : metaDescription};
+	
+	$.ajax({
+		method : 'post'
+		, url  : 'metaEdit'
+		, data : JSON.stringify(sendData)
+		, dataType : 'text'
+		, contentType : 'application/json; charset=UTF-8'
+		, success: function(resp) {
+			siteConfig();
+		}
+	});
+}
+
+
 
 $(function(){
+	$(document).on('change', '.color-picker', function(){
+		var configBackgroundColor = $(this).val()
+		
+		var sendData = {"configBackgroundColor" : configBackgroundColor};
+		$.ajax({
+			method : 'post'
+			, url  : 'updateBackgroundColor'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+				siteConfig();
+			}
+		}); 
+	});
+	
+	$(document).on('click', '.configOnepageStyle', function(){
+		
+		var configBackgroundColor = $(this).val()
+		var configOnepageStyle;
+		
+		if($(this).val()=="1"){
+			configOnepageStyle=0;
+		}
+		
+		if($(this).val()=="0"){
+			configOnepageStyle=1;
+		}
+		var sendData = {"configOnepageStyle" : configOnepageStyle};
+		$.ajax({
+			method : 'post'
+			, url  : 'updateOnepageStyle'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+				siteConfig();
+			}
+		});  
+	});
+	$(document).on('change', '.blogFont', function(){
+		var configBasicFont = $(this).val()
+		//alert(configBasicFont)
+		
+		var sendData = {"configBasicFont" : configBasicFont};
+		$.ajax({
+			method : 'post'
+			, url  : 'updateBlogFont'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+				siteConfig();
+			}
+		});  
+	});
+	
 	/**********************/
 	/* 메뉴블럭 마우스오버   */
 	/**********************/
@@ -103,25 +202,6 @@ $(function(){
 	$(document).on('mouseleave', '.menu-block li', function(){
 		$('ul:first',this).hide();
 	});
-	
-	/***********************/
-	/* 사이트 설정(타이틀) 수정    */
-	/***********************/
-	$(".titleBtn").click(function(){
-		$(".title").css('display','none');
-		$(".titleEdit").css('display','block');
-	})
-	$(".checkBtn").click(function(){
-		$(".titleEdit").css('display','none');
-		$(".title").css('display','block');
-	})
-	
-	/**************/
-	/*   메타태그     */
-	/**************/
-	$(".metaBtn").click(function(){
-		  window.open("metaEdit", "metaEdit", "top=120, left=700, width=400, height=400")
-	})
 	
 	/**************/
 	/*    드롭다운     */
@@ -153,13 +233,6 @@ $(function(){
 	var target;
 	
 	var updateOutput = function(e){
-		/* var list   = e.length ? e : $(e.target),
-				output = list.data('output');
-		if (window.JSON) {
-			output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
-		} else {
-	        output.val('JSON browser support required for this demo.');
-	    } */
 	        
 	    var menuNo = $(target).parents('li').data('rno');//누른 애의 menuNo, 옮겨져도 바뀌지 않음
 	    var newMenuParent = $(target).parents('li').parents('li').data('rno');//누른 애 부모의 menuNo 옮겨지면 새 부모 menuNo로 바뀜 대메뉴일 경우 undefined
@@ -178,7 +251,6 @@ $(function(){
 				if ($(item).hasClass('changed')){
 					newMenuSeq = index + 1;
 					newMenuDepth = 0
-				//	newMenuParentSeq = index + 1;
 					$(item).removeClass("changed");
 				}
 			});
@@ -189,7 +261,6 @@ $(function(){
 					// menuSeq
 					newMenuSeq = index + 1;
 					newMenuDepth = 1
-				//	newMenuParentSeq = newMenuParent
 					$(item).removeClass("changed");
 				}
 			});
@@ -236,7 +307,31 @@ $(function(){
 		target = $(this);
 	});
 
-	
+	$(document).on('click', '.blog-title-edit', function(){
+		$(this).parent().css('display','none');
+		$(this).parent().prev().css('display','none');
+		$(this).parent().next().css('display','block');
+	});
+	$(document).on('click', '.blog-title-check', function(){
+		var blogTitle = $(this).prev().val();
+		var sendData = {"blogTitle" : blogTitle};
+		$.ajax({
+			method : 'post'
+			, url  : 'editBlogTitle'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+				//alert("꺄~!")
+				//console.log($(this))
+				$('.blog-title-editbox').css('display', 'none')
+				$('.blog-title').css('display', 'block')
+				siteConfig();
+				
+			}
+		}); 
+		
+	});
 	/*********************/
 	/*메뉴 수정 버튼 이벤트*/
 	/*********************/
@@ -272,233 +367,37 @@ $(function(){
 		});
 		
 	});
-	
-	firstcss();
-	/*블록 없을때 블록 추가 버튼 */
-	$('.intro-block-wrapper').on('click',function(){
-		if($('.blockMenu-sidebar-ul li').hasClass("active")){
-			$('.blockMenu-sidebar-ul > li').removeClass();
-		}
-		$('.blockMenu-sidebar-ul > li').first().addClass("active");
-		thumnail(0);
-		$('.blockMenu-sidebar-div').animate({'margin-left':'0px'},'slow');
-		$('#blockMenu-sidebar-close').css('left','315px');
-		wrapByMask();
-	});
-	
-	/*블록 추가 버튼 */
-	$(document).on('click','.add-button',function(){
-		$(document).off('click','.use-block-button');
-		if($('.blockMenu-sidebar-ul li').hasClass("active")){
-			$('.blockMenu-sidebar-ul > li').removeClass();
-		}
-		$('.blockMenu-sidebar-ul > li').first().addClass("active "+ 0);
-		thumnail(0);
-		$('.blockMenu-sidebar-div').css("margin-left",'0px');
-		$('#blockMenu-sidebar-close').css('left','315px');
-		wrapByMask();
-		var blockSeq =$(this).attr('id');
-		
-		$(document).on('click','.block-thumnail > li',function(){
-			$(document).off('click','.use-block-button');
-			$('.block-preview').empty();
-			var blockWrapperCode = "";
-			var blockTmpNo = $('.block-thumnail > li').attr('data-block-no');
-			$.ajax({
-				method:'POST'
-				,url:'getBlockContent'
-				,async: false
-				,data : 'blockTmpNo='+blockTmpNo+''
-				,success:function(response){
-					$('.block-preview').append(useButton());
-					blockWrapperCode = decodeURIComponent(response).replace(/\+/g, " ");
-					$('.block-preview').append(blockWrapperCode);
-					var block={
-							"blockContent":blockWrapperCode+""
-							,"blockTmpNo":blockTmpNo
-							,"blockSeq":blockSeq};
-					/*사용하기 버튼 클릭 이벤트 */
-					$(document).on('click','.use-block-button',function(){
-						alert("사용하기 클릭");
-						$.ajax({
-							method:'POST'
-							,url:'setBlockContent'
-							,data:JSON.stringify(block)
-							,dataType:'json'
-							,contentType:'application/json; charset:utf-8'
-							,success:init
-						});
-						$('.intro-block-wrapper').css('display','none');
-						$('.blockMenu-sidebar-div').animate({'margin-left':'-315px'},'slow');
-						$('#blockMenu-sidebar-close').css('left','-50px');
-						$('#mask').hide();
-						$('.block-preview').empty();
-						$(document).off('click','.use-block-button');
-					});
-				}
-			});
-		})
-	});
-	
-	/*사이드바 close 버튼*/	
-	$('#blockMenu-sidebar-close').on('click',function(){
-		$('.use-block-button').css('display','none');
-		if($('.blockMenu-sidebar-ul > li').hasClass("active")){
-			$('.blockMenu-sidebar-ul > li').removeClass();
-		}
-		$('.blockMenu-sidebar-div').animate({'margin-left':'-315px'},'slow');
-		$('#blockMenu-sidebar-close').css('left','-50px');
-		$('.block-thumnail > li').remove();
-		$('#mask').hide();
-		$('.block-preview').empty();
-	});
-	
-	/*사이드바 type 클릭 이벤트 */
-	$(document).on('click','.blockMenu-sidebar-ul>li',function(){
-		if($('.blockMenu-sidebar-ul li').hasClass("active")){
-			$('.blockMenu-sidebar-ul > li').removeClass();
-		}
-		$(this).addClass("active");
-		thumnail($(this).index());
-	});
-	
-	/*블록 마우스 이벤트*/
-	$(document).on('mouseenter','.block-wrapper',function(){
-		$('.add-button.'+$(this).attr('data-block-seq')).css('display','block');
-		$('.settingIcon.'+$(this).attr('data-block-seq')).css('display','block');
-		$(this).css("border-style","solid");
-		$(this).css("border-color","#0073AC");
-		$(this).css("border-width","1px");
-	});
-	
-	/*블록 마우스 이벤트 종료*/
-	$(document).on('mouseout','.add-button',function(){
-		$('.add-button').css('display','none');
-		$('.settingIcon').css('display','none');
-		$('.block-wrapper').css("border-style","none");
-	});
-	
-	/*마스크 클릭 이벤트*/
-	$(document).on('click','#mask',function(){
-		$(this).hide();
-		$('.blockMenu-sidebar-div').animate({'margin-left':'-315px'},'slow');
-		$('#blockMenu-sidebar-close').css('left','-50px');
-		$('.block-preview').empty();
-		$('.block-thumnail > li').unbind('click');
-		$(document).off('click','.use-block-button');
-	});
-	
-	/*세팅 버튼 클릭 이벤트*/
-	
-	$(document).on('click','.settingIcon',function(){
-		$('.block-config.'+$(this).attr('id')).css('display','block');
-	});
-	
-	$(document).on('click','#block-config-close',function(){
-		$('.block-config').css('display','none');
-	});
-	
-	$('.block-config').draggable();
-	
-	/*블록 삭제 이벤트*/
 });
-/*첫화면 css */
-function firstcss(){
-	var headerHeight = $('#header').height();
-	$('.blockMenu-sidebar-div').css({"top":0 + headerHeight});
-	$('.use-block-button').css('display','none');
-}
-/*썸네일 불러오는 함수*/
-function thumnail(index){
-	switch(index){
-	case 0 :
-		var data = 'tmpType=showcase';
-		getBlockNo(data);
-		break;
-	case 1 :
-		var data = 'tmpType=title';
-		getBlockNo(data);
-		break;
-	case 2 :
-		var data = 'tmpType=contents';
-		getBlockNo(data);
-		break;
-	case 3 : 
-		var data = 'tmpType=text';
-		getBlockNo(data);
-		break;
-	case 4 : 
-		var data = 'tmpType=image';
-		getBlockNo(data);
-		break;
-	case 5 : 
-		var data = 'tmpType=line';
-		getBlockNo(data);
-		break;
-	case 6 : 
-		var data = 'tmpType=board';
-		getBlockNo(data);
-		break;
-	default :
-		$('.block-thumnail >li').remove();
-		break;
-	}
-	
-}
 
-/*Type 별 블록 넘버 가져오는 함수 */
-function getBlockNo(data){
-$.ajax({
-	method:'POST'
-	, url:'getThumnail'
-	, data: data
-	,success:function(rep){
-		console.log(rep.length);
-		$('.block-thumnail >li').remove();
-		for(var i =0; i<rep.length;i++){
-			console.log($(this).text());
-			$('.block-thumnail').append(""
-					+"<li data-block-no="+rep[i]+">"
-					+"<img alt='test1' src='resources/images/blockThumnail/block"+rep[i]+".png'>"
-					+"</li>");
-			}
-		}
-	});
+/*파일 업로드*/
+function fileSubmit() {
+    var formData = new FormData($("#fileForm")[0]);
+    console.log($("#fileForm")[0]);
+    $.ajax({
+        type : 'post',
+        url : 'fileUpload',
+        data : formData,
+        processData : false,
+        contentType : false,
+        success : function(html) {
+            alert("파일 업로드하였습니다.");
+        },
+        error : function(error) {
+            alert("파일 업로드에 실패하였습니다.");
+            console.log(error);
+            console.log(error.status);
+        }
+    });
 }
-/*블록 코드 가져오는 함수 */
-function blockWrapper(){
-		var blockWrapperCode = "";
-	
-}
-/*사용하기 버튼 코드 함수 */
-function useButton(){
-	var useButtonCode = ""
-	+"<div class='use-block-button'>"
-	+"<i class='fa fa-check'></i>"
-	+"<span>사용하기</span>"
-	+"</div>";
-	return useButtonCode;
-}
-/*mask 함수*/
-function wrapByMask(){
-	var maskHeight= $('.templates-wrapper').height();
-	var maskWidth = $('.templates-wrapper').width();
-	$('#mask').css({'width':maskWidth,'height':maskHeight});
-	$('#mask').fadeIn(500);
-	$('#mask').fadeTo("slow",0.8);
-}
-
-function init(){
-	$.ajax({
-		url:'yrtest'
-		,method:'get'
-	});
-}
-
-function blockDelete(blockSeq){
-	$.ajax({
-		url:'deleteBlock'
-		,method:'post'
-		,data:"blockSeq="+blockSeq
-	});
-}
+/**************/
+/*메뉴 드래그앤드롭*/
+/**************/
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-36251023-1']);
+_gaq.push(['_setDomainName', 'jqueryscript.net']);
+_gaq.push(['_trackPageview']);
+(function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+ })();
