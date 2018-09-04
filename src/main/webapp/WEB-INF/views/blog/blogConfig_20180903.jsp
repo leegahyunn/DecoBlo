@@ -6,248 +6,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
-<link rel="stylesheet" href="decoblo/css/blockSetting.css">
-<link rel="stylesheet" href="decoblo/css/blockTemplate.css">
-<link rel="stylesheet" href="decoblo/css/blockConfig.css">
-<link rel="stylesheet" href="decoblo/css/menuConfig.css">
+<script src="library/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="resources/decoblo/js/blockSetting.js"></script>
+<link type="text/css" rel="stylesheet" href="decoblo/css/blockSetting.css">
+<link type="text/css" rel="stylesheet" href="decoblo/css/blockTemplate.css">
 <link rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="decoblo/css/blockConfig.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="http://www.jqueryscript.net/css/jquerysctipttop.css">
-
-
 <script src="library/js/jquery-3.3.1.min.js"></script>
 <script src="library/js/jquery-ui.min.js"></script>
 <script src="library/js/colpickRmx.js"></script>
 <script src="decoblo/js/blockConfig.js"></script>
-<script src="decoblo/js/jquery.nestable.js"></script>
-<script src="resources/library/js/wcolpick.js"></script>
-<script src="decoblo/js/blockConfig.js"></script>
-<script src="decoblo/js/menuConfig.js"></script>
-<script src="decoblo/js/blockSetting.js"></script>
-
-<script type="text/javascript">
-
-</script>
-
-
 </head>
-<body id="body-config">
-<header id="header">
-	<div class="left-menu menu-config-flip folder">
-		<div>메뉴 설정1</div>
-		<i class="fa fa-chevron-down"></i>
-	</div>
-	<div class="left-menu site-config-flip folder">
-		<div>사이트 설정</div>
-		<i class="fa fa-chevron-down"></i>
-	</div>
-	
-	<!-- right-menu -->
-	<div class="right-menu">
-		<div><i class="fa fa-share"></i>  편집끝내기</div>
-	</div>
-	<div class="right-menu">
-		<div><i class="fa fa-arrow-circle-up"></i>  사이트게시</div>
-	</div>
-	<div class="right-menu">
-		<div><i class="fa fa-desktop"></i>  미리보기</div>
-	</div>
-	<div class="right-menu">
-		<div><i class="fa fa-question"></i>  가이드</div>
-	</div>
-	<div class="right-menu">
-		<div><i class="fa fa-user"></i>  1:1문의</div>
-	</div>
-	
-</header>
-<div class="panel-config">
-<div id="nav-container">
-	<nav id="menu-config-nav">
-      <!-- config-section -->
-      <div class="menu-config-panel dd" id="nestable" >
-          <!-- 메뉴 불러오는 곳 -->
-      </div>
-      <!-- /config-section -->
-   </nav>
-	
-	<nav id="site-config-nav" style="
-    border-right-width: 0px;
-    border-bottom-width: 0px;
-    border-left-width: 0px;"
-	>
-		<div class="block-config-section site-config-panel"><!-- site-panel 클래스 추가 -->
-			<div class="default-config">
-				<div class="outer-config blog-title">
-					<span>타이틀 - </span><span class="blogTitle"></span>
-					<i class="fa right-icon fa-pencil blog-title-edit"></i>
-				</div>
-				<div class="fold outer-config blog-title-editbox" style="display:none;">
-					<input type="text" style="width:200px;">
-					<i class="right-icon fa fa-check blog-title-check"></i>
-				</div>
-			</div>
-			<div class="default-config">
-				<div class="fold outer-config">
-					<span>메타태그</span> 
-					<i class="fa fa-chevron-right right-icon fold-icon"></i>
-				</div>
-				<div class="inner-config">
-					<div class="config-row">
-						<table>
-							<tr>
-								<th>제작자 이름</th>
-								<td>
-									<input class="metaAuthor" type="text"/>
-								</td>
-							</tr>
-							
-							<tr>
-								<th>사이트 제목</th>
-								<td>
-									<span class="blogTitle"></span>
-									
-								</td>
-							</tr>
-							
-							<tr>
-								<th>사이트 설명</th>
-								<td>
-									<input class="metaDescription" type="text"/>
-								</td>
-							</tr>
-						
-							<tr>
-								<th>키워드</th>
-								<td>
-									<input class="metaKeyword" type="text"/>
-								</td>
-							</tr>
-							<tr>
-								<th colspan="2">
-									<input class="btn btn-secondary" type="button" value="확인" onclick = "metaEdit()"/>
-								</th>
-							</tr>
-						</table>
-					</div>	
-				</div>
-			</div>
-			<div class="default-config">
-				<div class="outer-config">
-					<span>원페이지 스타일</span> 
-					<label class="switch right-icon">
-  						<input class="configOnepageStyle" type="checkbox"  checked="unchecked">
-  						<span class="slider round"></span>
-					</label>
-				</div>
-			</div>
-			<div class="default-config">
-				<div class="fold outer-config">
-					<span>우클릭/드래그 방지</span> 
-					<label class="switch right-icon">
-  						<input type="checkbox" checked>
-  						<span class="slider round"></span>
-					</label>
-				</div>
-			</div>
-			<div class="default-config">
-				<div class="fold outer-config">
-					<span>배경</span> 
-					<i class="fa fa-chevron-right right-icon fold-icon"></i>
-				</div>
-				<div class="inner-config">
-					<div class="config-row">
-						<label>색상</label>
-						<input type="color" class="color color-picker transparent" value="#888888">
-						<button id="example3"></button>
-					</div>
-					<div class="config-row">
-						<form id="fileForm" action="fileUpload" method="post" enctype="multipart/form-data">
-					        <input type="file" id="fileUp" name="fileUp"/>
-					   	 	<input type="button" value="전송하기" onClick="fileSubmit();" />
-					    </form>
-					</div>	
-					<div class="config-row">
-						<label>position</label>
-						<select>
-							<option>left top</option>
-							<option>left center</option>
-							<option>left bottom</option>
-							<option>right top</option>
-							<option>right center</option>
-							<option>right bottom</option>
-							<option>center top</option>
-							<option>center center</option>
-							<option>center bottom</option>
-						</select>
-					</div>	
-					<div class="config-row">
-						<label>repeat</label>
-						<select>
-							<option>repeat:x</option>
-							<option>repeat:y</option>
-							<option>no-repeat</option>
-						</select>
-					</div>	
-					<div class="config-row">
-						<label>size</label>
-						<select>
-							<option>original</option>
-							<option>cover</option>
-							<option>contain</option>
-						</select>
-					</div>	
-				</div>
-			</div>
-			<div class="default-config">
-				<div class="fold outer-config">
-					<span>기본폰트</span> 
-					<i class="fa fa-chevron-right right-icon fold-icon"></i>
-				</div>
-				<div class="inner-config">
-					<div class="config-row">
-						<label>색상</label>
-						<input type="color" class="color color-picker transparent" value="#888888">
-						<button id="example3"></button>
-					</div>
-					<div class="config-row">
-						<label>폰트명</label>
-						<select class="blogFont">
-							<option value="Gothic">고딕</option>
-							<option value="Dotum">돋움</option>
-							<option value="Batang">바탕</option>
-							<option value="Gungsuh">궁서</option>
-							<option value="Malgun Gothic">맑은고딕</option>
-						</select>
-					</div>	
-				</div>
-			</div>
-			<div class="default-config">
-				<div class="fold outer-config">
-					<span>파비콘</span> 
-					<i class="fa fa-chevron-right right-icon fold-icon"></i>
-				</div>
-				<div class="inner-config">
-					<div class="config-row">
-						<label>이미지</label>
-						<input type="file" name = "upload" class="upload"/> 
-						<i class="fa fa-folder-open"></i>
-					</div>	
-				</div>
-			</div>
-		</div>
-	</nav>
-</div>
-</div>
-<!-- menu-bar -->
-<div class="menu-wrapper">
-	<div class="block-wrapper">
-		<div class='menu-bar'>
-			<ul class = "menu-block">
-			</ul>
-		</div>
-	</div>
-</div>
+<body>
 <nav id="block-config-nav">
 <div class="blockMenu-sidebar-div">
 	<ul class="blockMenu-sidebar-ul">
@@ -291,9 +62,9 @@
 	</ul>
 </div>
 </nav>
-
 <div id="mask"></div>
 <!-- 전체 블록 section 시작 -->
+
 <section id="blog-wrapper">
 	<div class="templates-wrapper" style="background-color: gray;">
 	
