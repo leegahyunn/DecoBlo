@@ -97,7 +97,7 @@ public class HomeController {
 	// 이준호
 	@RequestMapping(value = "/jhtest", method = RequestMethod.GET)
 	public String jhtest() {
-		return "blog/test";
+		return "blog/template";
 	}
 	
 	
@@ -114,6 +114,11 @@ public class HomeController {
 	@RequestMapping(value = "/tmtest", method = RequestMethod.GET)
 	public String tmtest() {
 		return "templates/1/template-1";
+	}
+	
+	@RequestMapping(value = "/testpop", method = RequestMethod.GET)
+	public String testpop() {
+		return "templates/1/test";
 	}
 	
 }

@@ -85,31 +85,7 @@
 	<!-- ----------------------- -->
 	<!-- /쇼케이스 블록, block-3 -->
 	<!-- ----------------------- -->
-	<section id="one" class="wrapper style1">
-		<div class="container">
-			<header class="major">
-				<h2>마우스 클릭만으로 만들어지는 블로그</h2>
-				<p>여러가지의 블록들과 템플릿을 이용하여 만드는 나만의 블로그</p>
-			</header>
-			<div class="slider">
-				<span class="nav-previous"></span>
-				<div class="viewer">
-					<div class="reel">
-						<div class="slide">
-							<img src="resources/images/sample_blog.png" alt="" />
-						</div>
-						<div class="slide">
-							<img src="resources/images/sample2.jpg" alt="" />
-						</div>
-						<div class="slide">
-							<img src="resources/images/sample3.jpg" alt="" />
-						</div>
-					</div>
-				</div>
-				<span class="nav-next"></span>
-			</div>
-		</div>
-	</section>
+	
 </div>
 <!-- Scripts -->
 <script src="resources/library/js/jquery-3.3.1.min.js"></script>
