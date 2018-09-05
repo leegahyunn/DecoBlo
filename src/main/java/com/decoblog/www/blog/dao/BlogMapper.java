@@ -30,6 +30,8 @@ public interface BlogMapper {
 	public List<Block> selectBlockList(Menu menu);
 	//블록 입력 
 	public int insertBlock(Block block);
+	//블록 복제
+	public int copyBlock(int blockNo);
 	//블록 한자리 미루기 
 	public int updateBlockSeq(int blockSeq);
 	//블록 삭제

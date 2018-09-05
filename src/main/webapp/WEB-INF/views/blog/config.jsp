@@ -782,7 +782,7 @@ body { margin: 0; }
 						<i class="fa fa-sort"></i>
 						<span>블럭이동</span>
 					</div>
-					<div class="block-copy">
+					<div class="block-copy" data-block-seq="${blockList.blockSeq}" data-block-blockNo="${blockList.blockNo }">
 						<i class="fa fa-files-o"></i>
 						<span>블럭복제</span>
 					</div>
@@ -790,7 +790,7 @@ body { margin: 0; }
 						<i class="fa fa-file-code-o"></i>
 						<span>HTML/CSS</span>
 					</div>
-					<div class="block-remove">
+					<div class="block-remove" data-block-seq="${blockList.blockSeq }">
 						<i class="fa fa-trash-o"></i>
 						<span>블럭삭제</span>
 					</div>

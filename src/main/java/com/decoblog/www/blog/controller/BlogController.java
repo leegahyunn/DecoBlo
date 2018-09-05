@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,9 +37,11 @@ public class BlogController {
 	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/config", method = RequestMethod.GET)
-	public String config(Menu menu, Model model) {	
+	public String config(Menu menu, Model model,HttpSession session) {	
+		int userNo = (int) session.getAttribute("loginNo");
+		System.out.println(userNo);
 		menu.setMenuNo(1);
-		menu.setMenuUserNo(1);
+		menu.setMenuUserNo(userNo);
 		List<Block> blockList = blogRepository.selectBlockList(menu);
 		model.addAttribute("blockList", blockList);
 		return "blog/config";
@@ -243,7 +247,6 @@ public class BlogController {
 		int blockSeq = block.getBlockSeq();
 		blogRepository.updateBlockSeq(blockSeq);
 		int result=blogRepository.insertBlock(block);
-		System.out.println(result);
 		return result;
 	}
 	
@@ -251,5 +254,15 @@ public class BlogController {
 	public @ResponseBody String deleteBlock(int blockSeq , Menu menu,RedirectAttributes rttr) {
 		blogRepository.deleteBlock(blockSeq);
 		return "redirect:/config";
+	}
+	@RequestMapping(value="copyBlock",method=RequestMethod.POST)
+	public @ResponseBody int copyBlock(@RequestBody Block block) {
+		System.out.println(block);
+		int blockSeq=block.getBlockSeq();
+		int blockNo= block.getBlockNo();
+		System.out.println(blockNo);
+		blogRepository.updateBlockSeq(blockSeq);
+		int result = blogRepository.copyBlock(blockNo);
+		return result;
 	}
 }

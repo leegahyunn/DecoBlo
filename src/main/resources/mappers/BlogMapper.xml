@@ -164,7 +164,6 @@
 		userNo = #{userNo}
 </select>
 
-<!-- 블록 코드 가져오기 -->
 <!-- 블록 코드 가져오기 썸네일 -->
 <select id="selectBlockContent" parameterType="int" resultType="string">
 SELECT UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(blocktmpcontent)) AS blockTmpContent FROM db_block_template
@@ -173,7 +172,7 @@ SELECT UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(blocktmpcontent)) AS blockTmpCon
  
  <!-- 블록 가져오기 메뉴 -->
  <select id="selectBlockList" parameterType="Menu" resultType="Block">
- SELECT blockno,blockmenuno,UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(blockcontent)) as blockContent,blockseq
+ SELECT blockno,blockmenuno,UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(blockcontent)) as blockContent,blockseq,blocktmpno
 FROM db_block,db_menu,db_user
 WHERE db_block.blockmenuno=db_menu.menuno AND db_menu.menuno=#{menuNo}
 AND db_menu.menuuserno = db_user.userno AND db_user.userno=#{menuUserNo}
@@ -188,9 +187,24 @@ db_block_seq.nextval,1,#{blockTmpNo},#{blockSeq},
 UTL_RAW.CAST_TO_RAW(#{blockContent})
 )
 </insert>
+<!-- 블록 복제 -->
+<insert id="copyBlock" parameterType="int">
+INSERT 
+INTO db_block (
+    blockNo, blockMenuNo, blockTmpNo, 
+    blockSeq, blockContent, blockBackgroundNo, blockCss
+) (
+    SELECT 
+        db_block_seq.NEXTVAL, blockMenuNo, blockTmpNo, 
+        blockSeq-1, blockContent, blockBackgroundNo, blockCss  
+    FROM db_block 
+    WHERE blockno = #{blockNo}
+)
+</insert>
+
 <!-- 블록 Seq 한자리씩 미루기 -->
 <update id="updateBlockSeq" parameterType="int">
-UPDATE db_block SET blockseq = blockseq+1 WHERE blockseq >=#{blockSeq}
+UPDATE db_block SET blockseq = blockseq+1 WHERE blockseq >= #{blockSeq}
 </update>
 <!-- 블럭 삭제 -->
 <delete id="deleteBlock" parameterType="int">

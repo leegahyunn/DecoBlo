@@ -367,7 +367,6 @@ $(function(){
 		});
 		
 	});
-	
 	firstcss();
 	/*블록 없을때 블록 추가 버튼 */
 	$('.intro-block-wrapper').on('click',function(){
@@ -414,7 +413,6 @@ $(function(){
 							,"blockSeq":blockSeq};
 					/*사용하기 버튼 클릭 이벤트 */
 					$(document).on('click','.use-block-button',function(){
-						alert("사용하기 클릭");
 						$.ajax({
 							method:'POST'
 							,url:'setBlockContent'
@@ -510,6 +508,39 @@ $(function(){
 	$('.block-config').draggable();
 	
 	/*블록 삭제 이벤트*/
+	$('.block-remove').on('click',function(){
+		wrapByMask3();
+		var blockSeq=$(this).attr('data-block-seq');
+		$('.delete-confirm').css('display','block');
+		$('.delete-confirm-ok').on('click',function(){
+			$.ajax({
+				url:'deleteBlock'
+				,method:'post'
+				,data:"blockSeq="+blockSeq
+				,success:function(resp){
+					location.replace("config");
+				}
+			});
+		});
+	});
+	/*블록 복제 이벤트*/
+	$('.block-copy').on('click',function(){
+		var blockSeq =$(this).attr('data-block-seq');
+		var blockNo=$(this).attr('data-block-blockNo');
+		var block = {"blockSeq":blockSeq,"blockNo":blockNo};
+		$.ajax({
+			method:'post'
+			,url:'copyBlock'
+			,data:JSON.stringify(block)
+			,dataType:'json'
+			,contentType:'application/json; charset:utf-8'
+			,success:function(rep){
+				location.replace("config");
+			},fail:function(){
+				alert('블록 추가 실패');
+			}
+		})
+	});
 });
 
 /*Type 별 블록 넘버 가져오는 함수 */
@@ -531,11 +562,6 @@ $.ajax({
 		}
 	});
 }
-/*블록 코드 가져오는 함수 */
-function blockWrapper(){
-		var blockWrapperCode = "";
-	
-}
 /*사용하기 버튼 코드 함수 */
 function useButton(){
 	var useButtonCode = ""
@@ -550,7 +576,7 @@ function wrapByMask(){
 	var maskHeight= $(window).height();
 	var maskWidth = $(window).width();
 	$('#mask').css({'width':maskWidth,'height':maskHeight});
-	$('#mask').css('z-index',7000);
+	$('#mask').css('z-index',49);
 	$('#mask').fadeIn(500);
 	$('#mask').fadeTo("slow",0.8);
 }
@@ -568,8 +594,6 @@ function wrapByMask2(blockSeq){
 	$('#mask-2-'+blockSeq).css('background-color','rgba(125, 162, 206,0.3)');
 }
 /*블럭 삭제 ajax*/
-
-
 function deleteConfirm(blockSeq){
 	$('.delete-confirm').css('display','block');
 	wrapByMask3();
@@ -579,18 +603,40 @@ function deleteCancle(){
 	$('.delete-confirm').css('display','none');
 	$('#mask').css('display','none');
 }
-function deleteOk(blockSeq){
-	alert("삭제");
-	alert(blockSeq);
-	if(blockSeq!=null){
-		$.ajax({
-			url:'deleteBlock'
-			,method:'post'
-			,data:"blockSeq="+blockSeq
-			,success:function(resp){
-				location.replace("config");
-			}
-		});
+/*썸네일 불러오는 함수*/
+function thumnail(index){
+	switch(index){
+	case 0 :
+		var data = 'tmpType=showcase';
+		getBlockNo(data);
+		break;
+	case 1 :
+		var data = 'tmpType=title';
+		getBlockNo(data);
+		break;
+	case 2 :
+		var data = 'tmpType=contents';
+		getBlockNo(data);
+		break;
+	case 3 : 
+		var data = 'tmpType=text';
+		getBlockNo(data);
+		break;
+	case 4 : 
+		var data = 'tmpType=image';
+		getBlockNo(data);
+		break;
+	case 5 : 
+		var data = 'tmpType=line';
+		getBlockNo(data);
+		break;
+	case 6 : 
+		var data = 'tmpType=board';
+		getBlockNo(data);
+		break;
+	default :
+		$('.block-thumnail >li').remove();
+		break;
 	}
 }
 /*파일 업로드*/
@@ -612,6 +658,12 @@ function fileSubmit() {
             console.log(error.status);
         }
     });
+}
+/*첫화면 css */
+function firstcss(){
+	var headerHeight = $('#header').height();
+	$('.blockMenu-sidebar-div').css({"top":0 + headerHeight});
+	$('.use-block-button').css('display','none');
 }
 /**************/
 /*메뉴 드래그앤드롭*/

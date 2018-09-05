@@ -68,6 +68,12 @@ public class BlogRepository {
 		int result = mapper.insertBlock(block);
 		return result;
 	}
+	/*블록 복제*/
+	public int copyBlock(int blockNo) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.copyBlock(blockNo);
+		return result;
+	}
 	/*블록 Seq 한자리씩 미루기*/
 	public int updateBlockSeq(int blockSeq) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
@@ -169,4 +175,6 @@ public class BlogRepository {
 		
 		return result;
 	}
+	
+	
 }
