@@ -239,6 +239,15 @@ public class BlogController {
 		return blockContent;
 	}
 	
+	@RequestMapping(value = "/yrtest", method = RequestMethod.GET)
+	public String yrtest(Menu menu, Model model) {
+		menu.setMenuNo(1);
+		menu.setMenuUserNo(1);
+		List<Block> blockList = blogRepository.selectBlockList(menu);
+		model.addAttribute("blockList", blockList);
+		return "blog/blogEdit1";
+	}
+	
 	@RequestMapping(value="setBlockContent",method=RequestMethod.POST)
 	public @ResponseBody String setBlockContent(@RequestBody Block block) {
 		int blockSeq = block.getBlockSeq();
