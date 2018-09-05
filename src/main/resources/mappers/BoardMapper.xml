@@ -33,7 +33,7 @@
 		, bbsTitle
 		, (UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(bbsContent))) as bbsContent
 		, bbsCount
-		, bbsLike
+		, (select count(*) from db_like where bbsNo= #{bbsNo}) as bbsLike 
 		, bbsParent
 		, bbsDepth
 		, bbsSeq
@@ -94,7 +94,6 @@
 				, (SELECT MAX(bbsSeq)+1 FROM db_bbs WHERE bbsParent = #{bbsParent}) 
 			</otherwise>
 		</choose>
-		, 0
 		, SYSDATE
 	)
 </insert>
@@ -183,6 +182,38 @@
 </update>
 
 
+
+<!-- 좋아요 -->
+<select id="selectOneLike" parameterType="int" resultType="Like">
+	SELECT 
+		likeNo
+		, likeUserNo
+		, likeBbsNo
+	FROM
+		DB_LIKE
+	WHERE
+		likeUserNo = #{likeUserNo}
+	AND
+		likeBbsNo = #{likeBbsNo}
+</select>
+
+<insert id="insertLike" parameterType="Like">
+	INSERT INTO DB_LIKE
+	VALUES(
+		db_like_seq.nextval
+		, #{likeUserNo}
+		, #{likeBbsNo}
+	)
+
+</insert>
+
+<delete id="deleteLike" parameterType="int">
+	DELETE FROM DB_LIKE
+	WHERE
+		likeUserNo = #{likeUserNo}
+	AND
+		likeBbsNo = #{likeBbsNo}
+</delete>
 
 <!-- 댓글 -->
 

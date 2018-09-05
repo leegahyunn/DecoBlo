@@ -3,10 +3,12 @@ package com.decoblog.www.board.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 
 import com.decoblog.www.board.vo.Bbs;
 import com.decoblog.www.board.vo.BbsAttach;
+import com.decoblog.www.board.vo.Like;
 import com.decoblog.www.board.vo.Reply;
 
 public interface BoardMapper {
@@ -49,7 +51,19 @@ public interface BoardMapper {
 	public int getTotalBbs(Map<String, String> map);
 
 	
+	/**************************************/
+	/* LIKE *******************************/
+	/**************************************/
 
+	// 좋아요 목록
+	public Like selectOneLike(@Param(value="likeUserNo") int likeUserNo, @Param(value="likeBbsNo") int likeBbsNo);
+	
+	// 좋아요 입력
+	public int insertLike(Like like);
+	
+	// 좋아요 취소
+	public int deleteLike(@Param(value="likeUserNo") int likeUserNo, @Param(value="likeBbsNo")int likeBbsNo);
+	
 	
 	/**************************************/
 	/* REPLY ******************************/
@@ -66,6 +80,10 @@ public interface BoardMapper {
 
 	// 댓글 수정
 	public int updateReply(Reply reply);
+
+	
+
+	
 
 
 

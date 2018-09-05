@@ -19,6 +19,7 @@
 		<typeAlias type="com.decoblog.www.board.vo.Bbs" alias="Bbs" />
 		<typeAlias type="com.decoblog.www.board.vo.Reply" alias="Reply" />
 		<typeAlias type="com.decoblog.www.board.vo.BbsAttach" alias="BbsAttach" />
+		<typeAlias type="com.decoblog.www.board.vo.Like" alias="Like" />
 		
 		<!-- com.decoblog.www.stat -->
 		<typeAlias type="com.decoblog.www.stat.vo.Stat" alias="Stat" />

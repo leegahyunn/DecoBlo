@@ -78,6 +78,9 @@ public class BlogRepository {
 	public int deleteBlock(int blockSeq) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.deleteBlock(blockSeq);
+		
+		return result;
+	}
 
 	public int updateSmallMenuPull(HashMap<String, String> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
