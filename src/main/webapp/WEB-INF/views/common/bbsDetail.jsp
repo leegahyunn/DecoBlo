@@ -17,10 +17,7 @@ function bbsList() { 	// 글목록으로 이동
 
 function deleteBbs(bbsNo) { 	// 글삭제
 	
-	alert(bbsNo);
-	
 	if (confirm('정말 삭제하시겠습니까?')) {
-		
 		location.href = "deleteBbs?bbsNo=" + bbsNo;
 	}
 }
@@ -33,10 +30,15 @@ function writeAnswer(){
 
 /* 댓글 */
 $(function(){
+	
 	init();
+	likeList();
 	$('#replySave').on('click', replySave);
 	$('#replyForm').on('click', '.re-reply', writeReReply2);
 	$('#replyForm').on('click', '#re_replySave', re_replySave);
+	$(document).on('click', '#like-btn', changeLike);
+	
+	
 });
 
 function init(){
@@ -148,8 +150,7 @@ function replyUpdate(){
 
 
 function writeReReply(){
-	alert('넘어온당');
-	console.log($(this));
+
 	$('#reply_hr').append('<table id="replytable">');
 	$('#reply_hr').append('<tr>');
 	$('#reply_hr').append('<td style="padding-right: 5px;">');
@@ -157,9 +158,6 @@ function writeReReply(){
 	$('#reply_hr').append('<td><div><input id="re_replySave" type="button" class="button" value="등록" style="height:53px; border-radius: 0px;"/></div></td>');
 	$('#reply_hr').append('</tr></table>');
 	
-	
-	
-
 }
 
 function writeReReply2(){
@@ -173,12 +171,10 @@ function writeReReply2(){
 	replyContentDiv.append('<td><div><input id="re_replySave" type="button" class="button" value="등록" style="height:53px; border-radius: 0px;"/></div></td>');
 	replyContentDiv.append('</tr></table>');
 	
-	
 }
 
 function re_replySave(){
 	
-	alert('조장님~~~~~');
 	var replyBbsNo = $('#replyBbsNo').val();
 	var replyContent = $('#content').val();
 	var replyNo = $(this).parents('div.replyContent').children('input.replyUpdate').attr('data-rno');
@@ -205,6 +201,66 @@ function re_replySave(){
 }
 
 
+// 좋아요 기능
+
+function likeList(){
+	var likeBbsNo = $('#likeBbsNo').val();
+
+	$.ajax({
+		method : 'get'
+		, url : 'likeList'
+		, data : {"likeBbsNo" : likeBbsNo}
+		, contentType : 'application/json; charset=utf-8'
+		, success : function(resp) {
+			if (resp == 'true') {
+				$('#like-btn').addClass('like');
+			} else {
+				$('#like-btn').addClass('unlike');
+			}
+		} 
+	});
+	
+}
+
+function changeLike() {
+	var likeBbsNo = $('#likeBbsNo').val();
+	var sendData = {
+			"likeBbsNo" : likeBbsNo};	
+	
+	
+	
+	if ($(this).hasClass('like')) {
+		
+		$(this).removeClass('like');
+		$(this).addClass('unlike');
+		
+		$.ajax({
+			method : 'post'
+			, url : 'deleteLike'
+			, data : {"likeBbsNo" : likeBbsNo}
+			, success : function(){
+				alert('좋아ddd요!');
+			}
+		});
+		
+	} else {
+		
+		$(this).removeClass('unlike');
+		$(this).addClass('like');
+		
+		$.ajax({
+			method : 'post'
+			, url : 'insertLike'
+			, data : JSON.stringify(sendData)
+			, contentType : 'application/json; charset=utf-8'
+			, success : function(){
+				alert('좋아요!');
+			}
+		});
+		
+	}
+	
+}
 
 
 </script>
@@ -272,6 +328,15 @@ function re_replySave(){
 	    -webkit-border-radius: 0;
 	    resize: none;
 	}
+	
+	
+	div.like-wrapper {
+		cursor: pointer;
+	}
+	
+	div.like-wrapper i.like {
+		color: #F80152;
+	}
 
 
 </style>
@@ -338,6 +403,13 @@ function re_replySave(){
 		<br><br>
 		<br>
 		<hr/>
+		
+		<!-- 좋아요 -->
+		<div class="like-wrapper" align="right">
+			<input type="hidden" id="likeBbsNo" name="likeBbsNo" value="${bbsDetail.bbsNo}"/>
+			<i class="fas fa-heart" id="like-btn"></i>
+		</div>
+		
 	</div>
 	<br>
 
