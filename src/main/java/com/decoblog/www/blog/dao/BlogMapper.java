@@ -41,4 +41,6 @@ public interface BlogMapper {
 	public User selectBlog(int userNo);
 	public int updateBlogFont(HashMap<String, String> map);
 	public int updateOnepageStyle(HashMap<String, String> map);
+	public int updateRightClickable(HashMap<String, String> map);
+	public int insertMenu(HashMap<String, String> map);
 }

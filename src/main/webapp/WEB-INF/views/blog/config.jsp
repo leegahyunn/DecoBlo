@@ -25,12 +25,6 @@
 <script src="decoblo/js/blockConfig.js"></script>
 <script src="decoblo/js/menuConfig.js"></script>
 <script src="decoblo/js/blockSetting.js"></script>
-
-<script type="text/javascript">
-
-</script>
-
-
 </head>
 <body id="body-config">
 <header id="header">
@@ -136,7 +130,7 @@
 				<div class="outer-config">
 					<span>원페이지 스타일</span> 
 					<label class="switch right-icon">
-  						<input class="configOnepageStyle" type="checkbox"  checked="unchecked">
+  						<input class="configOnepageStyle" type="checkbox"/>
   						<span class="slider round"></span>
 					</label>
 				</div>
@@ -145,7 +139,7 @@
 				<div class="fold outer-config">
 					<span>우클릭/드래그 방지</span> 
 					<label class="switch right-icon">
-  						<input type="checkbox" checked>
+  						<input class="configRightClickable" type="checkbox"/>
   						<span class="slider round"></span>
 					</label>
 				</div>
