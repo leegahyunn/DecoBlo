@@ -18,6 +18,7 @@ header#header.top-menu {
 }
 
 </style>
+<script type="text/javascript" src="resources/ckeditor/ckeditor.js"></script>
 <script src="resources/library/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 function bbsList() { 	// 글목록으로 이동
@@ -25,9 +26,11 @@ function bbsList() { 	// 글목록으로 이동
 }
 
 function bbsCheck(){	// 글쓰기 유효성 검사
-	
 	var bbsTitle = $('#bbsTitle').val();
-	var bbsContent = $('#bbsContent').val();
+	var bbsContent = CKEDITOR.instances.bbsContent.getData()
+	
+	alert(bbsTitle);
+	alert(bbsContent);
 	
 	if (bbsTitle == '' || bbsContent == ''){
 		alert('제목과 내용을 입력하세요.');
@@ -36,6 +39,8 @@ function bbsCheck(){	// 글쓰기 유효성 검사
 	
 	return true;
 }
+
+
 </script>
 </head>
 <body class="landing">
@@ -73,7 +78,7 @@ function bbsCheck(){	// 글쓰기 유효성 검사
 	<table align="center">
 		<tr>
 			<th>제목</th>
-			<td><input type="text" name="bbsTitle" id="bbsTitle" value="${bbsUpdate.bbsTitle}"></td>
+			<td><input type="text" name="bbsTitle" id="bbsTitle" value="${bbs.bbsTitle}"></td>
 		</tr>
 <%-- 		<tr>
 			<th>작성자</th>
@@ -85,7 +90,7 @@ function bbsCheck(){	// 글쓰기 유효성 검사
 		</tr> -->
 		<tr>
 			<th>내용</th>
-			<td><textarea rows="10" cols="50" name="bbsContent" id="bbsContent">${bbsUpdate.bbsContent}</textarea> </td>
+			<td><textarea rows="10" cols="50" name="bbsContent" id="bbsContent">${bbs.bbsContent}</textarea> </td>
 		</tr>
 		<tr>
 			<td class="btn" colspan="2" align="center">
@@ -93,11 +98,8 @@ function bbsCheck(){	// 글쓰기 유효성 검사
 				<input type="submit" value="등록" onclick="return bbsCheck()"> 
 			</td>
 		</tr>
-	
-	
-	
 	</table>
-	
+	<script type="text/javascript">CKEDITOR.replace('bbsContent');</script>
 </form>
 
 

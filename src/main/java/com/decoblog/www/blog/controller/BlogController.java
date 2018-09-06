@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -34,9 +37,11 @@ public class BlogController {
 	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/config", method = RequestMethod.GET)
-	public String config(Menu menu, Model model) {	
+	public String config(Menu menu, Model model,HttpSession session) {	
+		int userNo = (int) session.getAttribute("loginNo");
+		System.out.println(userNo);
 		menu.setMenuNo(1);
-		menu.setMenuUserNo(1);
+		menu.setMenuUserNo(userNo);
 		List<Block> blockList = blogRepository.selectBlockList(menu);
 		model.addAttribute("blockList", blockList);
 		return "blog/config";
@@ -239,10 +244,8 @@ public class BlogController {
 		
 		return "success";
 	}
-	
-	@ResponseBody
 	@RequestMapping(value="getThumnail",method=RequestMethod.POST)
-	public List<Integer> getThumnail(String tmpType) {
+	public @ResponseBody List<Integer> getThumnail(String tmpType) {
 		List<Integer> blockNoList = blogRepository.selectThumnail(tmpType);
 		return blockNoList;
 	}
@@ -259,17 +262,28 @@ public class BlogController {
 		}
 		return blockContent;
 	}
-	
+
 	@RequestMapping(value="setBlockContent",method=RequestMethod.POST)
-	public @ResponseBody String setBlockContent(@RequestBody Block block) {
+	public @ResponseBody int setBlockContent(@RequestBody Block block,Menu menu) {
 		int blockSeq = block.getBlockSeq();
 		blogRepository.updateBlockSeq(blockSeq);
-		blogRepository.insertBlock(block);
-		return "redirect:/config";
+		int result=blogRepository.insertBlock(block);
+		return result;
 	}
 	
 	@RequestMapping(value="deleteBlock",method=RequestMethod.POST)
-	public String deleteBlock(int blockSeq) {
+	public @ResponseBody String deleteBlock(int blockSeq , Menu menu,RedirectAttributes rttr) {
+		blogRepository.deleteBlock(blockSeq);
 		return "redirect:/config";
+	}
+	@RequestMapping(value="copyBlock",method=RequestMethod.POST)
+	public @ResponseBody int copyBlock(@RequestBody Block block) {
+		System.out.println(block);
+		int blockSeq=block.getBlockSeq();
+		int blockNo= block.getBlockNo();
+		System.out.println(blockNo);
+		blogRepository.updateBlockSeq(blockSeq);
+		int result = blogRepository.copyBlock(blockNo);
+		return result;
 	}
 }

@@ -15,7 +15,6 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="http://www.jqueryscript.net/css/jquerysctipttop.css">
 
-
 <script src="library/js/jquery-3.3.1.min.js"></script>
 <script src="library/js/jquery-ui.min.js"></script>
 <script src="library/js/colpickRmx.js"></script>
@@ -25,6 +24,7 @@
 <script src="decoblo/js/blockConfig.js"></script>
 <script src="decoblo/js/menuConfig.js"></script>
 <script src="decoblo/js/blockSetting.js"></script>
+
 </head>
 <body id="body-config">
 <header id="header">
@@ -289,7 +289,7 @@
 <div id="mask"></div>
 <!-- 전체 블록 section 시작 -->
 <section id="blog-wrapper">
-	<div class="templates-wrapper" style="background-color: gray;">
+	<div class="templates-wrapper">
 	
 	<c:if test="${empty blockList}" var="seletedBlockList">
 		<div class="intro-block-wrapper" id="intro-block-wrapper">
@@ -315,7 +315,7 @@
 			</ul>
 			<section class="block-wrapper" data-block-seq="${blockList.blockSeq}">
 			${blockList.blockContent}
-			
+			<div class="mask2" id="mask-2-${blockList.blockSeq}"></div>
 			<div class="settingIcon ${blockList.blockSeq}" id='${blockList.blockSeq}'>
 				<div class="settingButton">
 				<img alt="+" src="resources/images/blockSettingimg/settingButton.png">
@@ -326,6 +326,8 @@
 				<div class="block-config-header">
 					<i class="fa fa-cog"></i> <span>블럭 설정</span><i class="fa fa-times" id="block-config-close"></i>
 				</div>
+				
+				
 				<!-- config-section -->
 				<div class="block-config-section">
 					<!-- 여백 -->
@@ -465,7 +467,7 @@
 						<i class="fa fa-sort"></i>
 						<span>블럭이동</span>
 					</div>
-					<div class="block-copy">
+					<div class="block-copy" data-block-seq="${blockList.blockSeq}" data-block-blockNo="${blockList.blockNo }">
 						<i class="fa fa-files-o"></i>
 						<span>블럭복제</span>
 					</div>
@@ -473,13 +475,15 @@
 						<i class="fa fa-file-code-o"></i>
 						<span>HTML/CSS</span>
 					</div>
-					<div class="block-remove" onclick="blockDelete(${blockList.blockSeq})">
+					<div class="block-remove" data-block-seq="${blockList.blockSeq }">
 						<i class="fa fa-trash-o"></i>
 						<span>블럭삭제</span>
 					</div>
+					
 				</div>
 				<!-- /footer -->
 			</div>
+			
 			</section>
 			
 			<ul class='add-button ${blockList.blockSeq}' id='${blockList.blockSeq+1}'>
@@ -497,7 +501,23 @@
 				<!-- 사용하기 버튼 -->
 					<!-- 블록 코드 미리보기 -->
 		</div>
-		
+		<div class="delete-confirm">
+			<button class="confirm-close" onclick="deleteCancle()">
+				<span>
+					<img alt="close" src="resources/images/blockSettingimg/confirm-close.png">
+				</span>
+			</button>
+			<div class="confirm-boddy">
+				<h3 class="confirm-title">delete block</h3>
+				"블럭을 삭제하시면 변경한 내용이 삭제됩니다."
+				<br>
+				"삭제하시겠습니까 ?"
+			</div>
+			<div class="confirm-footer">
+				<button type="button" class="delete-confirm-cancle" onclick="deleteCancle()">취소</button>
+				<button type="button" class="delete-confirm-ok">확인</button>
+			</div>
+		</div>
 </div>	
 </section>
 </body>

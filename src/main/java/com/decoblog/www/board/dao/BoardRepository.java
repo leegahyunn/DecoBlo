@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.decoblog.www.board.vo.Bbs;
 import com.decoblog.www.board.vo.BbsAttach;
+import com.decoblog.www.board.vo.Like;
 import com.decoblog.www.board.vo.Reply;
 
 @Repository
@@ -143,7 +144,38 @@ public class BoardRepository {
 		return total;
 	}
 
+	
+	/**************************************/
+	/* LIKE *******************************/
+	/**************************************/
 
+	// 좋아요 목록
+	public Like selecOneLike(int likeUserNo, int likeBbsNo) {
+
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		Like like = mapper.selectOneLike(likeUserNo, likeBbsNo );
+		
+		return like;
+	}
+
+	
+	// 좋아요 입력
+	public int insertLike(Like like) {
+		
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		int result = mapper.insertLike(like);
+		
+		return result;
+	}
+	
+	// 좋아요 취소
+	public int deleteLike(int likeUserNo, int likeBbsNo) {
+		
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		int result = mapper.deleteLike(likeUserNo, likeBbsNo);
+		
+		return result;
+	}
 	
 	
 	/**************************************/
@@ -188,6 +220,10 @@ public class BoardRepository {
 		
 		return result;
 	}
+
+
+	
+
 	
 
 	

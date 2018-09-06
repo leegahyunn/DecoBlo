@@ -9,7 +9,7 @@ div.block-config {
 	display: none;
 	top:50px;
 	right:50px;
-	z-index: 22;
+	z-index: 60;
 }
 
 div.block-config-header {		
