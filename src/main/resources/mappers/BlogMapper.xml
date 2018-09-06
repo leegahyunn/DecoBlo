@@ -31,6 +31,30 @@
 		menuparentseq, menuseq
 	
 </select>
+
+<insert id="insertMenu" parameterType="map">
+	insert into db_menu
+			(
+			menuNo
+			,menuUserNo
+			,menuName
+			,menuParent
+			,menuDepth
+			,menuSeq
+			,menuVisible
+			,menuParentSeq
+			)
+	values( 
+		db_menu_seq.nextval
+		, #{menuUserNo}
+		, #{menuName}
+		, db_menu_seq.nextval
+		, 0
+		, 0
+		, 1
+		, db_menu_seq.nextval
+	)
+</insert>
 <!-- 블록 넘버 가져오기 -->
 <select id="selectThumnail" parameterType="string" resultType="int">
 	SELECT blocktmpno FROM DB_BLOCK_TEMPLATE WHERE blocktmptype=#{tmpType}
@@ -75,7 +99,7 @@
 	SET
 		menuParentSeq = menuParentSeq + 1
 	WHERE
-		menuParentSeq > #{menuParentSeq}
+		menuParentSeq >= #{newMenuParent}
 	AND
 		menuUserNo = #{menuUserNo}
 		
@@ -151,6 +175,14 @@
 		db_user
 	SET
 		configOnepageStyle = #{configOnepageStyle}
+	WHERE
+		userNo = #{userNo}
+</update>
+<update id="updateRightClickable" parameterType="map">
+	UPDATE 
+		db_user
+	SET
+		configRightClickable = #{configRightClickable}
 	WHERE
 		userNo = #{userNo}
 </update>

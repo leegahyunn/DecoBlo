@@ -131,7 +131,7 @@ public class BlogController {
 	}
 	
 	/**
-	 * 블로그 폰트 수정 Ajax
+	 * 블로그 원페이지 여부 Ajax
 	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/updateOnepageStyle", method = RequestMethod.POST)
@@ -141,6 +141,27 @@ public class BlogController {
 		return  "blog/config";
 	}
 	
+	/**
+	 * 블로그 마우스 우클릭 여부 Ajax
+	 * @return 블로그 수정 페이지
+	 */
+	@RequestMapping(value = "/updateRightClickable", method = RequestMethod.POST)
+	public String updateRightClickable(@RequestBody HashMap<String, String> map) {
+		map.put("userNo", "2");
+		blogRepository.updateRightClickable(map);
+		return  "blog/config";
+	}
+	
+	/**
+	 * 메뉴 추가  Ajax
+	 * @return 블로그 수정 페이지
+	 */
+	@RequestMapping(value = "/insertMenu", method = RequestMethod.POST)
+	public String insertMenu(@RequestBody HashMap<String, String> map) {
+		map.put("menuUserNo", "1");
+		blogRepository.insertMenu(map);
+		return  "blog/config";
+	}
     @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
     public String fileUp(MultipartHttpServletRequest multi) {
         
@@ -211,8 +232,8 @@ public class BlogController {
 		} else {//움직인 애가 대메뉴일 경우
 			if(!(map.containsKey("newMenuParent"))) { //대메뉴 순서만 바뀐 경우
 				map.put("newMenuParent", "0");
-				blogRepository.updateLargeMenuPull(map);
 				blogRepository.updateLargeMenuPush(map);
+				blogRepository.updateLargeMenuPull(map);
 				blogRepository.updateMenu(map);
 			}else {//대메뉴가 다른 대메뉴의 소메뉴로 들어간 경우
 				blogRepository.updateLargeMenuPull(map);

@@ -175,6 +175,18 @@ public class BlogRepository {
 		
 		return result;
 	}
-	
-	
+
+	public int updateRightClickable(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateRightClickable(map);
+		
+		return result;
+	}
+
+	public int insertMenu(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.insertMenu(map);
+		
+		return result;
+	}
 }
