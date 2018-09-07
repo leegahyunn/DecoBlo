@@ -4,88 +4,99 @@
 menuConfig();
 siteConfig();
 function menuConfig() {
-	$.ajax({
-		method   : 'post'
-		, url    : 'menuConfig'
-		, contentType : 'application/json; charset=UTF-8'
-		, success: function(resp) {
-			var menuJson = JSON.parse(resp);
-			var result2 = '';
-			var result1 = '';
-			
-			result2 += '<ol class="dd-list">';
-			$.each(menuJson, function(mainIndex, mainMenu){
-				$.each(mainMenu.Menu, function(subIndex, subMenu){
-					/* menu-bar */
-					if(subMenu.menuDepth==0){
-						result1 += '</ul></li><li data-parent="'+ subMenu.menuParent+'"><a href="#">'+ subMenu.menuName +'</a><ul>';
-					} else if(subMenu.menuDepth==1){
-						result1 += '<li><a href="#">'+ subMenu.menuName +'</a></li>'
-					}
-					
-					if (subIndex == 1 && mainMenu.Menu.length != 1) {
-						result2 += '<ol class="dd-list">';
-					}
-					
-					result2 += '<li class="dd-item '; 
-					
-					if (subIndex == 0) {
-						result2 += 'mainMenuWrapper';
-					} 
-					
-					result2 += '" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+ '" data-menu-seq="'+ subMenu.menuSeq +'" data-menu-depth="'+ subMenu.menuDepth +'" data-menu-parent-seq="'+ subMenu.menuParentSeq +'">';
-					result2 += '<div class="default-config">';
-					result2 += '<div class="outer-config aa-handle">';
-					result2 += '<div class="dd-handle" style="display: inline-block; width: 80%;">';
-					result2 += '<span>' + subMenu.menuName + '</span>';
-					result2 += '</div>';
-					result2 += '<div class="outer-config"  style="display: inline-block;">';
-					result2 += '<i class="fa fa-trash deletebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					result2 += '<i class="fa fa-pencil editbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					
-					if(subMenu.menuVisible == 1){
-						result2 += '<i style="color:#2ea8e5"class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					} else {
-						result2 += '<i class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					}	 
-					
-					result2 += '</div>';
-					result2 += '<div class="fold outer-config" style="display:none;">';
-					result2 += '<input type="text" style="width:200px;">';
-					result2 += '<i class="right-icon fa fa-check checkbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					result2 += '</div>';
-					result2 += '</div>';
-					result2 += '</div>';
-					
-					if (subIndex == mainMenu.Menu.length - 1 && mainMenu.Menu.length != 1) {
-						result2 += '</ol>';
-						result2 += '</li>';
-					}
-					
-					if (mainMenu.Menu.length == 1) {
-						result2 += '</li>';
-					}
-					
-				});
-			});
-			result2 += '</ol>';
-			result2 +='<div class="default-config" style="text-align: right; padding-right: 5px">';
-			result2 +='<div class="outer-config"  style="display: inline-block;">';
-			result2 +='<span style="font-size: 14px;">메뉴추가</span> ';
-			result2 +='<i class="fa fa-plus menu-plus"></i>';
-			result2 +='</div>';
-			result2 +='<div class="fold outer-config menu-plus-box" style="display:none;">';
-			result2 +='<input type="text" style="width:200px;">';
-			result2 +='<i class="right-icon fa fa-check menu-plus-check"></i>';
-			result2 +='</div>';
-			result2 +='</div>';
-			
-			$('.menu-config-panel').html(result2);
-			
-			result1 += '</ul></li>';
-			$('.menu-block').html(result1);
-		} 
-	});
+	   $.ajax({
+	      method   : 'post'
+	      , url    : 'menuConfig'
+	      , contentType : 'application/json; charset=UTF-8'
+	      , success: function(resp) {
+	         var menuJson = JSON.parse(resp);
+	         var result2 = '';
+	         var result1 = '';
+	         var result = '';
+	         result2 += '<ol class="dd-list">';
+	         $.each(menuJson, function(mainIndex, mainMenu){
+	            $.each(mainMenu.Menu, function(subIndex, subMenu){
+	               /* menu-bar */
+	               if (subMenu.menuNo == 1) {
+	                  if(subMenu.menuDepth==0){
+	                     result += '</ul></li><li data-parent="'+ subMenu.menuParent+'"><a href="config?menuNo='+subMenu.menuParent+'&menuName='+subMenu.menuName+'">'+ subMenu.menuName +'</a><ul>';
+	                     
+	                  } else if(subMenu.menuDepth==1){
+	                     result += '<li><a href="#">'+ subMenu.menuName +'</a></li>';
+	                  }
+	               } else {
+	                  if(subMenu.menuDepth==0){
+	                     result1 += '</ul></li><li data-parent="'+ subMenu.menuParent+'"><a href="config?menuNo='+subMenu.menuParent+'&menuName='+subMenu.menuName+'">'+ subMenu.menuName +'</a><ul>';
+	                     
+	                  } else if(subMenu.menuDepth==1){
+	                     result1 += '<li><a href="#">'+ subMenu.menuName +'</a></li>';
+	                  }
+	               }
+	               if (subIndex == 1 && mainMenu.Menu.length != 1) {
+	                  result2 += '<ol class="dd-list">';
+	               }
+	               
+	               result2 += '<li class="dd-item '; 
+	               
+	               if (subIndex == 0) {
+	                  result2 += 'mainMenuWrapper';
+	               } 
+	               
+	               result2 += '" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+ '" data-menu-seq="'+ subMenu.menuSeq +'" data-menu-depth="'+ subMenu.menuDepth +'" data-menu-parent-seq="'+ subMenu.menuParentSeq +'">';
+	               result2 += '<div class="default-config">';
+	               result2 += '<div class="outer-config aa-handle">';
+	               result2 += '<div class="dd-handle" style="display: inline-block; width: 80%;">';
+	               result2 += '<span>' + subMenu.menuName + '</span>';
+	               result2 += '</div>';
+	               result2 += '<div class="outer-config"  style="display: inline-block;">';
+	               result2 += '<i class="fa fa-trash deletebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+	               result2 += '<i class="fa fa-pencil editbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+	               
+	               if(subMenu.menuVisible == 1){
+	                  result2 += '<i style="color:#2ea8e5"class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+	               } else {
+	                  result2 += '<i class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+	               }    
+	               
+	               result2 += '</div>';
+	               result2 += '<div class="fold outer-config" style="display:none;">';
+	               result2 += '<input type="text" style="width:200px;">';
+	               result2 += '<i class="right-icon fa fa-check checkbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+	               result2 += '</div>';
+	               result2 += '</div>';
+	               result2 += '</div>';
+	               
+	               if (subIndex == mainMenu.Menu.length - 1 && mainMenu.Menu.length != 1) {
+	                  result2 += '</ol>';
+	                  result2 += '</li>';
+	               }
+	               
+	               if (mainMenu.Menu.length == 1) {
+	                  result2 += '</li>';
+	               }
+	               
+	            });
+	         });
+	         result2 += '</ol>';
+	         result2 +='<div class="default-config" style="text-align: right; padding-right: 5px">';
+	         result2 +='<div class="outer-config menu-plus-button"  style="display: inline-block;">';
+	         result2 +='<span style="font-size: 14px;">메뉴추가</span> ';
+	         result2 +='<i class="fa fa-plus"></i>';
+	         result2 +='</div>';
+	         result2 +='<div class="fold outer-config menu-plus-box" style="display:none;">';
+	         result2 +='<input type="text" style="width:250px;">';
+	         result2 +='<i class="right-icon fa fa-check menu-plus-check"></i>';
+	         result2 +='</div>';
+	         result2 +='</div>';
+	         
+	         $('.menu-config-panel').html(result2);
+	         
+	         result1 += '</ul></li>';
+	         $('.menu-block').html(result1);
+	         result += '</ul></li>';
+	         $('.main-menu-block').html(result);
+	      } 
+	   });
 }
 /* 사이트 설정 불러오기*/
 function siteConfig() {
@@ -367,6 +378,12 @@ $(function(){
 		});
 		
 	});
+	
+	/*메뉴 클릭 이벤트 */
+	$(document).on('click','.menu-block>li',function(){
+		alert("액티브 추가");
+		$(this).addClass("active");
+	})
 	firstcss();
 	/*블록 없을때 블록 추가 버튼 */
 	$('.intro-block-wrapper').on('click',function(){
@@ -392,7 +409,8 @@ $(function(){
 		$('.blockMenu-sidebar-div').animate({'margin-left':'0px'},'slow');
 		wrapByMask();
 		var blockSeq =$(this).attr('id');
-		
+		var blockMenuNo= $('.menu-block > li').attr('data-parent');
+		alert("블록넘버 : " + blockMenuNo);
 		$(document).on('click','.block-thumnail > li',function(){
 			$(document).off('click','.use-block-button');
 			$('.block-preview').empty();

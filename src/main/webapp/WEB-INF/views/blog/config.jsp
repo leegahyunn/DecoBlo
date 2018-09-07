@@ -334,6 +334,41 @@ body { margin: 0; }
     display: block;
     margin-top: 0;
 }
+.main-menu-block{  
+   float:left;
+} 
+
+
+.main-menu-block { margin: 0; padding: 0; }
+.main-menu-block li {
+  float: left;
+  list-style:none;
+  position: relative;
+}
+.main-menu-block li:hover { background: black; }
+.main-menu-block li:hover>a { color: white; }
+.main-menu-block a {
+  color: black;
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+.main-menu-block ul {
+  background: #eee;
+  border: 1px solid silver;
+  display: none;
+  padding: 0;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 180px;
+}
+.main-menu-block ul li { float: none; }
+.main-menu-block ul li:hover { background: #ddd; }
+.main-menu-block ul li:hover a { color: black; }
+.main-menu-block ul a { color: black; }
+.main-menu-block ul ul { left: 100%; top: 0; }
+
 </style>
 <script type="text/javascript">
 
@@ -550,12 +585,14 @@ body { margin: 0; }
 </div>
 <!-- menu-bar -->
 <div class="menu-wrapper">
-	<div class="block-wrapper">
-		<div class='menu-bar'>
-			<ul class = "menu-block">
-			</ul>
-		</div>
-	</div>
+   <div class="block-wrapper">
+      <div class='menu-bar'>
+         <ul class = "main-menu-block">
+         </ul>
+         <ul class = "menu-block">
+         </ul>
+      </div>
+   </div>
 </div>
 <nav id="block-config-nav">
 <div class="blockMenu-sidebar-div">
@@ -612,7 +649,7 @@ body { margin: 0; }
 				<div>
 					<img alt="추가" src="resources/images/blockSettingimg/addblock.png"/>
 				</div>
-				<b>메뉴가 비어있습니다. 블럭을 추가하시려면 여기를 클릭하세요.</b>
+				<b>${menuName} 메뉴가 비어있습니다. 블럭을 추가하시려면 여기를 클릭하세요.</b>
 			</div>
 		</div>
 	</c:if>

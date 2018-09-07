@@ -183,7 +183,7 @@ ORDER BY blockseq
 <insert id="insertBlock" parameterType="Block">
 INSERT INTO db_block(blockno,blockmenuno,blocktmpno,blockseq,blockcontent)
  VALUES(
-db_block_seq.nextval,1,#{blockTmpNo},#{blockSeq},
+db_block_seq.nextval,#{blockMenuNo},#{blockTmpNo},#{blockSeq},
 UTL_RAW.CAST_TO_RAW(#{blockContent})
 )
 </insert>

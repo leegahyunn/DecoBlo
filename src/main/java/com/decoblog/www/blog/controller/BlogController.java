@@ -38,15 +38,22 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/config", method = RequestMethod.GET)
 	public String config(Menu menu, Model model,HttpSession session) {	
+		int menuNo= menu.getMenuNo();
+		String menuName = "";
 		int userNo = (int) session.getAttribute("loginNo");
-		System.out.println(userNo);
-		menu.setMenuNo(1);
+		if(menuNo==0) {
+			menu.setMenuNo(1);
+			menuName="INTRO";
+		}else {
+			menu.setMenuNo(menuNo);
+			menuName=menu.getMenuName();
+		}
 		menu.setMenuUserNo(userNo);
 		List<Block> blockList = blogRepository.selectBlockList(menu);
 		model.addAttribute("blockList", blockList);
+		model.addAttribute("menuName", menuName);
 		return "blog/config";
 	}
-	
 	/**
 	 * 메뉴 불러오기 Ajax
 	 * DB에 저장된 메뉴를 가져와서 JSP에 넘겨줌
@@ -240,15 +247,6 @@ public class BlogController {
 			e.printStackTrace();
 		}
 		return blockContent;
-	}
-	
-	@RequestMapping(value = "/yrtest", method = RequestMethod.GET)
-	public String yrtest(Menu menu, Model model) {
-		menu.setMenuNo(1);
-		menu.setMenuUserNo(1);
-		List<Block> blockList = blogRepository.selectBlockList(menu);
-		model.addAttribute("blockList", blockList);
-		return "blog/blogEdit1";
 	}
 	
 	@RequestMapping(value="setBlockContent",method=RequestMethod.POST)
