@@ -187,6 +187,10 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>        
+<<<<<<< HEAD
+=======
+
+>>>>>>> 77ca7a6ea04383cf9310038dc082780576b6b70f
 	</dependencies>
     <build>
         <plugins>

@@ -15,7 +15,6 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="http://www.jqueryscript.net/css/jquerysctipttop.css">
 
-
 <script src="library/js/jquery-3.3.1.min.js"></script>
 <script src="library/js/jquery-ui.min.js"></script>
 <script src="library/js/colpickRmx.js"></script>
@@ -480,7 +479,7 @@ body { margin: 0; }
 				<div class="outer-config">
 					<span>원페이지 스타일</span> 
 					<label class="switch right-icon">
-  						<input class="configOnepageStyle" type="checkbox"  checked="unchecked">
+  						<input class="configOnepageStyle" type="checkbox"/>
   						<span class="slider round"></span>
 					</label>
 				</div>
@@ -489,7 +488,7 @@ body { margin: 0; }
 				<div class="fold outer-config">
 					<span>우클릭/드래그 방지</span> 
 					<label class="switch right-icon">
-  						<input type="checkbox" checked>
+  						<input class="configRightClickable" type="checkbox"/>
   						<span class="slider round"></span>
 					</label>
 				</div>

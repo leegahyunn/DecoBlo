@@ -97,6 +97,88 @@ function menuConfig() {
 	         $('.main-menu-block').html(result);
 	      } 
 	   });
+	$.ajax({
+		method   : 'post'
+		, url    : 'menuConfig'
+		, contentType : 'application/json; charset=UTF-8'
+		, success: function(resp) {
+			var menuJson = JSON.parse(resp);
+			var result2 = '';
+			var result1 = '';
+			
+			result2 += '<ol class="dd-list">';
+			$.each(menuJson, function(mainIndex, mainMenu){
+				$.each(mainMenu.Menu, function(subIndex, subMenu){
+					/* menu-bar */
+					if(subMenu.menuDepth==0){
+						result1 += '</ul></li><li data-parent="'+ subMenu.menuParent+'"><a href="#">'+ subMenu.menuName +'</a><ul>';
+					} else if(subMenu.menuDepth==1){
+						result1 += '<li><a href="#">'+ subMenu.menuName +'</a></li>';
+					}
+					
+					if (subIndex == 1 && mainMenu.Menu.length != 1) {
+						result2 += '<ol class="dd-list">';
+					}
+					
+					result2 += '<li class="dd-item '; 
+					
+					if (subIndex == 0) {
+						result2 += 'mainMenuWrapper';
+					} 
+					
+					result2 += '" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+ '" data-menu-seq="'+ subMenu.menuSeq +'" data-menu-depth="'+ subMenu.menuDepth +'" data-menu-parent-seq="'+ subMenu.menuParentSeq +'">';
+					result2 += '<div class="default-config">';
+					result2 += '<div class="outer-config aa-handle">';
+					result2 += '<div class="dd-handle" style="display: inline-block; width: 80%;">';
+					result2 += '<span>' + subMenu.menuName + '</span>';
+					result2 += '</div>';
+					result2 += '<div class="outer-config"  style="display: inline-block;">';
+					result2 += '<i class="fa fa-trash deletebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+					result2 += '<i class="fa fa-pencil editbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+					
+					if(subMenu.menuVisible == 1){
+						result2 += '<i style="color:#2ea8e5"class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+					} else {
+						result2 += '<i class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+					}	 
+					
+					result2 += '</div>';
+					result2 += '<div class="fold outer-config" style="display:none;">';
+					result2 += '<input type="text" style="width:200px;">';
+					result2 += '<i class="right-icon fa fa-check checkbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+					result2 += '</div>';
+					result2 += '</div>';
+					result2 += '</div>';
+					
+					if (subIndex == mainMenu.Menu.length - 1 && mainMenu.Menu.length != 1) {
+						result2 += '</ol>';
+						result2 += '</li>';
+					}
+					
+					if (mainMenu.Menu.length == 1) {
+						result2 += '</li>';
+					}
+					
+				});
+			});
+			result2 += '</ol>';
+			result2 +='<div class="default-config" style="text-align: right; padding-right: 5px">';
+			result2 +='<div class="outer-config menu-plus-button"  style="display: inline-block;">';
+			result2 +='<span style="font-size: 14px;">메뉴추가</span> ';
+			result2 +='<i class="fa fa-plus"></i>';
+			result2 +='</div>';
+			result2 +='<div class="fold outer-config menu-plus-box" style="display:none;">';
+			result2 +='<input type="text" style="width:250px;">';
+			result2 +='<i class="right-icon fa fa-check menu-plus-check"></i>';
+			result2 +='</div>';
+			result2 +='</div>';
+			
+			$('.menu-config-panel').html(result2);
+			
+			result1 += '</ul></li>';
+			$('.menu-block').html(result1);
+		} 
+	});
 }
 /* 사이트 설정 불러오기*/
 function siteConfig() {
@@ -119,6 +201,14 @@ function siteConfig() {
 			if(resp.configOnepageStyle==1){
 				$('.configOnepageStyle').val(resp.configOnepageStyle);
 				$('.configOnepageStyle').attr('checked',' checked');
+			}
+			if(resp.configRightClickable==0){
+				$('.configRightClickable').val(resp.configRightClickable);
+				$('.configRightClickable').removeAttr( "checked" );
+			}
+			if(resp.configRightClickable==1){
+				$('.configRightClickable').val(resp.configRightClickable);
+				$('.configRightClickable').attr('checked',' checked');
 			}
 		}
 	});
@@ -143,11 +233,9 @@ function metaEdit() {
 	});
 }
 
-
-
 $(function(){
 	$(document).on('change', '.color-picker', function(){
-		var configBackgroundColor = $(this).val()
+		var configBackgroundColor = $(this).val();
 		
 		var sendData = {"configBackgroundColor" : configBackgroundColor};
 		$.ajax({
@@ -164,7 +252,6 @@ $(function(){
 	
 	$(document).on('click', '.configOnepageStyle', function(){
 		
-		var configBackgroundColor = $(this).val()
 		var configOnepageStyle;
 		
 		if($(this).val()=="1"){
@@ -186,8 +273,32 @@ $(function(){
 			}
 		});  
 	});
+	
+$(document).on('click', '.configRightClickable', function(){
+		
+		var configRightClickable;
+		
+		if($(this).val()=="1"){
+			configRightClickable=0;
+		}
+		
+		if($(this).val()=="0"){
+			configRightClickable=1;
+		}
+		var sendData = {"configRightClickable" : configRightClickable};
+		$.ajax({
+			method : 'post'
+			, url  : 'updateRightClickable'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+				siteConfig();
+			}
+		});  
+	});
 	$(document).on('change', '.blogFont', function(){
-		var configBasicFont = $(this).val()
+		var configBasicFont = $(this).val();
 		//alert(configBasicFont)
 		
 		var sendData = {"configBasicFont" : configBasicFont};
@@ -218,14 +329,14 @@ $(function(){
 	/*    드롭다운     */
 	/**************/
 	$(".site-config-flip").click(function(){
-	    $(".site-config-panel").slideToggle("slow")
-	    $(".site-config-panel").css("border-bottom","1px solid #333e4e").css("border-left","1px solid #333e4e").css("border-right","1px solid #333e4e")
+	    $(".site-config-panel").slideToggle("slow");
+	    $(".site-config-panel").css("border-bottom","1px solid #333e4e").css("border-left","1px solid #333e4e").css("border-right","1px solid #333e4e");
 	  	
 	});
 	
 	$(".menu-config-flip").click(function(){
-		$(".menu-config-panel").slideToggle("slow")
-	    $(".menu-config-panel").css("border-bottom","1px solid #333e4e").css("border-left","1px solid #333e4e").css("border-right","1px solid #333e4e")
+		$(".menu-config-panel").slideToggle("slow");
+	    $(".menu-config-panel").css("border-bottom","1px solid #333e4e").css("border-left","1px solid #333e4e").css("border-right","1px solid #333e4e");
 	  	
 	});
 	 
@@ -261,7 +372,7 @@ $(function(){
 			$.each($($(target).parents('ol')[0]).children('li'), function(index, item){
 				if ($(item).hasClass('changed')){
 					newMenuSeq = index + 1;
-					newMenuDepth = 0
+					newMenuDepth = 0;
 					$(item).removeClass("changed");
 				}
 			});
@@ -271,7 +382,7 @@ $(function(){
 				if ($(item).hasClass('changed')){
 					// menuSeq
 					newMenuSeq = index + 1;
-					newMenuDepth = 1
+					newMenuDepth = 1;
 					$(item).removeClass("changed");
 				}
 			});
@@ -359,9 +470,26 @@ $(function(){
 	$(document).on('click', '.hidebtn', function(){
 		
 	}); 
-	$(document).on('click', '.menu-plus', function(){
+	$(document).on('click', '.menu-plus-button', function(){
+		$(this).css('display','none');
+		$('.menu-plus-box').css('display','block');
 		
 	}); 
+	$(document).on('click', '.menu-plus-check', function(){
+		var menuPlusName = $(this).prev().val();
+		var sendData = {"menuName" : menuPlusName};
+		$.ajax({
+			method : 'post'
+			, url  : 'insertMenu'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+				menuConfig();
+			} 
+		});
+		
+	});
 	$(document).on('click', '.checkbtn', function(){
 		var menuname = $(this).prev().val();
 		var menuno  = $(this).attr("data-rno");
