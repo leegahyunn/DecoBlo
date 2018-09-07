@@ -39,7 +39,6 @@ public class BlogController {
 	@RequestMapping(value = "/config", method = RequestMethod.GET)
 	public String config(Menu menu, Model model,HttpSession session) {	
 		int userNo = (int) session.getAttribute("loginNo");
-		System.out.println(userNo);
 		menu.setMenuNo(1);
 		menu.setMenuUserNo(userNo);
 		List<Block> blockList = blogRepository.selectBlockList(menu);
@@ -165,8 +164,6 @@ public class BlogController {
     @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
     public String fileUp(MultipartHttpServletRequest multi) {
         
-    	System.out.println("??");
-    	
         // 저장 경로 설정
         String root = multi.getSession().getServletContext().getRealPath("/");
         String path = root+"resources/up/";
@@ -230,31 +227,12 @@ public class BlogController {
 				}
 			}
 		} else {//움직인 애가 대메뉴일 경우
-			System.out.println("움직인 애가 대메뉴일 경우");
 			if(!(map.containsKey("newMenuParent"))) { //대메뉴 순서만 바뀐 경우
-				System.out.println("대메뉴 순서만 바뀐 경우");
-				System.out.println("=======================");
-				for (HashMap<String, ArrayList<Menu>> a : blogRepository.selectMenu(1)) {
-					System.out.println(a);
-				}
 				map.put("newMenuParent", map.get("menuNo"));
-				System.out.println(map);
+				
 				blogRepository.updateLargeMenuPull(map);
-				System.out.println("=======================");
-				for (HashMap<String, ArrayList<Menu>> a : blogRepository.selectMenu(1)) {
-					System.out.println(a);
-				}
 				blogRepository.updateLargeMenuPush(map);
-				System.out.println("=======================");
-				for (HashMap<String, ArrayList<Menu>> a : blogRepository.selectMenu(1)) {
-					System.out.println(a);
-				}
 				blogRepository.updateMenu(map);
-				blogRepository.updateLargeMenuPush(map);
-				System.out.println("=======================");
-				for (HashMap<String, ArrayList<Menu>> a : blogRepository.selectMenu(1)) {
-					System.out.println(a);
-				}
 			}else {//대메뉴가 다른 대메뉴의 소메뉴로 들어간 경우
 				blogRepository.updateLargeMenuPull(map);
 				blogRepository.updateSmallMenuPush(map);
@@ -301,7 +279,6 @@ public class BlogController {
 		System.out.println(block);
 		int blockSeq=block.getBlockSeq();
 		int blockNo= block.getBlockNo();
-		System.out.println(blockNo);
 		blogRepository.updateBlockSeq(blockSeq);
 		int result = blogRepository.copyBlock(blockNo);
 		return result;

@@ -99,7 +99,7 @@
 	SET
 		menuParentSeq = menuParentSeq + 1
 	WHERE
-		menuParentSeq >= #{newMenuParent}
+		menuParentSeq >= #{newMenuSeq}
 	AND
 		menuUserNo = #{menuUserNo}
 		
