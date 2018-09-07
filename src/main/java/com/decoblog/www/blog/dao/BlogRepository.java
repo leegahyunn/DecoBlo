@@ -24,9 +24,9 @@ public class BlogRepository {
 	 * 전체 메뉴 가져오기
 	 * @return DB에 등록된 메뉴
 	 */
-	public ArrayList<HashMap<String, ArrayList<Menu>>> selectMenu() {
+	public ArrayList<HashMap<String, ArrayList<Menu>>> selectMenu(int menuUserNo) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
-		ArrayList<HashMap<String, ArrayList<Menu>>> result = mapper.selectMenu();
+		ArrayList<HashMap<String, ArrayList<Menu>>> result = mapper.selectMenu(menuUserNo);
 		return result;
 	}
 	
@@ -68,6 +68,12 @@ public class BlogRepository {
 		int result = mapper.insertBlock(block);
 		return result;
 	}
+	/*블록 복제*/
+	public int copyBlock(int blockNo) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.copyBlock(blockNo);
+		return result;
+	}
 	/*블록 Seq 한자리씩 미루기*/
 	public int updateBlockSeq(int blockSeq) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
@@ -78,6 +84,7 @@ public class BlogRepository {
 	public int deleteBlock(int blockSeq) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.deleteBlock(blockSeq);
+		
 		return result;
 	}
 
@@ -115,4 +122,59 @@ public class BlogRepository {
 		
 		return result;
 	}
+	
+	/**
+	 * 블로그 타이틀 수정
+	 * @return 성공 여부
+	 */
+	public int updateBlogTitle(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateBlogTitle(map);
+		
+		return result;
+	}
+
+	public int updateMetaTag(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateMetaTag(map);
+		
+		return result;
+		
+	}
+
+	public int updateBackgroundColor(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateBackgroundColor(map);
+		
+		return result;
+	}
+
+	public int updateBackgroundImg(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateBackgroundImg(map);
+		
+		return result;
+	}
+
+	public User selectBlog(int userNo) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		User result = mapper.selectBlog(userNo);
+		return result;
+	}
+
+	public int updateBlogFont(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateBlogFont(map);
+		
+		return result;
+	}
+
+	public int updateOnepageStyle(HashMap<String, String> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateOnepageStyle(map);
+		
+		return result;
+	}
+	
+	
 }

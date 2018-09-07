@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.decoblog.www.board.dao.BoardRepository;
 import com.decoblog.www.board.vo.Bbs;
+import com.decoblog.www.board.vo.Like;
 import com.decoblog.www.board.vo.PageNavigator;
 import com.decoblog.www.board.vo.Reply;
 
@@ -127,11 +127,15 @@ public class BoardController {
 		return "redirect:bbsList";
 	}
 
-	// 글 수정 화면 요청
+/*	// 글 수정 화면 요청
 	@RequestMapping(value = "/updateBbs", method = RequestMethod.GET)
 	public String updateBbs(Model model, int bbsNo) {
 
 		Bbs bbsUpdate = repository.selectOneBbs(bbsNo);
+		
+		System.out.println(bbsUpdate);
+		
+		
 		model.addAttribute("bbsUpdate", bbsUpdate);
 
 		return "common/bbsUpdate";
@@ -143,6 +147,7 @@ public class BoardController {
 
 		// 수정할 글 가져오기
 		Bbs bbsUpdate = repository.selectOneBbs(bbs.getBbsNo());
+		
 		// 수정한 글 넣어주기
 		repository.updateBbs(bbs);
 
@@ -150,7 +155,7 @@ public class BoardController {
 
 		return "redirect:bbsList";
 	}
-
+*/
 	// 글 삭제
 	@RequestMapping(value = "/deleteBbs", method = RequestMethod.GET)
 	public String deleteBbs(int bbsNo) {
@@ -160,6 +165,47 @@ public class BoardController {
 		// 첨부파일 삭제
 
 		return "redirect:bbsList";
+	}
+	
+	
+	
+	/**************************************/
+	/* LIKE *******************************/
+	/**************************************/
+	
+	// 좋아요 목록
+	@RequestMapping(value="/likeList", method=RequestMethod.GET)
+	public @ResponseBody String likeList(int likeBbsNo, Model model, HttpSession session) {
+		
+		int likeUserNo = (int)session.getAttribute("loginNo");
+		Like like = repository.selecOneLike(likeUserNo, likeBbsNo);
+		model.addAttribute("like", like);
+		
+		if (like == null) {
+			return "false";
+		} else {
+			return "true";
+		}
+	}
+	
+	// 좋아요 입력
+	@RequestMapping(value="/insertLike", method= RequestMethod.POST)
+	public @ResponseBody String insertLike(@RequestBody Like like, HttpSession session) {
+		
+		like.setLikeUserNo((int)session.getAttribute("loginNo"));
+		int result = repository.insertLike(like);
+		
+		return "redirect:/bbsDetail";
+	}
+	
+	// 좋아요 취소
+	@RequestMapping(value="/deleteLike", method= RequestMethod.POST)
+	public @ResponseBody String deleteLike(int likeBbsNo, HttpSession session) {
+		
+		int likeUserNo = (int)session.getAttribute("loginNo");
+		int result = repository.deleteLike(likeUserNo, likeBbsNo);
+		
+		return "redirect:/bbsDetail";
 	}
 	
 	

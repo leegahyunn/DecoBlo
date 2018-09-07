@@ -1,10 +1,14 @@
 package com.decoblog.www.blog.controller;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.decoblog.www.blog.dao.BlogRepository;
 import com.decoblog.www.blog.vo.Block;
-import com.decoblog.www.blog.vo.BlockTemplate;
 import com.decoblog.www.blog.vo.Menu;
+import com.decoblog.www.user.vo.User;
 import com.google.gson.Gson;
 
 @Controller
@@ -30,9 +37,11 @@ public class BlogController {
 	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/config", method = RequestMethod.GET)
-	public String config(Menu menu, Model model) {	
+	public String config(Menu menu, Model model,HttpSession session) {	
+		int userNo = (int) session.getAttribute("loginNo");
+		System.out.println(userNo);
 		menu.setMenuNo(1);
-		menu.setMenuUserNo(1);
+		menu.setMenuUserNo(userNo);
 		List<Block> blockList = blogRepository.selectBlockList(menu);
 		model.addAttribute("blockList", blockList);
 		return "blog/config";
@@ -46,22 +55,129 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping(value = "/menuConfig", method = RequestMethod.POST)
 	public String menuConfig() {
-		ArrayList<HashMap<String, ArrayList<Menu>>> list= blogRepository.selectMenu();
-	//	System.out.println(list);
+		int menuUserNo = 1;
+		ArrayList<HashMap<String, ArrayList<Menu>>> list= blogRepository.selectMenu(menuUserNo);
 		Gson gson = new Gson();
 		String result = gson.toJson(list);
 		return result;
 	}
+	
+	/**
+	 * 타이틀 불러오기 Ajax
+	 * DB에 저장된 블로그 타이틀를 가져와서 JSP에 넘겨줌
+	 * @return ArrayList<HashMap<String, ArrayList<Menu>>> JSON
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/siteConfig", method = RequestMethod.POST)
+	public User siteConfig() {
+		int userNo = 2;
+		User user = blogRepository.selectBlog(userNo);
+		return user;
+	}
+
 	/**
 	 * 메뉴 수정 Ajax
 	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/editMenu", method = RequestMethod.POST)
 	public String editMenu(@RequestBody Menu menu) {
-		System.out.println(menu); 
 		blogRepository.updateMenuTitle(menu);
 		return "blog/config";
 	}
+	
+	/**
+	 * 블로그 타이틀 수정 Ajax
+	 * @return 블로그 수정 페이지
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/editBlogTitle", method = RequestMethod.POST)
+	public String editBlogTitle(@RequestBody HashMap<String, String> map) {
+		map.put("userNo", "2");
+		blogRepository.updateBlogTitle(map);
+		return  "blog/config";
+	}
+	
+	/**
+	 * 블로그 메타태그 수정 Ajax
+	 * @return 블로그 수정 페이지
+	 */
+	@RequestMapping(value = "/metaEdit", method = RequestMethod.POST)
+	public String metaEdit(@RequestBody HashMap<String, String> map) {
+		map.put("userNo", "2");
+		blogRepository.updateMetaTag(map);
+		return  "blog/config";
+	}
+	
+	/**
+	 * 블로그 배경색 수정 Ajax
+	 * @return 블로그 수정 페이지
+	 */
+	@RequestMapping(value = "/updateBackgroundColor", method = RequestMethod.POST)
+	public String updateBackgroundColor(@RequestBody HashMap<String, String> map) {
+		map.put("userNo", "2");
+		blogRepository.updateBackgroundColor(map);
+		return  "blog/config";
+	}
+     
+	/**
+	 * 블로그 폰트 수정 Ajax
+	 * @return 블로그 수정 페이지
+	 */
+	@RequestMapping(value = "/updateBlogFont", method = RequestMethod.POST)
+	public String updateBlogFont(@RequestBody HashMap<String, String> map) {
+		map.put("userNo", "2");
+		blogRepository.updateBlogFont(map);
+		return  "blog/config";
+	}
+	
+	/**
+	 * 블로그 폰트 수정 Ajax
+	 * @return 블로그 수정 페이지
+	 */
+	@RequestMapping(value = "/updateOnepageStyle", method = RequestMethod.POST)
+	public String updateOnepageStyle(@RequestBody HashMap<String, String> map) {
+		map.put("userNo", "2");
+		blogRepository.updateOnepageStyle(map);
+		return  "blog/config";
+	}
+	
+    @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
+    public String fileUp(MultipartHttpServletRequest multi) {
+        
+    	System.out.println("??");
+    	
+        // 저장 경로 설정
+        String root = multi.getSession().getServletContext().getRealPath("/");
+        String path = root+"resources/up/";
+         
+        String newFileName = ""; // 업로드 되는 파일명
+         
+        File dir = new File(path);
+        if(!dir.isDirectory()){
+            dir.mkdir();
+        }
+         
+        Iterator<String> files = multi.getFileNames();
+        while(files.hasNext()){
+            String uploadFile = files.next();
+                         
+            MultipartFile mFile = multi.getFile(uploadFile);
+            String fileName = mFile.getOriginalFilename();
+            System.out.println("실제 파일 이름 : " +fileName);
+            newFileName = System.currentTimeMillis()+"."
+                    +fileName.substring(fileName.lastIndexOf(".")+1);
+             
+            try {
+                mFile.transferTo(new File(path+newFileName));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+         
+        System.out.println("ㄴㄴ");
+         
+        return "blog/config";
+       }
 	
 	@ResponseBody
 	@RequestMapping(value="/updateMenu", method=RequestMethod.POST)
@@ -71,7 +187,7 @@ public class BlogController {
 		}
 
 		// TODO userNo 세션값으로 바꾸기 
-		map.put("menuUserNo", "1");
+		map.put("menuUserNo", "2");
 		String depth = String.valueOf(map.get("menuDepth"));
 		
 		if(depth.equals("1")) {//움직인 애가 소메뉴일 경우
@@ -107,10 +223,8 @@ public class BlogController {
 		
 		return "success";
 	}
-	
-	@ResponseBody
 	@RequestMapping(value="getThumnail",method=RequestMethod.POST)
-	public List<Integer> getThumnail(String tmpType) {
+	public @ResponseBody List<Integer> getThumnail(String tmpType) {
 		List<Integer> blockNoList = blogRepository.selectThumnail(tmpType);
 		return blockNoList;
 	}
@@ -128,16 +242,36 @@ public class BlogController {
 		return blockContent;
 	}
 	
+	@RequestMapping(value = "/yrtest", method = RequestMethod.GET)
+	public String yrtest(Menu menu, Model model) {
+		menu.setMenuNo(1);
+		menu.setMenuUserNo(1);
+		List<Block> blockList = blogRepository.selectBlockList(menu);
+		model.addAttribute("blockList", blockList);
+		return "blog/blogEdit1";
+	}
+	
 	@RequestMapping(value="setBlockContent",method=RequestMethod.POST)
-	public @ResponseBody String setBlockContent(@RequestBody Block block) {
+	public @ResponseBody int setBlockContent(@RequestBody Block block,Menu menu) {
 		int blockSeq = block.getBlockSeq();
 		blogRepository.updateBlockSeq(blockSeq);
-		blogRepository.insertBlock(block);
-		return "redirect:/config";
+		int result=blogRepository.insertBlock(block);
+		return result;
 	}
 	
 	@RequestMapping(value="deleteBlock",method=RequestMethod.POST)
-	public String deleteBlock(int blockSeq) {
+	public @ResponseBody String deleteBlock(int blockSeq , Menu menu,RedirectAttributes rttr) {
+		blogRepository.deleteBlock(blockSeq);
 		return "redirect:/config";
+	}
+	@RequestMapping(value="copyBlock",method=RequestMethod.POST)
+	public @ResponseBody int copyBlock(@RequestBody Block block) {
+		System.out.println(block);
+		int blockSeq=block.getBlockSeq();
+		int blockNo= block.getBlockNo();
+		System.out.println(blockNo);
+		blogRepository.updateBlockSeq(blockSeq);
+		int result = blogRepository.copyBlock(blockNo);
+		return result;
 	}
 }

@@ -11,7 +11,7 @@ import com.decoblog.www.user.vo.User;
 
 public interface BlogMapper {
 	// 전체 메뉴 가져오기
-	public ArrayList<HashMap<String, ArrayList<Menu>>> selectMenu();
+	public ArrayList<HashMap<String, ArrayList<Menu>>> selectMenu(int menuUserNo);
 	// 메뉴 타이틀 수정
 	public int updateMenuTitle(Menu menu);
 	public int updateSmallMenuPull(HashMap<String, String> map);
@@ -30,8 +30,17 @@ public interface BlogMapper {
 	public List<Block> selectBlockList(Menu menu);
 	//블록 입력 
 	public int insertBlock(Block block);
+	//블록 복제
+	public int copyBlock(int blockNo);
 	//블록 한자리 미루기 
 	public int updateBlockSeq(int blockSeq);
-	//블록 지우기
+	//블록 삭제
 	public int deleteBlock(int blockSeq);
+	public int updateBlogTitle(HashMap<String, String> map);
+	public int updateMetaTag(HashMap<String, String> map);
+	public int updateBackgroundColor(HashMap<String, String> map);
+	public int updateBackgroundImg(HashMap<String, String> map);
+	public User selectBlog(int userNo);
+	public int updateBlogFont(HashMap<String, String> map);
+	public int updateOnepageStyle(HashMap<String, String> map);
 }

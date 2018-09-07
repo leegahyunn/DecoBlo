@@ -43,6 +43,7 @@ body#body-config #header {
 	color: #FFFFFF;
 	height: 35px;
 	overflow: hidden;
+	z-index: 8000;
 }
 
 /* left-menu : menu-config & site-config */
@@ -337,29 +338,16 @@ body { margin: 0; }
 <script type="text/javascript">
 
 </script>
-<script type="text/javascript">
-/**************/
-/*메뉴 드래그앤드롭*/
-/**************/
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-36251023-1']);
-_gaq.push(['_setDomainName', 'jqueryscript.net']);
-_gaq.push(['_trackPageview']);
-(function() {
-	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
- })();
-</script>
+
 
 </head>
 <body id="body-config">
 <header id="header">
-	<div class="left-menu menu-config-flip folder"><!-- menu-flip 클래스 추가-->
+	<div class="left-menu menu-config-flip folder">
 		<div>메뉴 설정1</div>
 		<i class="fa fa-chevron-down"></i>
 	</div>
-	<div class="left-menu site-config-flip folder"><!-- site-flip 클래스 추가-->
+	<div class="left-menu site-config-flip folder">
 		<div>사이트 설정</div>
 		<i class="fa fa-chevron-down"></i>
 	</div>
@@ -397,29 +385,67 @@ _gaq.push(['_trackPageview']);
     border-bottom-width: 0px;
     border-left-width: 0px;"
 	>
-	<form enctype="multipart/form-data">
 		<div class="block-config-section site-config-panel"><!-- site-panel 클래스 추가 -->
 			<div class="default-config">
-				<div class="outer-config title"><!-- title 클래스 추가-->
-					<span>타이틀</span> 
-					<i class="fa right-icon fa-pencil titleBtn"></i><!-- 수정아이콘 titleBtn 클래스 추가 -->
+				<div class="outer-config blog-title">
+					<span>타이틀 - </span><span class="blogTitle"></span>
+					<i class="fa right-icon fa-pencil blog-title-edit"></i>
 				</div>
-				<div class="fold outer-config titleEdit" style="display:none;"><!-- titleEdit 클래스 추가 -->
-					<input type="text" value="title" style="width:200px;">
-					<i class="right-icon fa fa-check checkBtn"></i><!-- 체크아이콘 checkBtn 클래스 추가 -->
+				<div class="fold outer-config blog-title-editbox" style="display:none;">
+					<input type="text" style="width:200px;">
+					<i class="right-icon fa fa-check blog-title-check"></i>
 				</div>
 			</div>
 			<div class="default-config">
-				<div class="outer-config">
+				<div class="fold outer-config">
 					<span>메타태그</span> 
-					<i class="fa right-icon fa-pencil metaBtn"></i><!-- metaBtn 클래스 추가 -->
+					<i class="fa fa-chevron-right right-icon fold-icon"></i>
+				</div>
+				<div class="inner-config">
+					<div class="config-row">
+						<table>
+							<tr>
+								<th>제작자 이름</th>
+								<td>
+									<input class="metaAuthor" type="text"/>
+								</td>
+							</tr>
+							
+							<tr>
+								<th>사이트 제목</th>
+								<td>
+									<span class="blogTitle"></span>
+									
+								</td>
+							</tr>
+							
+							<tr>
+								<th>사이트 설명</th>
+								<td>
+									<input class="metaDescription" type="text"/>
+								</td>
+							</tr>
+						
+							<tr>
+								<th>키워드</th>
+								<td>
+									<input class="metaKeyword" type="text"/>
+								</td>
+							</tr>
+							<tr>
+								<th colspan="2">
+									<input class="btn btn-secondary" type="button" value="확인" onclick = "metaEdit()"/>
+								</th>
+							</tr>
+						</table>
+					</div>	
 				</div>
 			</div>
 			<div class="default-config">
 				<div class="outer-config">
 					<span>원페이지 스타일</span> 
 					<label class="switch right-icon">
-  						<input type="checkbox" checked>
+  						<input class="configOnepageStyle" type="checkbox"  checked="unchecked">
   						<span class="slider round"></span>
 					</label>
 				</div>
@@ -441,14 +467,14 @@ _gaq.push(['_trackPageview']);
 				<div class="inner-config">
 					<div class="config-row">
 						<label>색상</label>
-						<input type="color" class="color color-picker transparent">
+						<input type="color" class="color color-picker transparent" value="#888888">
 						<button id="example3"></button>
 					</div>
 					<div class="config-row">
-						<label>이미지</label>
-						<input type="file" name = "upload" class="upload"/> 
-						<i class="fa fa-folder-open"></i>
-						
+						<form id="fileForm" action="fileUpload" method="post" enctype="multipart/form-data">
+					        <input type="file" id="fileUp" name="fileUp"/>
+					   	 	<input type="button" value="전송하기" onClick="fileSubmit();" />
+					    </form>
 					</div>	
 					<div class="config-row">
 						<label>position</label>
@@ -490,15 +516,17 @@ _gaq.push(['_trackPageview']);
 				<div class="inner-config">
 					<div class="config-row">
 						<label>색상</label>
-						<input type="color" class="color color-picker transparent">
+						<input type="color" class="color color-picker transparent" value="#888888">
 						<button id="example3"></button>
 					</div>
 					<div class="config-row">
 						<label>폰트명</label>
-						<select>
-							<option>고딕</option>
-							<option>돋움</option>
-							<option>맑은고딕</option>
+						<select class="blogFont">
+							<option value="Gothic">고딕</option>
+							<option value="Dotum">돋움</option>
+							<option value="Batang">바탕</option>
+							<option value="Gungsuh">궁서</option>
+							<option value="Malgun Gothic">맑은고딕</option>
 						</select>
 					</div>	
 				</div>
@@ -517,11 +545,18 @@ _gaq.push(['_trackPageview']);
 				</div>
 			</div>
 		</div>
-		</form>
 	</nav>
 </div>
 </div>
-
+<!-- menu-bar -->
+<div class="menu-wrapper">
+	<div class="block-wrapper">
+		<div class='menu-bar'>
+			<ul class = "menu-block">
+			</ul>
+		</div>
+	</div>
+</div>
 <nav id="block-config-nav">
 <div class="blockMenu-sidebar-div">
 	<ul class="blockMenu-sidebar-ul">
@@ -569,7 +604,7 @@ _gaq.push(['_trackPageview']);
 <div id="mask"></div>
 <!-- 전체 블록 section 시작 -->
 <section id="blog-wrapper">
-	<div class="templates-wrapper" style="background-color: gray;">
+	<div class="templates-wrapper">
 	
 	<c:if test="${empty blockList}" var="seletedBlockList">
 		<div class="intro-block-wrapper" id="intro-block-wrapper">
@@ -595,7 +630,7 @@ _gaq.push(['_trackPageview']);
 			</ul>
 			<section class="block-wrapper" data-block-seq="${blockList.blockSeq}">
 			${blockList.blockContent}
-			
+			<div class="mask2" id="mask-2-${blockList.blockSeq}"></div>
 			<div class="settingIcon ${blockList.blockSeq}" id='${blockList.blockSeq}'>
 				<div class="settingButton">
 				<img alt="+" src="resources/images/blockSettingimg/settingButton.png">
@@ -606,6 +641,8 @@ _gaq.push(['_trackPageview']);
 				<div class="block-config-header">
 					<i class="fa fa-cog"></i> <span>블럭 설정</span><i class="fa fa-times" id="block-config-close"></i>
 				</div>
+				
+				
 				<!-- config-section -->
 				<div class="block-config-section">
 					<!-- 여백 -->
@@ -745,7 +782,7 @@ _gaq.push(['_trackPageview']);
 						<i class="fa fa-sort"></i>
 						<span>블럭이동</span>
 					</div>
-					<div class="block-copy">
+					<div class="block-copy" data-block-seq="${blockList.blockSeq}" data-block-blockNo="${blockList.blockNo }">
 						<i class="fa fa-files-o"></i>
 						<span>블럭복제</span>
 					</div>
@@ -753,13 +790,15 @@ _gaq.push(['_trackPageview']);
 						<i class="fa fa-file-code-o"></i>
 						<span>HTML/CSS</span>
 					</div>
-					<div class="block-remove" onclick="blockDelete(${blockList.blockSeq})">
+					<div class="block-remove" data-block-seq="${blockList.blockSeq }">
 						<i class="fa fa-trash-o"></i>
 						<span>블럭삭제</span>
 					</div>
+					
 				</div>
 				<!-- /footer -->
 			</div>
+			
 			</section>
 			
 			<ul class='add-button ${blockList.blockSeq}' id='${blockList.blockSeq+1}'>
@@ -777,7 +816,23 @@ _gaq.push(['_trackPageview']);
 				<!-- 사용하기 버튼 -->
 					<!-- 블록 코드 미리보기 -->
 		</div>
-		
+		<div class="delete-confirm">
+			<button class="confirm-close" onclick="deleteCancle()">
+				<span>
+					<img alt="close" src="resources/images/blockSettingimg/confirm-close.png">
+				</span>
+			</button>
+			<div class="confirm-boddy">
+				<h3 class="confirm-title">delete block</h3>
+				"블럭을 삭제하시면 변경한 내용이 삭제됩니다."
+				<br>
+				"삭제하시겠습니까 ?"
+			</div>
+			<div class="confirm-footer">
+				<button type="button" class="delete-confirm-cancle" onclick="deleteCancle()">취소</button>
+				<button type="button" class="delete-confirm-ok">확인</button>
+			</div>
+		</div>
 </div>	
 </section>
 </body>

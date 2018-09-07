@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="templates/common.css" />
 <link rel="stylesheet" href="templates/block-1.css" />
 <link rel="stylesheet" href="templates/block-2.css" />
+<<<<<<< HEAD
 <style type="text/css">
 .photo {
 	width: 300px;
@@ -265,6 +266,9 @@ to {
 
 
 </style>
+=======
+<link rel="stylesheet" href="templates/block-3.css" />
+>>>>>>> 70ccf2eca884a17708c89348b577a1079662885d
 </head>
 <body>
 	<div class="menu-wrapper">
@@ -432,6 +436,7 @@ to {
 			<!-- 쇼케이스 블록, block-5 -->
 			<!-- ---------------------- -->
 		</div>
+<<<<<<< HEAD
 		<div class="block-5">
 			<div class="picter">
 				<img
@@ -555,6 +560,18 @@ to {
 		
 	</script>
 
+=======
+	</div>
+	<!-- ----------------------- -->
+	<!-- /쇼케이스 블록, block-3 -->
+	<!-- ----------------------- -->
+</div>
+
+<script src="resources/library/js/jquery-3.3.1.min.js"></script>
+<script src="templates/block-1.js"></script>
+<script src="templates/block-2.js"></script>
+<script src="templates/block-3.js"></script>
+>>>>>>> 70ccf2eca884a17708c89348b577a1079662885d
 
 </body>
 </html>

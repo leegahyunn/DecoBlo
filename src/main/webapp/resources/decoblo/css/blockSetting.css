@@ -4,9 +4,15 @@
 #mask{
 	position: absolute;
 	left: 0;
+	background-color: rgba(0,0,0,0.5);
+	display: none;	
+}
+/*블록 설정시 화면 */
+.mask2{
+	position: absolute;
+	left: 0;
 	top:0;
 	z-index: 49;
-	background-color: #000;
 	display: none;
 }
 /*블록이 없을때 intro*/
@@ -36,7 +42,7 @@
 /*블록이 생성되는 바디 */
 .templates-wrapper{
 /* 	position:absolute; */
-	top:0;
+/* 	top:0; */
 	left:0;
 	right:0;
 	bottom:0;
@@ -44,6 +50,7 @@
 	height: auto;
 	margin: 0;
 	padding: 0;
+	background-color: #E0CAE0;
 }
 /*메뉴 쌍이는 section*/
 .menu-wrapper{
@@ -55,6 +62,7 @@
 	position:relative;
 	width: 100%;
 	text-align: center;
+	min-height: 100px;
 }
 /*미리보기 */
 .block-preview{
@@ -204,26 +212,17 @@
 	height : 50px;
 }
 
-.testHead{
-	position: absolute;
-	top:0;
-	left: 0;
-	margin: 0 auto;
-	width: 100%;
-	height: 100px;	
-	z-index: 9999;
-}
-
 /*설정 아이콘*/
 .settingIcon{
 	display: none;
+	
 }
 
 /*설정 버튼*/
 .settingButton{
 	position: absolute;
 	right: 10px;
-	top: 10px;
+	top:10px;
 	display: inline-block;
 	color: #fff;
 	background-color: #4789e7;
@@ -242,4 +241,75 @@
 	vertical-align: middle;
 	border: 0;
 	margin-top: 8px;
+}
+
+/*블록 삭제 컨펌창*/
+.delete-confirm{
+	display:none;
+	position:fixed;
+	top:65px;
+	left:500px;
+	padding:15px;
+    box-shadow: 0 3px 9px rgba(0,0,0,.5);
+    background-color: #fff;
+    max-width: 385px;
+    max-height: 210px;
+    color: #37383b;
+    font-size: 13px;
+    line-height: 1.6;
+    letter-spacing: -.05em;
+    z-index: 9000;
+}
+.confirm-close{
+	float: right;
+	padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+}
+.cofirm-close img{
+	    
+}
+.confirm-boddy{
+	padding: 0;
+	color: #25272b;
+	font-family: 'Open Sans','Nanum gothic';
+	text-align: center;
+}
+.confirm-title{
+	text-align: center;
+    text-transform: capitalize;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    letter-spacing: .05em;
+    padding-top: 0;
+}
+.confirm-footer{
+	text-align: center;
+    border-top: none;
+    padding: 0;
+    margin-top: 35px;
+    margin-bottom: 20px;
+}
+.delete-confirm-cancle{
+	min-width: 145px;
+    padding: 13px 15px;
+    line-height: 1;
+    border-radius: 0;
+    border: none;
+    color: #fff;
+    background-color: #9b9ea5;
+    cursor: pointer;
+}
+.delete-confirm-ok{
+	margin-left: 8px;
+	min-width: 145px;
+    padding: 13px 15px;
+    line-height: 1;
+    border-radius: 0;
+    border: none;
+    color: #fff;
+    background-color: #2d343e;
+    cursor: pointer;
 }
