@@ -75,7 +75,7 @@ public class UserRepository {
 		int result = 0;
 		
 		UserMapper mapper = session.getMapper(UserMapper.class);
-		mapper.emailConfirm(userEmail, key);
+		result = mapper.emailConfirm(userEmail, key);
 		
 		return result;
 	}
@@ -89,6 +89,11 @@ public class UserRepository {
 		return result;
 	}
 
+	/**
+	 * 비밀번호 변경
+	 * @param passwords
+	 * @return
+	 */
 	public int changePassword(HashMap<String, String> passwords) {
 		int result = 0;
 		
@@ -98,6 +103,10 @@ public class UserRepository {
 		return result;
 	}
 
+	/**
+	 * 전체 회원수 조회	
+	 * @return
+	 */
 	public int getNUser() {
 		int result = 0;
 		

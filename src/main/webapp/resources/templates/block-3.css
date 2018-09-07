@@ -1,0 +1,45 @@
+@charset "UTF-8";
+
+
+/*********************/
+/* 쇼케이스, block-2 */
+/*********************/
+.block-2 {
+	background-color: #3A2e51;
+	background-size: cover; 
+	background-repeat: no-repeat; 
+	height: 500px;
+}
+
+.block-2 .temp-space {
+	height: 125px;
+}
+
+.block-2 h2 {
+	color: #FFF;
+	font-size: 3em;
+	text-align: center;
+}
+
+.block-2 p {
+	color: #EEE;
+	font-size: 1.5em;
+	text-align: center;
+	margin: 25px 0;
+}
+
+.block-2 .start-btn-wrapper {
+	margin: 80px 0;
+	text-align: center;
+}
+
+.block-2 .start-btn {
+	color: #FFF;
+	background-color: rgba(255, 255, 255, 0);
+	border: 1px solid #FFF;
+	border-radius: 4px;
+	width: 160px;
+	height: 50px;
+	font-size: 1.4em;
+	cursor: pointer;
+}

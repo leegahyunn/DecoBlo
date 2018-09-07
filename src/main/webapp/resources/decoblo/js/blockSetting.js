@@ -12,60 +12,70 @@ function menuConfig() {
 			var menuJson = JSON.parse(resp);
 			var result2 = '';
 			var result1 = '';
-			
+			var result = '';
 			result2 += '<ol class="dd-list">';
 			$.each(menuJson, function(mainIndex, mainMenu){
 				$.each(mainMenu.Menu, function(subIndex, subMenu){
 					/* menu-bar */
-					if(subMenu.menuDepth==0){
-						result1 += '</ul></li><li data-parent="'+ subMenu.menuParent+'"><a href="#">'+ subMenu.menuName +'</a><ul>';
-					} else if(subMenu.menuDepth==1){
-						result1 += '<li><a href="#">'+ subMenu.menuName +'</a></li>';
-					}
-					
-					if (subIndex == 1 && mainMenu.Menu.length != 1) {
-						result2 += '<ol class="dd-list">';
-					}
-					
-					result2 += '<li class="dd-item '; 
-					
-					if (subIndex == 0) {
-						result2 += 'mainMenuWrapper';
-					} 
-					
-					result2 += '" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+ '" data-menu-seq="'+ subMenu.menuSeq +'" data-menu-depth="'+ subMenu.menuDepth +'" data-menu-parent-seq="'+ subMenu.menuParentSeq +'">';
-					result2 += '<div class="default-config">';
-					result2 += '<div class="outer-config aa-handle">';
-					result2 += '<div class="dd-handle" style="display: inline-block; width: 80%;">';
-					result2 += '<span>' + subMenu.menuName + '</span>';
-					result2 += '</div>';
-					result2 += '<div class="outer-config"  style="display: inline-block;">';
-					result2 += '<i class="fa fa-trash deletebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					result2 += '<i class="fa fa-pencil editbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					
-					if(subMenu.menuVisible == 1){
-						result2 += '<i style="color:#2ea8e5"class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+					if (subMenu.menuNo == 1) {
+						if(subMenu.menuDepth==0){
+							result += '</ul></li><li data-parent="'+ subMenu.menuParent+'"><a href="#">'+ subMenu.menuName +'</a><ul>';
+							
+						} else if(subMenu.menuDepth==1){
+							result += '<li><a href="#">'+ subMenu.menuName +'</a></li>';
+						}
 					} else {
-						result2 += '<i class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					}	 
-					
-					result2 += '</div>';
-					result2 += '<div class="fold outer-config" style="display:none;">';
-					result2 += '<input type="text" style="width:200px;">';
-					result2 += '<i class="right-icon fa fa-check checkbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					result2 += '</div>';
-					result2 += '</div>';
-					result2 += '</div>';
-					
-					if (subIndex == mainMenu.Menu.length - 1 && mainMenu.Menu.length != 1) {
-						result2 += '</ol>';
-						result2 += '</li>';
+						if(subMenu.menuDepth==0){
+							result1 += '</ul></li><li data-parent="'+ subMenu.menuParent+'"><a href="#">'+ subMenu.menuName +'</a><ul>';
+							
+						} else if(subMenu.menuDepth==1){
+							result1 += '<li><a href="#">'+ subMenu.menuName +'</a></li>';
+						}
+					}//
+					//if (subMenu.menuNo >= 2) {
+						if (subIndex == 1 && mainMenu.Menu.length != 1) {
+							result2 += '<ol class="dd-list">';
+						}
+						
+						result2 += '<li class="dd-item '; 
+						
+						if (subIndex == 0) {
+							result2 += 'mainMenuWrapper';
+						} 
+						
+						result2 += '" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+ '" data-menu-seq="'+ subMenu.menuSeq +'" data-menu-depth="'+ subMenu.menuDepth +'" data-menu-parent-seq="'+ subMenu.menuParentSeq +'">';
+						result2 += '<div class="default-config">';
+						result2 += '<div class="outer-config aa-handle">';
+						result2 += '<div class="dd-handle" style="display: inline-block; width: 80%;">';
+						result2 += '<span>' + subMenu.menuName + '</span>';
+						result2 += '</div>';
+						result2 += '<div class="outer-config"  style="display: inline-block;">';
+						result2 += '<i class="fa fa-trash deletebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+						result2 += '<i class="fa fa-pencil editbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+						
+						if(subMenu.menuVisible == 1){
+							result2 += '<i style="color:#2ea8e5"class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+						} else {
+							result2 += '<i class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+						}	 
+						
+						result2 += '</div>';
+						result2 += '<div class="fold outer-config" style="display:none;">';
+						result2 += '<input type="text" style="width:200px;">';
+						result2 += '<i class="right-icon fa fa-check checkbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+						result2 += '</div>';
+						result2 += '</div>';
+						result2 += '</div>';
+						
+						if (subIndex == mainMenu.Menu.length - 1 && mainMenu.Menu.length != 1) {
+							result2 += '</ol>';
+							result2 += '</li>';
+						}
+						
+						if (mainMenu.Menu.length == 1) {
+							result2 += '</li>';
+					//	}
 					}
-					
-					if (mainMenu.Menu.length == 1) {
-						result2 += '</li>';
-					}
-					
 				});
 			});
 			result2 += '</ol>';
@@ -84,6 +94,8 @@ function menuConfig() {
 			
 			result1 += '</ul></li>';
 			$('.menu-block').html(result1);
+			result += '</ul></li>';
+			$('.main-menu-block').html(result);
 		} 
 	});
 }
@@ -413,8 +425,278 @@ $(document).on('click', '.configRightClickable', function(){
 		});
 		
 	});
+	firstcss();
+	/*블록 없을때 블록 추가 버튼 */
+	$('.intro-block-wrapper').on('click',function(){
+		if($('.blockMenu-sidebar-ul li').hasClass("active")){
+			$('.blockMenu-sidebar-ul > li').removeClass();
+		}
+		$('.blockMenu-sidebar-ul > li').first().addClass("active");
+		thumnail(0);
+		$('.blockMenu-sidebar-div').animate({'margin-left':'0px'},'slow');
+		$('#blockMenu-sidebar-close').css('left','315px');
+		wrapByMask();
+	});
+	
+	/*블록 추가 버튼 */
+	$(document).on('click','.add-button',function(){
+		$(document).off('click','.use-block-button');
+		if($('.blockMenu-sidebar-ul li').hasClass("active")){
+			$('.blockMenu-sidebar-ul > li').removeClass();
+		}
+		$('.blockMenu-sidebar-ul > li').first().addClass("active "+ 0);
+		thumnail(0);
+		$('#blockMenu-sidebar-close').css('left','315px');
+		$('.blockMenu-sidebar-div').animate({'margin-left':'0px'},'slow');
+		wrapByMask();
+		var blockSeq =$(this).attr('id');
+		
+		$(document).on('click','.block-thumnail > li',function(){
+			$(document).off('click','.use-block-button');
+			$('.block-preview').empty();
+			var blockWrapperCode = "";
+			var blockTmpNo = $('.block-thumnail > li').attr('data-block-no');
+			$.ajax({
+				method:'POST'
+				,url:'getBlockContent'
+				,async: false
+				,data : 'blockTmpNo='+blockTmpNo+''
+				,success:function(response){
+					$('.block-preview').append(useButton());
+					blockWrapperCode = decodeURIComponent(response).replace(/\+/g, " ");
+					$('.block-preview').append(blockWrapperCode);
+					var block={
+							"blockContent":blockWrapperCode+""
+							,"blockTmpNo":blockTmpNo
+							,"blockSeq":blockSeq};
+					/*사용하기 버튼 클릭 이벤트 */
+					$(document).on('click','.use-block-button',function(){
+						$.ajax({
+							method:'POST'
+							,url:'setBlockContent'
+							,data:JSON.stringify(block)
+							,dataType:'json'
+							,contentType:'application/json; charset:utf-8'
+							,success:function(resp){
+								location.replace("config");
+							},fail:function(){
+								alert('블록 추가 실패');
+							}
+						});
+						$('.intro-block-wrapper').css('display','none');
+						$('.blockMenu-sidebar-div').animate({'margin-left':'-315px'},'slow');
+						$('#blockMenu-sidebar-close').css('left','-50px');
+						$('#mask').hide();
+						$('.block-preview').empty();
+						$(document).off('click','.use-block-button');
+					});
+				}
+			});
+		})
+	});
+	
+	/*사이드바 close 버튼*/	
+	$('#blockMenu-sidebar-close').on('click',function(){
+		$('.use-block-button').css('display','none');
+		if($('.blockMenu-sidebar-ul > li').hasClass("active")){
+			$('.blockMenu-sidebar-ul > li').removeClass();
+		}
+		$('.blockMenu-sidebar-div').animate({'margin-left':'-315px'},'slow');
+		$('#blockMenu-sidebar-close').css('left','-50px');
+		$('.block-thumnail > li').remove();
+		$('#mask').hide();
+		$('.block-preview').empty();
+	});
+	
+	/*사이드바 type 클릭 이벤트 */
+	$(document).on('click','.blockMenu-sidebar-ul>li',function(){
+		if($('.blockMenu-sidebar-ul li').hasClass("active")){
+			$('.blockMenu-sidebar-ul > li').removeClass();
+		}
+		$(this).addClass("active");
+		thumnail($(this).index());
+	});
+	
+	/*블록 마우스 이벤트*/
+	$(document).on('mouseenter','.block-wrapper',function(){
+		$('.add-button.'+$(this).attr('data-block-seq')).css('display','block');
+		$('.settingIcon.'+$(this).attr('data-block-seq')).css('display','block');
+		$(this).css("border-style","solid");
+		$(this).css("border-color","#0073AC");
+		$(this).css("border-width","1px");
+	});
+	
+	/*블록 마우스 이벤트 종료*/
+	$(document).on('mouseout','.add-button',function(){
+		$('.add-button').css('display','none');
+		$('.settingIcon').css('display','none');
+		$('.block-wrapper').css("border-style","none");
+	});
+	
+	/*마스크 클릭 이벤트*/
+	$(document).on('click','#mask',function(){
+		$(this).hide();
+		$('.blockMenu-sidebar-div').animate({'margin-left':'-315px'},'slow');
+		$('#blockMenu-sidebar-close').css('left','-50px');
+		$('.block-preview').empty();
+		$('.block-thumnail > li').unbind('click');
+		$('.delete-confirm').css('display','none');
+		$(document).off('click','.use-block-button');
+	});
+	
+	/*마스크 2 클릭 이벤트*/
+	$(document).on('click','.mask2',function(){
+		$(this).hide();
+		$('.block-config').css('display','none');
+		$('.mask2').css('display','none');
+	})
+	
+	/*세팅 버튼 클릭 이벤트*/
+	$(document).on('click','.settingIcon',function(){
+		$('.block-config.'+$(this).attr('id')).css('display','block');
+		wrapByMask2($(this).attr('id'));
+		$(this).attr('id');
+	});
+	
+	$(document).on('click','#block-config-close',function(){
+		$('.block-config').css('display','none');
+		$('.mask2').css('display','none');
+	});
+	
+	$('.block-config').draggable();
+	
+	/*블록 삭제 이벤트*/
+	$('.block-remove').on('click',function(){
+		wrapByMask3();
+		var blockSeq=$(this).attr('data-block-seq');
+		$('.delete-confirm').css('display','block');
+		$('.delete-confirm-ok').on('click',function(){
+			$.ajax({
+				url:'deleteBlock'
+				,method:'post'
+				,data:"blockSeq="+blockSeq
+				,success:function(resp){
+					location.replace("config");
+				}
+			});
+		});
+	});
+	/*블록 복제 이벤트*/
+	$('.block-copy').on('click',function(){
+		var blockSeq =$(this).attr('data-block-seq');
+		var blockNo=$(this).attr('data-block-blockNo');
+		var block = {"blockSeq":blockSeq,"blockNo":blockNo};
+		$.ajax({
+			method:'post'
+			,url:'copyBlock'
+			,data:JSON.stringify(block)
+			,dataType:'json'
+			,contentType:'application/json; charset:utf-8'
+			,success:function(rep){
+				location.replace("config");
+			},fail:function(){
+				alert('블록 추가 실패');
+			}
+		})
+	});
 });
 
+/*Type 별 블록 넘버 가져오는 함수 */
+function getBlockNo(data){
+$.ajax({
+	method:'POST'
+	, url:'getThumnail'
+	, data: data
+	,success:function(rep){
+		console.log(rep.length);
+		$('.block-thumnail >li').remove();
+		for(var i =0; i<rep.length;i++){
+			console.log($(this).text());
+			$('.block-thumnail').append(""
+					+"<li data-block-no="+rep[i]+">"
+					+"<img alt='test1' src='resources/images/blockThumnail/block"+rep[i]+".png'>"
+					+"</li>");
+			}
+		}
+	});
+}
+/*사용하기 버튼 코드 함수 */
+function useButton(){
+	var useButtonCode = ""
+	+"<div class='use-block-button'>"
+	+"<i class='fa fa-check'></i>"
+	+"<span>사용하기</span>"
+	+"</div>";
+	return useButtonCode;
+}
+/*mask 함수*/
+function wrapByMask(){
+	var maskHeight= $(window).height();
+	var maskWidth = $(window).width();
+	$('#mask').css({'width':maskWidth,'height':maskHeight});
+	$('#mask').css('z-index',49);
+	$('#mask').fadeIn(500);
+	$('#mask').fadeTo("slow",0.8);
+}
+/*삭제 컨펌 mask*/
+function wrapByMask3(){
+	$('#mask').css({'width':'100%','height':'100%'}).css('display','block').css('z-index',8500).css('top',0);
+}
+
+/*mask 2 함수*/
+function wrapByMask2(blockSeq){
+	var maskHeight= $('.block-wrapper').height();
+	var maskWidth= $('.block-wrapper').width();
+	$('#mask-2-'+blockSeq).css({'width':maskWidth,'height':maskHeight});
+	$('#mask-2-'+blockSeq).css('display','block');
+	$('#mask-2-'+blockSeq).css('background-color','rgba(125, 162, 206,0.3)');
+}
+/*블럭 삭제 ajax*/
+function deleteConfirm(blockSeq){
+	$('.delete-confirm').css('display','block');
+	wrapByMask3();
+}
+/*블럭 삭제 취소*/
+function deleteCancle(){
+	$('.delete-confirm').css('display','none');
+	$('#mask').css('display','none');
+}
+/*썸네일 불러오는 함수*/
+function thumnail(index){
+	switch(index){
+	case 0 :
+		var data = 'tmpType=showcase';
+		getBlockNo(data);
+		break;
+	case 1 :
+		var data = 'tmpType=title';
+		getBlockNo(data);
+		break;
+	case 2 :
+		var data = 'tmpType=contents';
+		getBlockNo(data);
+		break;
+	case 3 : 
+		var data = 'tmpType=text';
+		getBlockNo(data);
+		break;
+	case 4 : 
+		var data = 'tmpType=image';
+		getBlockNo(data);
+		break;
+	case 5 : 
+		var data = 'tmpType=line';
+		getBlockNo(data);
+		break;
+	case 6 : 
+		var data = 'tmpType=board';
+		getBlockNo(data);
+		break;
+	default :
+		$('.block-thumnail >li').remove();
+		break;
+	}
+}
 /*파일 업로드*/
 function fileSubmit() {
     var formData = new FormData($("#fileForm")[0]);
@@ -434,6 +716,12 @@ function fileSubmit() {
             console.log(error.status);
         }
     });
+}
+/*첫화면 css */
+function firstcss(){
+	var headerHeight = $('#header').height();
+	$('.blockMenu-sidebar-div').css({"top":0 + headerHeight});
+	$('.use-block-button').css('display','none');
 }
 /**************/
 /*메뉴 드래그앤드롭*/
