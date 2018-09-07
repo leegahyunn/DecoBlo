@@ -131,7 +131,7 @@ public class BlogController {
 	}
 	
 	/**
-	 * 블로그 폰트 수정 Ajax
+	 * 블로그 원페이지 여부 Ajax
 	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/updateOnepageStyle", method = RequestMethod.POST)
@@ -141,6 +141,27 @@ public class BlogController {
 		return  "blog/config";
 	}
 	
+	/**
+	 * 블로그 마우스 우클릭 여부 Ajax
+	 * @return 블로그 수정 페이지
+	 */
+	@RequestMapping(value = "/updateRightClickable", method = RequestMethod.POST)
+	public String updateRightClickable(@RequestBody HashMap<String, String> map) {
+		map.put("userNo", "2");
+		blogRepository.updateRightClickable(map);
+		return  "blog/config";
+	}
+	
+	/**
+	 * 메뉴 추가  Ajax
+	 * @return 블로그 수정 페이지
+	 */
+	@RequestMapping(value = "/insertMenu", method = RequestMethod.POST)
+	public String insertMenu(@RequestBody HashMap<String, String> map) {
+		map.put("menuUserNo", "1");
+		blogRepository.insertMenu(map);
+		return  "blog/config";
+	}
     @RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
     public String fileUp(MultipartHttpServletRequest multi) {
         
@@ -187,7 +208,7 @@ public class BlogController {
 		}
 
 		// TODO userNo 세션값으로 바꾸기 
-		map.put("menuUserNo", "2");
+		map.put("menuUserNo", "1");
 		String depth = String.valueOf(map.get("menuDepth"));
 		
 		if(depth.equals("1")) {//움직인 애가 소메뉴일 경우
@@ -209,11 +230,31 @@ public class BlogController {
 				}
 			}
 		} else {//움직인 애가 대메뉴일 경우
+			System.out.println("움직인 애가 대메뉴일 경우");
 			if(!(map.containsKey("newMenuParent"))) { //대메뉴 순서만 바뀐 경우
-				map.put("newMenuParent", "0");
+				System.out.println("대메뉴 순서만 바뀐 경우");
+				System.out.println("=======================");
+				for (HashMap<String, ArrayList<Menu>> a : blogRepository.selectMenu(1)) {
+					System.out.println(a);
+				}
+				map.put("newMenuParent", map.get("menuNo"));
+				System.out.println(map);
 				blogRepository.updateLargeMenuPull(map);
+				System.out.println("=======================");
+				for (HashMap<String, ArrayList<Menu>> a : blogRepository.selectMenu(1)) {
+					System.out.println(a);
+				}
 				blogRepository.updateLargeMenuPush(map);
+				System.out.println("=======================");
+				for (HashMap<String, ArrayList<Menu>> a : blogRepository.selectMenu(1)) {
+					System.out.println(a);
+				}
 				blogRepository.updateMenu(map);
+				blogRepository.updateLargeMenuPush(map);
+				System.out.println("=======================");
+				for (HashMap<String, ArrayList<Menu>> a : blogRepository.selectMenu(1)) {
+					System.out.println(a);
+				}
 			}else {//대메뉴가 다른 대메뉴의 소메뉴로 들어간 경우
 				blogRepository.updateLargeMenuPull(map);
 				blogRepository.updateSmallMenuPush(map);
@@ -241,16 +282,7 @@ public class BlogController {
 		}
 		return blockContent;
 	}
-	
-	@RequestMapping(value = "/yrtest", method = RequestMethod.GET)
-	public String yrtest(Menu menu, Model model) {
-		menu.setMenuNo(1);
-		menu.setMenuUserNo(1);
-		List<Block> blockList = blogRepository.selectBlockList(menu);
-		model.addAttribute("blockList", blockList);
-		return "blog/blogEdit1";
-	}
-	
+
 	@RequestMapping(value="setBlockContent",method=RequestMethod.POST)
 	public @ResponseBody int setBlockContent(@RequestBody Block block,Menu menu) {
 		int blockSeq = block.getBlockSeq();

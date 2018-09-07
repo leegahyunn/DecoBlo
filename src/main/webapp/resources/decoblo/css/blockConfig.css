@@ -531,3 +531,39 @@ body { margin: 0; }
     display: block;
     margin-top: 0;
 }
+
+.main-menu-block{  
+	float:left;
+} 
+
+
+.main-menu-block { margin: 0; padding: 0; }
+.main-menu-block li {
+  float: left;
+  list-style:none;
+  position: relative;
+}
+.main-menu-block li:hover { background: black; }
+.main-menu-block li:hover>a { color: white; }
+.main-menu-block a {
+  color: black;
+  display: block;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+.main-menu-block ul {
+  background: #eee;
+  border: 1px solid silver;
+  display: none;
+  padding: 0;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 180px;
+}
+.main-menu-block ul li { float: none; }
+.main-menu-block ul li:hover { background: #ddd; }
+.main-menu-block ul li:hover a { color: black; }
+.main-menu-block ul a { color: black; }
+.main-menu-block ul ul { left: 100%; top: 0; }
+
