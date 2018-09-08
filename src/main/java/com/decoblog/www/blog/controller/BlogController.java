@@ -77,7 +77,6 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping(value = "/siteConfig", method = RequestMethod.POST)
 	public User siteConfig() {
-		int userNo = 2;
 		int userNo = 1;
 		User user = blogRepository.selectBlog(userNo);
 		return user;
@@ -100,7 +99,6 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping(value = "/editBlogTitle", method = RequestMethod.POST)
 	public String editBlogTitle(@RequestBody HashMap<String, String> map) {
-		map.put("userNo", "2");
 		map.put("userNo", "1");
 		blogRepository.updateBlogTitle(map);
 		return  "blog/config";
@@ -112,7 +110,6 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/metaEdit", method = RequestMethod.POST)
 	public String metaEdit(@RequestBody HashMap<String, String> map) {
-		map.put("userNo", "2");
 		map.put("userNo", "1");
 		blogRepository.updateMetaTag(map);
 		return  "blog/config";
@@ -124,7 +121,6 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/updateBackgroundColor", method = RequestMethod.POST)
 	public String updateBackgroundColor(@RequestBody HashMap<String, String> map) {
-		map.put("userNo", "2");
 		map.put("userNo", "1");
 		blogRepository.updateBackgroundColor(map);
 		return  "blog/config";
@@ -136,7 +132,6 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/updateBlogFont", method = RequestMethod.POST)
 	public String updateBlogFont(@RequestBody HashMap<String, String> map) {
-		map.put("userNo", "2");
 		map.put("userNo", "1");
 		blogRepository.updateBlogFont(map);
 		return  "blog/config";
@@ -148,7 +143,6 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/updateOnepageStyle", method = RequestMethod.POST)
 	public String updateOnepageStyle(@RequestBody HashMap<String, String> map) {
-		map.put("userNo", "2");
 		map.put("userNo", "1");
 		blogRepository.updateOnepageStyle(map);
 		return  "blog/config";
@@ -160,7 +154,6 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/updateRightClickable", method = RequestMethod.POST)
 	public String updateRightClickable(@RequestBody HashMap<String, String> map) {
-		map.put("userNo", "2");
 		map.put("userNo", "1");
 		blogRepository.updateRightClickable(map);
 		return  "blog/config";
@@ -275,12 +268,9 @@ public class BlogController {
 			}
 		} else {//움직인 애가 대메뉴일 경우
 			if(!(map.containsKey("newMenuParent"))) { //대메뉴 순서만 바뀐 경우
-<<<<<<< HEAD
 				map.put("newMenuParent", "0");
 				blogRepository.updateLargeMenuPush(map);
-=======
 				System.out.println("대메뉴 순서만 바뀐 경우");
->>>>>>> 387f5a6a11621a5446b0300fa37b079485919c48
 				map.put("newMenuParent", map.get("menuNo"));
 				blogRepository.updateLargeMenuPull(map);
 				blogRepository.updateLargeMenuPush(map);
