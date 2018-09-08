@@ -133,6 +133,14 @@
 	WHERE
 		menuNo = #{menuNo}
 </update>
+<update id="updateSubmenu" parameterType="map">
+	UPDATE 
+		db_menu
+	SET
+		menuParentSeq = (select menuParentSeq from db_menu where menuParent=#{newMenuParent} and menudepth=0)
+	WHERE
+		menuParent = #{menuNo}
+</update>
 <!-- 블로그 타이틀 수정 -->
 <update id="updateBlogTitle" parameterType="map">
 	UPDATE 
@@ -195,7 +203,12 @@
 	WHERE
 		userNo = #{userNo}
 </select>
-
+<!-- 메뉴 삭제 -->
+<delete id="deleteMenu" parameterType="map">
+	delete from db_menu
+	where
+		menuNo = #{menuNo}
+</delete>
 <!-- 블록 코드 가져오기 썸네일 -->
 <select id="selectBlockContent" parameterType="int" resultType="string">
 SELECT UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(blocktmpcontent)) AS blockTmpContent FROM db_block_template

@@ -14,11 +14,11 @@ public interface BlogMapper {
 	public ArrayList<HashMap<String, ArrayList<Menu>>> selectMenu(int menuUserNo);
 	// 메뉴 타이틀 수정
 	public int updateMenuTitle(Menu menu);
-	public int updateSmallMenuPull(HashMap<String, String> map);
-	public int updateSmallMenuPush(HashMap<String, String> map);
-	public int updateLargeMenuPull(HashMap<String, String> map);
-	public int updateLargeMenuPush(HashMap<String, String> map);
-	public int updateMenu(HashMap<String, String> map);
+	public int updateSmallMenuPull(HashMap<String, Object> map);
+	public int updateSmallMenuPush(HashMap<String, Object> map);
+	public int updateLargeMenuPull(HashMap<String, Object> map);
+	public int updateLargeMenuPush(HashMap<String, Object> map);
+	public int updateMenu(HashMap<String, Object> map);
 
 
 	/*블록 편집 mapper*/
@@ -45,4 +45,6 @@ public interface BlogMapper {
 	public int updateOnepageStyle(HashMap<String, String> map);
 	public int updateRightClickable(HashMap<String, String> map);
 	public int insertMenu(HashMap<String, String> map);
+	public int updateSubmenu(HashMap<String, Object> map);
+	public int deleteMenu(HashMap<String, Object> map);
 }
