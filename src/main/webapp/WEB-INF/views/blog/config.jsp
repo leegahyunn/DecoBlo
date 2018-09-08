@@ -244,14 +244,6 @@
          </ul>
       </div>
    </div>
-	<div class="block-wrapper">
-		<div class='menu-bar'>
-			<ul class = "main-menu-block">
-			</ul>
-			<ul class = "menu-block">
-			</ul>
-		</div>
-	</div>
 </div>
 <nav id="block-config-nav">
 <div class="blockMenu-sidebar-div">
