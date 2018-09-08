@@ -64,6 +64,7 @@ public class BlogController {
 	public String menuConfig(HttpSession session) {
 		int userNo =(int)session.getAttribute("loginNo");
 		ArrayList<HashMap<String, ArrayList<Menu>>> list= blogRepository.selectMenu(userNo);
+	//System.out.println(list);
 		Gson gson = new Gson();
 		String result = gson.toJson(list);
 		return result;
@@ -160,6 +161,18 @@ public class BlogController {
 	}
 	
 	/**
+	 * 블로그 마우스 우클릭 여부 Ajax
+	 * @return 블로그 수정 페이지
+	 */
+	@RequestMapping(value = "/updateMenuVisible", method = RequestMethod.POST)
+	public String updateMenuVisible(@RequestBody HashMap<String, Object> map) {
+		System.out.println(map);
+		map.put("menuUserNo", "1");
+		blogRepository.updateMenuVisible(map);
+		return  "blog/config";
+	}
+	
+	/**
 	 * 메뉴 추가  Ajax
 	 * @return 블로그 수정 페이지
 	 */
@@ -178,9 +191,11 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/deleteMenu", method = RequestMethod.POST)
 	public String deleteMenu(@RequestBody HashMap<String, Object> map) {
-		System.out.println(map);
+		System.out.println("ddddddd"+map.get("menuDepth"));
+		int menuDepth = (int)map.get("menuDepth");
 		map.put("menuUserNo", "1");
-		if(map.get("menuDepth").equals("0")) {
+		
+		if(menuDepth==0) {
 			blogRepository.deleteLargeMenu(map);
 			blogRepository.updateLargeMenuPull(map);
 			
@@ -237,7 +252,6 @@ public class BlogController {
 		}
 		int result=0;
 		// TODO userNo 세션값으로 바꾸기 
-		map.put("menuUserNo", "2");
 		map.put("menuUserNo", "1");
 		String depth = String.valueOf(map.get("menuDepth"));
 		System.out.println(map);

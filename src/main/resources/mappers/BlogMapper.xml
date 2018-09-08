@@ -54,29 +54,6 @@
       , 1
       ,(select Max(menuparentseq)+1 from db_menu where menuUserNo=#{menuUserNo})
    )
-=======
-	insert into db_menu
-			(
-			menuNo
-			,menuUserNo
-			,menuName
-			,menuParent
-			,menuDepth
-			,menuSeq
-			,menuVisible
-			,menuParentSeq
-			)
-	values( 
-		db_menu_seq.nextval
-		, #{menuUserNo}
-		, #{menuName}
-		, db_menu_seq.nextval
-		, 0
-		, 0
-		, 1
-		,(select Max(menuparentseq)+1 from db_menu where menuUserNo=#{menuUserNo})
-	)
->>>>>>> 85e6a2c99816e4824821d5e0ae80f69bf719d44b
 </insert>
 <!-- 블록 넘버 가져오기 -->
 <select id="selectThumnail" parameterType="string" resultType="int">
@@ -217,6 +194,16 @@
 	WHERE
 		userNo = #{userNo}
 </update>
+<update id="updateMenuVisible" parameterType="map">
+	UPDATE 
+		db_menu
+	SET
+		menuVisible = #{menuVisible}
+	WHERE
+		menuUserNo = #{menuUserNo}
+	AND
+		menuNo = #{menuNo}
+</update>
 <!-- 사이트설정 가져오기 -->
 <select id="selectBlog" resultType="User" parameterType="int">
 	SELECT 
@@ -231,15 +218,11 @@
 	delete from db_menu
 	where
 		menuNo = #{menuNo} 
-	and 
-		
 </delete>
 <delete id="deleteLargeMenu" parameterType="map">
 	delete from db_menu
 	where
 		menuParent = #{menuParent} 
-	and 
-		
 </delete>
 <!-- 블록 코드 가져오기 썸네일 -->
 <select id="selectBlockContent" parameterType="int" resultType="string">
