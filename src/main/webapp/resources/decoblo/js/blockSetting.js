@@ -17,7 +17,7 @@ function menuConfig() {
 			$.each(menuJson, function(mainIndex, mainMenu){
 				$.each(mainMenu.Menu, function(subIndex, subMenu){
 					/* menu-bar */
-					if (subMenu.menuNo == 1) {
+					if (mainIndex == 0) {
 						if(subMenu.menuDepth==0){
 							result += '</ul></li><li data-parent="'+ subMenu.menuParent+'"><a href="#">'+ subMenu.menuName +'</a><ul>';
 							
@@ -32,7 +32,7 @@ function menuConfig() {
 							result1 += '<li><a href="#">'+ subMenu.menuName +'</a></li>';
 						}
 					}//
-					//if (subMenu.menuNo >= 2) {
+					if (mainIndex >= 1) {
 						if (subIndex == 1 && mainMenu.Menu.length != 1) {
 							result2 += '<ol class="dd-list">';
 						}
@@ -50,19 +50,19 @@ function menuConfig() {
 						result2 += '<span>' + subMenu.menuName + '</span>';
 						result2 += '</div>';
 						result2 += '<div class="outer-config"  style="display: inline-block;">';
-						result2 += '<i class="fa fa-trash deletebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
-						result2 += '<i class="fa fa-pencil editbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+						result2 += '<i class="fa fa-trash deletebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+ '" data-menu-seq="'+ subMenu.menuSeq +'" data-menu-depth="'+ subMenu.menuDepth +'" data-menu-parent-seq="'+ subMenu.menuParentSeq +'"></i>';
+						result2 += '<i class="fa fa-pencil editbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+ '" data-menu-seq="'+ subMenu.menuSeq +'" data-menu-depth="'+ subMenu.menuDepth +'" data-menu-parent-seq="'+ subMenu.menuParentSeq +'"></i>';
 						
 						if(subMenu.menuVisible == 1){
 							result2 += '<i style="color:#2ea8e5"class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
 						} else {
-							result2 += '<i class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+							result2 += '<i class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+ '" data-menu-seq="'+ subMenu.menuSeq +'" data-menu-depth="'+ subMenu.menuDepth +'" data-menu-parent-seq="'+ subMenu.menuParentSeq +'"></i>';
 						}	 
 						
 						result2 += '</div>';
 						result2 += '<div class="fold outer-config" style="display:none;">';
 						result2 += '<input type="text" style="width:200px;">';
-						result2 += '<i class="right-icon fa fa-check checkbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+						result2 += '<i class="right-icon fa fa-check checkbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+ '" data-menu-seq="'+ subMenu.menuSeq +'" data-menu-depth="'+ subMenu.menuDepth +'" data-menu-parent-seq="'+ subMenu.menuParentSeq +'"></i>';
 						result2 += '</div>';
 						result2 += '</div>';
 						result2 += '</div>';
@@ -74,7 +74,7 @@ function menuConfig() {
 						
 						if (mainMenu.Menu.length == 1) {
 							result2 += '</li>';
-					//	}
+						}
 					}
 				});
 			});
@@ -290,7 +290,7 @@ $(document).on('click', '.configRightClickable', function(){
 		if ($(target).parents('ol').length == 1) {
 			$.each($($(target).parents('ol')[0]).children('li'), function(index, item){
 				if ($(item).hasClass('changed')){
-					newMenuSeq = index + 1;
+					newMenuSeq = index + 2;
 					newMenuDepth = 0;
 					$(item).removeClass("changed");
 				}
@@ -318,7 +318,6 @@ $(document).on('click', '.configRightClickable', function(){
 				, "newMenuDepth" : newMenuDepth
 			};
 		
-	
 		$.ajax({
 			method   : 'post'
 			, url    : 'updateMenu'
@@ -326,7 +325,8 @@ $(document).on('click', '.configRightClickable', function(){
 			, dataType : 'json'
 			, contentType : 'application/json; charset=UTF-8'
 			, success: function(resp) {
-				console.log(resp);
+				menuConfig();
+				//alert(resp);
 			} 
 		});
 		
@@ -374,10 +374,30 @@ $(document).on('click', '.configRightClickable', function(){
 		
 	});
 	/*********************/
-	/*메뉴 수정 버튼 이벤트*/
+	/*메뉴 버튼 이벤트*/
 	/*********************/
 	$(document).on('click', '.deletebtn', function(){
-		
+		var menuNo = $(this).data('rno');
+		var menuParent = $(this).data('parent');
+		var menuSeq = $(this).data('menu-seq');
+		var menuParentSeq = $(this).data('menu-parent-seq');
+		var menuDepth = $(this).data('menu-depth');
+		//alert(menuNo);
+		var sendData = {"menuNo" : menuNo
+						, "menuParent" : menuParent
+						, "menuSeq" : menuSeq
+						, "menuParentSeq" : menuParentSeq
+						, "menuDepth" : menuDepth};
+		$.ajax({
+			method : 'post'
+			, url  : 'deleteMenu'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+			//	menuConfig();
+			} 
+		});
 	});
 	
 	$(document).on('click', '.editbtn', function(){
