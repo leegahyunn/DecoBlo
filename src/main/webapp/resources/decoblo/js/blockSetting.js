@@ -12,26 +12,16 @@ function menuConfig() {
 	         var menuJson = JSON.parse(resp);
 	         var result2 = '';
 	         var result1 = '';
-	         var result = '';
 	         result2 += '<ol class="dd-list">';
 	         $.each(menuJson, function(mainIndex, mainMenu){
 	            $.each(mainMenu.Menu, function(subIndex, subMenu){
-	               /* menu-bar */
-	               if (subMenu.menuNo == 1) {
-	                  if(subMenu.menuDepth==0){
-	                     result += '</ul></li><li data-parent="'+ subMenu.menuParent+'"><a href="config?menuNo='+subMenu.menuParent+'&menuName='+subMenu.menuName+'">'+ subMenu.menuName +'</a><ul>';
-	                     
-	                  } else if(subMenu.menuDepth==1){
-	                     result += '<li><a href="#">'+ subMenu.menuName +'</a></li>';
-	                  }
-	               } else {
 	                  if(subMenu.menuDepth==0){
 	                     result1 += '</ul></li><li data-parent="'+ subMenu.menuParent+'"><a href="config?menuNo='+subMenu.menuParent+'&menuName='+subMenu.menuName+'">'+ subMenu.menuName +'</a><ul>';
 	                     
 	                  } else if(subMenu.menuDepth==1){
 	                     result1 += '<li><a href="#">'+ subMenu.menuName +'</a></li>';
 	                  }
-	               }
+	               
 	               if (subIndex == 1 && mainMenu.Menu.length != 1) {
 	                  result2 += '<ol class="dd-list">';
 	               }
@@ -93,8 +83,6 @@ function menuConfig() {
 	         
 	         result1 += '</ul></li>';
 	         $('.menu-block').html(result1);
-	         result += '</ul></li>';
-	         $('.main-menu-block').html(result);
 	      } 
 	   });
 	$.ajax({
@@ -510,6 +498,10 @@ $(document).on('click', '.configRightClickable', function(){
 	/*메뉴 클릭 이벤트 */
 	$(document).on('click','.menu-block>li',function(){
 		alert("액티브 추가");
+		if($('.menu-block>li').hasClass("active")){
+			alert("액티브 삭제");
+			$('.menu-block>li').removeClass();
+		}
 		$(this).addClass("active");
 	})
 	firstcss();

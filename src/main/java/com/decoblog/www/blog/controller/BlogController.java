@@ -61,9 +61,9 @@ public class BlogController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/menuConfig", method = RequestMethod.POST)
-	public String menuConfig() {
-		int menuUserNo = 1;
-		ArrayList<HashMap<String, ArrayList<Menu>>> list= blogRepository.selectMenu(menuUserNo);
+	public String menuConfig(HttpSession session) {
+		int userNo =(int)session.getAttribute("loginNo");
+		ArrayList<HashMap<String, ArrayList<Menu>>> list= blogRepository.selectMenu(userNo);
 		Gson gson = new Gson();
 		String result = gson.toJson(list);
 		return result;
@@ -164,8 +164,10 @@ public class BlogController {
 	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/insertMenu", method = RequestMethod.POST)
-	public String insertMenu(@RequestBody HashMap<String, String> map) {
-		map.put("menuUserNo", "1");
+	public String insertMenu(@RequestBody HashMap<String, Object> map,HttpSession session) {
+		int userNo =  (int) session.getAttribute("loginNo");
+		System.out.println("요기다 이녀석아" +userNo);
+		map.put("menuUserNo", userNo);
 		blogRepository.insertMenu(map);
 		return  "blog/config";
 	}

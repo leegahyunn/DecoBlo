@@ -347,7 +347,6 @@ body { margin: 0; }
 .main-menu-block li:hover { background: black; }
 .main-menu-block li:hover>a { color: white; }
 .main-menu-block a {
-  color: black;
   display: block;
   padding: 10px 20px;
   text-decoration: none;
@@ -362,12 +361,29 @@ body { margin: 0; }
   top: 100%;
   width: 180px;
 }
-.main-menu-block ul li { float: none; }
-.main-menu-block ul li:hover { background: #ddd; }
-.main-menu-block ul li:hover a { color: black; }
-.main-menu-block ul a { color: black; }
-.main-menu-block ul ul { left: 100%; top: 0; }
-
+.main-menu-block { 
+	position: absolute;
+    float: left;
+    color: black;
+    left: 70px;
+    top: 25px;
+	 }
+.main-menu-block span:hover { background: #ddd; }
+.main-menu-block span:hover { color: black; }
+#intro-click{
+	font-family: 'Lato', 'Nanum Gothic';
+    color: #000;
+    font-size: 18px;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+}
+.menu-block li.active{
+	background-color: black;
+	
+}
+.menu-block li.active a{
+	color: whith;
+}
 </style>
 <script type="text/javascript">
 
@@ -586,8 +602,11 @@ body { margin: 0; }
 <div class="menu-wrapper">
    <div class="block-wrapper">
       <div class='menu-bar'>
-         <ul class = "main-menu-block">
-         </ul>
+         <a class = "main-menu-block" href="config">
+         	<span id="intro-click">
+         		INTRO
+         	</span>
+         </a>
          <ul class = "menu-block">
          </ul>
       </div>
