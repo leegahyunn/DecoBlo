@@ -208,15 +208,11 @@
 	delete from db_menu
 	where
 		menuNo = #{menuNo} 
-	and 
-		
 </delete>
 <delete id="deleteLargeMenu" parameterType="map">
 	delete from db_menu
 	where
 		menuParent = #{menuParent} 
-	and 
-		
 </delete>
 <!-- 블록 코드 가져오기 썸네일 -->
 <select id="selectBlockContent" parameterType="int" resultType="string">
