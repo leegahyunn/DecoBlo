@@ -197,9 +197,16 @@ public class BlogRepository {
 		return result;
 	}
 
-	public int deleteMenu(HashMap<String, Object> map) {
+	public int deleteLargeMenu(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
-		int result = mapper.deleteMenu(map);
+		int result = mapper.deleteLargeMenu(map);
+		
+		return result;
+	}
+
+	public int deleteSmallMenu(HashMap<String, Object> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.deleteSmallMenu(map);
 		
 		return result;
 	}

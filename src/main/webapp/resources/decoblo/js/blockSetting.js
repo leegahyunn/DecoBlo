@@ -396,6 +396,7 @@ $(document).on('click', '.configRightClickable', function(){
 			, contentType : 'application/json; charset=UTF-8'
 			, success: function(resp) {
 			//	menuConfig();
+				alert("꺄~~")
 			} 
 		});
 	});
