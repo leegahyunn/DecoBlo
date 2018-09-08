@@ -227,10 +227,19 @@
 		userNo = #{userNo}
 </select>
 <!-- 메뉴 삭제 -->
-<delete id="deleteMenu" parameterType="map">
+<delete id="deleteSmallMenu" parameterType="map">
 	delete from db_menu
 	where
-		menuNo = #{menuNo}
+		menuNo = #{menuNo} 
+	and 
+		
+</delete>
+<delete id="deleteLargeMenu" parameterType="map">
+	delete from db_menu
+	where
+		menuParent = #{menuParent} 
+	and 
+		
 </delete>
 <!-- 블록 코드 가져오기 썸네일 -->
 <select id="selectBlockContent" parameterType="int" resultType="string">

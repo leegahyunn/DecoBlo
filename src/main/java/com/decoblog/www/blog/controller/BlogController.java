@@ -181,11 +181,12 @@ public class BlogController {
 		System.out.println(map);
 		map.put("menuUserNo", "1");
 		if(map.get("menuDepth").equals("0")) {
-			blogRepository.updateSmallMenuPull(map);
-			blogRepository.deleteMenu(map);
-		} else {
+			blogRepository.deleteLargeMenu(map);
 			blogRepository.updateLargeMenuPull(map);
-			blogRepository.deleteMenu(map);
+			
+		} else {
+			blogRepository.deleteSmallMenu(map);
+			blogRepository.updateSmallMenuPull(map);
 		}
 	    
 		return  "blog/config";

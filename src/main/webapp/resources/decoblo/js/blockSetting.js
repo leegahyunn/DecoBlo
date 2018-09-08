@@ -348,103 +348,106 @@ $(document).on('click', '.configRightClickable', function(){
       target = $(this);
    });
 
-   $(document).on('click', '.blog-title-edit', function(){
-      $(this).parent().css('display','none');
-      $(this).parent().prev().css('display','none');
-      $(this).parent().next().css('display','block');
-   });
-   $(document).on('click', '.blog-title-check', function(){
-      var blogTitle = $(this).prev().val();
-      var sendData = {"blogTitle" : blogTitle};
-      $.ajax({
-         method : 'post'
-         , url  : 'editBlogTitle'
-         , data : JSON.stringify(sendData)
-         , dataType : 'text'
-         , contentType : 'application/json; charset=UTF-8'
-         , success: function(resp) {
-            //alert("꺄~!")
-            //console.log($(this))
-            $('.blog-title-editbox').css('display', 'none')
-            $('.blog-title').css('display', 'block')
-            siteConfig();
-            
-         }
-      }); 
-      
-   });
-   /*********************/
-   /*메뉴 버튼 이벤트*/
-   /*********************/
-   $(document).on('click', '.deletebtn', function(){
-      var menuNo = $(this).data('rno');
-      var menuParent = $(this).data('parent');
-      var menuSeq = $(this).data('menu-seq');
-      var menuParentSeq = $(this).data('menu-parent-seq');
-      var menuDepth = $(this).data('menu-depth');
-      //alert(menuNo);
-      var sendData = {"menuNo" : menuNo
-                  , "menuParent" : menuParent
-                  , "menuSeq" : menuSeq
-                  , "menuParentSeq" : menuParentSeq
-                  , "menuDepth" : menuDepth};
-      $.ajax({
-         method : 'post'
-         , url  : 'deleteMenu'
-         , data : JSON.stringify(sendData)
-         , dataType : 'text'
-         , contentType : 'application/json; charset=UTF-8'
-         , success: function(resp) {
-         //   menuConfig();
-         } 
-      });
-   });
-   
-   $(document).on('click', '.editbtn', function(){
-      $(this).parent().css('display','none');
-      $(this).parent().prev().css('display','none');
-      $(this).parent().next().css('display','block');
-   });
-   
-   $(document).on('click', '.hidebtn', function(){
-      
-   }); 
-   $(document).on('click', '.menu-plus-button', function(){
-      $(this).css('display','none');
-      $('.menu-plus-box').css('display','block');
-      
-   }); 
-   $(document).on('click', '.menu-plus-check', function(){
-      var menuPlusName = $(this).prev().val();
-      var sendData = {"menuName" : menuPlusName};
-      $.ajax({
-         method : 'post'
-         , url  : 'insertMenu'
-         , data : JSON.stringify(sendData)
-         , dataType : 'text'
-         , contentType : 'application/json; charset=UTF-8'
-         , success: function(resp) {
-            menuConfig();
-         } 
-      });
-      
-   });
-   $(document).on('click', '.checkbtn', function(){
-      var menuname = $(this).prev().val();
-      var menuno  = $(this).attr("data-rno");
-      var sendData = {"menuName" : menuname,  "menuNo" : menuno};
-      $.ajax({
-         method : 'post'
-         , url  : 'editMenu'
-         , data : JSON.stringify(sendData)
-         , dataType : 'text'
-         , contentType : 'application/json; charset=UTF-8'
-         , success: function(resp) {
-            menuConfig();
-         } 
-      });
-      
-   });
+
+	$(document).on('click', '.blog-title-edit', function(){
+		$(this).parent().css('display','none');
+		$(this).parent().prev().css('display','none');
+		$(this).parent().next().css('display','block');
+	});
+	$(document).on('click', '.blog-title-check', function(){
+		var blogTitle = $(this).prev().val();
+		var sendData = {"blogTitle" : blogTitle};
+		$.ajax({
+			method : 'post'
+			, url  : 'editBlogTitle'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+				//alert("꺄~!")
+				//console.log($(this))
+				$('.blog-title-editbox').css('display', 'none')
+				$('.blog-title').css('display', 'block')
+				siteConfig();
+				
+			}
+		}); 		
+	});
+  
+	/*********************/
+	/*메뉴 버튼 이벤트*/
+	/*********************/
+	$(document).on('click', '.deletebtn', function(){
+		var menuNo = $(this).data('rno');
+		var menuParent = $(this).data('parent');
+		var menuSeq = $(this).data('menu-seq');
+		var menuParentSeq = $(this).data('menu-parent-seq');
+		var menuDepth = $(this).data('menu-depth');
+		//alert(menuNo);
+		var sendData = {"menuNo" : menuNo
+						, "menuParent" : menuParent
+						, "menuSeq" : menuSeq
+						, "menuParentSeq" : menuParentSeq
+						, "menuDepth" : menuDepth};
+		$.ajax({
+			method : 'post'
+			, url  : 'deleteMenu'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+			//	menuConfig();
+				alert("꺄~~")
+			} 
+		});
+	});
+	
+	$(document).on('click', '.editbtn', function(){
+		$(this).parent().css('display','none');
+		$(this).parent().prev().css('display','none');
+		$(this).parent().next().css('display','block');
+	});
+	
+	$(document).on('click', '.hidebtn', function(){
+		
+	}); 
+	$(document).on('click', '.menu-plus-button', function(){
+		$(this).css('display','none');
+		$('.menu-plus-box').css('display','block');
+		
+	}); 
+	$(document).on('click', '.menu-plus-check', function(){
+		var menuPlusName = $(this).prev().val();
+		var sendData = {"menuName" : menuPlusName};
+		$.ajax({
+			method : 'post'
+			, url  : 'insertMenu'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+				menuConfig();
+			} 
+		});
+		
+	});
+	$(document).on('click', '.checkbtn', function(){
+		var menuname = $(this).prev().val();
+		var menuno  = $(this).attr("data-rno");
+		var sendData = {"menuName" : menuname,  "menuNo" : menuno};
+		$.ajax({
+			method : 'post'
+			, url  : 'editMenu'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+				menuConfig();
+			} 
+		});
+		
+	});
+  
    firstcss();
    /*블록 없을때 블록 추가 버튼 */
    $('.intro-block-wrapper').on('click',function(){
