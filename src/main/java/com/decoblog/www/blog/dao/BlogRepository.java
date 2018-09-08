@@ -24,9 +24,9 @@ public class BlogRepository {
 	 * 전체 메뉴 가져오기
 	 * @return DB에 등록된 메뉴
 	 */
-	public ArrayList<HashMap<String, ArrayList<Menu>>> selectMenu(int menuUserNo) {
+	public ArrayList<HashMap<String, ArrayList<Menu>>> selectMenu(int userNo) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
-		ArrayList<HashMap<String, ArrayList<Menu>>> result = mapper.selectMenu(menuUserNo);
+		ArrayList<HashMap<String, ArrayList<Menu>>> result = mapper.selectMenu(userNo);
 		return result;
 	}
 	
@@ -183,7 +183,7 @@ public class BlogRepository {
 		return result;
 	}
 
-	public int insertMenu(HashMap<String, String> map) {
+	public int insertMenu(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.insertMenu(map);
 		
@@ -207,6 +207,13 @@ public class BlogRepository {
 	public int deleteSmallMenu(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.deleteSmallMenu(map);
+		
+		return result;
+	}
+
+	public int updateMenuVisible(HashMap<String, Object> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateMenuVisible(map);
 		
 		return result;
 	}
