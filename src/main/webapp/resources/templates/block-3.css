@@ -1,45 +1,128 @@
 @charset "UTF-8";
 
-
-/*********************/
-/* 쇼케이스, block-2 */
-/*********************/
-.block-2 {
-	background-color: #3A2e51;
-	background-size: cover; 
-	background-repeat: no-repeat; 
-	height: 500px;
+.photo {
+	width: 300px;
+	height: 280px;
+	object-fit: cover;
+	object-position: bottom;
+	border-radius: 50%;
+	margin-right: 50px;
+	margin-left: 100px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
-.block-2 .temp-space {
-	height: 125px;
+.block-3 {
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 600px;
+	background-color: #D8D8D8;
 }
 
-.block-2 h2 {
-	color: #FFF;
-	font-size: 3em;
-	text-align: center;
+.showcase {
+	width: 800px;
+	height: 600px;
+	padding: 30px;
+	margin-bottom: 30px;
+	margin-top: 30px;
+	margin-left: 250px;
+	margin-right: 0px;
 }
 
-.block-2 p {
-	color: #EEE;
-	font-size: 1.5em;
-	text-align: center;
-	margin: 25px 0;
+.left {
+	float: left;
+	width: auto;
+	height: auto;
 }
 
-.block-2 .start-btn-wrapper {
-	margin: 80px 0;
-	text-align: center;
+* {
+	box-sizing: border-box
 }
 
-.block-2 .start-btn {
-	color: #FFF;
-	background-color: rgba(255, 255, 255, 0);
-	border: 1px solid #FFF;
-	border-radius: 4px;
-	width: 160px;
-	height: 50px;
-	font-size: 1.4em;
+body {
+	font-family: Verdana, sans-serif;
+	margin: 0
+}
+
+.mySlides {
+	display: none
+}
+
+.slideshow-container {
+	max-width: 1000px;
+	position: relative;
+	width: 1000px;
+	height: auto;
+	padding: 30px;
+	margin-bottom: 30px;
+	margin-top: 30px;
+	margin-left: 250px;
+	margin-right: 0px;
+}
+
+.prev, .next {
 	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	width: auto;
+	padding: 16px;
+	margin-top: -22px;
+	color: white;
+	font-weight: bold;
+	font-size: 18px;
+	transition: 0.6s ease;
+	border-radius: 0 3px 3px 0;
+}
+
+.next {
+	right: 0;
+	border-radius: 3px 0 0 3px;
+}
+
+.dot {
+	cursor: pointer;
+	height: 15px;
+	width: 15px;
+	margin: 0 2px;
+	background-color: #bbb;
+	border-radius: 50%;
+	display: inline-block;
+	transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+	background-color: #717171;
+}
+
+.fade {
+	-webkit-animation-name: fade;
+	-webkit-animation-duration: 1.5s;
+	animation-name: fade;
+	animation-duration: 1.5s;
+}
+
+@
+-webkit-keyframes fade {
+	from {opacity: .4
+}
+
+to {
+	opacity: 1
+}
+
+}
+@
+keyframes fade {
+	from {opacity: .4
+}
+
+to {
+	opacity: 1
+}
+
+}
+@media only screen and (max-width: 300px) {
+	.prev, .next, .text {
+		font-size: 11px
+	}
 }

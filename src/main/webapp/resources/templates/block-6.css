@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+
+.block-6 {
+	background-size: 100%;
+	background-image:url("http://ojsfile.ohmynews.com/STD_IMG_FILE/2017/0926/IE002223822_STD.jpg");
+	background-repeat: no-repeat;
+	height: 600px;
+	font-size: 200px;
+	color: white;
+	text-align: center;
+	font-style: italic;
+}

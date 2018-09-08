@@ -41,8 +41,7 @@
 				);
 			});
 
-		// Scrolly links.
-			$('.scrolly').scrolly();
+		
 
 		// Header.
 		// If the header is using "alt" styling and #banner is present, use scrollwatch
