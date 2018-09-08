@@ -38,14 +38,22 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/config", method = RequestMethod.GET)
 	public String config(Menu menu, Model model,HttpSession session) {	
+		int menuNo= menu.getMenuNo();
+		String menuName = "";
 		int userNo = (int) session.getAttribute("loginNo");
-		menu.setMenuNo(1);
+		if(menuNo==0) {
+			menu.setMenuNo(1);
+			menuName="INTRO";
+		}else {
+			menu.setMenuNo(menuNo);
+			menuName=menu.getMenuName();
+		}
 		menu.setMenuUserNo(userNo);
 		List<Block> blockList = blogRepository.selectBlockList(menu);
 		model.addAttribute("blockList", blockList);
+		model.addAttribute("menuName", menuName);
 		return "blog/config";
 	}
-	
 	/**
 	 * 메뉴 불러오기 Ajax
 	 * DB에 저장된 메뉴를 가져와서 JSP에 넘겨줌
@@ -53,9 +61,9 @@ public class BlogController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/menuConfig", method = RequestMethod.POST)
-	public String menuConfig() {
-		int menuUserNo = 1;
-		ArrayList<HashMap<String, ArrayList<Menu>>> list= blogRepository.selectMenu(menuUserNo);
+	public String menuConfig(HttpSession session) {
+		int userNo =(int)session.getAttribute("loginNo");
+		ArrayList<HashMap<String, ArrayList<Menu>>> list= blogRepository.selectMenu(userNo);
 		Gson gson = new Gson();
 		String result = gson.toJson(list);
 		return result;
@@ -156,8 +164,10 @@ public class BlogController {
 	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/insertMenu", method = RequestMethod.POST)
-	public String insertMenu(@RequestBody HashMap<String, String> map) {
-		map.put("menuUserNo", "1");
+	public String insertMenu(@RequestBody HashMap<String, Object> map,HttpSession session) {
+		int userNo =  (int) session.getAttribute("loginNo");
+		System.out.println("요기다 이녀석아" +userNo);
+		map.put("menuUserNo", userNo);
 		blogRepository.insertMenu(map);
 		return  "blog/config";
 	}
@@ -185,6 +195,8 @@ public class BlogController {
 	@RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
     public String fileUp(MultipartHttpServletRequest multi) {
         
+    	System.out.println("??");
+    	
         // 저장 경로 설정
         String root = multi.getSession().getServletContext().getRealPath("/");
         String path = root+"resources/up/";
@@ -224,6 +236,7 @@ public class BlogController {
 		}
 		int result=0;
 		// TODO userNo 세션값으로 바꾸기 
+		map.put("menuUserNo", "2");
 		map.put("menuUserNo", "1");
 		String depth = String.valueOf(map.get("menuDepth"));
 		System.out.println(map);
@@ -255,6 +268,8 @@ public class BlogController {
 			}
 		} else {//움직인 애가 대메뉴일 경우
 			if(!(map.containsKey("newMenuParent"))) { //대메뉴 순서만 바뀐 경우
+				map.put("newMenuParent", "0");
+				blogRepository.updateLargeMenuPush(map);
 				System.out.println("대메뉴 순서만 바뀐 경우");
 				map.put("newMenuParent", map.get("menuNo"));
 				blogRepository.updateLargeMenuPull(map);
@@ -293,7 +308,7 @@ public class BlogController {
 		}
 		return blockContent;
 	}
-
+	
 	@RequestMapping(value="setBlockContent",method=RequestMethod.POST)
 	public @ResponseBody int setBlockContent(@RequestBody Block block,Menu menu) {
 		int blockSeq = block.getBlockSeq();
@@ -312,6 +327,7 @@ public class BlogController {
 		System.out.println(block);
 		int blockSeq=block.getBlockSeq();
 		int blockNo= block.getBlockNo();
+		System.out.println(blockNo);
 		blogRepository.updateBlockSeq(blockSeq);
 		int result = blogRepository.copyBlock(blockNo);
 		return result;

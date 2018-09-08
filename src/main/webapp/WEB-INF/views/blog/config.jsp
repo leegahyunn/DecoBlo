@@ -24,7 +24,6 @@
 <script src="decoblo/js/blockConfig.js"></script>
 <script src="decoblo/js/menuConfig.js"></script>
 <script src="decoblo/js/blockSetting.js"></script>
-
 </head>
 <body id="body-config">
 <header id="header">
@@ -234,14 +233,17 @@
 </div>
 <!-- menu-bar -->
 <div class="menu-wrapper">
-	<div class="block-wrapper">
-		<div class='menu-bar'>
-			<ul class = "main-menu-block">
-			</ul>
-			<ul class = "menu-block">
-			</ul>
-		</div>
-	</div>
+   <div class="block-wrapper">
+      <div class='menu-bar'>
+         <a class = "main-menu-block" href="config">
+         	<span id="intro-click">
+         		INTRO
+         	</span>
+         </a>
+         <ul class = "menu-block">
+         </ul>
+      </div>
+   </div>
 </div>
 <nav id="block-config-nav">
 <div class="blockMenu-sidebar-div">
@@ -298,7 +300,7 @@
 				<div>
 					<img alt="추가" src="resources/images/blockSettingimg/addblock.png"/>
 				</div>
-				<b>메뉴가 비어있습니다. 블럭을 추가하시려면 여기를 클릭하세요.</b>
+				<b>${menuName} 메뉴가 비어있습니다. 블럭을 추가하시려면 여기를 클릭하세요.</b>
 			</div>
 		</div>
 	</c:if>
