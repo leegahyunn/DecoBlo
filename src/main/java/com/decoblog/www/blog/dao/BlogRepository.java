@@ -88,35 +88,35 @@ public class BlogRepository {
 		return result;
 	}
 
-	public int updateSmallMenuPull(HashMap<String, String> map) {
+	public int updateSmallMenuPull(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.updateSmallMenuPull(map);
 		
 		return result;
 	}
 
-	public int updateSmallMenuPush(HashMap<String, String> map) {
+	public int updateSmallMenuPush(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.updateSmallMenuPush(map);
 		
 		return result;
 	}
 
-	public int updateLargeMenuPull(HashMap<String, String> map) {
+	public int updateLargeMenuPull(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.updateLargeMenuPull(map);
 		
 		return result;
 	}
 
-	public int updateLargeMenuPush(HashMap<String, String> map) {
+	public int updateLargeMenuPush(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.updateLargeMenuPush(map);
 		
 		return result;
 	}
 
-	public int updateMenu(HashMap<String, String> map) {
+	public int updateMenu(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.updateMenu(map);
 		
@@ -186,6 +186,20 @@ public class BlogRepository {
 	public int insertMenu(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.insertMenu(map);
+		
+		return result;
+	}
+
+	public int updateSubmenu(HashMap<String, Object> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateSubmenu(map);
+		
+		return result;
+	}
+
+	public int deleteMenu(HashMap<String, Object> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.deleteMenu(map);
 		
 		return result;
 	}
