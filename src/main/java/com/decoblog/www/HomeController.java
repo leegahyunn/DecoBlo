@@ -75,11 +75,6 @@ public class HomeController {
 		return "redirect:/bbsList";
 	}
 	
-	// 최용락
-	@RequestMapping(value = "/yrtest", method = RequestMethod.GET)
-	public String yrtest() {
-		return "redirect:/config";
-	}
 	
 	
 	// 안정민
