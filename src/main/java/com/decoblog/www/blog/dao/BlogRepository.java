@@ -210,6 +210,13 @@ public class BlogRepository {
 		
 		return result;
 	}
+
+	public int updateMenuVisible(HashMap<String, Object> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateMenuVisible(map);
+		
+		return result;
+	}
 	
 	
 }
