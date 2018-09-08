@@ -218,6 +218,7 @@ public class BlogController {
 
 		// TODO userNo 세션값으로 바꾸기 
 		map.put("menuUserNo", "2");
+		map.put("menuUserNo", "1");
 		String depth = String.valueOf(map.get("menuDepth"));
 		
 		if(depth.equals("1")) {//움직인 애가 소메뉴일 경우
@@ -242,7 +243,10 @@ public class BlogController {
 			if(!(map.containsKey("newMenuParent"))) { //대메뉴 순서만 바뀐 경우
 				map.put("newMenuParent", "0");
 				blogRepository.updateLargeMenuPush(map);
+				map.put("newMenuParent", map.get("menuNo"));
+				
 				blogRepository.updateLargeMenuPull(map);
+				blogRepository.updateLargeMenuPush(map);
 				blogRepository.updateMenu(map);
 			}else {//대메뉴가 다른 대메뉴의 소메뉴로 들어간 경우
 				blogRepository.updateLargeMenuPull(map);

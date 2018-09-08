@@ -93,60 +93,70 @@ function menuConfig() {
 			var menuJson = JSON.parse(resp);
 			var result2 = '';
 			var result1 = '';
-			
+			var result = '';
 			result2 += '<ol class="dd-list">';
 			$.each(menuJson, function(mainIndex, mainMenu){
 				$.each(mainMenu.Menu, function(subIndex, subMenu){
 					/* menu-bar */
-					if(subMenu.menuDepth==0){
-						result1 += '</ul></li><li data-parent="'+ subMenu.menuParent+'"><a href="#">'+ subMenu.menuName +'</a><ul>';
-					} else if(subMenu.menuDepth==1){
-						result1 += '<li><a href="#">'+ subMenu.menuName +'</a></li>';
-					}
-					
-					if (subIndex == 1 && mainMenu.Menu.length != 1) {
-						result2 += '<ol class="dd-list">';
-					}
-					
-					result2 += '<li class="dd-item '; 
-					
-					if (subIndex == 0) {
-						result2 += 'mainMenuWrapper';
-					} 
-					
-					result2 += '" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+ '" data-menu-seq="'+ subMenu.menuSeq +'" data-menu-depth="'+ subMenu.menuDepth +'" data-menu-parent-seq="'+ subMenu.menuParentSeq +'">';
-					result2 += '<div class="default-config">';
-					result2 += '<div class="outer-config aa-handle">';
-					result2 += '<div class="dd-handle" style="display: inline-block; width: 80%;">';
-					result2 += '<span>' + subMenu.menuName + '</span>';
-					result2 += '</div>';
-					result2 += '<div class="outer-config"  style="display: inline-block;">';
-					result2 += '<i class="fa fa-trash deletebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					result2 += '<i class="fa fa-pencil editbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					
-					if(subMenu.menuVisible == 1){
-						result2 += '<i style="color:#2ea8e5"class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+					if (subMenu.menuNo == 1) {
+						if(subMenu.menuDepth==0){
+							result += '</ul></li><li data-parent="'+ subMenu.menuParent+'"><a href="#">'+ subMenu.menuName +'</a><ul>';
+							
+						} else if(subMenu.menuDepth==1){
+							result += '<li><a href="#">'+ subMenu.menuName +'</a></li>';
+						}
 					} else {
-						result2 += '<i class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					}	 
-					
-					result2 += '</div>';
-					result2 += '<div class="fold outer-config" style="display:none;">';
-					result2 += '<input type="text" style="width:200px;">';
-					result2 += '<i class="right-icon fa fa-check checkbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
-					result2 += '</div>';
-					result2 += '</div>';
-					result2 += '</div>';
-					
-					if (subIndex == mainMenu.Menu.length - 1 && mainMenu.Menu.length != 1) {
-						result2 += '</ol>';
-						result2 += '</li>';
+						if(subMenu.menuDepth==0){
+							result1 += '</ul></li><li data-parent="'+ subMenu.menuParent+'"><a href="#">'+ subMenu.menuName +'</a><ul>';
+							
+						} else if(subMenu.menuDepth==1){
+							result1 += '<li><a href="#">'+ subMenu.menuName +'</a></li>';
+						}
+					}//
+					//if (subMenu.menuNo >= 2) {
+						if (subIndex == 1 && mainMenu.Menu.length != 1) {
+							result2 += '<ol class="dd-list">';
+						}
+						
+						result2 += '<li class="dd-item '; 
+						
+						if (subIndex == 0) {
+							result2 += 'mainMenuWrapper';
+						} 
+						
+						result2 += '" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+ '" data-menu-seq="'+ subMenu.menuSeq +'" data-menu-depth="'+ subMenu.menuDepth +'" data-menu-parent-seq="'+ subMenu.menuParentSeq +'">';
+						result2 += '<div class="default-config">';
+						result2 += '<div class="outer-config aa-handle">';
+						result2 += '<div class="dd-handle" style="display: inline-block; width: 80%;">';
+						result2 += '<span>' + subMenu.menuName + '</span>';
+						result2 += '</div>';
+						result2 += '<div class="outer-config"  style="display: inline-block;">';
+						result2 += '<i class="fa fa-trash deletebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+						result2 += '<i class="fa fa-pencil editbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+						
+						if(subMenu.menuVisible == 1){
+							result2 += '<i style="color:#2ea8e5"class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+						} else {
+							result2 += '<i class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+						}	 
+						
+						result2 += '</div>';
+						result2 += '<div class="fold outer-config" style="display:none;">';
+						result2 += '<input type="text" style="width:200px;">';
+						result2 += '<i class="right-icon fa fa-check checkbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+						result2 += '</div>';
+						result2 += '</div>';
+						result2 += '</div>';
+						
+						if (subIndex == mainMenu.Menu.length - 1 && mainMenu.Menu.length != 1) {
+							result2 += '</ol>';
+							result2 += '</li>';
+						}
+						
+						if (mainMenu.Menu.length == 1) {
+							result2 += '</li>';
+					//	}
 					}
-					
-					if (mainMenu.Menu.length == 1) {
-						result2 += '</li>';
-					}
-					
 				});
 			});
 			result2 += '</ol>';
@@ -165,6 +175,8 @@ function menuConfig() {
 			
 			result1 += '</ul></li>';
 			$('.menu-block').html(result1);
+			result += '</ul></li>';
+			$('.main-menu-block').html(result);
 		} 
 	});
 }

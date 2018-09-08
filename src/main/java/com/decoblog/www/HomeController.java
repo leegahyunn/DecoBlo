@@ -15,7 +15,6 @@ public class HomeController {
 	@Autowired
 	UserRepository userRepository;
 	
-	
 	/**************************************/
 	/* 메인 컨트롤러; 수정하지 말아주세요 */
 	/**************************************/
@@ -35,8 +34,6 @@ public class HomeController {
 	public String customer() {
 		return "common/customer";
 	}
-	
-	
 	
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)

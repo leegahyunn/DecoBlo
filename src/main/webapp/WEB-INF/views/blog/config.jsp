@@ -465,7 +465,6 @@ body { margin: 0; }
 								<th>사이트 제목</th>
 								<td>
 									<span class="blogTitle"></span>
-									
 								</td>
 							</tr>
 							
@@ -611,6 +610,14 @@ body { margin: 0; }
          </ul>
       </div>
    </div>
+	<div class="block-wrapper">
+		<div class='menu-bar'>
+			<ul class = "main-menu-block">
+			</ul>
+			<ul class = "menu-block">
+			</ul>
+		</div>
+	</div>
 </div>
 <nav id="block-config-nav">
 <div class="blockMenu-sidebar-div">

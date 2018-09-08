@@ -54,6 +54,29 @@
       , 1
       ,(select Max(menuparentseq)+1 from db_menu where menuUserNo=#{menuUserNo})
    )
+=======
+	insert into db_menu
+			(
+			menuNo
+			,menuUserNo
+			,menuName
+			,menuParent
+			,menuDepth
+			,menuSeq
+			,menuVisible
+			,menuParentSeq
+			)
+	values( 
+		db_menu_seq.nextval
+		, #{menuUserNo}
+		, #{menuName}
+		, db_menu_seq.nextval
+		, 0
+		, 0
+		, 1
+		,(select Max(menuparentseq)+1 from db_menu where menuUserNo=#{menuUserNo})
+	)
+>>>>>>> 85e6a2c99816e4824821d5e0ae80f69bf719d44b
 </insert>
 <!-- 블록 넘버 가져오기 -->
 <select id="selectThumnail" parameterType="string" resultType="int">
@@ -99,7 +122,7 @@
 	SET
 		menuParentSeq = menuParentSeq + 1
 	WHERE
-		menuParentSeq >= #{newMenuParent}
+		menuParentSeq >= #{newMenuSeq}
 	AND
 		menuUserNo = #{menuUserNo}
 		
