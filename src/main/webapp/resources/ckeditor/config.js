@@ -36,14 +36,9 @@ CKEDITOR.editorConfig = function( config ) {
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 	
-	
-	// 추가
-	
 	// resize X
 	config.resize_enabled = false;
 	
-	// config.extraPlugins = 'justify';
-	config.filebrowserUploadUrl="resources/imgUpload";
-	
+	config.extraPlugins = 'justify';
 	
 };
