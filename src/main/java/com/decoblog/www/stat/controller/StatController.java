@@ -44,25 +44,28 @@ public class StatController {
 
 		Stat stat = statRepository.selectnowstat();
 		
-		Stat mstat = statRepository.nowmoth();
 		
-		Stat wstat = statRepository.nowweek();
+		if(statRepository.nowmoth()!=null) {
+			Stat mstat = statRepository.nowmoth();
+			
+			Stat wstat = statRepository.nowweek();
+			
+			String date1 = mstat.getStatRegDate();
 		
-		String date1 = mstat.getStatRegDate();
-		
-		String mmdate = date1.substring(0, 7);
-		
-		
-		
-		String date2 = wstat.getStatRegDate();
-		
-		String wwdate = date2.substring(0, 10);
-		
-		model.addAttribute("stat", stat);
 		model.addAttribute("mstat", mstat);
+		String mmdate = date1.substring(0, 7);
 		model.addAttribute("mmdate", mmdate);
+		String date2 = wstat.getStatRegDate();
+	
+		String wwdate = date2.substring(0, 10);
 		model.addAttribute("wstat", wstat);
 		model.addAttribute("wwdate", wwdate);
+		}
+		
+		
+		model.addAttribute("stat", stat);
+		
+		
 		
 		
 	    return "common/dashboard";

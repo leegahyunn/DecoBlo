@@ -61,10 +61,10 @@ public class HomeController {
 	/* 테스트 컨트롤러; 테스트는 여기서 ! */
 	/**************************************/
 	// 박치현
-	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
-	public String chtest() {
-		return "templates/1/block-1";
-	}
+//	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
+//	public String chtest() {
+//		return "blog/blogConfig";
+//	}
 	
 	@RequestMapping(value = "/chtest2", method = RequestMethod.GET)
 	public String chtest2() {
@@ -74,20 +74,21 @@ public class HomeController {
 	// 이가현
 	@RequestMapping(value = "/ghtest", method = RequestMethod.GET)
 	public String ghtest() {
+
 		return "redirect:/bbsList";
 	}
 	
 	// 최용락
-	/*@RequestMapping(value = "/yrtest", method = RequestMethod.GET)
+	@RequestMapping(value = "/yrtest", method = RequestMethod.GET)
 	public String yrtest() {
-		return "blog/blogEdit1";
-	}*/
+		return "redirect:/config";
+	}
 	
 	
 	// 안정민
 	@RequestMapping(value = "/jmtest", method = RequestMethod.GET)
 	public String jmtest() {
-		return "blog/test";
+		return "blog/config";
 	}
 
 
@@ -107,8 +108,12 @@ public class HomeController {
 	}
 
 	@RequestMapping(value="/titleTest1",method=RequestMethod.GET)
-public String titleTest1() {
+	public String titleTest1() {
 		return "templates/title/titleTest1";
 	}
-
+	@RequestMapping(value = "/tmtest", method = RequestMethod.GET)
+	public String tmtest() {
+		return "templates/1/template-1";
+	}
+	
 }
