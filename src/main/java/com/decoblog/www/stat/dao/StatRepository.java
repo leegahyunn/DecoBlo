@@ -18,62 +18,62 @@ public class StatRepository {
 	 * 저장된 Stat 가져오기
 	 * @return DB에 저장된 Stat
 	 */
-	public Stat selectnowstat() {
+	public Stat selectnowstat(int loginNo) {
 		StatMapper sm = session.getMapper(StatMapper.class);
 		
-		Stat stat = sm.selectnowstat();
+		Stat stat = sm.selectnowstat(loginNo);
 		
 		return stat;
 	}
 	
 	
-	public Stat selectdate(String date) {
+	public Stat selectdate(String date,int loginNo) {
 		StatMapper sm = session.getMapper(StatMapper.class);
 		
-		Stat stat = sm.selectdate(date);
+		Stat stat = sm.selectdate(date,loginNo);
 		
 		return stat;
 	}
 	
-	public Stat selectweek(@Param("startdate") String startdate,@Param("enddate") String enddate){
+	public Stat selectweek(@Param("startdate") String startdate,@Param("enddate") String enddate,int loginNo){
 		StatMapper sm = session.getMapper(StatMapper.class);
-		Stat stat = sm.selectweek(startdate, enddate);
+		Stat stat = sm.selectweek(startdate, enddate,loginNo);
 		
 		return stat;
 		
 	}
 	
-	public List<Stat> selectchart(){
+	public List<Stat> selectchart(int loginNo){
 		StatMapper sm = session.getMapper(StatMapper.class);
-		List<Stat> stat = sm.selectchart();
+		List<Stat> stat = sm.selectchart(loginNo);
 		
 		return stat;
 	}
 	
-	public List<Stat> selectweekchart(){
+	public List<Stat> selectweekchart(int loginNo){
 		StatMapper sm = session.getMapper(StatMapper.class);
-		List<Stat> stat = sm.selectweekchart();
+		List<Stat> stat = sm.selectweekchart(loginNo);
 		
 		return stat;
 	}
 	
 	
-	public List<Stat> selectmchart(){
+	public List<Stat> selectmchart(int loginNo){
 		StatMapper sm = session.getMapper(StatMapper.class);
-		List<Stat> stat = sm.selectmchart();
+		List<Stat> stat = sm.selectmchart(loginNo);
 		
 		return stat;
 	}
 	
-	public Stat nowmoth(){
+	public Stat nowmoth(int loginNo){
 		StatMapper sm = session.getMapper(StatMapper.class);
-		Stat stat = sm.nowmoth();
+		Stat stat = sm.nowmoth(loginNo);
 		
 		return stat;
 	}
-	public Stat nowweek() {
+	public Stat nowweek(int loginNo) {
 		StatMapper sm = session.getMapper(StatMapper.class);
-		Stat stat = sm.nowweek();
+		Stat stat = sm.nowweek(loginNo);
 		
 		return stat;
 	}

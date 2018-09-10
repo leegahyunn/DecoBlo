@@ -7,30 +7,31 @@
 <select id="selectnowstat" resultType="Stat">
 	SELECT 
 		statNo, statUserNo, statBlogCount, statBbsCount, statReplyCount,
-		statSubscribe, TO_CHAR(STATREGDATE,'YYYY-MM-DD') AS statRegDate 
+		statSubscribe, TO_CHAR(STATREGDATE,'YYYY-MM-DD') AS statRegDate, statBBSLike 
 	FROM 
 		db_stat 
 	WHERE 
-		TO_CHAR(statregdate, 'yyyy-mm-dd') = TO_CHAR(SYSDATE, 'yyyy-mm-dd')
+		TO_CHAR(statregdate, 'yyyy-mm-dd') = TO_CHAR(SYSDATE, 'yyyy-mm-dd') and statUserNo = #{loginNo}
 </select>
-
+<!-- 선택한 날 -->
 <select id="selectdate" resultType="Stat" parameterType="String">
 select 
-    statNo, statUserNo, statblogcount, statbbscount,statreplycount, statsubscribe, statregdate
+    statNo, statUserNo, statblogcount, statbbscount,statreplycount, statsubscribe, statregdate, statBBSLike
 from 
     db_stat
-where  statregdate = #{date}
+where  statregdate = #{date} and statUserNo = #{loginNo}
 
 </select>
-
+<!-- 선택한 주 -->
 <select id="selectweek" resultType="Stat" parameterType="String">
 select 
-      sum(statblogcount) as statblogcount, sum(statbbscount) as statbbscount,sum(statreplycount) as statreplycount, sum(statsubscribe) as statsubscribe
+      sum(statblogcount) as statblogcount, sum(statbbscount) as statbbscount,sum(statreplycount) as statreplycount, sum(statsubscribe) as statsubscribe,sum(statBBSLike) as statBBSLike
 from 
     db_stat
-where  statregdate between #{startdate} and #{enddate}
+where  statregdate between #{startdate} and #{enddate} and statUserNo = #{loginNo}
 
 </select>
+<!-- 선택한 주 stat -->
 <select id="selectweekchart" resultType="Stat">
 <![CDATA[ 
 select 
@@ -38,10 +39,11 @@ select
     sum(statbbscount) as statbbscount, 
     sum(statreplycount) as statreplycount, 
     sum(statsubscribe) as statsubscribe, 
-    trunc(statregdate, 'ww') as statregdate
+    trunc(statregdate, 'ww') as statregdate,
+    sum(statBBSLike) as statBBSLike
 from 
     db_stat
-where  trunc(SYSDATE, 'ww') - 64 <  trunc(statregdate, 'ww')  and trunc(statregdate, 'ww') < trunc(SYSDATE, 'ww') - 1  
+where  trunc(SYSDATE, 'ww') - 64 <  trunc(statregdate, 'ww')  and trunc(statregdate, 'ww') < trunc(SYSDATE, 'ww') - 1   and statUserNo = #{loginNo}
 group by
     trunc(statregdate, 'ww')
 order by 
@@ -49,28 +51,28 @@ order by
 
     	]]>	
 </select>
-
+<!-- 선택한 날 stat -->
 <select id="selectchart" resultType="Stat">
 <![CDATA[
 select 
-    sum(statblogcount) as statblogcount, sum(statbbscount) as statbbscount, sum(statreplycount) as statreplycount, sum(statsubscribe) as statsubscribe, trunc(statregdate, 'dd') as statregdate
+    sum(statblogcount) as statblogcount, sum(statbbscount) as statbbscount, sum(statreplycount) as statreplycount, sum(statsubscribe) as statsubscribe, trunc(statregdate, 'dd') as statregdate,sum(statBBSLike) as statBBSLike
 from 
     db_stat
-where trunc(SYSDATE, 'dd') - 14 <  trunc(statregdate, 'dd') and  trunc(statregdate, 'dd') < trunc(SYSDATE, 'dd') - 1  
+where trunc(SYSDATE, 'dd') - 14 <  trunc(statregdate, 'dd') and  trunc(statregdate, 'dd') < trunc(SYSDATE, 'dd') - 1  and statUserNo = #{loginNo}
 group by
     trunc(statregdate, 'dd')
 order by 
     trunc(statregdate, 'dd') 
     ]]>
 </select>
-
+<!-- 선택한달 stat -->
 <select id="selectmchart" resultType="Stat">
 <![CDATA[
    select 
-    sum(statblogcount) as statblogcount, sum(statbbscount) as  statbbscount, sum(statreplycount) as statreplycount, sum(statsubscribe) as statsubscribe, trunc(statregdate, 'mm') as statregdate
+    sum(statblogcount) as statblogcount, sum(statbbscount) as  statbbscount, sum(statreplycount) as statreplycount, sum(statsubscribe) as statsubscribe, trunc(statregdate, 'mm') as statregdate,sum(statBBSLike) as statBBSLike
 from 
     db_stat
-where trunc(SYSDATE, 'mm') - 600<  trunc(statregdate, 'mm')  and trunc(statregdate, 'mm') < trunc(SYSDATE, 'mm') - 1  
+where trunc(SYSDATE, 'mm') - 600<  trunc(statregdate, 'mm')  and trunc(statregdate, 'mm') < trunc(SYSDATE, 'mm') - 1  and statUserNo = #{loginNo}
 group by
     trunc(statregdate, 'mm')
 order by 
@@ -78,19 +80,20 @@ order by
      ]]>
 </select>
 
-
+<!-- 이번딜 stat -->
 <select id="nowmoth" resultType="Stat">
 <![CDATA[
 select 
-    sum(statblogcount) as statblogcount, sum(statbbscount) as  statbbscount, sum(statreplycount) as statreplycount, sum(statsubscribe) as statsubscribe, trunc(statregdate, 'mm') as statregdate
+    sum(statblogcount) as statblogcount, sum(statbbscount) as  statbbscount, sum(statreplycount) as statreplycount, sum(statsubscribe) as statsubscribe, trunc(statregdate, 'mm') as statregdate,sum(statBBSLike) as statBBSLike
 from 
     db_stat
-where trunc(statregdate, 'mm') = trunc(SYSDATE, 'mm')
+where trunc(statregdate, 'mm') = trunc(SYSDATE, 'mm') and statUserNo = #{loginNo}
 group by
     trunc(statregdate, 'mm')
      ]]>
 </select>
 
+<!-- 이번주 stat -->
 <select id="nowweek" resultType="Stat">
 <![CDATA[
 select 
@@ -98,10 +101,11 @@ select
     sum(statbbscount) as statbbscount, 
     sum(statreplycount) as statreplycount, 
     sum(statsubscribe) as statsubscribe, 
-    trunc(statregdate, 'ww') as statregdate
+    trunc(statregdate, 'ww') as statregdate,
+    sum(statBBSLike) as statBBSLike
 from 
     db_stat
-where   trunc(statregdate, 'ww') = trunc(SYSDATE, 'ww') 
+where   trunc(statregdate, 'ww') = trunc(SYSDATE, 'ww')  and statUserNo = #{loginNo}
 group by
     trunc(statregdate, 'ww')
 

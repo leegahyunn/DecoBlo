@@ -90,6 +90,8 @@
 	border-top: 1px solid black;
 }
 
+
+
 #panels section main {
 	max-height: 0;
 	/*  이하 생략  */
@@ -458,11 +460,11 @@ pmydate{
 					</div>
 					<div class="two">
 						<p align="center">공감수</p>
-						<c:if test="${empty stat.statBlogCount}">
+						<c:if test="${empty stat.statBBSLike}">
 					<h3 align="center">0</h3>
 					</c:if>
-						<c:if test="${not empty stat.statBlogCount}">
-						<h3 align="center">${stat.statBlogCount}</h3>
+						<c:if test="${not empty stat.statBBSLike}">
+						<h3 align="center">${stat.statBBSLike}</h3>
 						</c:if>
 					</div>
 					<div class="three">
@@ -542,7 +544,7 @@ pmydate{
 							<section id="panel-5">
 								<main>
 								<p align="left" id="clock">기준</p>
-								<canvas></canvas>
+								<canvas id="chart5"></canvas>
 								</main>
 							</section>
 						</div>
