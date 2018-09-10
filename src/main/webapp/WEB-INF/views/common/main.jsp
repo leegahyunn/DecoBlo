@@ -147,6 +147,12 @@
 .show-box .hot-title, .show-box .hot-content {
 	padding: 5px;
 	margin: 5px;
+	
+}
+.hot-content{
+	text-overflow: ellipsis;
+	height: 48%;
+	overflow: hidden;
 }
 </style>
 
@@ -176,7 +182,7 @@
 							<h3 class="hot-title">
 								Lorem Ipsum
 							</h3>
-							<p class="hot-title">
+							<p class="hot-content">
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
 								Nunc vitae iaculis ex, ut feugiat enim. Fusce vitae arcu magna. 
 								Nunc interdum ullamcorper blandit. Suspendisse pharetra dui 

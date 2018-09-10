@@ -92,25 +92,10 @@ public class HomeController {
 		return "blog/template";
 	}
 	
-	
-	
-	@RequestMapping(value="/test2",method=RequestMethod.GET)
-	public String test2() {
-		return "blog/blockConfig";
-	}
-
-	@RequestMapping(value="/titleTest1",method=RequestMethod.GET)
-	public String titleTest1() {
-		return "templates/title/titleTest1";
-	}
 	@RequestMapping(value = "/tmtest", method = RequestMethod.GET)
 	public String tmtest() {
 		return "templates/1/template-1";
 	}
 	
-	@RequestMapping(value = "/testpop", method = RequestMethod.GET)
-	public String testpop() {
-		return "templates/1/test";
-	}
-	
+
 }

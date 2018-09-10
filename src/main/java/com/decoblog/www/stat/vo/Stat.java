@@ -8,10 +8,11 @@ public class Stat {
 	private int statReplyCount;
 	private int statSubscribe;
 	private String statRegDate;
+	private int statBBSLike;
 	public Stat() {
 	}
 	public Stat(int statNo, int statUserNo, int statBlogCount, int statBbsCount, int statReplyCount, int statSubscribe,
-			String statRegDate) {
+			String statRegDate,int statBBSLike) {
 		this.statNo = statNo;
 		this.statUserNo = statUserNo;
 		this.statBlogCount = statBlogCount;
@@ -19,6 +20,7 @@ public class Stat {
 		this.statReplyCount = statReplyCount;
 		this.statSubscribe = statSubscribe;
 		this.statRegDate = statRegDate;
+		this.statBBSLike = statBBSLike;
 	}
 	public int getStatNo() {
 		return statNo;
@@ -62,10 +64,17 @@ public class Stat {
 	public void setStatRegDate(String statRegDate) {
 		this.statRegDate = statRegDate;
 	}
+	
+	public int getStatBBSLike() {
+		return statBBSLike;
+	}
+	public void setStatBBSLike(int statBBSLike) {
+		this.statBBSLike = statBBSLike;
+	}
 	@Override
 	public String toString() {
 		return "Stat [statNo=" + statNo + ", statUserNo=" + statUserNo + ", statBlogCount=" + statBlogCount
 				+ ", statBbsCount=" + statBbsCount + ", statReplyCount=" + statReplyCount + ", statSubscribe="
-				+ statSubscribe + ", statRegDate=" + statRegDate + "]";
+				+ statSubscribe + ", statRegDate=" + statRegDate + "statBBSLike=" + statBBSLike +"]";
 	}
 }
