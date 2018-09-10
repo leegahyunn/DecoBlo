@@ -4,10 +4,6 @@
 /**********************/
 /* 메뉴 블록, block-1 */
 /**********************/
-/* delete */
-body{
-}
-
 .block-1 {
 	background-color: #000;
 	overflow: hidden;

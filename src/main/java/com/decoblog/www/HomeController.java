@@ -58,10 +58,10 @@ public class HomeController {
 	/* 테스트 컨트롤러; 테스트는 여기서 ! */
 	/**************************************/
 	// 박치현
-//	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
-//	public String chtest() {
-//		return "blog/blogConfig";
-//	}
+	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
+	public String chtest() {
+		return "blog/template";
+	}
 	
 	@RequestMapping(value = "/chtest2", method = RequestMethod.GET)
 	public String chtest2() {

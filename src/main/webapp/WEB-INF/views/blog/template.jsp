@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="te xt/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html >
 <html>
 <head>
@@ -278,27 +278,9 @@ margin: 0 auto;
 			<li><a href="#">Contact</a></li>
 		</ul>
 		<span class="copyright"> &copy; Deco Blog </span>
-	</footer>
+	</footer>	
 	
-<!-- 	<!-- 템플릿 팝업 --> -->
-<!-- 	<div class="allmm"> -->
-<!-- 	<div class="title"> -->
-<!-- 	<h2 style="color: white;">템플릿-1</h2> -->
-<!-- 	</div> -->
-<!-- 	<div class="bubu"> -->
-<!-- 	<input type="button" value="템블릿 사용하기"> -->
-<!-- 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-<!-- 	<img src="resources/images/ESC.png" class="ESC" style="width: 40px; height: 40px; "> -->
-<!-- 	</div> -->
-	
-<!-- 	</div> -->
-<!-- 	<div class="iframe"> -->
-<!-- 	<iframe src="http://localhost:8000/www/tmtest"   class="sun" > -->
-<!-- 	</iframe> -->
-<!-- 	</div> -->
-	
-	
-	<!-- 로그인 팝업 -->
+	<!-- 템플릿 팝업 -->
 	<div class="login-wrapper user-wrapper">
 	    <div class="login-content user-content">
 	      <div class="login-header user-header">
@@ -311,7 +293,7 @@ margin: 0 auto;
 		    	<h2>템플릿 사용하기</h2>
 		    </div>
         	<div>
-        		<iframe src="http://localhost:8000/www/tmtest"   class="sun" ></iframe> 
+        		<iframe src="/www/tmtest"   class="sun" ></iframe> 
         	</div>
 	     </div>
 	    </div>
