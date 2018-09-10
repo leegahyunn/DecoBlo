@@ -64,6 +64,7 @@ public class BlogController {
 	public String menuConfig(HttpSession session) {
 		int userNo =(int)session.getAttribute("loginNo");
 		ArrayList<HashMap<String, ArrayList<Menu>>> list= blogRepository.selectMenu(userNo);
+	//System.out.println(list);
 		Gson gson = new Gson();
 		String result = gson.toJson(list);
 		return result;
@@ -160,6 +161,18 @@ public class BlogController {
 	}
 	
 	/**
+	 * 블로그 마우스 우클릭 여부 Ajax
+	 * @return 블로그 수정 페이지
+	 */
+	@RequestMapping(value = "/updateMenuVisible", method = RequestMethod.POST)
+	public String updateMenuVisible(@RequestBody HashMap<String, Object> map) {
+		System.out.println(map);
+		map.put("menuUserNo", "1");
+		blogRepository.updateMenuVisible(map);
+		return  "blog/config";
+	}
+	
+	/**
 	 * 메뉴 추가  Ajax
 	 * @return 블로그 수정 페이지
 	 */
@@ -178,8 +191,10 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/deleteMenu", method = RequestMethod.POST)
 	public String deleteMenu(@RequestBody HashMap<String, Object> map) {
+		int menuDepth = (int)map.get("menuDepth");
 		map.put("menuUserNo", "1");
-		if(map.get("menuDepth").equals("0")) {
+		
+		if(menuDepth==0) {
 			blogRepository.deleteLargeMenu(map);
 			blogRepository.updateLargeMenuPull(map);
 			
@@ -236,55 +251,37 @@ public class BlogController {
 		}
 		int result=0;
 		// TODO userNo 세션값으로 바꾸기 
-		map.put("menuUserNo", "2");
 		map.put("menuUserNo", "1");
 		String depth = String.valueOf(map.get("menuDepth"));
 		System.out.println(map);
 		if(depth.equals("1")) {//움직인 애가 소메뉴일 경우
 			if(map.get("menuParent").equals("newMenuParent")){//대메뉴 내에서 소메뉴가 이동한 경우(부모가 그대로인 경우)
-				System.out.println("대메뉴 내에서 소메뉴가 이동한 경우");
 				blogRepository.updateSmallMenuPull(map);
 				blogRepository.updateSmallMenuPush(map);
 				result = blogRepository.updateMenu(map);
-				System.out.println(blogRepository.selectMenu(1));
-				System.out.println("=================================");
 			} else {
 				if(!(map.containsKey("newMenuParent"))) { //소메뉴가 대메뉴가 된 경우
-					System.out.println("소메뉴가 대메뉴가 된 경우");
 					map.put("newMenuParent", map.get("menuNo"));
 					blogRepository.updateSmallMenuPull(map);
 					blogRepository.updateLargeMenuPush(map);
 					blogRepository.updateMenu(map);
-					System.out.println(blogRepository.selectMenu(1));
-					System.out.println("=================================");
 				}else {//소메뉴가 다른 대메뉴의 소메뉴로 이동한 경우
-					System.out.println("소메뉴가 다른 대메뉴의 소메뉴로 이동한 경우");
 					blogRepository.updateSmallMenuPull(map);
 					blogRepository.updateSmallMenuPush(map);
 					blogRepository.updateMenu(map);
-					System.out.println(blogRepository.selectMenu(1));
-					System.out.println("=================================");
 				}
 			}
 		} else {//움직인 애가 대메뉴일 경우
 			if(!(map.containsKey("newMenuParent"))) { //대메뉴 순서만 바뀐 경우
-				map.put("newMenuParent", "0");
-				blogRepository.updateLargeMenuPush(map);
-				System.out.println("대메뉴 순서만 바뀐 경우");
 				map.put("newMenuParent", map.get("menuNo"));
 				blogRepository.updateLargeMenuPull(map);
 				blogRepository.updateLargeMenuPush(map);
 				blogRepository.updateMenu(map);
 				blogRepository.updateSubmenu(map);
-				System.out.println(blogRepository.selectMenu(1));
-				System.out.println("=================================");
 			}else {//대메뉴가 다른 대메뉴의 소메뉴로 들어간 경우
-				System.out.println("대메뉴가 다른 대메뉴의 소메뉴로 들어간 경우");
 				blogRepository.updateLargeMenuPull(map);
 				blogRepository.updateSmallMenuPush(map);
 				blogRepository.updateMenu(map);
-				System.out.println(blogRepository.selectMenu(1));
-				System.out.println("=================================");
 			}
 		}
 		

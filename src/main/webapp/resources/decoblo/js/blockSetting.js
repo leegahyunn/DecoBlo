@@ -17,6 +17,7 @@ function menuConfig() {
          $.each(menuJson, function(mainIndex, mainMenu){
             $.each(mainMenu.Menu, function(subIndex, subMenu){
                /* menu-bar */
+
                if (mainIndex == 0) {
             	   result += '<span id="intro-click" data-parent="'+ subMenu.menuParent+'">'+subMenu.menuName+'</span>';
                } else {
@@ -28,6 +29,24 @@ function menuConfig() {
                   }
                }//
                if (mainIndex >= 1) {
+
+            	if(subMenu.menuVisible == 1){
+            		if (mainIndex == 0) {
+            			if(subMenu.menuDepth==0){
+            				result += '</ul></li><li data-parent="'+ subMenu.menuParent+'"><a href=#">'+ subMenu.menuName +'</a><ul>';
+            			} else if(subMenu.menuDepth==1){
+            				result += '<li><a href="#">'+ subMenu.menuName +'</a></li>';
+            			}
+            		} else {
+            			if(subMenu.menuDepth==0){
+            				result1 += '</ul></li><li data-parent="'+ subMenu.menuParent+'"><a href="#">'+ subMenu.menuName +'</a><ul>';
+	                     } else if(subMenu.menuDepth==1){
+	                    	 result1 += '<li><a href="#">'+ subMenu.menuName +'</a></li>';
+	                     }
+            		}//mainIndex == 0
+            	}//subMenu.menuVisible == 1
+             //  if (mainIndex >= 1) {
+
                   if (subIndex == 1 && mainMenu.Menu.length != 1) {
                      result2 += '<ol class="dd-list">';
                   }
@@ -45,14 +64,16 @@ function menuConfig() {
                   result2 += '<span>' + subMenu.menuName + '</span>';
                   result2 += '</div>';
                   result2 += '<div class="outer-config"  style="display: inline-block;">';
-                  result2 += '<i class="fa fa-trash deletebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+ '" data-menu-seq="'+ subMenu.menuSeq +'" data-menu-depth="'+ subMenu.menuDepth +'" data-menu-parent-seq="'+ subMenu.menuParentSeq +'"></i>';
                   result2 += '<i class="fa fa-pencil editbtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+ '" data-menu-seq="'+ subMenu.menuSeq +'" data-menu-depth="'+ subMenu.menuDepth +'" data-menu-parent-seq="'+ subMenu.menuParentSeq +'"></i>';
-                  
-                  if(subMenu.menuVisible == 1){
-                     result2 += '<i style="color:#2ea8e5"class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
-                  } else {
-                     result2 += '<i class="fa fa-eye hidebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+ '" data-menu-seq="'+ subMenu.menuSeq +'" data-menu-depth="'+ subMenu.menuDepth +'" data-menu-parent-seq="'+ subMenu.menuParentSeq +'"></i>';
-                  }    
+                  if(mainIndex != 0){
+                	  result2 += '<i class="fa fa-trash deletebtn" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+ '" data-menu-seq="'+ subMenu.menuSeq +'" data-menu-depth="'+ subMenu.menuDepth +'" data-menu-parent-seq="'+ subMenu.menuParentSeq +'"></i>';
+                      if(subMenu.menuVisible == 1){
+                         result2 += '<i style="color:#2ea8e5"class="fa fa-eye hidebtn" data-menu-visible="'+subMenu.menuVisible+'" data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+'"></i>';
+                      } else {
+                         result2 += '<i class="fa fa-eye hidebtn" data-menu-visible="' + subMenu.menuVisible + '"  data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+ '" data-menu-seq="'+ subMenu.menuSeq +'" data-menu-depth="'+ subMenu.menuDepth +'" data-menu-parent-seq="'+ subMenu.menuParentSeq +'"></i>';
+                      }   
+                  }
+                   
                   
                   result2 += '</div>';
                   result2 += '<div class="fold outer-config" style="display:none;">';
@@ -70,7 +91,7 @@ function menuConfig() {
                   if (mainMenu.Menu.length == 1) {
                      result2 += '</li>';
                   }
-               }
+            //  }
             });
          });
          result2 += '</ol>';
@@ -284,7 +305,7 @@ $(document).on('click', '.configRightClickable', function(){
       if ($(target).parents('ol').length == 1) {
          $.each($($(target).parents('ol')[0]).children('li'), function(index, item){
             if ($(item).hasClass('changed')){
-               newMenuSeq = index + 2;
+               newMenuSeq = index + 1;
                newMenuDepth = 0;
                $(item).removeClass("changed");
             }
@@ -403,6 +424,25 @@ $(document).on('click', '.configRightClickable', function(){
 	});
 	
 	$(document).on('click', '.hidebtn', function(){
+		var menuVisible = $(this).data('menu-visible');
+		var menuNo = $(this).data('rno');
+		alert(menuVisible);
+		if(menuVisible==0){
+			menuVisible=1;
+		} else {menuVisible=0;}
+		var sendData = {"menuVisible" : menuVisible
+						,"menuNo" : menuNo};
+		
+		$.ajax({
+			method : 'post'
+			, url  : 'updateMenuVisible'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+				menuConfig();
+			} 
+		});
 		
 	}); 
 	$(document).on('click', '.menu-plus-button', function(){

@@ -210,6 +210,13 @@ public class BlogRepository {
 		
 		return result;
 	}
+
+	public int updateMenuVisible(HashMap<String, Object> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateMenuVisible(map);
+		
+		return result;
+	}
 	
 	/*첫 번째 메뉴 가져오기*/
 	public Menu selectFirstMenu(int userNo) {
