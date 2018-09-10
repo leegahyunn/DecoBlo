@@ -257,49 +257,32 @@ public class BlogController {
 		System.out.println(map);
 		if(depth.equals("1")) {//움직인 애가 소메뉴일 경우
 			if(map.get("menuParent").equals("newMenuParent")){//대메뉴 내에서 소메뉴가 이동한 경우(부모가 그대로인 경우)
-				System.out.println("대메뉴 내에서 소메뉴가 이동한 경우");
 				blogRepository.updateSmallMenuPull(map);
 				blogRepository.updateSmallMenuPush(map);
 				result = blogRepository.updateMenu(map);
-				System.out.println(blogRepository.selectMenu(1));
-				System.out.println("=================================");
 			} else {
 				if(!(map.containsKey("newMenuParent"))) { //소메뉴가 대메뉴가 된 경우
-					System.out.println("소메뉴가 대메뉴가 된 경우");
 					map.put("newMenuParent", map.get("menuNo"));
 					blogRepository.updateSmallMenuPull(map);
 					blogRepository.updateLargeMenuPush(map);
 					blogRepository.updateMenu(map);
-					System.out.println(blogRepository.selectMenu(1));
-					System.out.println("=================================");
 				}else {//소메뉴가 다른 대메뉴의 소메뉴로 이동한 경우
-					System.out.println("소메뉴가 다른 대메뉴의 소메뉴로 이동한 경우");
 					blogRepository.updateSmallMenuPull(map);
 					blogRepository.updateSmallMenuPush(map);
 					blogRepository.updateMenu(map);
-					System.out.println(blogRepository.selectMenu(1));
-					System.out.println("=================================");
 				}
 			}
 		} else {//움직인 애가 대메뉴일 경우
 			if(!(map.containsKey("newMenuParent"))) { //대메뉴 순서만 바뀐 경우
-				map.put("newMenuParent", "0");
-				blogRepository.updateLargeMenuPush(map);
-				System.out.println("대메뉴 순서만 바뀐 경우");
 				map.put("newMenuParent", map.get("menuNo"));
 				blogRepository.updateLargeMenuPull(map);
 				blogRepository.updateLargeMenuPush(map);
 				blogRepository.updateMenu(map);
 				blogRepository.updateSubmenu(map);
-				System.out.println(blogRepository.selectMenu(1));
-				System.out.println("=================================");
 			}else {//대메뉴가 다른 대메뉴의 소메뉴로 들어간 경우
-				System.out.println("대메뉴가 다른 대메뉴의 소메뉴로 들어간 경우");
 				blogRepository.updateLargeMenuPull(map);
 				blogRepository.updateSmallMenuPush(map);
 				blogRepository.updateMenu(map);
-				System.out.println(blogRepository.selectMenu(1));
-				System.out.println("=================================");
 			}
 		}
 		

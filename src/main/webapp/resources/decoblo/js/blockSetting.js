@@ -292,7 +292,7 @@ $(document).on('click', '.configRightClickable', function(){
       if ($(target).parents('ol').length == 1) {
          $.each($($(target).parents('ol')[0]).children('li'), function(index, item){
             if ($(item).hasClass('changed')){
-               newMenuSeq = index + 2;
+               newMenuSeq = index + 1;
                newMenuDepth = 0;
                $(item).removeClass("changed");
             }
