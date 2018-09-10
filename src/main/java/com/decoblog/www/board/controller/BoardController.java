@@ -1,21 +1,32 @@
 package com.decoblog.www.board.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.decoblog.www.board.dao.BoardRepository;
 import com.decoblog.www.board.vo.Bbs;
+import com.decoblog.www.board.vo.BbsAttach;
+import com.decoblog.www.board.vo.BbsAttachUpload;
 import com.decoblog.www.board.vo.Like;
 import com.decoblog.www.board.vo.PageNavigator;
 import com.decoblog.www.board.vo.Reply;
@@ -25,6 +36,8 @@ public class BoardController {
 	@Autowired
 	BoardRepository repository;
 	
+	
+
 	
 	SqlSession session;
 	final String uploadPath = "/uploadPath";
@@ -78,7 +91,7 @@ public class BoardController {
 		PageNavigator navi = new PageNavigator(currentPage, totalRecordCount);
 
 		List<Bbs> bbsList = repository.select(searchItem, searchWord, navi.getStartRecord(), navi.getCountPerPage());
-
+		
 		model.addAttribute("bbsList", bbsList);
 		model.addAttribute("bbsDetail", bbsDetail);
 
@@ -102,27 +115,13 @@ public class BoardController {
 
 	// 글쓰기 + 첨부파일 DB
 	@RequestMapping(value = "/writeBbs", method = RequestMethod.POST)
-	public String writeBbs(Bbs bbs, String type) {
+	public String writeBbs(Bbs bbs, BbsAttach bbsAttach, String type,  MultipartFile upload) {
 
 		if (type.equals("write")) {
 			repository.insertBbs(bbs);
 		} else if (type.equals("update")) {
 			repository.updateBbs(bbs);
 		}
-
-		/*
-		 * String userid = (String) session.getAttribute("loginId");
-		 * 
-		 * String savedFileName = FileService.saveFile(upload, uploadPath); String
-		 * originalFileName = upload.getOriginalFilename();
-		 * 
-		 * // 첨부파일 있을 때 if(!upload.getOriginalFilename().equals("")) {
-		 * bbsAttach.setAttachSavedFile(savedFileName);
-		 * bbsAttach.setAttachOriginalFile(originalFileName);
-		 * 
-		 * repository.insertBbsAttach(bbsAttach); }
-		 */
-		;
 
 		return "redirect:bbsList";
 	}
@@ -132,10 +131,6 @@ public class BoardController {
 	public String updateBbs(Model model, int bbsNo) {
 
 		Bbs bbsUpdate = repository.selectOneBbs(bbsNo);
-		
-		System.out.println(bbsUpdate);
-		
-		
 		model.addAttribute("bbsUpdate", bbsUpdate);
 
 		return "common/bbsUpdate";
@@ -147,7 +142,6 @@ public class BoardController {
 
 		// 수정할 글 가져오기
 		Bbs bbsUpdate = repository.selectOneBbs(bbs.getBbsNo());
-		
 		// 수정한 글 넣어주기
 		repository.updateBbs(bbs);
 
@@ -167,6 +161,78 @@ public class BoardController {
 		return "redirect:bbsList";
 	}
 	
+	
+	/**************************************/
+	/* FILEUPLOAD *************************/
+	/**************************************/
+	@RequestMapping(value="/ckeditorImageUpload")
+	public void ckeditorImageUpload(BbsAttachUpload BbsAttachUpload, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException{
+	
+		System.out.println("컨트롤러");
+		System.out.println(System.getProperty("user.home"));
+		
+		HttpSession session = request.getSession(); 
+		String root_path = session.getServletContext().getRealPath("/"); // 웹서비스 root 경로 
+		String attachPath = "resources/imgUpload/"; 
+
+		String originalFilename = BbsAttachUpload.getUpload().getOriginalFilename();
+		
+		// 파일 만들어 두기
+		String filePath = System.getProperty("user.home") + "/Decoblo/imgs/" + BbsAttachUpload.getUpload().getOriginalFilename();
+		
+		
+		PrintWriter printWriter = null;
+		MultipartFile upload = BbsAttachUpload.getUpload(); 
+		
+		String fileName = ""; 
+		
+		String CKEditorFuncNum = ""; 
+		
+			if (upload != null) { 
+				fileName = upload.getOriginalFilename(); 
+				BbsAttachUpload.setFilename(fileName); 
+				
+				CKEditorFuncNum = BbsAttachUpload.getCKEditorFuncNum(); 
+				
+					try { 
+						File file = new File(filePath); 
+						upload.transferTo(file); 
+						
+						} catch (IOException e) { 
+							e.printStackTrace(); } 
+			}
+			
+			 printWriter = response.getWriter();
+
+		     String fileUrl = "getImg/" + fileName;
+		     
+		     String text = "{\"uploaded\": 1, \"fileName\": \"" + fileName + "\", \"url\": \"" + fileUrl + "\"}";
+		     printWriter.print(text);
+		     
+		     printWriter.flush();
+			
+			String file_path = attachPath + fileName; 
+			model.addAttribute("file_path", file_path); 
+			model.addAttribute("CKEditorFuncNum", CKEditorFuncNum);
+			
+	}
+	
+	
+	   //ckeditor 이미지 첨부 후 다시 해당 이미지 불러오는 request
+	   @RequestMapping(value = "/getImg/{fileName}", method = RequestMethod.GET)
+	   public void getImage(@PathVariable("fileName") String fileName, HttpServletResponse response) throws Exception {
+	      // fileName 부분이 업로드한 그림파일 이름입니다.
+	      // 파일이 있는 위치는 다음과 같구요
+	      // 참고로 확장자는 입력이 안 되는지라... 그 부분은 잘 생각해 보시면 됩니다 ^^...
+	      String filePath = System.getProperty("user.home") + "/Decoblo/imgs/" + fileName + ".jpg";
+	      
+	      System.out.println(filePath);
+	      
+	      File f = new File(filePath);
+	      // 이제 파일을 보내주면 됩니다.
+	      FileInputStream fis = new FileInputStream(f);
+	      FileCopyUtils.copy(fis, response.getOutputStream());
+	   }
 	
 	
 	/**************************************/
