@@ -48,5 +48,8 @@ public interface BlogMapper {
 	public int updateSubmenu(HashMap<String, Object> map);
 	public int deleteLargeMenu(HashMap<String, Object> map);
 	public int deleteSmallMenu(HashMap<String, Object> map);
+	public Menu selectFirstMenu(int userNo);
+	public Menu selectOneMenu(Menu menu);
 	public int updateMenuVisible(HashMap<String, Object> map);
+
 }
