@@ -218,5 +218,18 @@ public class BlogRepository {
 		return result;
 	}
 	
+	/*첫 번째 메뉴 가져오기*/
+	public Menu selectFirstMenu(int userNo) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		Menu menu = mapper.selectFirstMenu(userNo);
+		return menu;
+	}
+	/*메뉴 한개 불러오기*/
+	public Menu selectOneMenu(Menu menu) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		Menu resultmenu = mapper.selectOneMenu(menu);
+		return resultmenu;
+	}
+	
 	
 }

@@ -270,4 +270,15 @@ UPDATE db_block SET blockseq = blockseq+1 WHERE blockseq >= #{blockSeq}
 <delete id="deleteBlock" parameterType="int">
 DELETE db_block WHERE blockseq=#{blockSeq}
 </delete>
+
+<!-- 첫번 째 메뉴 가져오기 -->
+<select id="selectFirstMenu" parameterType="int" resultType="Menu">
+SELECT * FROM db_menu
+WHERE menuuserno = #{userNo} AND menuparentseq=1
+</select>
+<!-- 메뉴 하나 가져오기 -->
+<select id="selectOneMenu" parameterType="Menu" resultType="Menu">
+SELECT * FROM db_menu
+WHERE menuNo=#{menuNo} AND menuuserno=#{menuUserNo}
+</select>
 </mapper>
