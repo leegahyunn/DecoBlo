@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,21 +38,20 @@ public class BlogController {
 	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/config", method = RequestMethod.GET)
-	public String config(Menu menu, Model model,HttpSession session) {	
-		int menuNo= menu.getMenuNo();
-		String menuName = "";
+	public String config(int menuNo, Model model,HttpSession session) {
 		int userNo = (int) session.getAttribute("loginNo");
+		Menu menu = new Menu();
 		if(menuNo==0) {
-			menu.setMenuNo(1);
-			menuName="INTRO";
-		}else {
+			menu = blogRepository.selectFirstMenu(userNo);
+		}else
+		{
 			menu.setMenuNo(menuNo);
-			menuName=menu.getMenuName();
+			menu.setMenuUserNo(userNo);
+			menu = blogRepository.selectOneMenu(menu);
 		}
-		menu.setMenuUserNo(userNo);
 		List<Block> blockList = blogRepository.selectBlockList(menu);
 		model.addAttribute("blockList", blockList);
-		model.addAttribute("menuName", menuName);
+		model.addAttribute("menu", menu);
 		return "blog/config";
 	}
 	/**
@@ -178,7 +178,6 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/deleteMenu", method = RequestMethod.POST)
 	public String deleteMenu(@RequestBody HashMap<String, Object> map) {
-		System.out.println(map);
 		map.put("menuUserNo", "1");
 		if(map.get("menuDepth").equals("0")) {
 			blogRepository.deleteLargeMenu(map);
@@ -317,6 +316,14 @@ public class BlogController {
 		int result=blogRepository.insertBlock(block);
 		return result;
 	}
+	@RequestMapping(value="selectMenu",method=RequestMethod.POST)
+	public @ResponseBody Menu selectMenu(int menuNo, HttpSession session,Menu menu) {
+		int userNo = (int) session.getAttribute("loginNo");
+		menu.setMenuUserNo(userNo);
+		menu.setMenuNo(menuNo);
+		menu = blogRepository.selectOneMenu(menu);
+		return menu;
+	}
 	
 	@RequestMapping(value="deleteBlock",method=RequestMethod.POST)
 	public @ResponseBody String deleteBlock(int blockSeq , Menu menu,RedirectAttributes rttr) {
@@ -325,10 +332,8 @@ public class BlogController {
 	}
 	@RequestMapping(value="copyBlock",method=RequestMethod.POST)
 	public @ResponseBody int copyBlock(@RequestBody Block block) {
-		System.out.println(block);
 		int blockSeq=block.getBlockSeq();
 		int blockNo= block.getBlockNo();
-		System.out.println(blockNo);
 		blogRepository.updateBlockSeq(blockSeq);
 		int result = blogRepository.copyBlock(blockNo);
 		return result;

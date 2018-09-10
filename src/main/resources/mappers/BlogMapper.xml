@@ -54,29 +54,6 @@
       , 1
       ,(select Max(menuparentseq)+1 from db_menu where menuUserNo=#{menuUserNo})
    )
-=======
-	insert into db_menu
-			(
-			menuNo
-			,menuUserNo
-			,menuName
-			,menuParent
-			,menuDepth
-			,menuSeq
-			,menuVisible
-			,menuParentSeq
-			)
-	values( 
-		db_menu_seq.nextval
-		, #{menuUserNo}
-		, #{menuName}
-		, db_menu_seq.nextval
-		, 0
-		, 0
-		, 1
-		,(select Max(menuparentseq)+1 from db_menu where menuUserNo=#{menuUserNo})
-	)
->>>>>>> 85e6a2c99816e4824821d5e0ae80f69bf719d44b
 </insert>
 <!-- 블록 넘버 가져오기 -->
 <select id="selectThumnail" parameterType="string" resultType="int">
@@ -287,4 +264,15 @@ UPDATE db_block SET blockseq = blockseq+1 WHERE blockseq >= #{blockSeq}
 <delete id="deleteBlock" parameterType="int">
 DELETE db_block WHERE blockseq=#{blockSeq}
 </delete>
+
+<!-- 첫번 째 메뉴 가져오기 -->
+<select id="selectFirstMenu" parameterType="int" resultType="Menu">
+SELECT * FROM db_menu
+WHERE menuuserno = #{userNo} AND menuparentseq=1
+</select>
+<!-- 메뉴 하나 가져오기 -->
+<select id="selectOneMenu" parameterType="Menu" resultType="Menu">
+SELECT * FROM db_menu
+WHERE menuNo=#{menuNo} AND menuuserno=#{menuUserNo}
+</select>
 </mapper>

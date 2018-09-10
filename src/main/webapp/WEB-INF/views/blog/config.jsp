@@ -234,11 +234,8 @@
 <!-- menu-bar -->
 <div class="menu-wrapper">
    <div class="block-wrapper">
-      <div class='menu-bar'>
-         <a class = "main-menu-block" href="config">
-         	<span id="intro-click">
-         		INTRO
-         	</span>
+      <div class='menu-bar' data-menu-no="${menu.menuNo}">
+         <a class = "main-menu-block" href="config?menuNo=0">
          </a>
          <ul class = "menu-block">
          </ul>
@@ -300,7 +297,7 @@
 				<div>
 					<img alt="추가" src="resources/images/blockSettingimg/addblock.png"/>
 				</div>
-				<b>${menuName} 메뉴가 비어있습니다. 블럭을 추가하시려면 여기를 클릭하세요.</b>
+				<b>${menu.menuName} 메뉴가 비어있습니다. 블럭을 추가하시려면 여기를 클릭하세요.</b>
 			</div>
 		</div>
 	</c:if>
