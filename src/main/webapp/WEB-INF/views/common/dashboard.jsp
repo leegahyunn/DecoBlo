@@ -67,27 +67,33 @@
 
 .one {
 	flex: 1 0 auto;
-	border-right: 1px solid black;
-	border-left: 1px solid black;
-	border-top: 1px solid black;
+	border:2px solid silver;
+	
+}
+.one p, h3 {
+	font-weight: bold;
+	color: green;
 }
 
+.one span {
+	font-size:18px;
+	color: green;
+}
 .two {
 	flex: 1 0 auto;
-	border-right: 1px solid black;
-	border-top: 1px solid black;
+	border:2px solid silver;
 }
 
 .three {
 	flex: 1 0 auto;
-	border-right: 1px solid black;
-	border-top: 1px solid black;
+	
+	border:2px solid silver;
 }
 
 .four {
 	flex: 1 0 auto;
-	border-right: 1px solid black;
-	border-top: 1px solid black;
+	border:2px solid silver;
+
 }
 
 
@@ -421,6 +427,7 @@ pmydate{
 
 }
 
+
 </style>
 </head>
 <body>
@@ -455,12 +462,15 @@ pmydate{
 							<div class="neighbor">
 				<p>1111111111111111111111111</p>
 				</div>
-						<hr />
+						<br/>
+						<br/>
 					</div>
 				</section>
 			</section>
 			<div>
-				<hr />
+				<br/>
+				<br/>
+				<br/>
 			</div>
 			<header>
 
@@ -484,9 +494,10 @@ pmydate{
 				<hr />
 				<div class="box">
 					<div class="one">
-						<p align="center">오늘 조회수</p>
+						<p align="center" class="today">오늘 조회수</p>
 					<c:if test="${empty stat.statBlogCount}">
 					<h3 align="center">0</h3>
+					&nbsp;&nbsp;&nbsp;<span><img src="resources/jchart/실시간.jpg" ></span>&nbsp;&nbsp;<span  id="clock"></span>
 					</c:if>
 					<c:if test="${not empty stat.statBlogCount}">
 					<h3 align="center">${stat.statBlogCount}</h3>
@@ -558,7 +569,7 @@ pmydate{
 						<div class="container">
 							<section id="panel-1">
 								<main>
-								<p align="left" id="clock">기준</p>
+								<p align="left" id="clock2">기준</p>
 								<canvas id="chart1"></canvas>
 								</main>
 							</section>
@@ -637,7 +648,7 @@ pmydate{
 		</ul>
 		<span class="copyright"> &copy; Deco Blog </span>
 	</footer>
-
+</body>
 	<!-- Scripts -->
 	<script src="pixelarity/assets/js/jquery.min.js"></script>
 	<script src="pixelarity/assets/js/jquery.dropotron.min.js"></script>
@@ -729,14 +740,14 @@ pmydate{
 		function printTime() {
 
             var clock = document.getElementById("clock");
-            
+            var clock2 = document.getElementById("clock2");
 
             var now = new Date();                                                  // 현재시간
 
             var nowTime = now.getFullYear() + "년" + (now.getMonth()+1) + "월" + now.getDate() + "일" + now.getHours() + "시" + now.getMinutes() + "분";
 
             clock.innerHTML = nowTime;           // 현재시간을 출력
-            
+            clock2.innerHTML = nowTime; 
             
             setTimeout("printTime()",1000);         // setTimeout(“실행할함수”,시간) 시간은1초의 경우 1000
 

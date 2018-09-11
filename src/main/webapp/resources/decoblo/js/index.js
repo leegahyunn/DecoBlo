@@ -18,7 +18,11 @@ $(function(){
 			login();
 		}
 	});
-	
+	/* 로그인 버튼 클릭시 이메일로 포커스 이동 */
+	$('#login').on('click', function() {
+		
+		$('#userEmail').focus();
+	})
 	if ($('#type').val()=="emailConfirm") {
 		if ($('#isAuthed').val() == 1) {
 			alert("회원인증에 성공하였습니다. 로그인 해주시기 바랍니다.");

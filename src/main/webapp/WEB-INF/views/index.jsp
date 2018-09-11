@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="pixelarity/assets/css/main.css" />
 <link rel="stylesheet" href="decoblo/css/user.css" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="pixelarity/assets/css/main.css" />
+
 </head>
 <body class="landing">
 	<input type="hidden" id="isAuthed" value="${isAuthed}">
@@ -100,7 +100,7 @@
 				<div class="4u 6u(medium) 12u$(small)">
 					<article class="box post">
 						<a href="#" class="image fit"><img src="resources/images/sample1.jpg"
-							alt="" /></a>
+							alt="" class="boximg" /></a>
 						<h3>블로그1</h3>
 						<p>Ipsum dolor tempus et commodo lorem accumsan et adipiscing
 							blandit porttitor feugiat tempus lorem faucibus.</p>
@@ -112,7 +112,7 @@
 				<div class="4u 6u$(medium) 12u$(small)">
 					<article class="box post">
 						<a href="#" class="image fit"><img src="resources/images/sample2.jpg"
-							alt="" /></a>
+							alt=""  class="boximg" /></a>
 						<h3>블로그2</h3>
 						<p>Ipsum dolor tempus et commodo lorem accumsan et adipiscing
 							blandit porttitor feugiat tempus lorem faucibus.</p>
@@ -124,7 +124,7 @@
 				<div class="4u$ 6u(medium) 12u$(small)">
 					<article class="box post">
 						<a href="#" class="image fit"><img src="resources/images/sample3.jpg"
-							alt="" /></a>
+							alt=""  class="boximg" /></a>
 						<h3>블로그3</h3>
 						<p>Ipsum dolor tempus et commodo lorem accumsan et adipiscing
 							blandit porttitor feugiat tempus lorem faucibus.</p>
@@ -136,7 +136,7 @@
 				<div class="4u 6u$(medium) 12u$(small)">
 					<article class="box post">
 						<a href="#" class="image fit"><img src="resources/images/sample3.jpg"
-							alt="" /></a>
+							alt="" class="boximg" /></a>
 						<h3>블로그4</h3>
 						<p>Ipsum dolor tempus et commodo lorem accumsan et adipiscing
 							blandit porttitor feugiat tempus lorem faucibus.</p>
@@ -148,7 +148,7 @@
 				<div class="4u 6u(medium) 12u$(small)">
 					<article class="box post">
 						<a href="#" class="image fit"><img src="resources/images/sample2.jpg"
-							alt="" /></a>
+							alt=""  class="boximg" /></a>
 						<h3>블로그5</h3>
 						<p>Ipsum dolor tempus et commodo lorem accumsan et adipiscing
 							blandit porttitor feugiat tempus lorem faucibus.</p>
@@ -160,7 +160,7 @@
 				<div class="4u$ 6u$(medium) 12u$(small)">
 					<article class="box post">
 						<a href="#" class="image fit"><img src="resources/images/sample1.jpg"
-							alt="" /></a>
+							alt=""  class="boximg" /></a>
 						<h3>블로그6</h3>
 						<p>Ipsum dolor tempus et commodo lorem accumsan et adipiscing
 							blandit porttitor feugiat tempus lorem faucibus.</p>
@@ -228,6 +228,7 @@
 	<script src="pixelarity/assets/js/util.js"></script>
 	<script src="pixelarity/assets/js/main.js"></script>
 	<script src="decoblo/js/index.js"></script>
+
 	
 </body>
 </html>

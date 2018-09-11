@@ -116,7 +116,7 @@
 	 
 	white-space: normal; 
 	line-height: 1.2; 
-	height: 3.6em; 
+	
 	text-align: left; 
 	word-wrap: break-word; 
 	display: -webkit-box; 
@@ -126,18 +126,17 @@
 }
 .hot-contents {
 	text-overflow: ellipsis;
-	height: 45%;
+	height: 30%;
 	overflow: hidden;
 	 
-	white-space: normal; 
+	white-space: pre; 
 	line-height: 1.2; 
-	height: 3.6em; 
+	 
 	text-align: left; 
 	word-wrap: break-word; 
-	display: -webkit-box; 
-	-webkit-line-clamp: 3; 
+	display: -webkit-box;
 	-webkit-box-orient: vertical;
-
+	-webkit-line-clamp: 3; 
 }
 
 .subscribe-new .top .ttext {
