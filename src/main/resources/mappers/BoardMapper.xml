@@ -9,7 +9,7 @@
 		bbsNo
 		, boardNo
 		, bbsTitle
-		, UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(bbsContent)) 
+		, bbsContent 
 		, bbsCount
 		, bbsLike
 		, bbsParent
@@ -18,7 +18,7 @@
 		, to_char(bbsRegdate, 'YYYY-MM-DD') bbsRegdate
 		, to_char(bbsEditDate, 'YYYY-MM-DD') bbsEditDate
 	FROM
-		DB_BBS
+		db_bbs
 	WHERE
 		${searchItem} like '%' || #{searchWord} || '%'
 	ORDER BY
@@ -31,7 +31,7 @@
 		bbsNo
 		, boardNo
 		, bbsTitle
-		, (UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(bbsContent))) as bbsContent
+		, bbsContent
 		, bbsCount
 		, (select count(*) from db_like where bbsNo= #{bbsNo}) as bbsLike 
 		, bbsParent
@@ -40,7 +40,7 @@
 		, to_char(bbsRegdate, 'YYYY-MM-DD') bbsRegdate
 		, to_char(bbsEditDate, 'YYYY-MM-DD') bbsEditDate
 	FROM 
-		DB_BBS
+		db_bbs
 	WHERE
 		bbsNo = #{bbsNo}
 	ORDER BY
@@ -55,7 +55,7 @@
 		, attachOriginalFile 
 		, attachSavedFile 
 	FROM
-		DB_BBS_ATTACH
+		db_bbs_attach
 	WHERE
 		attachBbsNo = #{attachBbsNo}
 	ORDER BY
@@ -64,7 +64,7 @@
 
 <!-- 글 쓰기 -->
 <insert id="insertBbs" parameterType="Bbs">
-	INSERT INTO DB_BBS (
+	INSERT INTO db_bbs (
 		bbsNo
 		, boardNo
 		, bbsTitle
@@ -79,7 +79,7 @@
 		db_bbs_seq.NEXTVAL
 		, #{boardNo}
 		, #{bbsTitle}
-		, UTL_RAW.CAST_TO_RAW(#{bbsContent})
+		, #{bbsContent}
         , 0
 		, 0
 		<choose>
@@ -101,7 +101,7 @@
 
 <!-- 첨부파일 넣기 -->
 <insert id="insertAttach" parameterType="BbsAttach">
-	INSERT INTO db_bbsattach (
+	INSERT INTO db_bbs_attach (
 		attachNo
 		, attachBbsNo
 		, attachOriginalFile
@@ -121,7 +121,7 @@
 		db_bbs 
 	SET
 		bbsTitle  = #{bbsTitle}
-		, bbsContent = UTL_RAW.CAST_TO_RAW(#{bbsContent})
+		, bbsContent = #{bbsContent}
 		, bbsEditDate = sysdate
 	WHERE
 		bbsNo = #{bbsNo}
@@ -142,9 +142,6 @@
 
 
 
-
-
-
 <!-- 글 삭제 -->
 <delete id="deleteBbs" parameterType="int">
 	DELETE FROM 
@@ -156,7 +153,7 @@
 <!-- 첨부파일 삭제 -->
 <delete id="deleteBbsAttach" parameterType="BbsAttach">
 	DELETE FROM 
-		DB_BBS_ATTACH
+		db_bbs_attach
 	WHERE
 		attachBbsNo = #{attachBbsNo}
 </delete>
@@ -166,7 +163,7 @@
 	SELECT
 		count(*)
 	FROM
-		DB_BBS
+		db_bbs
 	WHERE
 		${searchItem} like '%' || #{searchWord} || '%'
 </select>
@@ -174,7 +171,7 @@
 <!-- 조회수 +1 -->
 <update id="updateBbsCount" parameterType="int">
 	UPDATE 
-		DB_BBS 
+		db_bbs
 	SET
 		bbsCount = bbsCount+1
 	WHERE
@@ -190,7 +187,7 @@
 		, likeUserNo
 		, likeBbsNo
 	FROM
-		DB_LIKE
+		db_like
 	WHERE
 		likeUserNo = #{likeUserNo}
 	AND
@@ -198,7 +195,7 @@
 </select>
 
 <insert id="insertLike" parameterType="Like">
-	INSERT INTO DB_LIKE
+	INSERT INTO db_like
 	VALUES(
 		db_like_seq.nextval
 		, #{likeUserNo}
@@ -208,7 +205,7 @@
 </insert>
 
 <delete id="deleteLike" parameterType="int">
-	DELETE FROM DB_LIKE
+	DELETE FROM db_like
 	WHERE
 		likeUserNo = #{likeUserNo}
 	AND
@@ -230,7 +227,7 @@
 		, replyRegUser
 		, to_char(replyEditDate, 'YYYY-MM-DD') as replyEditDate
 	FROM
-		DB_REPLY
+		db_reply
 	WHERE
 		replyBbsNo = #{replyBbsNo}
 	ORDER BY
@@ -239,7 +236,7 @@
 
 <!-- 댓글 입력 -->
 <insert id="insertReply" parameterType="Reply">
-	INSERT INTO DB_REPLY(
+	INSERT INTO db_reply(
 		replyNo
 		, replyBbsNo
 		, replyContent
@@ -272,7 +269,7 @@
 
 <!-- 댓글 삭제 -->
 <delete id="deleteReply" parameterType="int">
-	DELETE FROM DB_REPLY
+	DELETE FROM db_reply
 	WHERE 
 		replyNo = #{replyNo}
 </delete>
@@ -280,7 +277,7 @@
 
 <!-- 댓글 수정 -->
 <update id="updateReply" parameterType="Reply">
-	UPDATE DB_REPLY
+	UPDATE db_reply
 	SET	
 		replyContent = #{replyContent}
 		, replyEditDate = SYSDATE

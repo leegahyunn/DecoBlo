@@ -1,6 +1,15 @@
 @charset "UTF-8";
 
-.photo {
+
+
+.block-3 {
+	background-size: cover;
+	background-repeat: no-repeat;
+	height: 600px;
+	background-color: #D8D8D8;
+}
+
+.block-3 .photo {
 	width: 300px;
 	height: 280px;
 	object-fit: cover;
@@ -12,14 +21,7 @@
 	margin-bottom: 10px;
 }
 
-.block-3 {
-	background-size: cover;
-	background-repeat: no-repeat;
-	height: 600px;
-	background-color: #D8D8D8;
-}
-
-.showcase {
+.block-3 .showcase {
 	width: 800px;
 	height: 600px;
 	padding: 30px;
@@ -29,26 +31,26 @@
 	margin-right: 0px;
 }
 
-.left {
+.block-3 .left {
 	float: left;
 	width: auto;
 	height: auto;
 }
 
-* {
+.block-3 * {
 	box-sizing: border-box
 }
 
-body {
+.block-3 body {
 	font-family: Verdana, sans-serif;
 	margin: 0
 }
 
-.mySlides {
+.block-3 .mySlides {
 	display: none
 }
 
-.slideshow-container {
+.block-3 .slideshow-container {
 	max-width: 1000px;
 	position: relative;
 	width: 1000px;
@@ -60,7 +62,7 @@ body {
 	margin-right: 0px;
 }
 
-.prev, .next {
+.block-3 .prev, .block-3 .next {
 	cursor: pointer;
 	position: absolute;
 	top: 50%;
@@ -74,12 +76,12 @@ body {
 	border-radius: 0 3px 3px 0;
 }
 
-.next {
+.block-3 .next {
 	right: 0;
 	border-radius: 3px 0 0 3px;
 }
 
-.dot {
+.block-3 .dot {
 	cursor: pointer;
 	height: 15px;
 	width: 15px;
@@ -90,11 +92,11 @@ body {
 	transition: background-color 0.6s ease;
 }
 
-.active, .dot:hover {
+.block-3 .active, .block-3 .dot:hover {
 	background-color: #717171;
 }
 
-.fade {
+.block-3 .fade {
 	-webkit-animation-name: fade;
 	-webkit-animation-duration: 1.5s;
 	animation-name: fade;

@@ -42,6 +42,19 @@ function bbsCheck(){	// 글쓰기 유효성 검사
 
 
 </script>
+<style type="text/css">
+	.table-wrapper {
+		margin: o auto;
+		width: 1200px;
+		
+	}
+	
+	#main {
+		align : center;
+	}
+	
+
+</style>
 </head>
 <body class="landing">
 
@@ -67,30 +80,28 @@ function bbsCheck(){	// 글쓰기 유효성 검사
 </header>
 	
 <section id="main">
+	
 <!-- <form action="writeBbs" method="post" enctype="multipart/form-data"> -->
 <form action="writeBbs" method="post">
 <!-- 게시글작성 게시판번호 넘겨주기 -->
-<input type="hidden" name="boardNo" id="boardNo" value="7"/>
+<input type="hidden" name="boardNo" id="boardNo" value="1"/>
 <input type="hidden" name="bbsParent" id="bbsParent" value="${bbsParent}"/>
 <input type="hidden" name="type" id="type" value="${type}"/>
 
-
-	<table align="center">
+	<div class="table-wrapper"  style="align:center;" >
+	<table class="board" border="1" style="width: 1200px;">
 		<tr>
 			<th>제목</th>
 			<td><input type="text" name="bbsTitle" id="bbsTitle" value="${bbs.bbsTitle}"></td>
 		</tr>
-<%-- 		<tr>
-			<th>작성자</th>
-			<td>${loginId}</td>
-		</tr> --%>
+
 <!-- 	<tr>
 			<th>첨부파일</th>
 			<td><input type="file" name="upload"></td>
 		</tr> -->
 		<tr>
 			<th>내용</th>
-			<td><textarea rows="10" cols="50" name="bbsContent" id="bbsContent">${bbs.bbsContent}</textarea> </td>
+			<td><textarea rows="10" cols="50" name="bbsContent" id="bbsContent" class="bbsContent">${bbs.bbsContent}</textarea> </td>
 		</tr>
 		<tr>
 			<td class="btn" colspan="2" align="center">
@@ -99,7 +110,9 @@ function bbsCheck(){	// 글쓰기 유효성 검사
 			</td>
 		</tr>
 	</table>
-	<script type="text/javascript">CKEDITOR.replace('bbsContent');</script>
+	<script type="text/javascript">CKEDITOR.replace('bbsContent'
+													, {filebrowserImageUploadUrl:'ckeditorImageUpload'});</script>
+</div>
 </form>
 
 

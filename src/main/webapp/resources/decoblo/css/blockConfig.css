@@ -503,8 +503,8 @@ body { margin: 0; }
   position: relative;
 }
 .menu-block li:hover { background: black; }
-.menu-block li:hover>a { color: white; }
-.menu-block a {
+.menu-block li:hover>div{ color: white; }
+.menu-block div {
   color: black;
   display: block;
   padding: 10px 20px;
@@ -521,9 +521,9 @@ body { margin: 0; }
   width: 180px;
 }
 .menu-block ul li { float: none; }
-.menu-block ul li:hover { background: #ddd; }
-.menu-block ul li:hover a { color: black; }
-.menu-block ul a { color: black; }
+.menu-block ul li:hover { background: #ddd; cursor: pointer; }
+.menu-block ul li:hover div { color: black; }
+.menu-block ul div { color: black; }
 .menu-block ul ul { left: 100%; top: 0; }
 
 
