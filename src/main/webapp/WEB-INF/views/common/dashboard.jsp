@@ -170,6 +170,13 @@ label.panel-label:hover {
 	padding: 48px 24px;
 }
 
+#panel-5-ctrl:checked ~ #panels #panel-5 main {
+	max-height: initial;
+	opacity: 1;
+	padding: 48px 24px;
+}
+
+
 
 
 #panel-1-ctrl:checked ~ #tabs-list #li-for-panel-1 {
@@ -280,6 +287,33 @@ label.panel-label:hover {
 }
 
 #panel-4-ctrl:checked ~ #tabs-list #li-for-panel-4 label.panel-label::after
+	{
+	height: 6px;
+}
+#panel-5-ctrl:checked ~ #tabs-list #li-for-panel-5 {
+	pointer-events: none;
+	cursor: default;
+	-webkit-transform: translate3d(0, 1px, 0);
+	transform: translate3d(0, 1px, 0);
+	box-shadow: none;
+	border-right: none;
+}
+
+#panel-5-ctrl:checked ~ #tabs-list #li-for-panel-5.last {
+	border-right: 1px solid transparent;
+}
+
+#panel-5-ctrl:checked ~ #tabs-list #li-for-panel-5+li {
+	border-left: 1px solid #dfdfdf;
+}
+
+#panel-5-ctrl:checked ~ #tabs-list #li-for-panel-5 label.panel-label {
+	background-color: white;
+	color: #003399;
+	padding-top: 24px;
+}
+
+#panel-5-ctrl:checked ~ #tabs-list #li-for-panel-5 label.panel-label::after
 	{
 	height: 6px;
 }
@@ -500,6 +534,8 @@ pmydate{
 						id="panel-3-ctrl" class="panel-radios" type="radio"
 						name="tab-radios"> <input id="panel-4-ctrl"
 						class="panel-radios" type="radio" name="tab-radios"> 
+						<input id="panel-5-ctrl"
+						class="panel-radios" type="radio" name="tab-radios"> 
 
 					<!-- TABS LIST -->
 					<ul id="tabs-list">
@@ -512,6 +548,8 @@ pmydate{
 							for="panel-3-ctrl">댓글수</label></li>
 						<li id="li-for-panel-4"><label class="panel-label"
 							for="panel-4-ctrl">구독자</label></li>
+						<li id="li-for-panel-5"><label class="panel-label"
+							for="panel-5-ctrl">공감수</label></li>
 						
 					</ul>
 
@@ -715,12 +753,15 @@ pmydate{
 				$("#panel-2").html(chart3);
 				$("#panel-3").html(chart4);
 				$("#panel-4").html(chart5);
+				$("#panel-5").html(chart6);
 				$("#pmydate").html(mydate);
 				ddate();
 				Chartdate();
 	            ChartBBsdate();
 	            Chartreplydate();
 	            Chartsubdate();
+	            ChartLikedate();
+	            
 				 $("#mydate").datepicker({ onSelect: function(dateText) {  
 						
 				    	
@@ -762,11 +803,12 @@ pmydate{
 				$("#panel-2").html(chart3);
 				$("#panel-3").html(chart4);
 				$("#panel-4").html(chart5);
+				$("#panel-5").html(chart6);
 				MChartdate();
 	            MChartBBsdate();
 	            MChartreplydate();
 	            MChartsubdate();
-				
+	            MChartLikedate();
 				var datepicker_default = {
 			            
 			            prevText : "이전달",
@@ -818,12 +860,13 @@ pmydate{
 				$("#panel-2").html(chart3);
 				$("#panel-3").html(chart4);
 				$("#panel-4").html(chart5);
+				$("#panel-5").html(chart6);
 				$("#pmydate").html(mydate2);
 				 WChartsubdate();
 				 WChartdate();
 		         WChartBBsdate();
 		         WChartreplydate();
-		            
+		         WChartlikedate(); 
 				//주 간 달 력
 				 $('#week-picker').datepicker( {
 				        showOtherMonths: true,
@@ -969,6 +1012,11 @@ pmydate{
 			 chart5 += '<p align="left" id="clock">기준</p>'
 			 chart5 += '<canvas id="chart4"></canvas>'
 			 chart5 += '</main>'
+			 
+		 var chart6 =  '<main>'
+			 chart6 += '<p align="left" id="clock">기준</p>'
+			 chart6 += '<canvas id="chart5"></canvas>'
+			 chart6 += '</main>'
 					 
 					 
 				  var currentYear = (new Date()).getFullYear();
@@ -991,6 +1039,7 @@ pmydate{
 	            ChartBBsdate();
 	            Chartreplydate();
 	            Chartsubdate();
+	            ChartLikedate();
 			    }
 		    
 	   
@@ -1386,6 +1435,63 @@ pmydate{
 				chart.render();
 			   	}, 1000);
 			}
+		    
+		 // 일간 공감수 조회수 차트 
+		   	function ChartLikedate() {
+		   		var data2 = new Array();
+				var labal = new Array(); 
+				var chart = null;
+				var dchart = $("#chart5")[0].getContext('2d');	 
+				$.ajax({
+					method : 'GET'
+				 , url  : 'selectchart'
+				 , dataType : 'json'
+				 , success : function(data) {
+					var c = data.length;
+					
+					$.each(data, function(i, arrjson) {
+						var a = data[i].statRegDate;
+						var res = a.substring(0, 10)
+						labal.push(res);
+						data2.push(data[i].statBBSLike)
+						
+					})
+					
+				 }
+				})
+				setTimeout(function(){
+				chart = new Chart(dchart, {
+					type: 'line',
+				    data: {
+
+				        labels: labal,
+
+				        datasets: [{
+
+				            label: "총 공감수",
+				            fillColor: "rgba(220,220,220,0.2)",
+				            strokeColor: "rgba(220,220,220,1)",
+				            pointColor: "rgba(220,220,220,1)",
+				            pointStrokeColor: "#fff",
+				            pointHighlightFill: "#fff",
+				            pointHighlightStroke: "rgba(220,220,220,1)",
+				            data: data2
+				         
+						
+						 }]
+
+				    },
+				    options: {
+				    	 responsive: true,
+				    	    
+				    	    scales: { yAxes: [{ ticks: { beginAtZero:true } }] }  
+				    	
+				    	
+				    }
+				});
+				chart.render();
+			   	}, 1000);
+			}
 		
 		    
 		    // 주간 댓글 조회수 차트 
@@ -1557,7 +1663,62 @@ pmydate{
 				chart.render();
 		   	}, 1000);
 			}
-		 
+		 // 주간 공감 조회수 차트 
+		   	function WChartlikedate() {
+		   		var data2 = new Array();
+				var labal = new Array(); 
+				var chart = null;
+				var dchart = $("#chart5")[0].getContext('2d');	 
+				$.ajax({
+					method : 'GET'
+				 , url  : 'selectchart2'
+				 , dataType : 'json'
+				 , success : function(data) {
+					var c = data.length;
+					
+					$.each(data, function(i, arrjson) {
+						var a = data[i].statRegDate;
+						var res = a.substring(0, 10)
+						labal.push(res);
+						data2.push(data[i].statBBSLike)
+						
+					})
+					
+				 }
+				})
+				setTimeout(function(){
+				chart = new Chart(dchart, {
+					type: 'line',
+				    data: {
+
+				        labels: labal,
+
+				        datasets: [{
+
+				            label: "주간공감수",
+				            fillColor: "rgba(220,220,220,0.2)",
+				            strokeColor: "rgba(220,220,220,1)",
+				            pointColor: "rgba(220,220,220,1)",
+				            pointStrokeColor: "#fff",
+				            pointHighlightFill: "#fff",
+				            pointHighlightStroke: "rgba(220,220,220,1)",
+				            data: data2
+				         
+						
+						 }]
+
+				    },
+				    options: {
+				    	 responsive: true,
+				    	    
+				    	    scales: { yAxes: [{ ticks: { beginAtZero:true } }] }  
+				    	
+				    	
+				    }
+				});
+				chart.render();
+		   	}, 1000);
+			}
 		    // 주간간 댓글 조회수 차트 
 		   	function WChartreplydate() {
 		    	var chart = null;
@@ -1827,6 +1988,63 @@ pmydate{
 				        datasets: [{
 
 				            label: "월간댓글조회수",
+				            fillColor: "rgba(220,220,220,0.2)",
+				            strokeColor: "rgba(220,220,220,1)",
+				            pointColor: "rgba(220,220,220,1)",
+				            pointStrokeColor: "#fff",
+				            pointHighlightFill: "#fff",
+				            pointHighlightStroke: "rgba(220,220,220,1)",
+				            data: data2
+				         
+						
+						 }]
+
+				    },
+				    options: {
+				    	 responsive: true,
+				    	    
+				    	    scales: { yAxes: [{ ticks: { beginAtZero:true } }] }  
+				    	
+				    	
+				    }
+				});
+				chart.render();
+		   	}, 1000);
+			}
+		    // 월간 공감수 조회수 차트 
+		   	function MChartLikedate() {
+		   		var data2 = new Array();
+				var labal = new Array(); 
+				var dchart = $("#chart5")[0].getContext('2d');	 
+				var chart = null;
+				
+				$.ajax({
+					method : 'GET'
+				 , url  : 'selectchart3'
+				 , dataType : 'json'
+				 , success : function(data) {
+					var c = data.length;
+					
+					$.each(data, function(i, arrjson) {
+						var a = data[i].statRegDate;
+						var res = a.substring(0, 10)
+						labal.push(res);
+						data2.push(data[i].statBBSLike)
+						
+					})
+					
+				 }
+				})
+			setTimeout(function(){
+				chart = new Chart(dchart, {
+					type: 'line',
+				    data: {
+
+				        labels: labal,
+
+				        datasets: [{
+
+				            label: "월간공감수",
 				            fillColor: "rgba(220,220,220,0.2)",
 				            strokeColor: "rgba(220,220,220,1)",
 				            pointColor: "rgba(220,220,220,1)",
