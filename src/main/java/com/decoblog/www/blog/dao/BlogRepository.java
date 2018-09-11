@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 
 import com.decoblog.www.blog.vo.Menu;
+import com.decoblog.www.blog.vo.Template;
 import com.decoblog.www.user.vo.User;
 import com.decoblog.www.blog.vo.Block;
 import com.decoblog.www.blog.vo.BlockTemplate;
@@ -229,6 +230,13 @@ public class BlogRepository {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		Menu resultmenu = mapper.selectOneMenu(menu);
 		return resultmenu;
+	}
+
+	public List<Template> selectTemplate() {
+		List<Template> result = null;
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		result = mapper.selectTemplate();
+		return result;
 	}
 	
 	

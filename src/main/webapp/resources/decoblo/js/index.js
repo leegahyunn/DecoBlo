@@ -1,6 +1,4 @@
 $(function(){
-	console.log($('#type').val());
-	console.log($('#isAuthed').val());
 	/*********/
 	/* Login */
 	/*********/

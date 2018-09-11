@@ -9,7 +9,7 @@
 		bbsNo
 		, boardNo
 		, bbsTitle
-		, UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(bbsContent)) 
+		, bbsContent 
 		, bbsCount
 		, bbsLike
 		, bbsParent
@@ -31,7 +31,7 @@
 		bbsNo
 		, boardNo
 		, bbsTitle
-		, (UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(bbsContent))) as bbsContent
+		, bbsContent
 		, bbsCount
 		, (select count(*) from db_like where bbsNo= #{bbsNo}) as bbsLike 
 		, bbsParent
@@ -79,7 +79,7 @@
 		db_bbs_seq.NEXTVAL
 		, #{boardNo}
 		, #{bbsTitle}
-		, UTL_RAW.CAST_TO_RAW(#{bbsContent})
+		, #{bbsContent}
         , 0
 		, 0
 		<choose>
@@ -121,7 +121,7 @@
 		db_bbs 
 	SET
 		bbsTitle  = #{bbsTitle}
-		, bbsContent = UTL_RAW.CAST_TO_RAW(#{bbsContent})
+		, bbsContent = #{bbsContent}
 		, bbsEditDate = sysdate
 	WHERE
 		bbsNo = #{bbsNo}

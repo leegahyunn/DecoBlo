@@ -7,6 +7,7 @@ import java.util.List;
 import com.decoblog.www.blog.vo.Block;
 import com.decoblog.www.blog.vo.BlockTemplate;
 import com.decoblog.www.blog.vo.Menu;
+import com.decoblog.www.blog.vo.Template;
 import com.decoblog.www.user.vo.User;
 
 public interface BlogMapper {
@@ -51,5 +52,6 @@ public interface BlogMapper {
 	public Menu selectFirstMenu(int userNo);
 	public Menu selectOneMenu(Menu menu);
 	public int updateMenuVisible(HashMap<String, Object> map);
+	public List<Template> selectTemplate();
 
 }

@@ -226,25 +226,26 @@
 </delete>
 <!-- 블록 코드 가져오기 썸네일 -->
 <select id="selectBlockContent" parameterType="int" resultType="string">
-SELECT UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(blocktmpcontent)) AS blockTmpContent FROM db_block_template
+SELECT blockTmpContent FROM db_block_template
  WHERE blocktmpno =#{blocktmpNo}
  </select>
  
  <!-- 블록 가져오기 메뉴 -->
  <select id="selectBlockList" parameterType="Menu" resultType="Block">
- SELECT blockno,blockmenuno,UTL_RAW.CAST_TO_VARCHAR2(DBMS_LOB.SUBSTR(blockcontent)) as blockContent,blockseq,blocktmpno
+ SELECT blockno,blockmenuno, blockContent,blockseq,blocktmpno
 FROM db_block,db_menu,db_user
 WHERE db_block.blockmenuno=db_menu.menuno AND db_menu.menuno=#{menuNo}
 AND db_menu.menuuserno = db_user.userno AND db_user.userno=#{menuUserNo}
 ORDER BY blockseq
  </select> 
  
+  
  <!-- 블록 입력 -->
 <insert id="insertBlock" parameterType="Block">
 INSERT INTO db_block(blockno,blockmenuno,blocktmpno,blockseq,blockcontent)
  VALUES(
 db_block_seq.nextval,#{blockMenuNo},#{blockTmpNo},#{blockSeq},
-UTL_RAW.CAST_TO_RAW(#{blockContent})
+#{blockContent}
 )
 </insert>
 <!-- 블록 복제 -->
@@ -280,5 +281,14 @@ WHERE menuuserno = #{userNo} AND menuparentseq=1
 <select id="selectOneMenu" parameterType="Menu" resultType="Menu">
 SELECT * FROM db_menu
 WHERE menuNo=#{menuNo} AND menuuserno=#{menuUserNo}
+</select>
+
+<!-- 템플릿 전체 가져오기 -->
+<!-- public Template selectTemplate(); -->
+<select id="selectTemplate" resultType="Template">
+	SELECT 
+		templateNo, templateTitle, templateMenu
+	FROM
+		db_template
 </select>
 </mapper>

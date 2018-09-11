@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html >
 <html>
 <head>
@@ -200,7 +201,7 @@ margin: 0 auto;
 </head>
 <body style="position: relative;">
 	<!-- Header -->
-	<jsp:include page="../common/header.jsp"></jsp:include>
+	<jsp:include page="../common/header.jsp"></jsp:include>	
 	<div class="mainpop">
 	<!-- Main -->
 	<section id="main" class="wrapper style1">
@@ -225,33 +226,18 @@ margin: 0 auto;
 							자신만의 개성 있는 사이트를 만들어보세요!
 						</p>
 						
-						<div class="slideshow template-sample">
-							<div class="thumbnails-wrapper">
-								<img width="100%" height="100%" src="resources/images/sample1.jpg" class="imglog">
-							</div>
-						
-							<p class="hot-title">
-								Lorem ipsum
-							</p>
-						</div>
-						<div class="slideshow2 template-sample">
-							<div class="thumbnails-wrapper">
-								<img width="100%" height="100%" src="resources/images/sample2.jpg">
-							</div>
-						
-							<p class="hot-title">
-								Lorem ipsum
-							</p>
-						</div>
-						<div class="slideshow3 template-sample">
-							<div class="thumbnails-wrapper">
-								<img width="100%" height="100%" src="resources/images/sample3.jpg">
-							</div>
-						
-							<p class="hot-title">
-								Lorem ipsum
-							</p>
-						</div>
+						<c:forEach items="${templates}" var="template" varStatus="status">
+							<div class="slideshow template-sample">
+								<div class="thumbnails-wrapper">
+									<img data-template-no="${template.templateNo}" data-template-title="${template.templateTitle}" width="100%" height="100%" 
+										src="templates/thumbnails/template-${template.templateNo}.png" class="imglog">
+								</div>
+							
+								<p class="hot-title">
+									${template.templateTitle}
+								</p>
+							</div>		
+						</c:forEach>			
 
 					</div>
 				</section>
@@ -290,10 +276,10 @@ margin: 0 auto;
 	        <div class="text-center logo" style="float:left"><h2 align="left">템플릿-1</h2></div>
 	  
 	        <div class="text-center button" style="float: right">
-		    	<h2>템플릿 사용하기</h2>
+		    	<p>템플릿 사용하기</p>
 		    </div>
         	<div>
-        		<iframe src="/www/tmtest"   class="sun" ></iframe> 
+        		<iframe src="" class="sun" ></iframe> 
         	</div>
 	     </div>
 	    </div>
@@ -316,36 +302,39 @@ margin: 0 auto;
 	<script>
 	$(function(){
 		
-		/*  클릭시 */
+		/*  썸네일 클릭시 */
 		$('img.imglog').on('click', displayLoginPopup);
 		
-		/* 로그인 창 닫기 클릭시 */
+		/* 미리보기 창 닫기 클릭시 */
 		$('.login-content .login-header i').on('click', hideLoginPopup);
 		$('.login-wrapper').hide();
 		
 	})
 		
-		function displayLoginPopup(){
-		if($(".login-wrapper").css("display") == "none"){   
-			 $(".login-wrapper").show(); 
-		    } 
-			$('.login-wrapper').css('z-index', '10001');
-			$('.login-wrapper').each(function(index, item){
-				$(item).css('z-index', '10001');
-			});
-		}
+	/* 템플릿 미리보기 */
+	function displayLoginPopup(){
+		if($(".login-wrapper").css("display") == "none"){
+			var src = "/www/templatePreview/" + $(this).data('template-no');
+			$(".login-wrapper .login-content iframe").attr('src', src);
+			$(".login-wrapper .login-body h2").text($(this).data('template-title'));
+			$(".login-wrapper").show(); 
+			
+		} 
+		$('.login-wrapper').css('z-index', '10001');
+		$('.login-wrapper').each(function(index, item){
+			$(item).css('z-index', '10001');
+		});
+	}	
 		
-		function hideLoginPopup() {
-			$('.login-wrapper').css('z-index', '-1');
-			$('.login-wrapper').each(function(index, item){
-				$(item).css('z-index', '-1');
-			});
-			$('.login-wrapper').hide();
-		}
-	
-		
-		
-	</script>
+	/* 템플릿 미리보기 숨기기 */
+	function hideLoginPopup() {
+		$('.login-wrapper').css('z-index', '-1');
+		$('.login-wrapper').each(function(index, item){
+			$(item).css('z-index', '-1');
+		});
+		$('.login-wrapper').hide();
+	}
+</script>
 		
 	
 </html>

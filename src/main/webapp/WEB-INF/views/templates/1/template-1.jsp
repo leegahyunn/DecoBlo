@@ -8,13 +8,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" />
-<link rel="stylesheet" href="templates/common.css" />
-<link rel="stylesheet" href="templates/block-1.css" />
-<link rel="stylesheet" href="templates/block-2.css" />
-<link rel="stylesheet" href="templates/block-3.css" />
-<link rel="stylesheet" href="templates/block-4.css" />
-<link rel="stylesheet" href="templates/block-5.css" />
-<link rel="stylesheet" href="templates/block-6.css" />
+<link rel="stylesheet" href="/www/templates/common.css" />
+<link rel="stylesheet" href="/www/templates/block-1.css" />
+<link rel="stylesheet" href="/www/templates/block-2.css" />
+<link rel="stylesheet" href="/www/templates/block-3.css" />
+<link rel="stylesheet" href="/www/templates/block-4.css" />
+<link rel="stylesheet" href="/www/templates/block-5.css" />
+<link rel="stylesheet" href="/www/templates/block-6.css" />
 </head>
 <body>
 <div class="menu-wrapper">
@@ -193,21 +193,21 @@
 </div>
 
 <!-- Scripts -->
-<script src="resources/library/js/jquery-3.3.1.min.js"></script>
-<script src="templates/block-1.js"></script>
-<script src="templates/block-2.js"></script>
-<script src="templates/block-3.js"></script>
-<script src="templates/block-4.js"></script>
-<script src="templates/block-5.js"></script>
-<script src="templates/block-6.js"></script>
-<script src="pixelarity/assets/js/jquery.min.js"></script>
-<script src="pixelarity/assets/js/jquery.dropotron.min.js"></script>
-<script src="pixelarity/assets/js/jquery.slidertron.min.js"></script>
-<script src="pixelarity/assets/js/skel.min.js"></script>
-<script src="pixelarity/assets/js/util.js"></script>
-<script src="pixelarity/assets/js/main.js"></script>
-<script src="decoblo/js/index.js"></script>
-<script src="templates/slides.min.jquery.js"></script>
+<script src="/www/resources/library/js/jquery-3.3.1.min.js"></script>
+<script src="/www/templates/block-1.js"></script>
+<script src="/www/templates/block-2.js"></script>
+<script src="/www/templates/block-3.js"></script>
+<script src="/www/templates/block-4.js"></script>
+<script src="/www/templates/block-5.js"></script>
+<script src="/www/templates/block-6.js"></script>
+<script src="/www/pixelarity/assets/js/jquery.min.js"></script>
+<script src="/www/pixelarity/assets/js/jquery.dropotron.min.js"></script>
+<script src="/www/pixelarity/assets/js/jquery.slidertron.min.js"></script>
+<script src="/www/pixelarity/assets/js/skel.min.js"></script>
+<script src="/www/pixelarity/assets/js/util.js"></script>
+<script src="/www/pixelarity/assets/js/main.js"></script>
+<script src="/www/decoblo/js/index.js"></script>
+<script src="/www/templates/slides.min.jquery.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 </body>

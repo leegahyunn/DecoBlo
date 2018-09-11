@@ -60,7 +60,7 @@ public class HomeController {
 	// 박치현
 	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
 	public String chtest() {
-		return "blog/template";
+		return "redirect:/template";
 	}
 	
 	@RequestMapping(value = "/chtest2", method = RequestMethod.GET)

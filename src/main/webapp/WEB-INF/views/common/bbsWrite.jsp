@@ -84,7 +84,7 @@ function bbsCheck(){	// 글쓰기 유효성 검사
 <!-- <form action="writeBbs" method="post" enctype="multipart/form-data"> -->
 <form action="writeBbs" method="post">
 <!-- 게시글작성 게시판번호 넘겨주기 -->
-<input type="hidden" name="boardNo" id="boardNo" value="7"/>
+<input type="hidden" name="boardNo" id="boardNo" value="1"/>
 <input type="hidden" name="bbsParent" id="bbsParent" value="${bbsParent}"/>
 <input type="hidden" name="type" id="type" value="${type}"/>
 

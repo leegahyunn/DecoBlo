@@ -7,7 +7,7 @@
 	border: 2px solid black;
 }
 
-.picter {
+.block-5 .picter {
 	height: 90%;
 	width: 38%;
 	float: left;
@@ -15,7 +15,7 @@
 	margin-left: 1%;
 }
 
-.ptitle {
+.block-5 .ptitle {
 	height: 30%;
 	width: 40%;
 	margin-left: 40%;
@@ -24,7 +24,7 @@
 	text-overflow: ellipsis;
 }
 
-.pbonmon {
+.block-5 .pbonmon {
 	height: 59%;
 	width: 60%;
 	margin-right: 30%;
@@ -35,12 +35,12 @@
 	text-overflow: ellipsis;
 }
 
-.picimg {
+.block-5 .picimg {
 	width: 100%;
 	height: 100%;
 }
 
-.ptfont {
+.block-5 .ptfont {
 	font-size: 80px;
 	font-style: italic;
 	color: gray;

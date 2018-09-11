@@ -8,23 +8,25 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.decoblog.www.blog.dao.BlogRepository;
 import com.decoblog.www.blog.vo.Block;
 import com.decoblog.www.blog.vo.Menu;
+import com.decoblog.www.blog.vo.Template;
 import com.decoblog.www.user.vo.User;
 import com.google.gson.Gson;
 
@@ -38,13 +40,13 @@ public class BlogController {
 	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/config", method = RequestMethod.GET)
-	public String config(int menuNo, Model model,HttpSession session) {
+	public String config(@RequestParam(value="menuNo", defaultValue="0") int menuNo,
+			Model model,HttpSession session) {
 		int userNo = (int) session.getAttribute("loginNo");
 		Menu menu = new Menu();
 		if(menuNo==0) {
 			menu = blogRepository.selectFirstMenu(userNo);
-		}else
-		{
+		}else{
 			menu.setMenuNo(menuNo);
 			menu.setMenuUserNo(userNo);
 			menu = blogRepository.selectOneMenu(menu);
@@ -334,5 +336,18 @@ public class BlogController {
 		blogRepository.updateBlockSeq(blockSeq);
 		int result = blogRepository.copyBlock(blockNo);
 		return result;
+	}
+	
+	@RequestMapping(value="template", method=RequestMethod.GET)
+	public String selectTemplate(Model model) {
+		List<Template> templates = blogRepository.selectTemplate();
+		model.addAttribute("templates", templates);
+		return "blog/template";
+	}
+	
+	@RequestMapping(value="/templatePreview/{param1}", method=RequestMethod.GET)
+	public String templatePreview(@PathVariable(value="param1") String templateNo)	{
+		System.out.println(templateNo);
+		return "templates/" + templateNo + "/template-1";
 	}
 }
