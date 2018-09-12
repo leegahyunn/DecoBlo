@@ -345,12 +345,12 @@
 								</label>
 							</div>
 							<div class="config-row">
-								<label>상<span class="slider-result">0</span>px</label>
+								<label>상<span class="slider-result" id="padding-top">0</span>px</label>
 								<div class="range-slider">
 								</div>
 							</div>
 							<div class="config-row">
-								<label>하<span class="slider-result">0</span>px</label>
+								<label>하<span class="slider-result" id="padding-bottom">0</span>px</label>
 								<span class="range-slider">
 								</span>
 							</div>
