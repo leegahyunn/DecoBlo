@@ -4,10 +4,6 @@
 menuConfig();
 siteConfig();
 
-
-
-
-
 function menuConfig() {
 	$.ajax({
 		method   : 'post'
@@ -32,7 +28,7 @@ function menuConfig() {
 						}
 					}//
 		
-					if (mainIndex >= 1) {
+					/*if (mainIndex >= 1) {
 						if(subMenu.menuVisible == 1){
 							if (mainIndex == 0) {
 								if(subMenu.menuDepth==0){
@@ -48,8 +44,8 @@ function menuConfig() {
 								}
 							}//mainIndex == 0
 						}//subMenu.menuVisible == 1
-					}//  if (mainIndex >= 1) {
-		
+					}//  if (mainIndex >= 1) 
+*/		
 					if (subIndex == 1 && mainMenu.Menu.length != 1) {
 						result2 += '<ol class="dd-list">';
 					}
@@ -175,22 +171,51 @@ function metaEdit() {
 }
 
 $(function(){
-   $(document).on('change', '.color-picker', function(){
-      var configBackgroundColor = $(this).val();
+	// 사이트 설정 - 배경 색상
+	$(document).on('change', '.site-backgroundcolor', function(){
+		var configBackgroundColor = $(this).val();
       
-      var sendData = {"configBackgroundColor" : configBackgroundColor};
-      $.ajax({
-         method : 'post'
-         , url  : 'updateBackgroundColor'
-         , data : JSON.stringify(sendData)
-         , dataType : 'text'
-         , contentType : 'application/json; charset=UTF-8'
-         , success: function(resp) {
-            siteConfig();
-         }
-      }); 
+		var sendData = {"configBackgroundColor" : configBackgroundColor};
+		$.ajax({
+	        method : 'post'
+	        , url  : 'updateBackgroundColor'
+	        , data : JSON.stringify(sendData)
+	        , dataType : 'text'
+	        , contentType : 'application/json; charset=UTF-8'
+	        , success: function(resp) {
+	           siteConfig();
+	        }
+		});
+	});
+   // 사이트 설정 - 파비콘 이미지 변경
+   $(document).on('click', '#blog-fabicon-img', function(){
+	   var formData2 = new FormData($("#fileform2")[0]);
+       $.ajax({
+    	   type : 'post',
+    	   url : 'updateFabiconImg',
+    	   data : formData2,
+    	   processData: false,
+    	   contentType : false,
+    	   success : function() {
+    		   alert("S");
+    	   }
+       });
    });
-   
+   // 사이트 설정 - 배경 이미지 변경
+   $(document).on('click', '#blog-background-img', function(){
+		  
+	   var formData = new FormData($("#fileform")[0]);
+       $.ajax({
+          type : 'post',
+          url : 'updateBackgroundImg',
+          data : formData,
+          processData: false,
+          contentType : false,
+          success : function() {
+        	 // alert("S");
+     		}
+       });
+   });
    $(document).on('click', '.configOnepageStyle', function(){
       
       var configOnepageStyle;
@@ -418,8 +443,7 @@ $(document).on('click', '.configRightClickable', function(){
 			, dataType : 'text'
 			, contentType : 'application/json; charset=UTF-8'
 			, success: function(resp) {
-			//	menuConfig();
-				alert("꺄~~")
+				menuConfig();
 			} 
 		});
 	});
@@ -512,8 +536,12 @@ $(document).on('click', '.configRightClickable', function(){
 			}
 		});
 	});
-	
-	
+	/* 블록 배경 색상 바꾸기*/
+	$('.block-backgroundcolor').children('.color-picker').on('change',function(){
+		var blockBackgroundColor = $(this).val();
+		var blockseq = $(this).parents('section').attr('data-block-seq'); 
+		$('section[data-block-seq='+blockseq+']').css('background-color', blockBackgroundColor);
+	});
    firstcss();
    /*블록 없을때 블록 추가 버튼 */
    $('.intro-block-wrapper').on('click',function(){

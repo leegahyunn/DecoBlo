@@ -40,7 +40,7 @@ public interface BlogMapper {
 	public int updateBlogTitle(HashMap<String, String> map);
 	public int updateMetaTag(HashMap<String, String> map);
 	public int updateBackgroundColor(HashMap<String, String> map);
-	public int updateBackgroundImg(HashMap<String, String> map);
+	public int updateBackgroundImg(HashMap<String, Object> map);
 	public User selectBlog(int userNo);
 	public int updateBlogFont(HashMap<String, String> map);
 	public int updateOnepageStyle(HashMap<String, String> map);
@@ -53,5 +53,6 @@ public interface BlogMapper {
 	public Menu selectOneMenu(Menu menu);
 	public int updateMenuVisible(HashMap<String, Object> map);
 	public List<Template> selectTemplate();
+	public int updateFabiconImg(HashMap<String, Object> map);
 
 }
