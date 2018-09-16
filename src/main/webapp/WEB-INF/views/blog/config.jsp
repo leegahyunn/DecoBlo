@@ -307,6 +307,9 @@
 		
 		<section class="menu-wrapper" >
 		<c:forEach items="${blockList}" var="blockList">
+		<style class="${blockList.blockNo}" id="block-style-${blockList.blockNo}">
+			${blockList.blockCss};
+		</style>
 			<ul class='add-button ${blockList.blockSeq}' id='${blockList.blockSeq}'>
 				<li class='add-button-li'>
 					<div class='add-block'>
@@ -346,12 +349,12 @@
 								</label>
 							</div>
 							<div class="config-row">
-								<label>상<span class="slider-result">0</span>px</label>
+								<label>상<span class="slider-result" id="padding-top">0</span>px</label>
 								<div class="range-slider">
 								</div>
 							</div>
 							<div class="config-row">
-								<label>하<span class="slider-result">0</span>px</label>
+								<label>하<span class="slider-result" id="padding-bottom">0</span>px</label>
 								<span class="range-slider">
 								</span>
 							</div>
