@@ -150,13 +150,13 @@
 				<div class="inner-config">
 					<div class="config-row">
 						<label>색상</label>
-						<input type="color" class="color color-picker transparent" value="#888888">
+						<input type="color" class="color color-picker transparent site-backgroundcolor" value="#888888">
 						<button id="example3"></button>
 					</div>
 					<div class="config-row">
-						<form id="fileForm" action="fileUpload" method="post" enctype="multipart/form-data">
+						<form id="fileform" enctype="multipart/form-data">
 					        <input type="file" id="fileUp" name="fileUp"/>
-					   	 	<input type="button" value="전송하기" onClick="fileSubmit();" />
+					   	 	<input type="button" value="확인" id="blog-background-img" />
 					    </form>
 					</div>	
 					<div class="config-row">
@@ -221,9 +221,10 @@
 				</div>
 				<div class="inner-config">
 					<div class="config-row">
-						<label>이미지</label>
-						<input type="file" name = "upload" class="upload"/> 
-						<i class="fa fa-folder-open"></i>
+						<form id="fileform2" enctype="multipart/form-data">
+					        <input type="file" id="fileUp2" name="fileUp2"/>
+					   	 	<input type="button" value="확인" id="blog-fabicon-img" />
+					    </form>
 					</div>	
 				</div>
 			</div>
@@ -368,9 +369,9 @@
 							<i class="fa fa-chevron-right right-icon fold-icon"></i>
 						</div>
 						<div class="inner-config">
-							<div class="config-row">
+							<div class="config-row block-backgroundcolor">
 								<label>색상</label>
-								<input type="color" class="color color-picker transparent">
+								<input type="color" class="color color-picker transparent" value="#888888">
 							</div>
 							<div class="config-row filebox">
 								<label>이미지</label>

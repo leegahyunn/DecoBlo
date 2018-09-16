@@ -209,41 +209,79 @@ public class BlogController {
 	}
 	
 	
-	@RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
-    public String fileUp(MultipartHttpServletRequest multi) {
-        
-    	System.out.println("??");
-    	
-        // 저장 경로 설정
-        String root = multi.getSession().getServletContext().getRealPath("/");
-        String path = root+"resources/up/";
-         
-        String newFileName = ""; // 업로드 되는 파일명
-         
+	@RequestMapping(value = "/updateBackgroundImg", method = RequestMethod.POST)
+    public String updateBackgroundImg(MultipartHttpServletRequest multi) {
+		String root = multi.getSession().getServletContext().getRealPath("/");
+        String path = root+"resources/uploadbackgroundimg/";
+        String configBackgroundSavedFile = ""; // 업로드 되는 파일명
+        String configBackgroundOriginFile = ""; 
         File dir = new File(path);
+        
         if(!dir.isDirectory()){
             dir.mkdir();
         }
          
         Iterator<String> files = multi.getFileNames();
         while(files.hasNext()){
-            String uploadFile = files.next();
-                         
+        	
+        	String uploadFile = files.next();
             MultipartFile mFile = multi.getFile(uploadFile);
-            String fileName = mFile.getOriginalFilename();
-            System.out.println("실제 파일 이름 : " +fileName);
-            newFileName = System.currentTimeMillis()+"."
-                    +fileName.substring(fileName.lastIndexOf(".")+1);
+            configBackgroundOriginFile = mFile.getOriginalFilename();
+            configBackgroundSavedFile = System.currentTimeMillis()+"."
+                    +configBackgroundOriginFile.substring(configBackgroundOriginFile.lastIndexOf(".")+1);
              
             try {
-                mFile.transferTo(new File(path+newFileName));
+                mFile.transferTo(new File(path+configBackgroundSavedFile));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-         
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("configBackgroundOriginFile", configBackgroundOriginFile);
+        map.put("configBackgroundSavedFile", configBackgroundSavedFile);
+        map.put("userNo", "1");
+        blogRepository.updateBackgroundImg(map);
+        
         return "blog/config";
-       }
+    }
+	
+	
+	@RequestMapping(value = "/updateFabiconImg", method = RequestMethod.POST)
+    public String updateFabiconImg(MultipartHttpServletRequest multi2) {
+		String root = multi2.getSession().getServletContext().getRealPath("/");
+        String path = root+"resources/uploadfabiconimg/";
+        String fabiconSavedFile = ""; // 업로드 되는 파일명
+        String fabiconOriginalFile = ""; 
+        File dir = new File(path);
+        
+        if(!dir.isDirectory()){
+            dir.mkdir();
+        }
+         
+        Iterator<String> files = multi2.getFileNames();
+        
+        while(files.hasNext()){
+        	
+        	String uploadFile = files.next();
+            MultipartFile mFile = multi2.getFile(uploadFile);
+            fabiconOriginalFile = mFile.getOriginalFilename();
+            fabiconSavedFile = System.currentTimeMillis()+"."
+                    +fabiconOriginalFile.substring(fabiconOriginalFile.lastIndexOf(".")+1);
+            try {
+                mFile.transferTo(new File(path+fabiconSavedFile));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("fabiconOriginalFile", fabiconOriginalFile);
+        map.put("fabiconSavedFile", fabiconSavedFile);
+        map.put("userNo", "1");
+        
+        blogRepository.updateFabiconImg(map);
+        
+        return "blog/config";
+    }
 	
 	@ResponseBody
 	@RequestMapping(value="/updateMenu", method=RequestMethod.POST)
