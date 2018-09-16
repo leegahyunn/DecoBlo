@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="decoblo/css/blockTemplate.css">
 <link rel="stylesheet" href="decoblo/css/blockConfig.css">
 <link rel="stylesheet" href="decoblo/css/menuConfig.css">
+<link rel="stylesheet" href="templates/template.css">
 <link rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="http://www.jqueryscript.net/css/jquerysctipttop.css">
