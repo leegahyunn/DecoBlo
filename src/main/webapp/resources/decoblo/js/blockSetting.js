@@ -673,6 +673,7 @@ $(document).on('click', '.configRightClickable', function(){
       $('.block-config.'+$(this).attr('id')).css('display','block');
       wrapByMask2($(this).attr('id'));
       var blockSeq = $(this).attr('id');
+      /*여백 설정 변경*/
       $(".range-slider").slider({
   		range: "max",
   		min: 1,
@@ -681,9 +682,12 @@ $(document).on('click', '.configRightClickable', function(){
   		slide: function(event, ui) {
   			$(this).prev().children('.slider-result').text(ui.value);
   			if($(this).prev().children('.slider-result').attr('id')=='padding-top'){
-  				$('section[data-block-seq='+blockSeq+']').css('padding-top',ui.value+'px');
+  				//document.getElementById("block-style-9").block2.
+  				
+  				$.style.insertRule(['.block-2'],'padding-top:'+ui.value);
+//  				$('section[data-block-seq='+blockSeq+']').css('padding-top',ui.value+'px');
   			}else if ($(this).prev().children('.slider-result').attr('id')=='padding-bottom'){
-  				$('section[data-block-seq='+blockSeq+']').css('padding-bottom',ui.value+'px');
+//  				$('section[data-block-seq='+blockSeq+']').css('padding-bottom',ui.value+'px');
   			}
   			var maskHeight = $('section[data-block-seq='+blockSeq+']').innerHeight();
   			$('#mask-2-'+blockSeq).css('height',maskHeight);

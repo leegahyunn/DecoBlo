@@ -306,6 +306,9 @@
 		
 		<section class="menu-wrapper" >
 		<c:forEach items="${blockList}" var="blockList">
+		<style class="${blockList.blockNo}" id="block-style-${blockList.blockNo}">
+			${blockList.blockCss};
+		</style>
 			<ul class='add-button ${blockList.blockSeq}' id='${blockList.blockSeq}'>
 				<li class='add-button-li'>
 					<div class='add-block'>

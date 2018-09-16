@@ -232,7 +232,7 @@ SELECT blockTmpContent FROM db_block_template
  
  <!-- 블록 가져오기 메뉴 -->
  <select id="selectBlockList" parameterType="Menu" resultType="Block">
- SELECT blockno,blockmenuno, blockContent,blockseq,blocktmpno
+ SELECT blockno,blockmenuno, blockContent,blockseq,blocktmpno,blockcss
 FROM db_block,db_menu,db_user
 WHERE db_block.blockmenuno=db_menu.menuno AND db_menu.menuno=#{menuNo}
 AND db_menu.menuuserno = db_user.userno AND db_user.userno=#{menuUserNo}
