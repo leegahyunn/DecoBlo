@@ -150,7 +150,7 @@ public class BlogRepository {
 		return result;
 	}
 
-	public int updateBackgroundImg(HashMap<String, String> map) {
+	public int updateBackgroundImg(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.updateBackgroundImg(map);
 		
@@ -236,6 +236,13 @@ public class BlogRepository {
 		List<Template> result = null;
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		result = mapper.selectTemplate();
+		return result;
+	}
+
+	public int updateFabiconImg(HashMap<String, Object> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateFabiconImg(map);
+		
 		return result;
 	}
 	
