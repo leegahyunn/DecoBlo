@@ -8,15 +8,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link type="text/css" rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"/>
-<link rel="stylesheet" href="decoblo/css/helpPage.css" />
-<link rel="stylesheet" href="pixelarity/assets/css/main.css" />
+<link rel="stylesheet" href="decoblo/css/bbsWrite.css" />
 <style>
 
-header#header.top-menu {
-	position: relative;
-	background-color: #000;
-}
-
+	header#header.top-menu {
+		position: relative;
+		background-color: #000;
+	}
+	.table-wrapper {
+		width: 100%;
+ 		text-align: center;
+		
+	}
+	.table-inwrapper{
+		 display: inline-block;
+	}
+	
 </style>
 <script type="text/javascript" src="resources/ckeditor/ckeditor.js"></script>
 <script src="resources/library/js/jquery-3.3.1.min.js"></script>
@@ -42,57 +49,30 @@ function bbsCheck(){	// 글쓰기 유효성 검사
 
 
 </script>
-<style type="text/css">
-	.table-wrapper {
-		margin: o auto;
-		width: 1200px;
-		
-	}
-	
-	#main {
-		align : center;
-	}
-	
-
-</style>
 </head>
 <body class="landing">
 
-<header id="header" class="alt top-menu">
-	<h1>
-		<a href="index.html">Deco <span>Blong</span></a>
-	</h1>
-	<nav id="nav">
-		<ul>
-			<li id="login">로그인</li>
-			<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
-				<ul>
-					<li><a href="#">한국어(KO)</a></li>
-					<li><a href="#">日本語(JP)</a></li>
-				</ul>
-			</li>
-			<li><a href="main">메인</a></li>
-			<li><a href="dashboard">대시보드</a></li>
-			<li><a href="config">블로그 수정</a></li>
-			<li><a href="customer">고객센터</a></li>	
-		</ul>
-	</nav>
-</header>
+<!-- Header -->
+	<jsp:include page="header.jsp"></jsp:include>
+<!-- 소개 사진 -->
+<section id="intro-photo" class="wrapper">
+	<div id="article">
+	</div>
+</section>
 	
 <section id="main">
-	
-<!-- <form action="writeBbs" method="post" enctype="multipart/form-data"> -->
 <form action="writeBbs" method="post">
 <!-- 게시글작성 게시판번호 넘겨주기 -->
 <input type="hidden" name="boardNo" id="boardNo" value="7"/>
 <input type="hidden" name="bbsParent" id="bbsParent" value="${bbsParent}"/>
 <input type="hidden" name="type" id="type" value="${type}"/>
 
-	<div class="table-wrapper"  style="align:center;" >
+	<div class="table-wrapper" >
+	<div class="table-inwrapper">
+	
 	<table class="board" border="1" style="width: 1200px;">
 		<tr>
-			<th>제목</th>
-			<td><input type="text" name="bbsTitle" id="bbsTitle" value="${bbs.bbsTitle}"></td>
+			<td><input type="text" name="bbsTitle" id="bbsTitle" value="${bbs.bbsTitle}" placeholder="제목"></td>
 		</tr>
 
 <!-- 	<tr>
@@ -100,8 +80,7 @@ function bbsCheck(){	// 글쓰기 유효성 검사
 			<td><input type="file" name="upload"></td>
 		</tr> -->
 		<tr>
-			<th>내용</th>
-			<td><textarea rows="10" cols="50" name="bbsContent" id="bbsContent" class="bbsContent">${bbs.bbsContent}</textarea> </td>
+			<td><textarea rows="100" cols="50" name="bbsContent" id="bbsContent" class="bbsContent">${bbs.bbsContent}</textarea> </td>
 		</tr>
 		<tr>
 			<td class="btn" colspan="2" align="center">
@@ -111,7 +90,8 @@ function bbsCheck(){	// 글쓰기 유효성 검사
 		</tr>
 	</table>
 	<script type="text/javascript">CKEDITOR.replace('bbsContent'
-													, {filebrowserImageUploadUrl:'ckeditorImageUpload'});</script>
+									, {filebrowserImageUploadUrl:'ckeditorImageUpload', width:'1200px', height : '600px'});</script>
+</div>
 </div>
 </form>
 
