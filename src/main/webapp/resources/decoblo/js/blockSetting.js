@@ -4,6 +4,7 @@
 menuConfig();
 siteConfig();
 
+/* 메뉴 불러오기 */
 function menuConfig() {
 	$.ajax({
 		method   : 'post'
@@ -11,13 +12,14 @@ function menuConfig() {
 		, contentType : 'application/json; charset=UTF-8'
 		, success: function(resp) {
 			var menuJson = JSON.parse(resp);
-			var result2 = '';
-			var result1 = '';
-			var result = '';
+			var result = ''; // 홈
+			var result1 = ''; // 메뉴 바
+			var result2 = ''; // 메뉴 설정
+			
 			result2 += '<ol class="dd-list">';
 			$.each(menuJson, function(mainIndex, mainMenu){
 				$.each(mainMenu.Menu, function(subIndex, subMenu){
-					/* menu-bar */
+					/* 메뉴 바 */
 					if (mainIndex == 0) {
 						result += '<span id="intro-click" data-parent="'+ subMenu.menuParent+'">'+subMenu.menuName+'</span>';
 					} else {
@@ -26,14 +28,13 @@ function menuConfig() {
 						} else if(subMenu.menuDepth==1){
 							result1 += '<li><div data-menu-no='+subMenu.menuNo+'>'+ subMenu.menuName +'</div></li>';
 						}
-					}
-		
+					}		
 
 					if (subIndex == 1 && mainMenu.Menu.length != 1) {
 						result2 += '<ol class="dd-list">';
 					}
-		
 					result2 += '<li class="dd-item '; 
+					
 					if (subIndex == 0) {
 						result2 += 'mainMenuWrapper';
 					} 		  
@@ -54,8 +55,7 @@ function menuConfig() {
 						} else {
 							result2 += '<i class="fa fa-eye hidebtn" data-menu-visible="' + subMenu.menuVisible + '"  data-rno="'+ subMenu.menuNo + '" data-parent="'+ subMenu.menuParent+ '" data-menu-seq="'+ subMenu.menuSeq +'" data-menu-depth="'+ subMenu.menuDepth +'" data-menu-parent-seq="'+ subMenu.menuParentSeq +'"></i>';
 						}   
-					}
-		   
+					}		   
 		  
 					result2 += '</div>';
 					result2 += '<div class="fold outer-config" style="display:none;">';
@@ -93,220 +93,211 @@ function menuConfig() {
 			result1 += '</ul></li>';
 			$('.menu-block').html(result1);
 			$('.main-menu-block').html(result);
-		} 
+		}
 	});
 }
    
    
-   
-   
-/* 사이트 설정 불러오기*/
+/* 사이트 설정 불러오기 */
 function siteConfig() {
-   $.ajax({
-      method   : 'post'
-      , url    : 'siteConfig'
-      , contentType : 'application/json; charset=UTF-8'
-      , success: function(resp) {
-         $('title').text("DecoBlo - " + resp.blogTitle);
-         $('.blogTitle').html(resp.blogTitle);
-         $('.menu-config-flip').css('background-color', resp.configBackgroundColor)
-         $('.metaAuthor').val(resp.metaAuthor);
-         $('.metaKeyword').val(resp.metaKeyword);
-         $('.metaDescription').val(resp.metaDescription);
-         $('.menu-config-flip').css('font-family', resp.configBasicFont)
-         if(resp.configOnepageStyle==0){
-            $('.configOnepageStyle').val(resp.configOnepageStyle);
-            $('.configOnepageStyle').removeAttr( "checked" );
-         }
-         if(resp.configOnepageStyle==1){
-            $('.configOnepageStyle').val(resp.configOnepageStyle);
-            $('.configOnepageStyle').attr('checked',' checked');
-         }
-         if(resp.configRightClickable==0){
-            $('.configRightClickable').val(resp.configRightClickable);
-            $('.configRightClickable').removeAttr( "checked" );
-         }
-         if(resp.configRightClickable==1){
-            $('.configRightClickable').val(resp.configRightClickable);
-            $('.configRightClickable').attr('checked',' checked');
-         }
-      }
-   });
-}
-function metaEdit() {
-   var metaAuthor = $('.metaAuthor').val();
-   var metaKeyword = $('.metaKeyword').val();
-   var metaDescription = $('.metaDescription').val();
-   var sendData = {"metaAuthor" : metaAuthor
-               ,"metaKeyword" : metaKeyword
-               ,"metaDescription" : metaDescription};
-   
-   $.ajax({
-      method : 'post'
-      , url  : 'metaEdit'
-      , data : JSON.stringify(sendData)
-      , dataType : 'text'
-      , contentType : 'application/json; charset=UTF-8'
-      , success: function(resp) {
-         siteConfig();
-      }
-   });
+	$.ajax({
+		method   : 'post'
+		, url    : 'siteConfig'
+		, contentType : 'application/json; charset=UTF-8'
+		, success: function(resp) {
+			$('title').text("DecoBlo - " + resp.blogTitle);
+			$('.blogTitle').html(resp.blogTitle);
+			$('.menu-config-flip').css('background-color', resp.configBackgroundColor)
+			$('.metaAuthor').val(resp.metaAuthor);
+			$('.metaKeyword').val(resp.metaKeyword);
+			$('.metaDescription').val(resp.metaDescription);
+			$('.menu-config-flip').css('font-family', resp.configBasicFont)
+			
+			if(resp.configOnepageStyle==0){
+				$('.configOnepageStyle').val(resp.configOnepageStyle);
+				$('.configOnepageStyle').removeAttr( "checked" );
+			}
+			if(resp.configOnepageStyle==1){
+				$('.configOnepageStyle').val(resp.configOnepageStyle);
+				$('.configOnepageStyle').attr('checked',' checked');
+			}
+			if(resp.configRightClickable==0){
+				$('.configRightClickable').val(resp.configRightClickable);
+				$('.configRightClickable').removeAttr( "checked" );
+			}
+			if(resp.configRightClickable==1){
+				$('.configRightClickable').val(resp.configRightClickable);
+				$('.configRightClickable').attr('checked',' checked');
+			}
+		}
+	});
 }
 
+/* 사이트 설정 */
 $(function(){
-	// 사이트 설정 - 배경 색상
+	/* 메타태그 수정 */
+	$(document).on('click', '.updateMetaTag', function(){
+		var metaAuthor = $('.metaAuthor').val();
+		var metaKeyword = $('.metaKeyword').val();
+		var metaDescription = $('.metaDescription').val();
+		var sendData = {"metaAuthor" : metaAuthor
+						,"metaKeyword" : metaKeyword
+						,"metaDescription" : metaDescription};
+		
+		$.ajax({
+			method : 'post'
+			, url  : 'updateMetaTag'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+				siteConfig();
+			}
+		});
+	});
+	
+	/* 배경 색상 수정 */
 	$(document).on('change', '.site-backgroundcolor', function(){
 		var configBackgroundColor = $(this).val();
-      
 		var sendData = {"configBackgroundColor" : configBackgroundColor};
+		
 		$.ajax({
-	        method : 'post'
-	        , url  : 'updateBackgroundColor'
+			method : 'post'
+			, url  : 'updateBackgroundColor'
 	        , data : JSON.stringify(sendData)
 	        , dataType : 'text'
 	        , contentType : 'application/json; charset=UTF-8'
 	        , success: function(resp) {
-	           siteConfig();
+	        	siteConfig();
 	        }
 		});
 	});
-   // 사이트 설정 - 파비콘 이미지 변경
-   $(document).on('click', '#blog-fabicon-img', function(){
-	   var formData2 = new FormData($("#fileform2")[0]);
-       $.ajax({
-    	   type : 'post',
-    	   url : 'updateFabiconImg',
-    	   data : formData2,
-    	   processData: false,
-    	   contentType : false,
-    	   success : function() {
-    		   alert("S");
-    	   }
-       });
+	
+	/* 배경 이미지 수정 */
+	$(document).on('click', '#blog-background-img', function(){
+		var formData = new FormData($("#fileform")[0]);
+		$.ajax({
+			type : 'post'
+			, url : 'updateBackgroundImg'
+			, data : formData
+			, processData: false
+			, contentType : false
+			, success : function() {}
+		});
+	});
+	
+	/* 파비콘 수정 */
+	$(document).on('click', '#blog-fabicon-img', function(){
+		var formData2 = new FormData($("#fileform2")[0]);
+		
+		$.ajax({
+			type : 'post'
+			, url : 'updateFabiconImg'
+			, data : formData2
+			, processData: false
+			, contentType : false
+			, success : function() {}
+		});
+	});
+	
+	/* 원페이지 스타일 수정 */
+	$(document).on('click', '.configOnepageStyle', function(){
+		var configOnepageStyle;
+		
+		if($(this).val()=="1"){
+			configOnepageStyle=0;
+		}
+		if($(this).val()=="0"){
+			configOnepageStyle=1;
+		}
+		
+		var sendData = {"configOnepageStyle" : configOnepageStyle};
+		
+		$.ajax({
+			method : 'post'
+			, url  : 'updateOnepageStyle'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+				siteConfig();
+			}
+		});  
    });
-   // 사이트 설정 - 배경 이미지 변경
-   $(document).on('click', '#blog-background-img', function(){
-		  
-	   var formData = new FormData($("#fileform")[0]);
-       $.ajax({
-          type : 'post',
-          url : 'updateBackgroundImg',
-          data : formData,
-          processData: false,
-          contentType : false,
-          success : function() {
-        	 // alert("S");
-     		}
-       });
-   });
-   $(document).on('click', '.configOnepageStyle', function(){
+	
+	/* 마우스 우클릭 수정 */
+	$(document).on('click', '.configRightClickable', function(){
+		var configRightClickable;
       
-      var configOnepageStyle;
+		if($(this).val()=="1"){
+			configRightClickable=0;
+		}
+		if($(this).val()=="0"){
+			configRightClickable=1;
+		}
+		
+		var sendData = {"configRightClickable" : configRightClickable};
+		
+		$.ajax({
+			method : 'post'
+			, url  : 'updateRightClickable'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+				siteConfig();
+			}
+		});
+	});
+	
+	/* 폰트 수정 */
+	$(document).on('change', '.updateBlogFont', function(){
+		var configBasicFont = $(this).val();
+		var sendData = {"configBasicFont" : configBasicFont};
       
-      if($(this).val()=="1"){
-         configOnepageStyle=0;
-      }
-      
-      if($(this).val()=="0"){
-         configOnepageStyle=1;
-      }
-      var sendData = {"configOnepageStyle" : configOnepageStyle};
-      $.ajax({
-         method : 'post'
-         , url  : 'updateOnepageStyle'
-         , data : JSON.stringify(sendData)
-         , dataType : 'text'
-         , contentType : 'application/json; charset=UTF-8'
-         , success: function(resp) {
-            siteConfig();
-         }
-      });  
-   });
+		$.ajax({
+			method : 'post'
+			, url  : 'updateBlogFont'
+			, data : JSON.stringify(sendData)
+			, dataType : 'text'
+			, contentType : 'application/json; charset=UTF-8'
+			, success: function(resp) {
+				siteConfig();
+			}
+		});  
+	});
    
-$(document).on('click', '.configRightClickable', function(){
-      
-      var configRightClickable;
-      
-      if($(this).val()=="1"){
-         configRightClickable=0;
-      }
-      
-      if($(this).val()=="0"){
-         configRightClickable=1;
-      }
-      var sendData = {"configRightClickable" : configRightClickable};
-      $.ajax({
-         method : 'post'
-         , url  : 'updateRightClickable'
-         , data : JSON.stringify(sendData)
-         , dataType : 'text'
-         , contentType : 'application/json; charset=UTF-8'
-         , success: function(resp) {
-            siteConfig();
-         }
-      });  
-   });
-   $(document).on('change', '.blogFont', function(){
-      var configBasicFont = $(this).val();
-      //alert(configBasicFont)
-      
-      var sendData = {"configBasicFont" : configBasicFont};
-      $.ajax({
-         method : 'post'
-         , url  : 'updateBlogFont'
-         , data : JSON.stringify(sendData)
-         , dataType : 'text'
-         , contentType : 'application/json; charset=UTF-8'
-         , success: function(resp) {
-            siteConfig();
-         }
-      });  
-   });
-   
-   /**********************/
-   /* 메뉴블럭 마우스오버   */
-   /**********************/
+   /* 메뉴블럭 마우스오버  */
    $(document).on('mouseenter', '.menu-block li', function(){
-      $('ul:first',this).show();
+	   $('ul:first',this).show();
    });
-   
    $(document).on('mouseleave', '.menu-block li', function(){
-      $('ul:first',this).hide();
+	   $('ul:first',this).hide();
    });
-   
-   /**************/
-   /*    드롭다운     */
-   /**************/
+
+   /* 메뉴설정, 사이트설정 드롭다운 */
    $(".site-config-flip").click(function(){
-       $(".site-config-panel").slideToggle("slow");
-       $(".site-config-panel").css("border-bottom","1px solid #333e4e").css("border-left","1px solid #333e4e").css("border-right","1px solid #333e4e");
-        
+	   $(".site-config-panel").slideToggle("slow");
+	   $(".site-config-panel").css("border-bottom","1px solid #333e4e").css("border-left","1px solid #333e4e").css("border-right","1px solid #333e4e");
    });
-   
    $(".menu-config-flip").click(function(){
-      $(".menu-config-panel").slideToggle("slow");
-       $(".menu-config-panel").css("border-bottom","1px solid #333e4e").css("border-left","1px solid #333e4e").css("border-right","1px solid #333e4e");
-        
+	   $(".menu-config-panel").slideToggle("slow");
+	   $(".menu-config-panel").css("border-bottom","1px solid #333e4e").css("border-left","1px solid #333e4e").css("border-right","1px solid #333e4e");
    });
-    
-   $(document).on('click', 'div.folder', function() {
-      $(this).removeClass('folder').addClass('unfolder');
-      $(this).children('i.fa-chevron-right').removeClass('fa-chevron-right').addClass('fa-chevron-down');   
+   $(document).on('click', 'div.folder', function(){
+	   $(this).removeClass('folder').addClass('unfolder');
+	   $(this).children('i.fa-chevron-right').removeClass('fa-chevron-right').addClass('fa-chevron-down');   
    });
    $(document).on('click', 'div.unfolder', function() {
-      $(this).removeClass('unfolder').addClass('folder');
-      $(this).children('i.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-right');   
+	   $(this).removeClass('unfolder').addClass('folder');
+	   $(this).children('i.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-right');
    });
-   
-   /**************/
+
    /*메뉴 드래그앤드롭*/
-   /**************/
    var target;
-   
    var updateOutput = function(e){
-           
-       var menuNo = $(target).parents('li').data('rno');//누른 애의 menuNo, 옮겨져도 바뀌지 않음
-       var newMenuParent = $(target).parents('li').parents('li').data('rno');//누른 애 부모의 menuNo 옮겨지면 새 부모 menuNo로 바뀜 대메뉴일 경우 undefined
+	   var menuNo = $(target).parents('li').data('rno');//누른 애의 
+       var newMenuParent = $(target).parents('li').parents('li').data('rno');
        var newMenuSeq;
        var menuParent = $(target).parents('li').data('parent');
        var menuSeq = $(target).parents('li').data('menu-seq')
@@ -318,328 +309,328 @@ $(document).on('click', '.configRightClickable', function(){
       
 //          대메뉴
       if ($(target).parents('ol').length == 1) {
-         $.each($($(target).parents('ol')[0]).children('li'), function(index, item){
-            if ($(item).hasClass('changed')){
-               newMenuSeq = index + 1;
-               newMenuDepth = 0;
-               $(item).removeClass("changed");
-            }
-         });
+    	  $.each($($(target).parents('ol')[0]).children('li'), function(index, item){
+    		  if ($(item).hasClass('changed')){
+    			  newMenuSeq = index + 1;
+    			  newMenuDepth = 0;
+    			  $(item).removeClass("changed");
+    		  }
+    	  });
 //          소메뉴   
       } else if ($(target).parents('ol').length == 2) {
-         $.each($($(target).parents('ol')[0]).children('li'), function(index, item){
-            if ($(item).hasClass('changed')){
-               // menuSeq
-               newMenuSeq = index + 1;
-               newMenuDepth = 1;
-               $(item).removeClass("changed");
+    	  $.each($($(target).parents('ol')[0]).children('li'), function(index, item){
+    		  if ($(item).hasClass('changed')){
+    			  newMenuSeq = index + 1;
+    			  newMenuDepth = 1;
+    			  $(item).removeClass("changed");
             }
          });
       }
       
       var sendData = {
-            "menuNo" : menuNo
-            , "menuParent" : menuParent
-            , "menuSeq" : menuSeq
-            , "menuParentSeq" : menuParentSeq
-            , "menuDepth" : menuDepth
-            , "newMenuParent" : newMenuParent
-            , "newMenuSeq" : newMenuSeq
-            , "newMenuDepth" : newMenuDepth
-         };
+    		  "menuNo" : menuNo, 
+    		  "menuParent" : menuParent, 
+    		  "menuSeq" : menuSeq, 
+    		  "menuParentSeq" : menuParentSeq, 
+    		  "menuDepth" : menuDepth, 
+    		  "newMenuParent" : newMenuParent, 
+    		  "newMenuSeq" : newMenuSeq, 
+    		  "newMenuDepth" : newMenuDepth
+      };
       
       $.ajax({
-         method   : 'post'
-         , url    : 'updateMenu'
-         , data   : JSON.stringify(sendData)
-         , dataType : 'json'
-         , contentType : 'application/json; charset=UTF-8'
-         , success: function(resp) {
-            menuConfig();
-            //alert(resp);
-         } 
+    	  method   : 'post', 
+    	  url    : 'updateMenu', 
+    	  data   : JSON.stringify(sendData), 
+    	  dataType : 'json', 
+    	  contentType : 'application/json; charset=UTF-8', 
+    	  success: function(resp) {
+    		  menuConfig();
+    	  } 
       });
-      
-   };
-   
-   
+   }; //updateOutput
    
    $('#nestable').nestable({
-      group: 1
-   })
-   .on('change', updateOutput);
+	   group: 1
+	})
+	.on('change', updateOutput);
+   updateOutput($('#nestable').data('output', $('#nestable-output')));
    
-   // output initial serialised data
-    updateOutput($('#nestable').data('output', $('#nestable-output')));
-   
-
    $('#nestable')
    .on('mousedown', '.outer-config', function(){
-      target = $(this);
+	   target = $(this);
+	});
+   
+   $(document).on('click', '.blog-title-edit', function(){
+	   $(this).parent().css('display','none');
+	   $(this).parent().prev().css('display','none');
+	   $(this).parent().next().css('display','block');
+   });
+   
+   $(document).on('click', '.blog-title-check', function(){
+	   var blogTitle = $(this).prev().val();
+	   var sendData = {"blogTitle" : blogTitle};
+	   
+	   $.ajax({
+		   method : 'post', 
+		   url  : 'editBlogTitle', 
+		   data : JSON.stringify(sendData), 
+		   dataType : 'text', 
+		   contentType : 'application/json; charset=UTF-8', 
+		   success: function(resp) {
+			   $('.blog-title-editbox').css('display', 'none')
+			   $('.blog-title').css('display', 'block')
+			   siteConfig();
+		   }
+	   }); 		
+   });
+   
+   /*메뉴 버튼 이벤트*/
+   $(document).on('click', '.deletebtn', function(){
+	   var menuNo = $(this).data('rno');
+	   var menuParent = $(this).data('parent');
+	   var menuSeq = $(this).data('menu-seq');
+	   var menuParentSeq = $(this).data('menu-parent-seq');
+	   var menuDepth = $(this).data('menu-depth');
+	   var sendData = {"menuNo" : menuNo, 
+			   			"menuParent" : menuParent, 
+			   			"menuSeq" : menuSeq, 
+			   			"menuParentSeq" : menuParentSeq, 
+			   			"menuDepth" : menuDepth };
+	   $.ajax({
+		   method : 'post', 
+		   url  : 'deleteMenu', 
+		   data : JSON.stringify(sendData), 
+		   dataType : 'text', 
+		   contentType : 'application/json; charset=UTF-8', 
+		   success: function(resp) {
+			   menuConfig();
+		   }
+	   });
+   });
+   
+   /* 메뉴 숨기기 수정 */
+   $(document).on('click', '.hidebtn', function(){
+	   var menuVisible = $(this).data('menu-visible');
+	   var menuNo = $(this).data('rno');
+	   
+	   if(menuVisible==0){
+		   menuVisible=1;
+	   } else {menuVisible=0;}
+	   
+	   var sendData = {"menuVisible" : menuVisible, "menuNo" : menuNo};
+
+	   $.ajax({
+		   method : 'post', 
+		   url  : 'updateMenuVisible', 
+		   data : JSON.stringify(sendData), 
+		   dataType : 'text', 
+		   contentType : 'application/json; charset=UTF-8', 
+		   success: function(resp) {
+			   menuConfig();
+		   } 
+	   });
+	}); 
+   
+   /* 메뉴 추가 */
+   $(document).on('click', '.menu-plus-button', function(){
+	   $(this).css('display','none');
+	   $('.menu-plus-box').css('display','block');
+   }); 
+   $(document).on('click', '.menu-plus-check', function(){
+	   var menuPlusName = $(this).prev().val();
+	   var sendData = {"menuName" : menuPlusName};
+
+	   $.ajax({
+		   method : 'post', 
+		   url  : 'insertMenu', 
+		   data : JSON.stringify(sendData), 
+		   dataType : 'text', 
+		   contentType : 'application/json; charset=UTF-8', 
+		   success: function(resp) {
+			   menuConfig();
+		   } 
+	   });
+   });
+   
+   /* 메뉴 타이틀 수정 */
+   $(document).on('click', '.editbtn', function(){
+	   $(this).parent().css('display','none');
+	   $(this).parent().prev().css('display','none');
+	   $(this).parent().next().css('display','block');
+   });
+   $(document).on('click', '.checkbtn', function(){
+	   var menuname = $(this).prev().val();
+	   var menuno  = $(this).attr("data-rno");
+	   var sendData = {"menuName" : menuname,  "menuNo" : menuno};
+	   
+	   $.ajax({
+		   method : 'post', 
+		   url  : 'editMenu', 
+		   data : JSON.stringify(sendData), 
+		   dataType : 'text', 
+		   contentType : 'application/json; charset=UTF-8', 
+		   success: function(resp) {
+			   menuConfig();
+		   } 
+	   });
+   });
+   
+   /*메뉴 클릭 이벤트*/
+   $(document).on('click','.menu-block>li>div',function(){
+	   var menuNo = $(this).attr('data-menu-no');
+	   
+	   $.ajax({
+		   method : 'post',
+		   url:'selectMenu',
+		   data : "menuNo="+menuNo,
+		   success:function(rep){
+			   location.replace("config?menuNo="+menuNo);
+		   }
+	   });
    });
 
-
-	$(document).on('click', '.blog-title-edit', function(){
-		$(this).parent().css('display','none');
-		$(this).parent().prev().css('display','none');
-		$(this).parent().next().css('display','block');
+   /*소메뉴 클릭 메뉴*/
+   $(document).on('click','.menu-block>li>ul>li>div',function(){
+	   var menuNo = $(this).attr('data-menu-no');
+	   
+	   $.ajax({
+		   method : 'post',
+		   url:'selectMenu',
+		   data : "menuNo="+menuNo,
+		   success:function(rep){
+			   location.replace("config?menuNo="+menuNo);
+		   }
+	   });
 	});
-	$(document).on('click', '.blog-title-check', function(){
-		var blogTitle = $(this).prev().val();
-		var sendData = {"blogTitle" : blogTitle};
-		$.ajax({
-			method : 'post'
-			, url  : 'editBlogTitle'
-			, data : JSON.stringify(sendData)
-			, dataType : 'text'
-			, contentType : 'application/json; charset=UTF-8'
-			, success: function(resp) {
-				//alert("꺄~!")
-				//console.log($(this))
-				$('.blog-title-editbox').css('display', 'none')
-				$('.blog-title').css('display', 'block')
-				siteConfig();
-				
-			}
-		}); 		
-	});
-  
-	/*********************/
-	/*메뉴 버튼 이벤트*/
-	/*********************/
-	$(document).on('click', '.deletebtn', function(){
-		var menuNo = $(this).data('rno');
-		var menuParent = $(this).data('parent');
-		var menuSeq = $(this).data('menu-seq');
-		var menuParentSeq = $(this).data('menu-parent-seq');
-		var menuDepth = $(this).data('menu-depth');
-		//alert(menuNo);
-		var sendData = {"menuNo" : menuNo
-						, "menuParent" : menuParent
-						, "menuSeq" : menuSeq
-						, "menuParentSeq" : menuParentSeq
-						, "menuDepth" : menuDepth};
-		$.ajax({
-			method : 'post'
-			, url  : 'deleteMenu'
-			, data : JSON.stringify(sendData)
-			, dataType : 'text'
-			, contentType : 'application/json; charset=UTF-8'
-			, success: function(resp) {
-				menuConfig();
-			} 
-		});
-	});
-	
-	$(document).on('click', '.editbtn', function(){
-		$(this).parent().css('display','none');
-		$(this).parent().prev().css('display','none');
-		$(this).parent().next().css('display','block');
-	});
-	
-	$(document).on('click', '.hidebtn', function(){
-		var menuVisible = $(this).data('menu-visible');
-		var menuNo = $(this).data('rno');
-		alert(menuVisible);
-		if(menuVisible==0){
-			menuVisible=1;
-		} else {menuVisible=0;}
-		var sendData = {"menuVisible" : menuVisible
-						,"menuNo" : menuNo};
-		
-		$.ajax({
-			method : 'post'
-			, url  : 'updateMenuVisible'
-			, data : JSON.stringify(sendData)
-			, dataType : 'text'
-			, contentType : 'application/json; charset=UTF-8'
-			, success: function(resp) {
-				menuConfig();
-			} 
-		});
-		
-	}); 
-	$(document).on('click', '.menu-plus-button', function(){
-		$(this).css('display','none');
-		$('.menu-plus-box').css('display','block');
-		
-	}); 
-	$(document).on('click', '.menu-plus-check', function(){
-		var menuPlusName = $(this).prev().val();
-		var sendData = {"menuName" : menuPlusName};
-		$.ajax({
-			method : 'post'
-			, url  : 'insertMenu'
-			, data : JSON.stringify(sendData)
-			, dataType : 'text'
-			, contentType : 'application/json; charset=UTF-8'
-			, success: function(resp) {
-				menuConfig();
-			} 
-		});
-		
-	});
-	$(document).on('click', '.checkbtn', function(){
-		var menuname = $(this).prev().val();
-		var menuno  = $(this).attr("data-rno");
-		var sendData = {"menuName" : menuname,  "menuNo" : menuno};
-		$.ajax({
-			method : 'post'
-			, url  : 'editMenu'
-			, data : JSON.stringify(sendData)
-			, dataType : 'text'
-			, contentType : 'application/json; charset=UTF-8'
-			, success: function(resp) {
-				menuConfig();
-			} 
-		});
-		
-	});
-	/*메뉴 클릭 이벤트*/
-	$(document).on('click','.menu-block>li>div',function(){
-		var menuNo = $(this).attr('data-menu-no');
-		$.ajax({
-			method : 'post'
-			,url:'selectMenu'
-			,data : "menuNo="+menuNo
-			,success:function(rep){
-				location.replace("config?menuNo="+menuNo);
-			}
-		});
-	});
-	/*소메뉴 클릭 메뉴*/
-	$(document).on('click','.menu-block>li>ul>li>div',function(){
-		var menuNo = $(this).attr('data-menu-no');
-		$.ajax({
-			method : 'post'
-			,url:'selectMenu'
-			,data : "menuNo="+menuNo
-			,success:function(rep){
-				location.replace("config?menuNo="+menuNo);
-			}
-		});
-	});
-	/* 블록 배경 색상 바꾸기*/
-	$('.block-backgroundcolor').children('.color-picker').on('change',function(){
-		var blockBackgroundColor = $(this).val();
-		var blockseq = $(this).parents('section').attr('data-block-seq'); 
-		$('section[data-block-seq='+blockseq+']').css('background-color', blockBackgroundColor);
-	});
+   
+   /* 블록 배경 색상 바꾸기*/
+   $('.block-backgroundcolor').children('.color-picker').on('change',function(){
+	   var blockBackgroundColor = $(this).val();
+	   var blockseq = $(this).parents('section').attr('data-block-seq'); 
+	   $('section[data-block-seq='+blockseq+']').css('background-color', blockBackgroundColor);
+   });
+   
    firstcss();
    /*블록 없을때 블록 추가 버튼 */
    $('.intro-block-wrapper').on('click',function(){
-      if($('.blockMenu-sidebar-ul li').hasClass("active")){
-         $('.blockMenu-sidebar-ul > li').removeClass();
-      }
-      $('.blockMenu-sidebar-ul > li').first().addClass("active");
-      thumnail(0);
-      $('.blockMenu-sidebar-div').animate({'margin-left':'0px'},'slow');
-      $('#blockMenu-sidebar-close').css('left','315px');
-      wrapByMask();
-      var blockSeq =$(this).attr('id');
-      var blockMenuNo = $('.menu-bar').attr("data-menu-no");
-      $(document).on('click','.block-thumnail > li',function(){
-         $(document).off('click','.use-block-button');
-         $('.block-preview').empty();
-         var blockWrapperCode = "";
-         var blockTmpNo = $('.block-thumnail > li').attr('data-block-no');
-         $.ajax({
-            method:'POST'
-            ,url:'getBlockContent'
-            ,async: false
-            ,data : 'blockTmpNo='+blockTmpNo+''
-            ,success:function(response){
-               $('.block-preview').append(useButton());
-               blockWrapperCode = decodeURIComponent(response).replace(/\+/g, " ");
-               $('.block-preview').append(blockWrapperCode);
-               var block={
-                     "blockContent":blockWrapperCode+""
-                     ,"blockTmpNo":blockTmpNo
-                     ,"blockSeq":1
-                     ,"blockMenuNo":blockMenuNo};
+	   if($('.blockMenu-sidebar-ul li').hasClass("active")){
+		   $('.blockMenu-sidebar-ul > li').removeClass();
+	   }
+	   
+	   $('.blockMenu-sidebar-ul > li').first().addClass("active");
+	   thumnail(0);
+	   $('.blockMenu-sidebar-div').animate({'margin-left':'0px'},'slow');
+	   $('#blockMenu-sidebar-close').css('left','315px');
+	   wrapByMask();
+	   var blockSeq =$(this).attr('id');
+	   var blockMenuNo = $('.menu-bar').attr("data-menu-no");
+	   
+	   $(document).on('click','.block-thumnail > li',function(){
+		   $(document).off('click','.use-block-button');
+		   $('.block-preview').empty();
+		   var blockWrapperCode = "";
+		   var blockTmpNo = $('.block-thumnail > li').attr('data-block-no');
+         
+		   $.ajax({
+			   method:'POST',
+			   url:'getBlockContent',
+			   async: false,
+			   data : 'blockTmpNo='+blockTmpNo+'',
+			   success:function(response){
+				   $('.block-preview').append(useButton());
+				   blockWrapperCode = decodeURIComponent(response).replace(/\+/g, " ");
+				   $('.block-preview').append(blockWrapperCode);
+				   var block={
+						   "blockContent":blockWrapperCode+""
+						   ,"blockTmpNo":blockTmpNo
+						   ,"blockSeq":1
+						   ,"blockMenuNo":blockMenuNo};
                /*사용하기 버튼 클릭 이벤트 */
-               $(document).on('click','.use-block-button',function(){
-                  $.ajax({
-                     method:'POST'
-                     ,url:'setBlockContent'
-                     ,data:JSON.stringify(block)
-                     ,dataType:'json'
-                     ,contentType:'application/json; charset:utf-8'
-                     ,success:function(resp){
-                        location.replace("config?menuNo="+blockMenuNo);
-                     },fail:function(){
-                        alert('블록 추가 실패');
-                     }
-                  });
-                  $('.intro-block-wrapper').css('display','none');
-                  $('.blockMenu-sidebar-div').animate({'margin-left':'-315px'},'slow');
-                  $('#blockMenu-sidebar-close').css('left','-50px');
-                  $('#mask').hide();
-                  $('.block-preview').empty();
-                  $(document).off('click','.use-block-button');
-               });
-            }
-         });
-      });
-   });
+				   $(document).on('click','.use-block-button',function(){
+					   $.ajax({
+						   method:'POST',
+						   url:'setBlockContent',
+						   data:JSON.stringify(block),
+						   dataType:'json',
+						   contentType:'application/json; charset:utf-8',
+						   success:function(resp){
+							   location.replace("config?menuNo="+blockMenuNo);
+						   },fail:function(){
+							   alert('블록 추가 실패');
+						   }
+					   });
+					   $('.intro-block-wrapper').css('display','none');
+					   $('.blockMenu-sidebar-div').animate({'margin-left':'-315px'},'slow');
+					   $('#blockMenu-sidebar-close').css('left','-50px');
+					   $('#mask').hide();
+					   $('.block-preview').empty();
+					   $(document).off('click','.use-block-button');
+				   }); /*사용하기 버튼 클릭 이벤트 */
+			   }
+		   });
+	   });
+   }); /*블록 없을때 블록 추가 버튼 */
    
    /*블록 추가 버튼 */
    $(document).on('click','.add-button',function(){
-      $(document).off('click','.use-block-button');
-      if($('.blockMenu-sidebar-ul li').hasClass("active")){
-         $('.blockMenu-sidebar-ul > li').removeClass();
-      }
-      $('.blockMenu-sidebar-ul > li').first().addClass("active "+ 0);
-      thumnail(0);
-      $('#blockMenu-sidebar-close').css('left','315px');
-      $('.blockMenu-sidebar-div').animate({'margin-left':'0px'},'slow');
-      wrapByMask();
-      var blockSeq =$(this).attr('id');
-      var blockMenuNo = $('.menu-bar').attr("data-menu-no");
-      $(document).on('click','.block-thumnail > li',function(){
-         $(document).off('click','.use-block-button');
-         $('.block-preview').empty();
-         var blockWrapperCode = "";
-         var blockTmpNo = $('.block-thumnail > li').attr('data-block-no');
-         $.ajax({
-            method:'POST'
-            ,url:'getBlockContent'
-            ,async: false
-            ,data : 'blockTmpNo='+blockTmpNo+''
-            ,success:function(response){
-               $('.block-preview').append(useButton());
-               blockWrapperCode = decodeURIComponent(response).replace(/\+/g, " ");
-               $('.block-preview').append(blockWrapperCode);
-               var block={
-                     "blockContent":blockWrapperCode+""
-                     ,"blockTmpNo":blockTmpNo
-                     ,"blockSeq":blockSeq
-                     ,"blockMenuNo":blockMenuNo};
-               /*사용하기 버튼 클릭 이벤트 */
-               $(document).on('click','.use-block-button',function(){
-                  $.ajax({
-                     method:'POST'
-                     ,url:'setBlockContent'
-                     ,data:JSON.stringify(block)
-                     ,dataType:'json'
-                     ,contentType:'application/json; charset:utf-8'
-                     ,success:function(resp){
-                        location.replace("config?menuNo="+blockMenuNo);
-                     },fail:function(){
-                        alert('블록 추가 실패');
-                     }
-                  });
-                  $('.intro-block-wrapper').css('display','none');
-                  $('.blockMenu-sidebar-div').animate({'margin-left':'-315px'},'slow');
-                  $('#blockMenu-sidebar-close').css('left','-50px');
-                  $('#mask').hide();
-                  $('.block-preview').empty();
-                  $(document).off('click','.use-block-button');
-               });
-            }
-         });
-      });
-   });
+	   $(document).off('click','.use-block-button');
+	   if($('.blockMenu-sidebar-ul li').hasClass("active")){
+		   $('.blockMenu-sidebar-ul > li').removeClass();
+	   }
+	   $('.blockMenu-sidebar-ul > li').first().addClass("active "+ 0);
+	   thumnail(0);
+	   $('#blockMenu-sidebar-close').css('left','315px');
+	   $('.blockMenu-sidebar-div').animate({'margin-left':'0px'},'slow');
+	   wrapByMask();
+	   var blockSeq =$(this).attr('id');
+	   var blockMenuNo = $('.menu-bar').attr("data-menu-no");
+      
+	   $(document).on('click','.block-thumnail > li',function(){
+		   $(document).off('click','.use-block-button');
+		   $('.block-preview').empty();
+		   var blockWrapperCode = "";
+		   var blockTmpNo = $('.block-thumnail > li').attr('data-block-no');
+		   
+		   $.ajax({
+			   method:'POST',
+			   url:'getBlockContent',
+			   async: false,
+			   data : 'blockTmpNo='+blockTmpNo+'',
+			   success:function(response){
+				   $('.block-preview').append(useButton());
+				   blockWrapperCode = decodeURIComponent(response).replace(/\+/g, " ");
+				   $('.block-preview').append(blockWrapperCode);
+				   var block={
+						   "blockContent":blockWrapperCode+""
+						   ,"blockTmpNo":blockTmpNo
+						   ,"blockSeq":blockSeq
+						   ,"blockMenuNo":blockMenuNo};
+	               /*사용하기 버튼 클릭 이벤트 */
+				   $(document).on('click','.use-block-button',function(){
+					   $.ajax({
+						   method:'POST',
+						   url:'setBlockContent',
+						   data:JSON.stringify(block),
+						   dataType:'json',
+						   contentType:'application/json; charset:utf-8',
+						   success:function(resp){
+							   location.replace("config?menuNo="+blockMenuNo);
+						   },fail:function(){
+							   alert('블록 추가 실패');
+						   }
+					   });
+					   $('.intro-block-wrapper').css('display','none');
+					   $('.blockMenu-sidebar-div').animate({'margin-left':'-315px'},'slow');
+					   $('#blockMenu-sidebar-close').css('left','-50px');
+					   $('#mask').hide();
+					   $('.block-preview').empty();
+					   $(document).off('click','.use-block-button');
+				   });
+			   }
+		   });
+	   });
+	});
    
    /*사이드바 close 버튼*/   
    $('#blockMenu-sidebar-close').on('click',function(){
@@ -885,7 +876,7 @@ function fileSubmit() {
             console.log(error);
             console.log(error.status);
         }
-    });
+    }); 
 }
 /*첫화면 css */
 function firstcss(){
