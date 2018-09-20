@@ -121,8 +121,11 @@ public class BoardController {
 
 	// 글쓰기 + 첨부파일 DB
 	@RequestMapping(value = "/writeBbs", method = RequestMethod.POST)
-	public String writeBbs(Bbs bbs, BbsAttach bbsAttach, String type,  MultipartFile upload) {
-
+	public String writeBbs(Bbs bbs, BbsAttach bbsAttach, String type,  MultipartFile upload,HttpSession session) {
+		int userNo = (int)session.getAttribute("loginNo");
+		System.out.println(userNo);
+		bbs.setBbsreguser(userNo);
+		
 		if (type.equals("write")) {
 			repository.insertBbs(bbs);
 		} else if (type.equals("update")) {

@@ -75,6 +75,7 @@
 		, bbsDepth
 		, bbsSeq
 		, bbsRegdate
+		, bbsreguser
 	) VALUES (
 		db_bbs_seq.NEXTVAL
 		, #{boardNo}
@@ -95,6 +96,7 @@
 			</otherwise>
 		</choose>
 		, SYSDATE
+		, #{bbsreguser}
 	)
 </insert>
 
