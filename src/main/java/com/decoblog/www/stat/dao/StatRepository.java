@@ -27,10 +27,17 @@ public class StatRepository {
 	}
 	
 	
-	public Stat selectdate(String date,int loginNo) {
+	public Stat selectdate(@Param("date") String date,@Param("loginNo") int loginNo) {
 		StatMapper sm = session.getMapper(StatMapper.class);
 		
 		Stat stat = sm.selectdate(date,loginNo);
+		
+		return stat;
+	}
+	public Stat selectyesdate(@Param("date") String date,@Param("loginNo") int loginNo) {
+		StatMapper sm = session.getMapper(StatMapper.class);
+	
+		Stat stat = sm.selectyesdate(date, loginNo);
 		
 		return stat;
 	}

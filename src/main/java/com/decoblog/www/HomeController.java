@@ -98,7 +98,7 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/tmtest2", method = RequestMethod.GET)
 	public String tmtest2() {
-		return "templates/1/template-2";
+		return "templates/1/template_800";
 	}
 
 }
