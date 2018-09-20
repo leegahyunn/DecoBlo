@@ -25,6 +25,9 @@
 <script src="decoblo/js/blockConfig.js"></script>
 <script src="decoblo/js/menuConfig.js"></script>
 <script src="decoblo/js/blockSetting.js"></script>
+<c:forEach items="${blockList}" var="blockList">
+	<script src="templates/block-${blockList.blockTmpNo}.js"></script>
+</c:forEach>
 </head>
 <body id="body-config">
 <header id="header">
@@ -118,7 +121,7 @@
 							</tr>
 							<tr>
 								<th colspan="2">
-									<input class="btn btn-secondary" type="button" value="확인" onclick = "metaEdit()"/>
+									<input class="btn btn-secondary updateMetaTag" type="button" value="확인"/>
 								</th>
 							</tr>
 						</table>
@@ -205,7 +208,7 @@
 					</div>
 					<div class="config-row">
 						<label>폰트명</label>
-						<select class="blogFont">
+						<select class="updateBlogFont">
 							<option value="Gothic">고딕</option>
 							<option value="Dotum">돋움</option>
 							<option value="Batang">바탕</option>
