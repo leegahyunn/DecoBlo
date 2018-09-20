@@ -25,6 +25,9 @@
 <script src="decoblo/js/blockConfig.js"></script>
 <script src="decoblo/js/menuConfig.js"></script>
 <script src="decoblo/js/blockSetting.js"></script>
+<c:forEach items="${blockList}" var="blockList">
+	<script src="templates/block-${blockList.blockTmpNo}.js"></script>
+</c:forEach>
 </head>
 <body id="body-config">
 <header id="header">

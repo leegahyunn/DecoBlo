@@ -72,7 +72,7 @@ public class HomeController {
 	@RequestMapping(value = "/ghtest", method = RequestMethod.GET)
 	public String ghtest() {
 
-		return "redirect:/bbsList";
+		return "templates/listDesign1";
 	}
 	
 	
