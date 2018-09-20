@@ -37,10 +37,12 @@ public interface BlogMapper {
 	public int updateBlockSeq(int blockSeq);
 	//블록 삭제
 	public int deleteBlock(int blockSeq);
+	//블록 css 저장 
+	public int insertBlockCss(Block block);
 	public int updateBlogTitle(HashMap<String, String> map);
 	public int updateMetaTag(HashMap<String, String> map);
 	public int updateBackgroundColor(HashMap<String, String> map);
-	public int updateBackgroundImg(HashMap<String, String> map);
+	public int updateBackgroundImg(HashMap<String, Object> map);
 	public User selectBlog(int userNo);
 	public int updateBlogFont(HashMap<String, String> map);
 	public int updateOnepageStyle(HashMap<String, String> map);
@@ -53,5 +55,6 @@ public interface BlogMapper {
 	public Menu selectOneMenu(Menu menu);
 	public int updateMenuVisible(HashMap<String, Object> map);
 	public List<Template> selectTemplate();
+	public int updateFabiconImg(HashMap<String, Object> map);
 
 }

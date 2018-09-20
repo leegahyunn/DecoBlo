@@ -2,6 +2,7 @@ package com.decoblog.www.blog.controller;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.decoblog.www.blog.dao.BlogMapper;
 import com.decoblog.www.blog.dao.BlogRepository;
 import com.decoblog.www.blog.vo.Block;
 import com.decoblog.www.blog.vo.Menu;
@@ -111,8 +113,8 @@ public class BlogController {
 	 * 블로그 메타태그 수정 Ajax
 	 * @return 블로그 수정 페이지
 	 */
-	@RequestMapping(value = "/metaEdit", method = RequestMethod.POST)
-	public String metaEdit(@RequestBody HashMap<String, String> map) {
+	@RequestMapping(value = "/updateMetaTag", method = RequestMethod.POST)
+	public String updateMetaTag(@RequestBody HashMap<String, String> map) {
 		map.put("userNo", "1");
 		blogRepository.updateMetaTag(map);
 		return  "blog/config";
@@ -181,7 +183,6 @@ public class BlogController {
 	@RequestMapping(value = "/insertMenu", method = RequestMethod.POST)
 	public String insertMenu(@RequestBody HashMap<String, Object> map,HttpSession session) {
 		int userNo =  (int) session.getAttribute("loginNo");
-		System.out.println("요기다 이녀석아" +userNo);
 		map.put("menuUserNo", userNo);
 		blogRepository.insertMenu(map);
 		return  "blog/config";
@@ -209,41 +210,79 @@ public class BlogController {
 	}
 	
 	
-	@RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
-    public String fileUp(MultipartHttpServletRequest multi) {
-        
-    	System.out.println("??");
-    	
-        // 저장 경로 설정
-        String root = multi.getSession().getServletContext().getRealPath("/");
-        String path = root+"resources/up/";
-         
-        String newFileName = ""; // 업로드 되는 파일명
-         
+	@RequestMapping(value = "/updateBackgroundImg", method = RequestMethod.POST)
+    public String updateBackgroundImg(MultipartHttpServletRequest multi) {
+		String root = multi.getSession().getServletContext().getRealPath("/");
+        String path = root+"resources/uploadbackgroundimg/";
+        String configBackgroundSavedFile = ""; // 업로드 되는 파일명
+        String configBackgroundOriginFile = ""; 
         File dir = new File(path);
+        
         if(!dir.isDirectory()){
             dir.mkdir();
         }
          
         Iterator<String> files = multi.getFileNames();
         while(files.hasNext()){
-            String uploadFile = files.next();
-                         
+        	
+        	String uploadFile = files.next();
             MultipartFile mFile = multi.getFile(uploadFile);
-            String fileName = mFile.getOriginalFilename();
-            System.out.println("실제 파일 이름 : " +fileName);
-            newFileName = System.currentTimeMillis()+"."
-                    +fileName.substring(fileName.lastIndexOf(".")+1);
+            configBackgroundOriginFile = mFile.getOriginalFilename();
+            configBackgroundSavedFile = System.currentTimeMillis()+"."
+                    +configBackgroundOriginFile.substring(configBackgroundOriginFile.lastIndexOf(".")+1);
              
             try {
-                mFile.transferTo(new File(path+newFileName));
+                mFile.transferTo(new File(path+configBackgroundSavedFile));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-         
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("configBackgroundOriginFile", configBackgroundOriginFile);
+        map.put("configBackgroundSavedFile", configBackgroundSavedFile);
+        map.put("userNo", "1");
+        blogRepository.updateBackgroundImg(map);
+        
         return "blog/config";
-       }
+    }
+	
+	
+	@RequestMapping(value = "/updateFabiconImg", method = RequestMethod.POST)
+    public String updateFabiconImg(MultipartHttpServletRequest multi2) {
+		String root = multi2.getSession().getServletContext().getRealPath("/");
+        String path = root+"resources/uploadfabiconimg/";
+        String fabiconSavedFile = ""; // 업로드 되는 파일명
+        String fabiconOriginalFile = ""; 
+        File dir = new File(path);
+        
+        if(!dir.isDirectory()){
+            dir.mkdir();
+        }
+         
+        Iterator<String> files = multi2.getFileNames();
+        
+        while(files.hasNext()){
+        	
+        	String uploadFile = files.next();
+            MultipartFile mFile = multi2.getFile(uploadFile);
+            fabiconOriginalFile = mFile.getOriginalFilename();
+            fabiconSavedFile = System.currentTimeMillis()+"."
+                    +fabiconOriginalFile.substring(fabiconOriginalFile.lastIndexOf(".")+1);
+            try {
+                mFile.transferTo(new File(path+fabiconSavedFile));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("fabiconOriginalFile", fabiconOriginalFile);
+        map.put("fabiconSavedFile", fabiconSavedFile);
+        map.put("userNo", "1");
+        
+        blogRepository.updateFabiconImg(map);
+        
+        return "blog/config";
+    }
 	
 	@ResponseBody
 	@RequestMapping(value="/updateMenu", method=RequestMethod.POST)
@@ -349,5 +388,57 @@ public class BlogController {
 	public String templatePreview(@PathVariable(value="param1") String templateNo)	{
 		System.out.println(templateNo);
 		return "templates/" + templateNo + "/template-1";
+	}
+	
+	@RequestMapping(value="setBlockCss",method=RequestMethod.POST)
+	public @ResponseBody int setBlockCss(@RequestBody Block block) {
+		System.out.println(block);
+		int result =blogRepository.insertBlockCss(block);
+		return result;
+
+  /**
+	 * 블로그 저장하기 
+	 */
+	@RequestMapping(value="/chTest3", method=RequestMethod.GET)
+	public void SaveBlog() {
+		User blogInfo = blogRepository.selectBlog(1);
+		
+		System.out.println(blogInfo);
+		
+		StringBuffer html = new StringBuffer();
+		html.append("<%@ page language=\"java\" contentType=\"text/html; charset=UTF-8\" pageEncoding=\"UTF-8\"%>\n");
+		html.append("<!DOCTYPE html>\n"); 
+		html.append("<html>\n"); 
+		html.append("<head>\n"); 
+		html.append("<title>" + blogInfo.getBlogTitle() + "</title>\n"); 
+		html.append("<meta charset=\"utf-8\" />\n"); 
+		html.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n"); 
+		html.append("<link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.2.0/css/all.css\" />\n"); 
+		html.append("<link rel=\"stylesheet\" href=\"/www/templates/common.css\" />\n"); 
+		html.append("<link rel=\"stylesheet\" href=\"/www/templates/template.css\" />\n"); 
+		html.append("</head>\n"); 
+		html.append("<body>\n"); 
+		html.append("<section class=\"menu-wrapper\">\n"); 
+		html.append("	<!-- 메뉴 블록, block-1 -->\n"); 
+		html.append("	<section class=\"block-wrapper\" style=\"\">\n"); 
+		html.append("		<div class=\"block-1\">\n"); 
+		html.append("\n"); 
+		html.append("		</div>\n"); 
+		html.append("	</section>\n"); 
+		html.append("</section>\n"); 
+		html.append("\n");
+		
+		html.append("<!-- Scripts -->\n"); 
+		html.append("<script src=\"/www/resources/library/js/jquery-3.3.1.min.js\"></script>\n"); 
+		html.append("<script src=\"/www/decoblo/js/index.js\"></script>\n"); 
+		html.append("<script src=\"/www/templates/slides.min.jquery.js\"></script>\n"); 
+		html.append("\n"); 
+		
+		html.append("<!-- Script Import -->\n"); 
+		html.append("\n"); 
+		html.append("</body>\n"); 
+		html.append("</html>\n");
+		
+		System.out.println(html.toString());
 	}
 }

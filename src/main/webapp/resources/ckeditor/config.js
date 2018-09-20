@@ -37,8 +37,12 @@ CKEDITOR.editorConfig = function( config ) {
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 	
 	// resize X
-	config.resize_enabled = false;
+	//config.resize_enabled = false;
+
+	
+	
 	
 	config.extraPlugins = 'justify';
+	
 	
 };

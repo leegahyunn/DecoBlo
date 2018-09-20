@@ -30,7 +30,9 @@ div.block-config-section {
 	font-size: 0.8em;
 	font-weight: bold;
 }
-
+div.block-config-section :hover {		
+	cursor: pointer;
+}
 div.block-config-section div div.outer-config {
 	padding: 5px 20px;
 	border-bottom: 1px solid #DDD;
@@ -501,6 +503,7 @@ body { margin: 0; }
   float: left;
   list-style:none;
   position: relative;
+  z-index: 9999;
 }
 .menu-block li:hover { background: black; }
 .menu-block li:hover>div{ color: white; }

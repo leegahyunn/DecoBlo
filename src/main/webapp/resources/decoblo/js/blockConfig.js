@@ -16,15 +16,7 @@ $(function(){
 	});
 	
 	/* 슬라이더 */
-	$(".range-slider").slider({
-		range: "max",
-		min: 1,
-		max: 100,
-		value: 50,
-		slide: function(event, ui) {
-			$(this).prev().children('.slider-result').text(ui.value);
-		}
-	});
+	
 	
 	/* 파일 선택 */
 	$('#backgroundfile').change(function(){
@@ -86,5 +78,7 @@ $('#element3').newColpick({
   
 });	
 
-
+function paddingSetting(){
+	
+}
 

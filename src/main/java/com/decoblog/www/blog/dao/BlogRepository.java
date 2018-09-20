@@ -88,7 +88,12 @@ public class BlogRepository {
 		
 		return result;
 	}
-
+	/*블록 css 저장*/
+	public int insertBlockCss(Block block) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.insertBlockCss(block);
+		return result;
+	}
 	public int updateSmallMenuPull(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.updateSmallMenuPull(map);
@@ -150,7 +155,7 @@ public class BlogRepository {
 		return result;
 	}
 
-	public int updateBackgroundImg(HashMap<String, String> map) {
+	public int updateBackgroundImg(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.updateBackgroundImg(map);
 		
@@ -236,6 +241,13 @@ public class BlogRepository {
 		List<Template> result = null;
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		result = mapper.selectTemplate();
+		return result;
+	}
+
+	public int updateFabiconImg(HashMap<String, Object> map) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.updateFabiconImg(map);
+		
 		return result;
 	}
 	

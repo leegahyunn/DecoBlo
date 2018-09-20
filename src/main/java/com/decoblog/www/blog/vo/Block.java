@@ -7,16 +7,20 @@ public class Block {
 	private int blockSeq;
 	private String blockContent;
 	private int blockBackgroundno;
+	private String blockCss;
 	public Block() {
+		// TODO Auto-generated constructor stub
 	}
-	public Block(int blockNo, int blockMenuNo, int blockTmpNo, int blockSeq, String blockContent,
-			int blockBackgroundno) {
+	public Block(int blockNo, int blockMenuNo, int blockTmpNo, int blockSeq, String blockContent, int blockBackgroundno,
+			String blockCss) {
+		super();
 		this.blockNo = blockNo;
 		this.blockMenuNo = blockMenuNo;
 		this.blockTmpNo = blockTmpNo;
 		this.blockSeq = blockSeq;
 		this.blockContent = blockContent;
 		this.blockBackgroundno = blockBackgroundno;
+		this.blockCss = blockCss;
 	}
 	public int getBlockNo() {
 		return blockNo;
@@ -54,10 +58,17 @@ public class Block {
 	public void setBlockBackgroundno(int blockBackgroundno) {
 		this.blockBackgroundno = blockBackgroundno;
 	}
+	public String getBlockCss() {
+		return blockCss;
+	}
+	public void setBlockCss(String blockCss) {
+		this.blockCss = blockCss;
+	}
 	@Override
 	public String toString() {
 		return "Block [blockNo=" + blockNo + ", blockMenuNo=" + blockMenuNo + ", blockTmpNo=" + blockTmpNo
 				+ ", blockSeq=" + blockSeq + ", blockContent=" + blockContent + ", blockBackgroundno="
-				+ blockBackgroundno + "]";
+				+ blockBackgroundno + ", blockCss=" + blockCss + "]";
 	}
+	
 }

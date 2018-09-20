@@ -56,4 +56,7 @@
 		</property>
 	</bean>
 	
+	<!-- file upload -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	
 </beans>

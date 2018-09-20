@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="decoblo/css/blockTemplate.css">
 <link rel="stylesheet" href="decoblo/css/blockConfig.css">
 <link rel="stylesheet" href="decoblo/css/menuConfig.css">
+<link rel="stylesheet" href="templates/template.css">
 <link rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="http://www.jqueryscript.net/css/jquerysctipttop.css">
@@ -24,6 +25,9 @@
 <script src="decoblo/js/blockConfig.js"></script>
 <script src="decoblo/js/menuConfig.js"></script>
 <script src="decoblo/js/blockSetting.js"></script>
+<c:forEach items="${blockList}" var="blockList">
+	<script src="templates/block-${blockList.blockTmpNo}.js"></script>
+</c:forEach>
 </head>
 <body id="body-config">
 <header id="header">
@@ -117,7 +121,7 @@
 							</tr>
 							<tr>
 								<th colspan="2">
-									<input class="btn btn-secondary" type="button" value="확인" onclick = "metaEdit()"/>
+									<input class="btn btn-secondary updateMetaTag" type="button" value="확인"/>
 								</th>
 							</tr>
 						</table>
@@ -204,7 +208,7 @@
 					</div>
 					<div class="config-row">
 						<label>폰트명</label>
-						<select class="blogFont">
+						<select class="updateBlogFont">
 							<option value="Gothic">고딕</option>
 							<option value="Dotum">돋움</option>
 							<option value="Batang">바탕</option>
@@ -313,7 +317,7 @@
 					</div>
 				</li>
 			</ul>
-			<section class="block-wrapper" data-block-seq="${blockList.blockSeq}">
+			<section class="block-wrapper" data-block-seq="${blockList.blockSeq}" data-blockNo="${blockList.blockNo}" style='${blockList.blockCss}'>
 			${blockList.blockContent}
 			<div class="mask2" id="mask-2-${blockList.blockSeq}"></div>
 			<div class="settingIcon ${blockList.blockSeq}" id='${blockList.blockSeq}'>
@@ -345,12 +349,12 @@
 								</label>
 							</div>
 							<div class="config-row">
-								<label>상<span class="slider-result">0</span>px</label>
+								<label>상<span class="slider-result" id="padding-top">0</span>px</label>
 								<div class="range-slider">
 								</div>
 							</div>
 							<div class="config-row">
-								<label>하<span class="slider-result">0</span>px</label>
+								<label>하<span class="slider-result" id="padding-bottom">0</span>px</label>
 								<span class="range-slider">
 								</span>
 							</div>
@@ -366,8 +370,9 @@
 						</div>
 						<div class="inner-config">
 							<div class="config-row">
+							<div class="config-row block-backgroundcolor">
 								<label>색상</label>
-								<input type="color" class="color color-picker transparent">
+								<input type="color" class="color color-picker transparent" value="#888888">
 							</div>
 							<div class="config-row filebox">
 								<label>이미지</label>
