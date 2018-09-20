@@ -151,13 +151,13 @@
 				<div class="inner-config">
 					<div class="config-row">
 						<label>색상</label>
-						<input type="color" class="color color-picker transparent site-backgroundcolor" value="#888888">
+						<input type="color" class="color color-picker transparent" value="#888888">
 						<button id="example3"></button>
 					</div>
 					<div class="config-row">
-						<form id="fileform" enctype="multipart/form-data">
+						<form id="fileForm" action="fileUpload" method="post" enctype="multipart/form-data">
 					        <input type="file" id="fileUp" name="fileUp"/>
-					   	 	<input type="button" value="확인" id="blog-background-img" />
+					   	 	<input type="button" value="전송하기" onClick="fileSubmit();" />
 					    </form>
 					</div>	
 					<div class="config-row">
@@ -222,10 +222,9 @@
 				</div>
 				<div class="inner-config">
 					<div class="config-row">
-						<form id="fileform2" enctype="multipart/form-data">
-					        <input type="file" id="fileUp2" name="fileUp2"/>
-					   	 	<input type="button" value="확인" id="blog-fabicon-img" />
-					    </form>
+						<label>이미지</label>
+						<input type="file" name = "upload" class="upload"/> 
+						<i class="fa fa-folder-open"></i>
 					</div>	
 				</div>
 			</div>
@@ -308,9 +307,6 @@
 		
 		<section class="menu-wrapper" >
 		<c:forEach items="${blockList}" var="blockList">
-		<style class="${blockList.blockNo}" id="block-style-${blockList.blockNo}">
-			${blockList.blockCss};
-		</style>
 			<ul class='add-button ${blockList.blockSeq}' id='${blockList.blockSeq}'>
 				<li class='add-button-li'>
 					<div class='add-block'>
@@ -318,7 +314,7 @@
 					</div>
 				</li>
 			</ul>
-			<section class="block-wrapper" data-block-seq="${blockList.blockSeq}">
+			<section class="block-wrapper" data-block-seq="${blockList.blockSeq}" data-blockNo="${blockList.blockNo}" style='${blockList.blockCss}'>
 			${blockList.blockContent}
 			<div class="mask2" id="mask-2-${blockList.blockSeq}"></div>
 			<div class="settingIcon ${blockList.blockSeq}" id='${blockList.blockSeq}'>
@@ -370,6 +366,7 @@
 							<i class="fa fa-chevron-right right-icon fold-icon"></i>
 						</div>
 						<div class="inner-config">
+							<div class="config-row">
 							<div class="config-row block-backgroundcolor">
 								<label>색상</label>
 								<input type="color" class="color color-picker transparent" value="#888888">

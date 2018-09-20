@@ -100,5 +100,11 @@ public class HomeController {
 	public String tmtest2() {
 		return "templates/1/template-2";
 	}
-
+	
+	//최용락 
+	@RequestMapping(value="/yrtest", method=RequestMethod.GET)
+	public String yrtest() {
+		return "templates/yrTemplate";
+	}
+	
 }
