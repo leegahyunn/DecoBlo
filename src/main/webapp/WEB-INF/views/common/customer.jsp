@@ -92,24 +92,7 @@
 
 <!-- FQA -->
 <section id="faqboard" class="wrapper">
-<!-- 	<div class="table-wrapper" align="center">
-		<table class="board" border="1" style="width: 1200px; text-align: left;">
-			<tr>
-				<th>　</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>작성일</th>
-			</tr>
-			<tr>
-				<td class="center"><i class="fas fa-question-circle"></i></td>
-				<td><a href="">도메인연결이 되지 않습니다</a></td>
-				<td>관리자</td>
-				<td>2018.08.17</td>
-			</tr>
-		</table>	
-	</div> -->
-	
-	
+
 	<!-- 고치기 -->
 	
 	<div class="table-wrapper" align="center">	

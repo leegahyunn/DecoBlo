@@ -113,8 +113,8 @@ public class BlogController {
 	 * 블로그 메타태그 수정 Ajax
 	 * @return 블로그 수정 페이지
 	 */
-	@RequestMapping(value = "/metaEdit", method = RequestMethod.POST)
-	public String metaEdit(@RequestBody HashMap<String, String> map) {
+	@RequestMapping(value = "/updateMetaTag", method = RequestMethod.POST)
+	public String updateMetaTag(@RequestBody HashMap<String, String> map) {
 		map.put("userNo", "1");
 		blogRepository.updateMetaTag(map);
 		return  "blog/config";
@@ -183,7 +183,6 @@ public class BlogController {
 	@RequestMapping(value = "/insertMenu", method = RequestMethod.POST)
 	public String insertMenu(@RequestBody HashMap<String, Object> map,HttpSession session) {
 		int userNo =  (int) session.getAttribute("loginNo");
-		System.out.println("요기다 이녀석아" +userNo);
 		map.put("menuUserNo", userNo);
 		blogRepository.insertMenu(map);
 		return  "blog/config";
@@ -396,5 +395,50 @@ public class BlogController {
 		System.out.println(block);
 		int result =blogRepository.insertBlockCss(block);
 		return result;
+
+  /**
+	 * 블로그 저장하기 
+	 */
+	@RequestMapping(value="/chTest3", method=RequestMethod.GET)
+	public void SaveBlog() {
+		User blogInfo = blogRepository.selectBlog(1);
+		
+		System.out.println(blogInfo);
+		
+		StringBuffer html = new StringBuffer();
+		html.append("<%@ page language=\"java\" contentType=\"text/html; charset=UTF-8\" pageEncoding=\"UTF-8\"%>\n");
+		html.append("<!DOCTYPE html>\n"); 
+		html.append("<html>\n"); 
+		html.append("<head>\n"); 
+		html.append("<title>" + blogInfo.getBlogTitle() + "</title>\n"); 
+		html.append("<meta charset=\"utf-8\" />\n"); 
+		html.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n"); 
+		html.append("<link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.2.0/css/all.css\" />\n"); 
+		html.append("<link rel=\"stylesheet\" href=\"/www/templates/common.css\" />\n"); 
+		html.append("<link rel=\"stylesheet\" href=\"/www/templates/template.css\" />\n"); 
+		html.append("</head>\n"); 
+		html.append("<body>\n"); 
+		html.append("<section class=\"menu-wrapper\">\n"); 
+		html.append("	<!-- 메뉴 블록, block-1 -->\n"); 
+		html.append("	<section class=\"block-wrapper\" style=\"\">\n"); 
+		html.append("		<div class=\"block-1\">\n"); 
+		html.append("\n"); 
+		html.append("		</div>\n"); 
+		html.append("	</section>\n"); 
+		html.append("</section>\n"); 
+		html.append("\n");
+		
+		html.append("<!-- Scripts -->\n"); 
+		html.append("<script src=\"/www/resources/library/js/jquery-3.3.1.min.js\"></script>\n"); 
+		html.append("<script src=\"/www/decoblo/js/index.js\"></script>\n"); 
+		html.append("<script src=\"/www/templates/slides.min.jquery.js\"></script>\n"); 
+		html.append("\n"); 
+		
+		html.append("<!-- Script Import -->\n"); 
+		html.append("\n"); 
+		html.append("</body>\n"); 
+		html.append("</html>\n");
+		
+		System.out.println(html.toString());
 	}
 }
