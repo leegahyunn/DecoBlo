@@ -111,8 +111,8 @@ public class BlogController {
 	 * 블로그 메타태그 수정 Ajax
 	 * @return 블로그 수정 페이지
 	 */
-	@RequestMapping(value = "/metaEdit", method = RequestMethod.POST)
-	public String metaEdit(@RequestBody HashMap<String, String> map) {
+	@RequestMapping(value = "/updateMetaTag", method = RequestMethod.POST)
+	public String updateMetaTag(@RequestBody HashMap<String, String> map) {
 		map.put("userNo", "1");
 		blogRepository.updateMetaTag(map);
 		return  "blog/config";

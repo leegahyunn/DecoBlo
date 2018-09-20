@@ -80,7 +80,7 @@ public class HomeController {
 	// 안정민
 	@RequestMapping(value = "/jmtest", method = RequestMethod.GET)
 	public String jmtest() {
-		return "blog/config";
+		return "templates/template_700";
 	}
 
 
