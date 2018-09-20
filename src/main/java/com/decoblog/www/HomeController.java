@@ -27,32 +27,22 @@ public class HomeController {
 			model.addAttribute("nUser", nUser);
 			return "index";
 		}
-		
 	}
 	
 	@RequestMapping(value = "/customer", method = RequestMethod.GET)
 	public String customer() {
 		return "common/customer";
 	}
-	
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main() {
 		return "common/main";
 	}
-	
-	
-
-	
-	
 
 	@RequestMapping(value = "/view2", method = RequestMethod.GET)
 	public String view2(){
 			return "common/main";
-		
-		
 	}
-
 
 	/**************************************/
 	/* 테스트 컨트롤러; 테스트는 여기서 ! */
@@ -70,22 +60,21 @@ public class HomeController {
 		return "templates/listDesign1";
 	}
 	
-	
-	
 	// 안정민
 	@RequestMapping(value = "/jmtest", method = RequestMethod.GET)
 	public String jmtest() {
 		return "templates/template_700";
 	}
 
-
-
-	
-	// 이준호
+  // 이준호
 	@RequestMapping(value = "/jhtest", method = RequestMethod.GET)
 	public String jhtest() {
 		return "blog/template";
 	}
-
-
+	
+	//최용락 
+	@RequestMapping(value="/yrtest", method=RequestMethod.GET)
+	public String yrtest() {
+		return "templates/yrTemplate";
+	}
 }

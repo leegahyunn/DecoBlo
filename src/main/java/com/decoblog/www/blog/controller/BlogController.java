@@ -2,6 +2,7 @@ package com.decoblog.www.blog.controller;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.decoblog.www.blog.dao.BlogMapper;
 import com.decoblog.www.blog.dao.BlogRepository;
 import com.decoblog.www.blog.vo.Block;
 import com.decoblog.www.blog.vo.Menu;
@@ -388,7 +390,13 @@ public class BlogController {
 		return "templates/" + templateNo + "/template-1";
 	}
 	
-	/**
+	@RequestMapping(value="setBlockCss",method=RequestMethod.POST)
+	public @ResponseBody int setBlockCss(@RequestBody Block block) {
+		System.out.println(block);
+		int result =blogRepository.insertBlockCss(block);
+		return result;
+
+  /**
 	 * 블로그 저장하기 
 	 */
 	@RequestMapping(value="/chTest3", method=RequestMethod.GET)

@@ -88,7 +88,12 @@ public class BlogRepository {
 		
 		return result;
 	}
-
+	/*블록 css 저장*/
+	public int insertBlockCss(Block block) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		int result = mapper.insertBlockCss(block);
+		return result;
+	}
 	public int updateSmallMenuPull(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.updateSmallMenuPull(map);

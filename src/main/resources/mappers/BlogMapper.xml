@@ -291,7 +291,10 @@ UPDATE db_block SET blockseq = blockseq+1 WHERE blockseq >= #{blockSeq}
 <delete id="deleteBlock" parameterType="int">
 DELETE db_block WHERE blockseq=#{blockSeq}
 </delete>
-
+<!-- 블록 css 저장  -->
+<update id="insertBlockCss" parameterType="Block">
+UPDATE db_block SET blockcss = #{blockCss} WHERE blockNo = #{blockNo}
+</update>
 <!-- 첫번 째 메뉴 가져오기 -->
 <select id="selectFirstMenu" parameterType="int" resultType="Menu">
 SELECT * FROM db_menu
