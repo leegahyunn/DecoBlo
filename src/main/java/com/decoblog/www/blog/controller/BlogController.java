@@ -42,7 +42,7 @@ public class BlogController {
 	@RequestMapping(value = "/config", method = RequestMethod.GET)
 	public String config(@RequestParam(value="menuNo", defaultValue="0") int menuNo,
 			Model model,HttpSession session) {
-		int userNo = (int) session.getAttribute("loginNo");
+		int userNo = (int) session.getAttribute("loginNo\n");
 		Menu menu = new Menu();
 		if(menuNo==0) {
 			menu = blogRepository.selectFirstMenu(userNo);
@@ -64,7 +64,7 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping(value = "/menuConfig", method = RequestMethod.POST)
 	public String menuConfig(HttpSession session) {
-		int userNo =(int)session.getAttribute("loginNo");
+		int userNo =(int)session.getAttribute("loginNo\n");
 		ArrayList<HashMap<String, ArrayList<Menu>>> list= blogRepository.selectMenu(userNo);
 	//System.out.println(list);
 		Gson gson = new Gson();
@@ -102,7 +102,7 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping(value = "/editBlogTitle", method = RequestMethod.POST)
 	public String editBlogTitle(@RequestBody HashMap<String, String> map) {
-		map.put("userNo", "1");
+		map.put("userNo", "1\n");
 		blogRepository.updateBlogTitle(map);
 		return  "blog/config";
 	}
@@ -113,7 +113,7 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/metaEdit", method = RequestMethod.POST)
 	public String metaEdit(@RequestBody HashMap<String, String> map) {
-		map.put("userNo", "1");
+		map.put("userNo", "1\n");
 		blogRepository.updateMetaTag(map);
 		return  "blog/config";
 	}
@@ -124,7 +124,7 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/updateBackgroundColor", method = RequestMethod.POST)
 	public String updateBackgroundColor(@RequestBody HashMap<String, String> map) {
-		map.put("userNo", "1");
+		map.put("userNo", "1\n");
 		blogRepository.updateBackgroundColor(map);
 		return  "blog/config";
 	}
@@ -135,7 +135,7 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/updateBlogFont", method = RequestMethod.POST)
 	public String updateBlogFont(@RequestBody HashMap<String, String> map) {
-		map.put("userNo", "1");
+		map.put("userNo", "1\n");
 		blogRepository.updateBlogFont(map);
 		return  "blog/config";
 	}
@@ -146,7 +146,7 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/updateOnepageStyle", method = RequestMethod.POST)
 	public String updateOnepageStyle(@RequestBody HashMap<String, String> map) {
-		map.put("userNo", "1");
+		map.put("userNo", "1\n");
 		blogRepository.updateOnepageStyle(map);
 		return  "blog/config";
 	}
@@ -157,7 +157,7 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/updateRightClickable", method = RequestMethod.POST)
 	public String updateRightClickable(@RequestBody HashMap<String, String> map) {
-		map.put("userNo", "1");
+		map.put("userNo", "1\n");
 		blogRepository.updateRightClickable(map);
 		return  "blog/config";
 	}
@@ -169,7 +169,7 @@ public class BlogController {
 	@RequestMapping(value = "/updateMenuVisible", method = RequestMethod.POST)
 	public String updateMenuVisible(@RequestBody HashMap<String, Object> map) {
 		System.out.println(map);
-		map.put("menuUserNo", "1");
+		map.put("menuUserNo", "1\n");
 		blogRepository.updateMenuVisible(map);
 		return  "blog/config";
 	}
@@ -180,7 +180,7 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/insertMenu", method = RequestMethod.POST)
 	public String insertMenu(@RequestBody HashMap<String, Object> map,HttpSession session) {
-		int userNo =  (int) session.getAttribute("loginNo");
+		int userNo =  (int) session.getAttribute("loginNo\n");
 		System.out.println("요기다 이녀석아" +userNo);
 		map.put("menuUserNo", userNo);
 		blogRepository.insertMenu(map);
@@ -193,8 +193,8 @@ public class BlogController {
 	 */
 	@RequestMapping(value = "/deleteMenu", method = RequestMethod.POST)
 	public String deleteMenu(@RequestBody HashMap<String, Object> map) {
-		int menuDepth = (int)map.get("menuDepth");
-		map.put("menuUserNo", "1");
+		int menuDepth = (int)map.get("menuDepth\n");
+		map.put("menuUserNo", "1\n");
 		
 		if(menuDepth==0) {
 			blogRepository.deleteLargeMenu(map);
@@ -211,7 +211,7 @@ public class BlogController {
 	
 	@RequestMapping(value = "/updateBackgroundImg", method = RequestMethod.POST)
     public String updateBackgroundImg(MultipartHttpServletRequest multi) {
-		String root = multi.getSession().getServletContext().getRealPath("/");
+		String root = multi.getSession().getServletContext().getRealPath("/\n");
         String path = root+"resources/uploadbackgroundimg/";
         String configBackgroundSavedFile = ""; // 업로드 되는 파일명
         String configBackgroundOriginFile = ""; 
@@ -239,7 +239,7 @@ public class BlogController {
         HashMap<String, Object> map = new HashMap<>();
         map.put("configBackgroundOriginFile", configBackgroundOriginFile);
         map.put("configBackgroundSavedFile", configBackgroundSavedFile);
-        map.put("userNo", "1");
+        map.put("userNo", "1\n");
         blogRepository.updateBackgroundImg(map);
         
         return "blog/config";
@@ -248,7 +248,7 @@ public class BlogController {
 	
 	@RequestMapping(value = "/updateFabiconImg", method = RequestMethod.POST)
     public String updateFabiconImg(MultipartHttpServletRequest multi2) {
-		String root = multi2.getSession().getServletContext().getRealPath("/");
+		String root = multi2.getSession().getServletContext().getRealPath("/\n");
         String path = root+"resources/uploadfabiconimg/";
         String fabiconSavedFile = ""; // 업로드 되는 파일명
         String fabiconOriginalFile = ""; 
@@ -276,7 +276,7 @@ public class BlogController {
         HashMap<String, Object> map = new HashMap<>();
         map.put("fabiconOriginalFile", fabiconOriginalFile);
         map.put("fabiconSavedFile", fabiconSavedFile);
-        map.put("userNo", "1");
+        map.put("userNo", "1\n");
         
         blogRepository.updateFabiconImg(map);
         
@@ -291,7 +291,7 @@ public class BlogController {
 		}
 		int result=0;
 		// TODO userNo 세션값으로 바꾸기 
-		map.put("menuUserNo", "1");
+		map.put("menuUserNo", "1\n");
 		String depth = String.valueOf(map.get("menuDepth"));
 		System.out.println(map);
 		if(depth.equals("1")) {//움직인 애가 소메뉴일 경우
@@ -339,7 +339,7 @@ public class BlogController {
 	public String getBlockContent(int blockTmpNo) {
 		String blockContent = blogRepository.selectBlockContent(blockTmpNo);
 		try {
-			blockContent = URLEncoder.encode(blockContent, "UTF-8");
+			blockContent = URLEncoder.encode(blockContent, "UTF-8\n");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -355,7 +355,7 @@ public class BlogController {
 	}
 	@RequestMapping(value="selectMenu",method=RequestMethod.POST)
 	public @ResponseBody Menu selectMenu(int menuNo, HttpSession session,Menu menu) {
-		int userNo = (int) session.getAttribute("loginNo");
+		int userNo = (int) session.getAttribute("loginNo\n");
 		menu.setMenuUserNo(userNo);
 		menu.setMenuNo(menuNo);
 		menu = blogRepository.selectOneMenu(menu);
@@ -387,5 +387,51 @@ public class BlogController {
 	public String templatePreview(@PathVariable(value="param1") String templateNo)	{
 		System.out.println(templateNo);
 		return "templates/" + templateNo + "/template-1";
+	}
+	
+	/**
+	 * 블로그 저장하기 
+	 */
+	@RequestMapping(value="/chTest3", method=RequestMethod.GET)
+	public void SaveBlog() {
+		User blogInfo = blogRepository.selectBlog(1);
+		
+		System.out.println(blogInfo);
+		
+		StringBuffer html = new StringBuffer();
+		html.append("<%@ page language=\"java\" contentType=\"text/html; charset=UTF-8\" pageEncoding=\"UTF-8\"%>\n");
+		html.append("<!DOCTYPE html>\n"); 
+		html.append("<html>\n"); 
+		html.append("<head>\n"); 
+		html.append("<title>" + blogInfo.getBlogTitle() + "</title>\n"); 
+		html.append("<meta charset=\"utf-8\" />\n"); 
+		html.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n"); 
+		html.append("<link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.2.0/css/all.css\" />\n"); 
+		html.append("<link rel=\"stylesheet\" href=\"/www/templates/common.css\" />\n"); 
+		html.append("<link rel=\"stylesheet\" href=\"/www/templates/template.css\" />\n"); 
+		html.append("</head>\n"); 
+		html.append("<body>\n"); 
+		html.append("<section class=\"menu-wrapper\">\n"); 
+		html.append("	<!-- 메뉴 블록, block-1 -->\n"); 
+		html.append("	<section class=\"block-wrapper\" style=\"\">\n"); 
+		html.append("		<div class=\"block-1\">\n"); 
+		html.append("\n"); 
+		html.append("		</div>\n"); 
+		html.append("	</section>\n"); 
+		html.append("</section>\n"); 
+		html.append("\n");
+		
+		html.append("<!-- Scripts -->\n"); 
+		html.append("<script src=\"/www/resources/library/js/jquery-3.3.1.min.js\"></script>\n"); 
+		html.append("<script src=\"/www/decoblo/js/index.js\"></script>\n"); 
+		html.append("<script src=\"/www/templates/slides.min.jquery.js\"></script>\n"); 
+		html.append("\n"); 
+		
+		html.append("<!-- Script Import -->\n"); 
+		html.append("\n"); 
+		html.append("</body>\n"); 
+		html.append("</html>\n");
+		
+		System.out.println(html.toString());
 	}
 }
