@@ -395,6 +395,7 @@ public class BlogController {
 		System.out.println(block);
 		int result =blogRepository.insertBlockCss(block);
 		return result;
+	}
 
   /**
 	 * 블로그 저장하기 

@@ -114,6 +114,8 @@ margin: 0 auto;
 .template-sample {
 	width: 300px;
 	height: 210px;
+	float: left;
+	margin-left: 30px;
 }
 
 .template-sample p.hot-title {
@@ -162,7 +164,7 @@ margin: 0 auto;
 	 
 	white-space: normal; 
 	line-height: 1.2; 
-	height: 3.6em; 
+	height: 3.6em; 	
 	text-align: left; 
 	word-wrap: break-word; 
 	display: -webkit-box; 
@@ -227,7 +229,7 @@ margin: 0 auto;
 						</p>
 						
 						<c:forEach items="${templates}" var="template" varStatus="status">
-							<div class="slideshow template-sample">
+							<div class="template-sample">
 								<div class="thumbnails-wrapper">
 									<img data-template-no="${template.templateNo}" data-template-title="${template.templateTitle}" width="100%" height="100%" 
 										src="templates/thumbnails/template-${template.templateNo}.png" class="imglog">
