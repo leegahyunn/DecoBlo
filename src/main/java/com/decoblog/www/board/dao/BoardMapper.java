@@ -80,11 +80,49 @@ public interface BoardMapper {
 
 	// 댓글 수정
 	public int updateReply(Reply reply);
-
 	
-
 	
+	/**************************************/
+	/* STAT *******************************/
+	/**************************************/
 
-
-
+	// 글쓴이 데이터 받기
+	
+	public int selectuserno(int bbsNo);
+	
+	// 게시판 조 회 수 stat 넘기기
+	
+	public int inupStat(int userNo);
+	
+	// 게시판 삭제 stat 반영
+	
+	public int decreasebbscount(int userNo);
+	
+	// 리플 증가 stat 반영
+	
+	public int inputreplycount(int userNo);
+	
+	// 리플 감소 stat 반영
+	
+	public int decreasereplycount(int userNo);
+	
+	// 유저 정보 획득
+	
+	public int selectuserno2(int bbsno);
+	
+	// replyno 이용하여 정보 획득
+	
+	public int selectuserno3(int replyno);
+	
+	// 좋아요 감소 stat 반영
+	
+	public int decreaselike(int userno);
+	
+	// 좋아요 증가 stat 반영
+	
+	public int inputlike(int userno);
+	
+	// 좋아요 bbsno 유저 정보 획득
+	
+	public int selectuserno4(int bbsno);	
 }
