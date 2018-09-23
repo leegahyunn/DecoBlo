@@ -14,16 +14,26 @@
 		TO_CHAR(statregdate, 'yyyy-mm-dd') = TO_CHAR(SYSDATE, 'yyyy-mm-dd') and statUserNo = #{loginNo}
 </select>
 <!-- 선택한 날 -->
-<select id="selectdate" resultType="Stat" parameterType="String">
+<select id="selectdate" resultType="Stat" parameterType="map">
 select 
-    statNo, statUserNo, statblogcount, statbbscount,statreplycount, statsubscribe, statregdate, statBBSLike
+    statNo, statUserNo, statblogcount, statbbscount,statreplycount, statsubscribe, TO_CHAR(STATREGDATE,'YYYY-MM-DD') AS statRegDate, statBBSLike
 from 
     db_stat
-where  statregdate = #{date} and statUserNo = #{loginNo}
+where  TO_CHAR(statregdate, 'yyyy-mm-dd') = #{date} and statUserNo = #{loginNo}
 
 </select>
+<!--  선택한 날에 전날 stat -->
+<select id="selectyesdate" resultType="Stat" parameterType="map">
+
+select 
+    statNo, statUserNo, statblogcount, statbbscount,statreplycount, statsubscribe, TO_CHAR(STATREGDATE,'YYYY-MM-DD') AS statRegDate, statBBSLike
+from 
+    db_stat
+where TO_CHAR(statregdate, 'yyyy-mm-dd') = TO_DATE(#{date})-1 and statUserNo = #{loginNo}
+  
+</select>
 <!-- 선택한 주 -->
-<select id="selectweek" resultType="Stat" parameterType="String">
+<select id="selectweek" resultType="Stat" parameterType="map">
 select 
       sum(statblogcount) as statblogcount, sum(statbbscount) as statbbscount,sum(statreplycount) as statreplycount, sum(statsubscribe) as statsubscribe,sum(statBBSLike) as statBBSLike
 from 
@@ -65,6 +75,7 @@ order by
     trunc(statregdate, 'dd') 
     ]]>
 </select>
+
 <!-- 선택한달 stat -->
 <select id="selectmchart" resultType="Stat">
 <![CDATA[
@@ -111,4 +122,7 @@ group by
 
      ]]>
 </select>
+
+
+
 </mapper>
