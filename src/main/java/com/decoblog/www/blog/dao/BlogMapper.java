@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.decoblog.www.blog.vo.Block;
-import com.decoblog.www.blog.vo.BlockTemplate;
 import com.decoblog.www.blog.vo.Menu;
 import com.decoblog.www.blog.vo.Template;
 import com.decoblog.www.user.vo.User;
@@ -56,5 +55,9 @@ public interface BlogMapper {
 	public int updateMenuVisible(HashMap<String, Object> map);
 	public List<Template> selectTemplate();
 	public int updateFabiconImg(HashMap<String, Object> map);
+	public User selectBlogBasicInfo(String userNo);
+	public ArrayList<Integer> selectMenuNo(String userNo);
+	public ArrayList<Block> selectBlock(int menuNo);
+	public String selectUserNoByBlogAddress(String blogAddress);
 
 }

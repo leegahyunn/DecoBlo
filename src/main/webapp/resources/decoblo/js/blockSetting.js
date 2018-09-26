@@ -632,7 +632,7 @@ $(function(){
 							   alert('블록 추가 실패');
 						   }
 					   });
-					   $('.intro-block-wrapper').css('display','none');
+					   $('.intro-block-wrapper'). css('display','none');
 					   $('.blockMenu-sidebar-div').animate({'margin-left':'-315px'},'slow');
 					   $('#blockMenu-sidebar-close').css('left','-50px');
 					   $('#mask').hide();

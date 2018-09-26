@@ -3,6 +3,7 @@
 
 <mapper namespace="com.decoblog.www.blog.dao.BlogMapper">
 
+<!-- 메뉴 가져오는 result map -->
 <resultMap id="selectMap" type="java.util.HashMap">
 	<id column="menuParent" property="menuParent"/>
 	<collection property="Menu" javaType="java.util.ArrayList" resultMap="menus" />
@@ -18,6 +19,20 @@
 	<result property="menuLink" column="menuLink"/>
 	<result property="menuParentSeq" column="menuParentSeq"/>
 </resultMap>
+
+<!-- 블로그 기본 정보 가져오기 -->
+<!-- public User selectBlogBasicInfo(String userNo)  -->
+<select id="selectBlogBasicInfo" parameterType="String" resultType="User">
+	SELECT
+	    userNo, blogTitle, blogAddress,
+	    configRightClickable, configBasicFont, configBackgroundColor,
+	    configBackgroundSavedFile, fabiconSavedFile,
+	    metaAuthor, metaKeyword, metaDescription, configOnePageStyle
+	FROM
+	    db_user
+	WHERE
+	    userNo = #{userNo}
+</select>
 
 <!-- 메뉴 가져오기 -->
 <select id="selectMenu" parameterType="int" resultMap="selectMap">
@@ -314,4 +329,42 @@ WHERE menuNo=#{menuNo} AND menuuserno=#{menuUserNo}
 	FROM
 		db_template
 </select>
+
+<!-- 메뉴 번호 가져오기 -->
+<!-- public ArrayList<Integer> selectMenuNo(String userNo); -->
+<select id="selectMenuNo" parameterType="String" resultType="Integer">
+	SELECT
+		menuNo
+	FROM
+		db_menu
+	WHERE
+		menuUserNo = #{userNo}
+	ORDER BY
+		menuParentSeq, menuSeq
+</select>
+
+<!-- 블럭 가져오기 -->
+<!-- public ArrayList<Block> selectBlock(int menuNo); -->
+<select id="selectBlock" parameterType="Integer" resultType="Block">
+	SELECT
+	    blockNo, blockSeq, blockBackgroundNo, blockContent, blockCss
+	FROM 
+	    db_block
+	WHERE
+	    blockMenuNo = #{menuNo}
+	ORDER BY
+	    blockSeq
+</select>
+
+<!-- 유저번호 가져오기 -->
+<!-- public String selectUserNoByBlogTitle(String blogTitle); -->
+<select id="selectUserNoByBlogAddress" parameterType="String" resultType="String">
+	SELECT
+		userNo
+	FROM 
+		db_user
+	WHERE
+		blogAddress = #{blogAddress}
+</select>
+
 </mapper>
