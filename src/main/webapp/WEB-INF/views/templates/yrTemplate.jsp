@@ -135,13 +135,24 @@
 
 /*block-104*/
 .block-104{
-	background-color: #738565;
+	background-color: #dee8d5;
 }
 .block-104 .container{
 	width: 100%;
-	height: 350px;
+	height: 180px;
 }
-
+.block-104 .image-block{
+	float:left;
+	width: 28%;
+	height: 45%;
+	margin-top: 40px;
+	padding-left: 4%;
+	margin-bottom: 40px;
+}
+.block-104 .image-block img{
+	width: 100%;
+	height: 100%;
+}
 </style>
 </head>
 <body>
@@ -278,7 +289,15 @@
 		<!-- 이미지,block-104 -->
 		<div class="block-104">
 			<div class="container">
-				<div class=""></div>
+				<div class="image-block">
+					<img alt="표시할 수 없습니다." src="resources/images/standroom.png">
+				</div>
+				<div class="image-block">
+					<img alt="표시할 수 없습니다." src="resources/images/bedroom.png">
+				</div>
+				<div class="image-block">
+					<img alt="표시할 수 없습니다." src="resources/images/tableroom.png">
+				</div>
 			</div>
 		</div>
 	</section>

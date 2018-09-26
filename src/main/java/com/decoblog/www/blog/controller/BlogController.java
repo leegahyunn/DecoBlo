@@ -331,6 +331,7 @@ public class BlogController {
 	@RequestMapping(value="getThumnail",method=RequestMethod.POST)
 	public @ResponseBody List<Integer> getThumnail(String tmpType) {
 		List<Integer> blockNoList = blogRepository.selectThumnail(tmpType);
+		System.out.println("썸네일"+blockNoList);
 		return blockNoList;
 	}
 	
@@ -338,12 +339,14 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping(value="getBlockContent",method=RequestMethod.POST)
 	public String getBlockContent(int blockTmpNo) {
+		System.out.println(blockTmpNo);
 		String blockContent = blogRepository.selectBlockContent(blockTmpNo);
 		try {
 			blockContent = URLEncoder.encode(blockContent, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		System.out.println(blockContent);
 		return blockContent;
 	}
 	
@@ -395,7 +398,7 @@ public class BlogController {
 		System.out.println(block);
 		int result =blogRepository.insertBlockCss(block);
 		return result;
-
+	}
   /**
 	 * 블로그 저장하기 
 	 */
