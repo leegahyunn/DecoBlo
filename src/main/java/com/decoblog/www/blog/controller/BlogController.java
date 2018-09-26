@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -33,6 +34,7 @@ import com.decoblog.www.blog.vo.Menu;
 import com.decoblog.www.blog.vo.Template;
 import com.decoblog.www.user.vo.User;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 @Controller
 public class BlogController {
@@ -396,8 +398,74 @@ public class BlogController {
 		int result =blogRepository.insertBlockCss(block);
 		return result;
 	}
-
+	
 	/**
+	 * 블로그 주소 중복확인
+	 * @param address
+	 * @return
+	 */
+	@RequestMapping(value="duplicatedAddress",method=RequestMethod.POST)
+	public @ResponseBody String duplicatedAddress(String address, HttpSession session) {
+		String result = blogRepository.selectUserNoByBlogAddress(address);
+		if (result == null) {
+			Map<String, String> insertData = new HashMap<>();
+			insertData.put("userNo", String.valueOf(session.getAttribute("loginNo")));
+			insertData.put("address", address);
+			
+			blogRepository.updateBlogAddress(insertData);
+			return "true";
+		} else {
+			return "false";
+		}
+	}
+	
+	/**
+	 * 템플릿 등록
+	 * @param templateNo
+	 * @return
+	 */
+	@RequestMapping(value="registerTemplate",method=RequestMethod.POST)
+	public @ResponseBody String registerTemplate(String templateNo, HttpSession session) {
+		String templateMenus = blogRepository.selectTemplateMenu(templateNo);
+		
+		Gson gson = new Gson();
+		
+		ArrayList<ArrayList<String>> menuList = gson.fromJson(templateMenus, new TypeToken<ArrayList<ArrayList<String>>>() {}.getType());
+		
+		int userNo = (int)session.getAttribute("loginNo");
+		int firstMenuNo = 0;
+		int mainMenuNo = 0;
+		
+		for (int mainMenuSeq = 0; mainMenuSeq < menuList.size(); mainMenuSeq++) {
+			for (int subMenuSeq = 0; subMenuSeq < menuList.get(mainMenuSeq).size(); subMenuSeq++) {
+				if (subMenuSeq==0) {
+					// MainMenu
+					Menu mainMenu = new Menu(0, userNo, menuList.get(mainMenuSeq).get(subMenuSeq), 0, 0, 0, 1, "", mainMenuSeq+1);
+					blogRepository.insertMainMenu(mainMenu);
+					if (mainMenuSeq == 0) {
+						firstMenuNo = mainMenu.getMenuNo();
+					}
+					mainMenuNo = mainMenu.getMenuNo();
+				} else {
+					//SubMenu
+					Menu subMenu = new Menu(0, userNo, menuList.get(mainMenuSeq).get(subMenuSeq), mainMenuNo, 1, subMenuSeq, 1, "", mainMenuSeq+1);
+					blogRepository.insertSubMenu(subMenu);
+				}
+			}
+		}
+		
+		Map<String, String> insertData = new HashMap<>();
+		insertData.put("blockMenuNo", String.valueOf(firstMenuNo));
+		insertData.put("blockTmpNo", templateNo);
+		
+		blogRepository.pasteBlock(insertData);
+		
+		
+		return "true";
+	}
+	
+	/**
+	 * 사용자 블로그 이동
 	 * 실제 파일은 C:\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\DecoBlo_dev\WEB-INF에
 	 * 존재하지만 webapp/WEB-INF에 있는 것과 동일하게 작동
 	 * @return
@@ -504,7 +572,6 @@ public class BlogController {
 		htmlBuffer.append("</body>\n"); 
 		htmlBuffer.append("</html>\n");
 		
-		System.out.println(htmlBuffer.toString());
 		
 		// 저장 경로
 		// 테스트 서버일 경우 C:\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\DecoBlo_dev\ 에 저장
@@ -518,9 +585,6 @@ public class BlogController {
         	directory.mkdirs();
         }
         
-        
-
-
 		// 파일 쓰기 
 		BufferedWriter writer = null;
 		

@@ -3,6 +3,7 @@ package com.decoblog.www.blog.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.decoblog.www.blog.vo.Block;
 import com.decoblog.www.blog.vo.Menu;
@@ -59,5 +60,11 @@ public interface BlogMapper {
 	public ArrayList<Integer> selectMenuNo(String userNo);
 	public ArrayList<Block> selectBlock(int menuNo);
 	public String selectUserNoByBlogAddress(String blogAddress);
+	public String selectTemplateMenu(String templateNo);
+	public int insertMainMenu(Menu mainMenu);
+	public int insertSubMenu(Menu subMenu);
+	public int pasteBlock(Map<String, String> insertData);
+	public int updateBlogAddress(String address);
+	public int updateBlogAddress(Map<String, String> insertData);
 
 }
