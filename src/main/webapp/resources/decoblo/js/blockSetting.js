@@ -542,7 +542,7 @@ $(function(){
 		   $(document).off('click','.use-block-button');
 		   $('.block-preview').empty();
 		   var blockWrapperCode = "";
-		   var blockTmpNo = $('.block-thumnail > li').attr('data-block-no');
+		   var blockTmpNo = $(this).attr('data-block-no');
          
 		   $.ajax({
 			   method:'POST',
@@ -602,8 +602,7 @@ $(function(){
 		   $(document).off('click','.use-block-button');
 		   $('.block-preview').empty();
 		   var blockWrapperCode = "";
-		   var blockTmpNo = $('.block-thumnail > li').attr('data-block-no');
-		   
+		   var blockTmpNo= $(this).attr('data-block-no');
 		   $.ajax({
 			   method:'POST',
 			   url:'getBlockContent',
