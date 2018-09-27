@@ -73,8 +73,4 @@ public class HomeController {
 	}
 	
 	//최용락 
-	@RequestMapping(value="/yrtest", method=RequestMethod.GET)
-	public String yrtest() {
-		return "templates/yrTemplate";
-	}
 }
