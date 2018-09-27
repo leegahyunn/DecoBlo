@@ -40,7 +40,7 @@ public class StatController {
 	public String dashboard(Model model,HttpSession session) {
 		
 		int loginNo = (int)session.getAttribute("loginNo");
-		System.out.println(loginNo);
+		
 		Stat stat = statRepository.selectnowstat(loginNo);
 		
 		if(statRepository.nowmoth(loginNo)!=null) {

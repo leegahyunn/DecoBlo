@@ -150,8 +150,13 @@
 }
 .hot-content{
 	text-overflow: ellipsis;
-	height: 48%;
+	height: 35%;
 	overflow: hidden;
+	display: -webkit-box; 
+	-webkit-line-clamp: 5; 
+	-webkit-box-orient: vertical;
+
+
 }
 </style>
 
