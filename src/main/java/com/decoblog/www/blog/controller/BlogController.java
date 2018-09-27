@@ -340,12 +340,14 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping(value="getBlockContent", method=RequestMethod.POST)
 	public String getBlockContent(int blockTmpNo) {
+		System.out.println(blockTmpNo);
 		String blockContent = blogRepository.selectBlockContent(blockTmpNo);
 		try {
 			blockContent = URLEncoder.encode(blockContent, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		System.out.println(blockContent);
 		return blockContent;
 	}
 	
