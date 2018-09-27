@@ -3,6 +3,9 @@ package com.decoblog.www.blog.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,8 @@ import com.decoblog.www.blog.vo.Block;
 import com.decoblog.www.blog.vo.Menu;
 import com.decoblog.www.blog.vo.Template;
 import com.decoblog.www.user.vo.User;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 @Repository
 public class BlogRepository {
@@ -268,19 +273,66 @@ public class BlogRepository {
 	}
 
 	public ArrayList<Block> selectBlock(int menuNo) {
+		ArrayList<Block> result = null;
+		
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
-		ArrayList<Block> result = mapper.selectBlock(menuNo);
+		result = mapper.selectBlock(menuNo);
 		
 		return result;
 	}
 
 	public String selectUserNoByBlogAddress(String blogTitle) {
+		String result = null; 
+		
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
-		String result = mapper.selectUserNoByBlogAddress(blogTitle);
+		result = mapper.selectUserNoByBlogAddress(blogTitle);
 		
 		return result;
 	}
 
-	
-	
+	public String selectTemplateMenu(String templateNo) {
+		String result = null; 
+		
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		result = mapper.selectTemplateMenu(templateNo);
+		
+		return result;
+	}
+
+	public int insertMainMenu(Menu mainMenu) {
+		int result = 0; 
+		
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		result = mapper.insertMainMenu(mainMenu);
+		
+		return result;
+	}
+
+	public int insertSubMenu(Menu subMenu) {
+		int result = 0; 
+		
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		result = mapper.insertSubMenu(subMenu);
+		
+		return result;
+	}
+
+	public int pasteBlock(Map<String, String> insertData) {
+		int result = 0; 
+		
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		result = mapper.pasteBlock(insertData);
+		
+		return result;
+	}
+
+	public int updateBlogAddress(Map<String, String> insertData) {
+		int result = 0; 
+		
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		result = mapper.updateBlogAddress(insertData);
+		
+		return result;
+		
+	}
 }

@@ -1,138 +1,316 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html >
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-		<title>Projection by ギラギラ</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="stylesheet" href="pixelarity/assets/css/main2.css" />
-	</head>
-	<body>
-	<!-- ------------------ -->
-	<!-- 메뉴 블록, block-1 -->
-	<!-- ------------------ -->
+<title>Untitled</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"/>
+<link rel="stylesheet" href="/www/templates/common.css" />
+
+<style>
+.menu-wrapper {
+}
+
+/* block-7 */
+.block-7 {
+	height: 100px;
+	overflow: hidden;	
+}
+
+.block-7 .upper-bar {
+	height: 10px;
+	background-color: #006341;
+}
+
+.block-7 .logo {
+	height: 80px;
+	width: 80px;
+	margin: 5px;
+	float: left;
+ 	background-image: url("https://freeiconshop.com/wp-content/uploads/edd/coffee-takeaway-flat.png");
+ 	background-size: cover;
+}
+
+.block-7 .menubar {
+	margin: 60px 0 0 40px;
+	float: left;
+	font-size: 1.3em;
+}
+
+.block-7 .menubar ul li {
+	display: inline-block;
+	margin-right: 30px;
+	color: #020202	;
+}
+
+/* block-8 */
+.block-8 {	
+	background-color: #6D6059;	
+}
+
+.block-8 .contents-wrapper {
+	padding: 100px 0 ;
+	color: #FDFDFD;
+	overflow: hidden;
+}
+.block-8 .contents {
+	width: 45%;
+	margin-left: 10%;
+	margin-right: 20px;
+	float: left;
+}
+
+.block-8 .contents h2 {
+	font-size: 3em;
+}
+
+.block-8 .contents p {
+	line-height: 1.5em;
+	font-size: 1.2em;
+	margin: 30px 0;
+}
+
+.block-8 button {
+	padding: 10px 30px;
+	background: rgba(255, 255, 255, 0);
+	color: #FDFDFD;
+	border: 1px solid #FDFDFD;
+	border-radius: 3px;
+}
+
+.block-8 button:hover {
+	background: rgba(255, 255, 255, 0.3);
+}
+
+.block-8 .showcase-image{
+	width: 20%;
+	margin-left: 10%;
+	height: 300px;
+	float: left;
+	background-image: url(https://m.media-amazon.com/images/S/aplus-media/vc/1c8a1f2f-7718-4de8-96e5-b3c695fba410._SL300__.jpg);
+	background-size: cover;
+}
+
+/* block-9 */
+.block-9 {
+	background-image: url(https://media.istockphoto.com/photos/paper-texture-background-picture-id469252888?k=6&m=469252888&s=612x612&w=0&h=GADXQDtdPgmNQim1IXCl9wLurVWk3mK2YyhcF8mGhys=);
+	background-size: cover;
+	overflow: hidden;
+	padding: 10%;
+}
+
+.block-9 .contents-wrapper {
+	width: 40%;
+	float: left;	
+}
+
+.block-9 .contents-wrapper h3 {
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.block-9 .contents-wrapper p {
+	font-size: 1.2em;
+	line-height: 1.5em;
+	margin: 30px 0;
+}
+
+.block-9 .contents-wrapper a {
+	font-size: 1.3em;
+	line-height: 1.5em;
+	margin: 10px 0;
+	color: #020202;
+	display: inline-block;
+	text-decoration: dotted;
+	text-decoration-line: underline;
+}
+
+.block-9 .contents-wrapper a:hover {
+	text-decoration-style: solid;
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.block-9 .image {
+	background-image: url(https://www.incimages.com/uploaded_files/image/1940x900/getty_504333530_361153.jpg);
+	background-size: cover;
+	width: 50%;
+	height: 300px;
+	float: left;
+	margin: 0 5%;
+}
+
+/* block-10 */
+.block-10 {
+	background-image: url(/www/templates/coffee_background_1.png);
+	background-size: cover;
+	padding: 8% 0 3% 0;
+}
+
+.block-10 .contents-wrapper {
+	overflow: hidden;
+}
+
+.block-10	.contents-wrapper .inside-image {
+		width: 13%;
+	height: 200px;
+	margin: 0 22%;
+	display: inline-block;
+	float: left;
+	background-image: url(/www/templates/circle_r.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.block-10	.contents-wrapper .contents {
+	width: 35%;
+	float: left;
+	color: #FDFDFD;
+	display: inline-block;
+}
+
+.block-10	.contents-wrapper .contents h3 {
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.block-10 .contents-wrapper .contents p {
+	font-size: 1.2em;
+	line-height: 1.5em;
+	margin: 30px 0;
+}
+
+/* block-11 */
+.block-11 {
+	padding: 3%;
+}
+.block-11 h3 {
+	font-size: 2em;
+	font-weight: bold;
+	text-align: center;
+}
+
+.block-11 p {
+	font-size: 1.2em;
+	line-height: 1.5em;
+	margin: 30px 0;
+	text-align: center;
+}
+
+.block-11 .line {
+	border-bottom: 2px solid #DDD; 
+	width:5%; 
+	margin: 0 auto; 
+	padding:10px
+}
+
+</style>
+
+</head>
+<body>
+<div class="menu-wrapper">
+	<!-- menu, block-7 -->
+	<div class="block-wrapper">
+		<div class="block-7">
+			<div class="upper-bar"></div>
+			<div class="logo"></div>
+			<div class="menubar">
+				<ul>
+					<li>COFFEE</li>
+					<li>TEA</li>
+					<li>MENU</li>
+					<li>COFFEEHOUSE</li>					
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- /menu, block-7 -->
 	
-			<div id="header">
-				<div class="inner">
-					<a href="index.html" class="logo"><strong>Projection</strong> by ギラギラ</a>
-					<a href="index.html">Home</a>
-					<a href="generic.html">Generic</a>
-					<a href="elements.html">Elements</a>
-					<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+	<!-- showcase, block-8 -->
+	<div class="block-wrapper">
+		<div class="block-8">
+			<div class="contents-wrapper">
+				<div class="contents">
+					<h2 class="editable">The art of blending through the eyes of artists</h2>
+					<p class="editable">
+						Our four-part series, Coffee Stories, continues with chapter three, 
+						“Blending.” See how coffee blending inspired muralists Jessie and Katey 
+						to create the art for this original, limited-edition packaging for our 
+						signature smooth and balanced Pike Place® Roast.
+					</p>
+					<button class="editable">READ THE FULL STORY</button>
+				</div>
+				<!-- 움직여야 돼 -->
+				<div class="showcase-image">
 				</div>
 			</div>
-
-		<!-- Banner -->
-			<div id="banner">
-				<div class="inner">
-					<header>
-						<h1>Welcome to ギラギラ</h1>
-					</header>
-
-					<div class="flex ">
-
-						<div>
-							<span class="icon fa-car"></span>
-							<h3>Aliquam</h3>
-							<p>자신만에 여행 기록</p>
-						</div>
-
-						<div>
-							<span class="icon fa-camera"></span>
-							<h3>Elementum</h3>
-							<p>자신만에 사진첩</p>
-						</div>
-
-						<div>
-							<span class="icon fa-bug"></span>
-							<h3>Ultrices</h3>
-							<p>자신만의 취미</p>
-						</div>
-
-					</div>
-
-				</div>
-			</div>
-	<!-- ------------------- -->
-	<!-- /메뉴 블록, block-1 -->
-	<!-- ------------------- -->
-	<!-- ---------------------- -->
-	<!--  블록, block-2 -->
-	<!-- ---------------------- -->
-
+		</div>
+	</div>
+	<!-- /showcase, block-8 -->
 	
-			<div id="three" class="wrapper align-center">
-				<hr />
-				<br />
-				<div class="inner">
-					<div class="flex flex-2">
-						<article>
-							<div class="image round">
-								<img src="pixelarity/assets/css/images/pic01.jpg" alt="Pic 01" />
-							</div>
-							<header>
-								<h3>최근 EPL<br /> 첼시 경기를 보면</h3>
-							</header>
-							<p>첼시<br />화이팅<br />화이팅</p>
-							<footer>
-								<a href="#" class="button">게시글 바로가기</a>
-							</footer>
-						</article>
-						<article>
-							<div class="image round">
-								<img src="pixelarity/assets/css/images/pic02.jpg" alt="Pic 02" />
-							</div>
-							<header>
-								<h3>남산 위에<br /> 소나무를 보며</h3>
-							</header>
-							<p>남산위에 저 소나무<br />되게 크다<br /> 나도 키가 크고 싶다.</p>
-							<footer>
-								<a href="#" class="button">게시글 바로가기</a>
-							</footer>
-						</article>
-					</div>
-				</div>
+	<!-- contents, block-9 -->
+	<div class="block-wrapper">
+		<div class="block-9">
+			<div class="contents-wrapper">
+				<h3 class="editable">THE BEST COFFEE. STARBUCKS COFFEE FINDER.</h3>
+				<p class="editable">
+					Our coffee masters have distilled their years of tasting knowledge down to three simple 
+					questions to help you find a Starbucks coffee you’re sure to love.
+				</p>
+				<a href="#" class="editable">
+					Explore our coffees
+				</a>
+				<br>
+				<a href="#" class="editable">
+					Browse our coffees
+				</a>
 			</div>
-	<!-- ---------------------- -->
-	<!--  / 블록, block-2 -->
-	<!-- ---------------------- -->
-	<!-- ---------------------- -->
-	<!--  블록, block-3 -->
-	<!-- ---------------------- -->
+			<div class="image">
+			</div>
+		</div>
+	</div>
+	<!-- /contents, block-9 -->	
 	
-			<div id="four" class="wrapper">
-			  <br />
-			  <hr />
-				<div class="inner">
-					<header class="align-center">
-						<h2>누네띠네</h2>
-						<p>맛집일기장</p>
-					</header>
-					<div class="image round left">
-						<img src="pixelarity/assets/css/images/pic01.jpg" alt="Pic 01" />
+	
+	<!-- contents, block-10 -->
+	<div class="block-wrapper">
+		<div class="block-10">
+			<div class="contents-wrapper">
+				<div>
+					<div class="inside-image">
+					</div>		
+					<div class="contents">			
+						<h3 class="editable">OUR RAREST COFFEES, SMALL-BATCH ROASTED IN SEATTLE</h3>
+						<p class="editable">
+							We travel the world in search of great coffee. In the process, we discover beans 
+							so special and rare that we can’t wait to bring them home and share. Each of these 
+							small-lot coffees has its own story to tell, and we meticulously develop a signature 
+							roast for every one of them
+						</p>				
 					</div>
-					<p>동해물과 백두산이 마르고 닳도록하느님이 보우하사 우리나라 만세.무궁화 삼천리 화려강산대한 사람, 대한으로 길이 보전하세.</p>
-					<div class="image round right">
-						<img src="pixelarity/assets/css/images/pic02.jpg" alt="Pic 02" />
-					</div>
-					<p>가을 하늘 공활한데 높고 구름 없이밝은 달은 우리 가슴 일편단심일세.무궁화 삼천리 화려강산 대한 사람, 대한으로 길이 보전하세.</p>
-
-					<p>피카츄 라이츄 파이리 꼬부기 버터풀 야도란 피존투 또가스 서로 생긴 모습은 달라도 우리는 모두 친구(맞아!) 산에서 들에서 때리고 뒹굴고 사막에서 정글에서 울다가 웃다가 서로 만나기까지 힘들었어도 우리는 모두 친구(피카피카)</p>
-
 				</div>
-			</div>
-	<!-- ---------------------- -->
-	<!--  /블록, block-3 -->
-	<!-- ---------------------- -->
-		
-		
+			</div>			
+		</div>
+	</div>
+	<!-- /contents, block-10 -->
+	
+	<!-- text, block-11 -->
+	<div class="block-wrapper">
+		<div class="block-11">
+			<h3>Explore the range in every roast.</h3>
+			<div class="line"></div>
+			<p>
+				Each Starbucks® roast boasts a variety of tastes and flavors 
+				<br>
+				so you can bring home a new favorite.
+			</p>
+		</div>
+	</div>
+	<!-- /text, block-11 -->	
+	
+</div>
 
-		<!-- Scripts -->
-			<script src="pixelarity/assets/js/jquery.min.js"></script>
-			<script src="pixelarity/assets/js/skel.min.js"></script>
-			<script src="pixelarity/assets/js/util.js"></script>
-			
-
+<script src="/www/resources/library/js/jquery-3.3.1.min.js"></script>
 </body>
 </html>

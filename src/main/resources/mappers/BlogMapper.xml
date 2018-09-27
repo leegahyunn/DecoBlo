@@ -367,4 +367,88 @@ WHERE menuNo=#{menuNo} AND menuuserno=#{menuUserNo}
 		blogAddress = #{blogAddress}
 </select>
 
+<!-- 템플릿 메뉴 가져오기 -->
+<!-- public String selectTemplateMenu(String templateNo); -->
+<select id="selectTemplateMenu" parameterType="String" resultType="String">
+	SELECT
+	    templateMenu
+	FROM
+	    db_template
+	WHERE
+	    templateNo = #{templateNo}
+</select>
+
+<!-- 메인 메뉴 삽입 후 Seq 가져오기 -->
+<!-- public int insertMainMenu(Menu mainMenu); -->
+<insert id="insertMainMenu" parameterType="Menu">
+	<selectKey keyProperty="menuNo" resultType="int" order="AFTER">
+		SELECT 
+			db_menu_seq.CURRVAL 
+		FROM
+			DUAL
+	</selectKey>
+	
+	INSERT INTO db_menu (
+		menuNo, menuUserNo, menuName, menuParent, 
+		menuDepth, menuSeq, menuVisible, menuLink, menuParentSeq
+	) VALUES (
+		db_menu_seq.NEXTVAL, #{menuUserNo}, #{menuName}, db_menu_seq.NEXTVAL,
+		#{menuDepth}, #{menuSeq}, #{menuVisible}, #{menuLink}, #{menuParentSeq}
+	)
+</insert>
+
+<!-- 서브 메뉴 삽입 -->
+<!-- public int insertSubMenu(Menu mainMenu); -->
+<insert id="insertSubMenu" parameterType="Menu">
+	INSERT INTO db_menu (
+		menuNo, menuUserNo, menuName, menuParent, 
+		menuDepth, menuSeq, menuVisible, menuLink, menuParentSeq
+	) VALUES (
+		db_menu_seq.NEXTVAL, #{menuUserNo}, #{menuName}, #{menuParent},
+		#{menuDepth}, #{menuSeq}, #{menuVisible}, #{menuLink}, #{menuParentSeq}
+	)
+</insert>
+
+<!-- 블럭 템플릿 복사 -->
+<!-- public int pasteBlock(Map<String, String> insertData); -->
+<insert id="pasteBlock" parameterType="HashMap">
+	INSERT INTO db_block (
+		blockNo, blockMenuNo, blockTmpNo, blockSeq, blockContent
+	)
+	SELECT 
+	    (SELECT MAX(blockNo) FROM db_block) + blockTmpNo - (
+	    	SELECT 
+	    		MIN(blockTmpNo) 
+	    	FROM 
+	    		db_block_template 
+	    	WHERE 
+	    		blockTemplateNo = #{blockTmpNo}
+	    ) + 1, #{blockMenuNo}, #{blockTmpNo}, 
+	    blockTmpNo - (
+	    	SELECT 
+	    		MIN(blockTmpNo) 
+	    	FROM 
+	    		db_block_template 
+	    	WHERE 
+	    		blockTemplateNo = #{blockTmpNo}
+	    ) + 1, blockTmpContent
+	FROM 
+	    db_block_template
+	WHERE        
+	    blockTemplateNo = #{blockTmpNo}
+	ORDER BY
+	    blockTmpNo
+</insert>
+
+<!-- 블로그 주소 변경 -->
+<!-- public int updateBlogAddress(Map<String, String> insertData); -->
+<update id="updateBlogAddress" parameterType="HashMap">
+	UPDATE
+		db_user
+	SET
+		blogAddress = #{address}
+	WHERE
+		userNo = #{userNo}
+</update>
+
 </mapper>
