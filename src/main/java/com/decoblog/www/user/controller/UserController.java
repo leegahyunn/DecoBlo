@@ -39,6 +39,7 @@ public class UserController {
 			session.setAttribute("loginNo", loggedUser.getUserNo());
 			session.setAttribute("loginEmail", loggedUser.getUserEmail());
 			session.setAttribute("loginName", loggedUser.getUserName());
+			session.setAttribute("loginBlogAddress", loggedUser.getBlogAddress());
 			return "true";
 		} else {
 			return "false";

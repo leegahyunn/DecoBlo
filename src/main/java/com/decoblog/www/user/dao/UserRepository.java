@@ -48,7 +48,7 @@ public class UserRepository {
 			sendMail.setText(
 					new StringBuffer()
 						.append("<h1>메일인증</h1>")
-						.append("<a href='http://localhost:8888/www/user/emailConfirm?userEmail=")
+						.append("<a href='http://localhost:48080/www/user/emailConfirm?userEmail=")
 						.append(vo.getUserEmail())
 						.append("&key=")
 						.append(key)

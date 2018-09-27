@@ -30,12 +30,12 @@ import com.decoblog.www.board.vo.BbsAttachUpload;
 import com.decoblog.www.board.vo.Like;
 import com.decoblog.www.board.vo.PageNavigator;
 import com.decoblog.www.board.vo.Reply;
+import com.decoblog.www.stat.dao.StatRepository;
 
 @Controller
 public class BoardController {
 	@Autowired
 	BoardRepository repository;
-	
 	
 
 	
@@ -80,9 +80,15 @@ public class BoardController {
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "searchItem", defaultValue = "bbsTitle") String searchItem,
 			@RequestParam(value = "searchWord", defaultValue = "") String searchWord) {
-
+		
+		// 글쓴 유저 번호 받기
 		Bbs bbsDetail = repository.selectOneBbs(bbsNo);
-
+		int userNo = (int)repository.selectuserno(bbsNo);
+		System.out.println(userNo);
+		// 글쓴 유저 번호를 이용하여  오늘데이터가 없으면 insert 있으면 update
+		int result = (int)repository.inupStat(userNo);
+		System.out.println(result);
+		
 		// 조회수 +1
 		repository.updateBbsCount(bbsNo);
 
@@ -115,8 +121,11 @@ public class BoardController {
 
 	// 글쓰기 + 첨부파일 DB
 	@RequestMapping(value = "/writeBbs", method = RequestMethod.POST)
-	public String writeBbs(Bbs bbs, BbsAttach bbsAttach, String type,  MultipartFile upload) {
-
+	public String writeBbs(Bbs bbs, BbsAttach bbsAttach, String type,  MultipartFile upload,HttpSession session) {
+		int userNo = (int)session.getAttribute("loginNo");
+		System.out.println(userNo);
+		bbs.setBbsreguser(userNo);
+		
 		if (type.equals("write")) {
 			repository.insertBbs(bbs);
 		} else if (type.equals("update")) {
@@ -152,12 +161,20 @@ public class BoardController {
 */
 	// 글 삭제
 	@RequestMapping(value = "/deleteBbs", method = RequestMethod.GET)
-	public String deleteBbs(int bbsNo) {
-
+	public String deleteBbs(int bbsNo,HttpSession session) {
+		
+		// 첨부파일 삭제
 		int result = repository.deleteBbs(bbsNo);
 
-		// 첨부파일 삭제
-
+		//세션에서 로그인 데이터 받아고기
+		int userNo = (int)session.getAttribute("loginNo");
+		System.out.println(userNo);
+		
+		//삭제시 stat에도 반영
+		int statdel = repository.decreasebbscount(userNo);
+		System.out.println(statdel);
+		
+		
 		return "redirect:bbsList";
 	}
 	
@@ -261,6 +278,11 @@ public class BoardController {
 		like.setLikeUserNo((int)session.getAttribute("loginNo"));
 		int result = repository.insertLike(like);
 		
+		int bbsno = like.getLikeBbsNo();
+		int userno = repository.selectuserno4(bbsno);
+		int inputstat = repository.inputlike(userno); 
+		System.out.println(inputstat);
+		
 		return "redirect:/bbsDetail";
 	}
 	
@@ -268,8 +290,14 @@ public class BoardController {
 	@RequestMapping(value="/deleteLike", method= RequestMethod.POST)
 	public @ResponseBody String deleteLike(int likeBbsNo, HttpSession session) {
 		
+		int bbsno = likeBbsNo;
+		int userno = repository.selectuserno4(bbsno);
+		int inputstat = repository.inputlike(userno); 
+		System.out.println(inputstat);
+		
 		int likeUserNo = (int)session.getAttribute("loginNo");
 		int result = repository.deleteLike(likeUserNo, likeBbsNo);
+		
 		
 		return "redirect:/bbsDetail";
 	}
@@ -300,18 +328,37 @@ public class BoardController {
 		model.addAttribute("replyBbsNo", replyBbsNo);
 		model.addAttribute("replyParent", replyParent);
 		
+		
 		reply.setReplyRegUser((int)session.getAttribute("loginNo"));
 		int result = repository.insertReply(reply);
+		
+		//replybbsno 획득 후 조인하여 stat 반영
+		int bbsno = reply.getReplyBbsNo();
+		
+		
+		int userNo = repository.selectuserno2(bbsno);
+		
+		
+		int statresult = repository.inputreplycount(userNo);
+		
 		
 		return result;
 		
 	}
 	
+	
 	// 댓글 삭제
 	@RequestMapping(value="/replyDelete", method=RequestMethod.GET)
 	public @ResponseBody Integer replyDelete(int replyNo) {
 		
+		int userno = repository.selectuserno3(replyNo);
+		
+		int delstat = repository.decreasereplycount(userno);
+		
 		int result = repository.deleteReply(replyNo);
+		
+		System.out.println(delstat);
+		
 		
 		return result;
 	}
@@ -325,5 +372,10 @@ public class BoardController {
 		
 		return result;
 	}
+	
+	
+	
+	
+	
 
 }

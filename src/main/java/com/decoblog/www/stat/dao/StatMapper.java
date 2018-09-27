@@ -13,8 +13,9 @@ public interface StatMapper {
 	 * @return DB에 저장된 Stat
 	 */
 	public Stat selectnowstat(int loginNo);
-	public Stat selectdate(String date,int loginNo);
-	public Stat selectweek(@Param("startdate") String startdate,@Param("enddate") String enddate,int loginNo);
+	public Stat selectdate(@Param("date") String date,@Param("loginNo") int loginNo);
+	public Stat selectyesdate(@Param("date") String date,@Param("loginNo") int loginNo);
+	public Stat selectweek(@Param("startdate") String startdate,@Param("enddate") String enddate,@Param("loginNo") int loginNo);
 	public List<Stat> selectchart(int loginNo);
 	public List<Stat> selectmchart(int loginNo);
 	public List<Stat> selectweekchart(int loginNo);

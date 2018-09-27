@@ -114,6 +114,8 @@ margin: 0 auto;
 .template-sample {
 	width: 300px;
 	height: 210px;
+	float: left;
+	margin-left: 30px;
 }
 
 .template-sample p.hot-title {
@@ -162,7 +164,7 @@ margin: 0 auto;
 	 
 	white-space: normal; 
 	line-height: 1.2; 
-	height: 3.6em; 
+	height: 3.6em; 	
 	text-align: left; 
 	word-wrap: break-word; 
 	display: -webkit-box; 
@@ -227,7 +229,7 @@ margin: 0 auto;
 						</p>
 						
 						<c:forEach items="${templates}" var="template" varStatus="status">
-							<div class="slideshow template-sample">
+							<div class="template-sample">
 								<div class="thumbnails-wrapper">
 									<img data-template-no="${template.templateNo}" data-template-title="${template.templateTitle}" width="100%" height="100%" 
 										src="templates/thumbnails/template-${template.templateNo}.png" class="imglog">
@@ -275,16 +277,22 @@ margin: 0 auto;
 	      <div class="login-body user-body" style="width:80%; margin: 0 auto; overflow: hidden">
 	        <div class="text-center logo" style="float:left"><h2 align="left">템플릿-1</h2></div>
 	  
-	        <div class="text-center button" style="float: right">
+			
+	        <div class="text-center button use-tempalte-button" style="float: right">
 		    	<p>템플릿 사용하기</p>
 		    </div>
+		    
+		    <div class="template-name">
+				<input id="blogAddress" type="text" placeholder="Blog Address">
+			</div>
+			
         	<div>
         		<iframe src="" class="sun" ></iframe> 
         	</div>
 	     </div>
 	    </div>
 	</div>
-	<!-- /로그인 팝업 -->
+	<!-- /템플릿 팝업 -->
 </div>
 </body>
 	<!-- Scripts -->
@@ -309,7 +317,41 @@ margin: 0 auto;
 		$('.login-content .login-header i').on('click', hideLoginPopup);
 		$('.login-wrapper').hide();
 		
-	})
+		/* 템플릿 사용 클릭시 */
+		$(document).on('click', '.use-tempalte-button', function(){
+			useTemplate();
+			
+		});
+	});
+	
+	function useTemplate() {
+		if ($('#blogAddress').val() == "") {
+			alert('블로그 주소를 입력해주세요.');
+			$('#blogAddress').focus();
+			return false;
+		} else {
+			$.ajax({
+				method   : 'post'
+				, url    : 'duplicatedAddress'
+				, data   : {'address' : $('#blogAddress').val()}
+				, success: function(resp) {
+					if (resp == 'true') {
+						var templateNo = $(".login-wrapper .login-body h2").data('template-no');
+						$.ajax({
+							method   : 'post'
+							, url    : 'registerTemplate'
+							, data   : {'templateNo' : templateNo}
+							, success: function(resp) {
+								alert(resp);
+							}
+						});
+					} else {
+						alert("이미 있는 주소입니다.\n다른 주소를 입력해주십시오.");
+					}
+				}
+			});
+		}
+	}
 		
 	/* 템플릿 미리보기 */
 	function displayLoginPopup(){
@@ -317,6 +359,7 @@ margin: 0 auto;
 			var src = "/www/templatePreview/" + $(this).data('template-no');
 			$(".login-wrapper .login-content iframe").attr('src', src);
 			$(".login-wrapper .login-body h2").text($(this).data('template-title'));
+			$(".login-wrapper .login-body h2").attr('data-template-no', $(this).data('template-no'));
 			$(".login-wrapper").show(); 
 			
 		} 

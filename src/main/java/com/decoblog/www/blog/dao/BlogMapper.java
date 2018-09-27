@@ -3,9 +3,9 @@ package com.decoblog.www.blog.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.decoblog.www.blog.vo.Block;
-import com.decoblog.www.blog.vo.BlockTemplate;
 import com.decoblog.www.blog.vo.Menu;
 import com.decoblog.www.blog.vo.Template;
 import com.decoblog.www.user.vo.User;
@@ -37,6 +37,8 @@ public interface BlogMapper {
 	public int updateBlockSeq(int blockSeq);
 	//블록 삭제
 	public int deleteBlock(int blockSeq);
+	//블록 css 저장 
+	public int insertBlockCss(Block block);
 	public int updateBlogTitle(HashMap<String, String> map);
 	public int updateMetaTag(HashMap<String, String> map);
 	public int updateBackgroundColor(HashMap<String, String> map);
@@ -54,5 +56,15 @@ public interface BlogMapper {
 	public int updateMenuVisible(HashMap<String, Object> map);
 	public List<Template> selectTemplate();
 	public int updateFabiconImg(HashMap<String, Object> map);
+	public User selectBlogBasicInfo(String userNo);
+	public ArrayList<Integer> selectMenuNo(String userNo);
+	public ArrayList<Block> selectBlock(int menuNo);
+	public String selectUserNoByBlogAddress(String blogAddress);
+	public String selectTemplateMenu(String templateNo);
+	public int insertMainMenu(Menu mainMenu);
+	public int insertSubMenu(Menu subMenu);
+	public int pasteBlock(Map<String, String> insertData);
+	public int updateBlogAddress(String address);
+	public int updateBlogAddress(Map<String, String> insertData);
 
 }
