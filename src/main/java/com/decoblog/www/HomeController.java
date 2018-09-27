@@ -57,7 +57,7 @@ public class HomeController {
 	@RequestMapping(value = "/ghtest", method = RequestMethod.GET)
 	public String ghtest() {
 
-		return "templates/listDesign1";
+		return "templates/gallery1";
 	}
 	
 	// 안정민
@@ -73,8 +73,4 @@ public class HomeController {
 	}
 	
 	//최용락 
-	@RequestMapping(value="/yrtest", method=RequestMethod.GET)
-	public String yrtest() {
-		return "templates/yrTemplate";
-	}
 }

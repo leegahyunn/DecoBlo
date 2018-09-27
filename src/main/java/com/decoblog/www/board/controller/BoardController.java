@@ -135,30 +135,7 @@ public class BoardController {
 		return "redirect:bbsList";
 	}
 
-/*	// 글 수정 화면 요청
-	@RequestMapping(value = "/updateBbs", method = RequestMethod.GET)
-	public String updateBbs(Model model, int bbsNo) {
 
-		Bbs bbsUpdate = repository.selectOneBbs(bbsNo);
-		model.addAttribute("bbsUpdate", bbsUpdate);
-
-		return "common/bbsUpdate";
-	}
-
-	// 글 수정 DB
-	@RequestMapping(value = "/updateBbs", method = RequestMethod.POST)
-	public String updateBbs(Bbs bbs, MultipartFile upload) {
-
-		// 수정할 글 가져오기
-		Bbs bbsUpdate = repository.selectOneBbs(bbs.getBbsNo());
-		// 수정한 글 넣어주기
-		repository.updateBbs(bbs);
-
-		// 만약 첨부파일 있을 시
-
-		return "redirect:bbsList";
-	}
-*/
 	// 글 삭제
 	@RequestMapping(value = "/deleteBbs", method = RequestMethod.GET)
 	public String deleteBbs(int bbsNo,HttpSession session) {
@@ -184,12 +161,10 @@ public class BoardController {
 	/**************************************/
 	@RequestMapping(value="/ckeditorImageUpload")
 	public void ckeditorImageUpload(BbsAttachUpload BbsAttachUpload, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException{
-	
-		System.out.println("컨트롤러");
-		System.out.println(System.getProperty("user.home"));
 		
 		HttpSession session = request.getSession(); 
-		String root_path = session.getServletContext().getRealPath("/"); // 웹서비스 root 경로 
+		// 웹서비스 root 경로 
+		String root_path = session.getServletContext().getRealPath("/");
 		String attachPath = "resources/imgUpload/"; 
 
 		String originalFilename = BbsAttachUpload.getUpload().getOriginalFilename();
@@ -202,7 +177,6 @@ public class BoardController {
 		MultipartFile upload = BbsAttachUpload.getUpload(); 
 		
 		String fileName = ""; 
-		
 		String CKEditorFuncNum = ""; 
 		
 			if (upload != null) { 
@@ -235,21 +209,20 @@ public class BoardController {
 	}
 	
 	
-	   //ckeditor 이미지 첨부 후 다시 해당 이미지 불러오는 request
-	   @RequestMapping(value = "/getImg/{fileName}", method = RequestMethod.GET)
-	   public void getImage(@PathVariable("fileName") String fileName, HttpServletResponse response) throws Exception {
-	      // fileName 부분이 업로드한 그림파일 이름입니다.
-	      // 파일이 있는 위치는 다음과 같구요
-	      // 참고로 확장자는 입력이 안 되는지라... 그 부분은 잘 생각해 보시면 됩니다 ^^...
-	      String filePath = System.getProperty("user.home") + "/Decoblo/imgs/" + fileName + ".jpg";
+	//ckeditor 이미지 첨부 후 다시 해당 이미지 불러오는 request
+	@RequestMapping(value = "/getImg/{fileName}", method = RequestMethod.GET)
+	public void getImage(@PathVariable("fileName") String fileName, HttpServletResponse response) throws Exception {
+	     
+		// fileName : 업로드한 파일 이름
+		// 파일 위치  
+		String filePath = System.getProperty("user.home") + "/Decoblo/imgs/" + fileName + ".jpg";
 	      
-	      System.out.println(filePath);
-	      
-	      File f = new File(filePath);
-	      // 이제 파일을 보내주면 됩니다.
-	      FileInputStream fis = new FileInputStream(f);
-	      FileCopyUtils.copy(fis, response.getOutputStream());
-	   }
+	    File f = new File(filePath);
+	    
+	    // 파일 전송
+	    FileInputStream fis = new FileInputStream(f);
+	    FileCopyUtils.copy(fis, response.getOutputStream());
+	}
 	
 	
 	/**************************************/
