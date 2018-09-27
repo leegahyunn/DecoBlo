@@ -9,8 +9,9 @@
 			<li><a href="#" class="icon fa-angle-down">${loginName}님</a>
 				<ul>
 					<li><a href="/www/user/profile">계정설정</a></li>
-					<li><a href="config">내 블로그</a></li>
-					<li><a href="dashboard">대시보드</a></li>
+					<li><a href="/www/blog/${loginBlogAddress}">내 블로그</a></li>
+					<li><a href="/www/config">블로그 수정</a></li>
+					<li><a href="/www/dashboard">대시보드</a></li>
 					<li><a href="#">1대1 문의</a></li>
 					<li><a href="/www/user/logout">로그아웃</a></li>
 				</ul>

@@ -542,7 +542,7 @@ $(function(){
 		   $(document).off('click','.use-block-button');
 		   $('.block-preview').empty();
 		   var blockWrapperCode = "";
-		   var blockTmpNo = $('.block-thumnail > li').attr('data-block-no');
+		   var blockTmpNo = $(this).attr('data-block-no');
          
 		   $.ajax({
 			   method:'POST',
@@ -602,8 +602,7 @@ $(function(){
 		   $(document).off('click','.use-block-button');
 		   $('.block-preview').empty();
 		   var blockWrapperCode = "";
-		   var blockTmpNo = $('.block-thumnail > li').attr('data-block-no');
-		   
+		   var blockTmpNo= $(this).attr('data-block-no');
 		   $.ajax({
 			   method:'POST',
 			   url:'getBlockContent',
@@ -632,7 +631,7 @@ $(function(){
 							   alert('블록 추가 실패');
 						   }
 					   });
-					   $('.intro-block-wrapper').css('display','none');
+					   $('.intro-block-wrapper'). css('display','none');
 					   $('.blockMenu-sidebar-div').animate({'margin-left':'-315px'},'slow');
 					   $('#blockMenu-sidebar-close').css('left','-50px');
 					   $('#mask').hide();

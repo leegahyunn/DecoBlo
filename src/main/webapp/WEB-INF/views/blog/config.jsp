@@ -45,7 +45,7 @@
 		<div><i class="fa fa-share"></i>  편집끝내기</div>
 	</div>
 	<div class="right-menu">
-		<div><i class="fa fa-arrow-circle-up"></i>  사이트게시</div>
+		<div><a href="/www/saveBlog"><i class="fa fa-arrow-circle-up"></i>사이트게시</a></div>
 	</div>
 	<div class="right-menu">
 		<div><i class="fa fa-desktop"></i>  미리보기</div>

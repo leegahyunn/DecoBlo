@@ -20,7 +20,7 @@ li#login {
 
 .user-content {
 	height: 80%;
-	width: 1220px;
+	width: 90%;
 	margin: 0 auto;
 	background-color: #FFFFFF;	
 }
@@ -81,3 +81,8 @@ li#login {
 	outline: 0;
 }
 
+.template-name input { 
+	width: 30%;
+    float: right;
+    margin-right: 30px;
+}
