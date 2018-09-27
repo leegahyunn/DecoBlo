@@ -66,15 +66,11 @@ public class HomeController {
 		return "templates/template_700";
 	}
 
-  // 이준호
+	// 이준호
 	@RequestMapping(value = "/jhtest", method = RequestMethod.GET)
 	public String jhtest() {
 		return "blog/template";
 	}
 	
 	//최용락 
-	@RequestMapping(value="/yrtest", method=RequestMethod.GET)
-	public String yrtest() {
-		return "templates/yrTemplate";
-	}
 }

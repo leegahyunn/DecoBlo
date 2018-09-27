@@ -3,18 +3,15 @@ package com.decoblog.www.blog.dao;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
+import com.decoblog.www.blog.vo.Block;
 import com.decoblog.www.blog.vo.Menu;
 import com.decoblog.www.blog.vo.Template;
 import com.decoblog.www.user.vo.User;
-import com.decoblog.www.blog.vo.Block;
-import com.decoblog.www.blog.vo.BlockTemplate;
 
 @Repository
 public class BlogRepository {
@@ -245,11 +242,45 @@ public class BlogRepository {
 	}
 
 	public int updateFabiconImg(HashMap<String, Object> map) {
+		int result = 0;
+		
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
-		int result = mapper.updateFabiconImg(map);
+		result = mapper.updateFabiconImg(map);
 		
 		return result;
 	}
+
+	public User selectBlogBasicInfo(String userNo) {
+		User result = null;
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		result = mapper.selectBlogBasicInfo(userNo);
+		
+		return result;
+	}
+
+	public ArrayList<Integer> selectMenuNo(String userNo) {
+		ArrayList<Integer> result = null;
+		
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		result = mapper.selectMenuNo(userNo);
+		
+		return result;
+	}
+
+	public ArrayList<Block> selectBlock(int menuNo) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		ArrayList<Block> result = mapper.selectBlock(menuNo);
+		
+		return result;
+	}
+
+	public String selectUserNoByBlogAddress(String blogTitle) {
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		String result = mapper.selectUserNoByBlogAddress(blogTitle);
+		
+		return result;
+	}
+
 	
 	
 }

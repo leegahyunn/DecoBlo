@@ -69,17 +69,32 @@ public class StatController {
 		
 	    return "common/dashboard";
 	}
-	
+	// ajax 선택한일  stat 데이터 뽑기
 	@RequestMapping(value="/selectday", method=RequestMethod.POST)
 	public @ResponseBody Stat selectday(@RequestBody Stat slday,HttpSession session) {
 		int loginNo = (int)session.getAttribute("loginNo");
+		System.out.println(loginNo);
 		String date = slday.getStatRegDate();
+		System.out.println(date);
 		Stat stat = statRepository.selectdate(date,loginNo);
 		
 		
 		return stat;
 	}
 	
+	// ajax 선택한일 전날  stat 데이터 뽑기
+		@RequestMapping(value="/beforeselectday", method=RequestMethod.POST)
+		public @ResponseBody Stat beforeselectday(@RequestBody Stat slday,HttpSession session) {
+			int loginNo = (int)session.getAttribute("loginNo");
+			String date = slday.getStatRegDate();
+			Stat stat = statRepository.selectyesdate(date, loginNo);
+			
+			System.out.println(stat);
+			
+			
+			return stat;
+		}
+	// ajax 선택한주 stat 데이터 뽑기
 	@RequestMapping(value="/selectweek", method=RequestMethod.POST)
 	public @ResponseBody Stat selectweek(@RequestBody Stat slday,HttpSession session) {
 		int loginNo = (int)session.getAttribute("loginNo");

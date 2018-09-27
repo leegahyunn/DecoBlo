@@ -7,7 +7,7 @@
 <!-- int login(User user); -->
 <select id="login" parameterType="User" resultType="User">
 	SELECT 
-	    userNo, userEmail, userName
+	    userNo, userEmail, userName, blogAddress
 	FROM
 	    DB_USER
 	WHERE
