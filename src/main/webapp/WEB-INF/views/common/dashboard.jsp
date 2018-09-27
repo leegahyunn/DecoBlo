@@ -451,7 +451,7 @@ pmydate{
 						</div>
 						<div class="maintext">
 							<br>
-							<h3>SCIT</h3>
+							<h3>${loginName}</h3>
 							<p>LAST UPDATE</p>
 
 						</div>
