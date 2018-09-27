@@ -7,7 +7,7 @@
 <title>DecoBlo - Customer</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link type="text/css" rel="stylesheet" href="pixelarity/assets/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 <link rel="stylesheet" href="decoblo/css/helpPage.css" />
 <script src="resources/library/js/jquery-3.3.1.min.js"></script>
 <style type="text/css">
@@ -82,7 +82,6 @@
 <!-- Header -->
 <jsp:include page="../common/header.jsp"></jsp:include>
 
-
 <!-- 소개 사진 -->
 <section id="intro-photo" class="wrapper">
 	<div id="article">
@@ -92,15 +91,12 @@
 
 <!-- FQA -->
 <section id="faqboard" class="wrapper">
-
-	<!-- 고치기 -->
-	
 	<div class="table-wrapper" align="center">	
-	<div class="heading">
-		<h2 class="title">FAQ</h2>
-		<p> 자주하는 질문 </p>
-		<span style="font-size: 35px; font-weight: bold;">FAQ</span>
-	</div>
+		<div class="heading">
+			<h2 class="title">FAQ</h2>
+			<p> 자주하는 질문 </p>
+			<span style="font-size: 35px; font-weight: bold;">FAQ</span>
+		</div>
 	<br>
 	<br>
 		<table class="board" border="1" style="width: 1200px;">
@@ -155,66 +151,68 @@
 <br> <!-- 한줄띄기 -->
 
 	<!-- 글목록 div 태그 -->
-		<div class="table-wrapper">	
-		
-			<table class="board" border="1" style="width: 1200px;">
-				<thead>
-					<tr>
-						<th>No.</th>
-						<th>상태</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>작성일</th>
+	<div class="table-wrapper">	
+		<table class="board" border="1" style="width: 1200px;">
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>상태</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>작성일</th>
 					</tr>
-				</thead>
-				<tbody>
-					<%-- 실제로 사용할 코드
-					<c:if test="${empty qalist }">
-						<td colspan="5">작성된 글이 없습니다</td>
-					</c:if>
-					<!-- 이하 글 목록 반복 -->
-					<c:if test="${not empty qalist }">
-					<c:forEach var="qa" items="${qalist}" varStatus="status">
-						<tr>
-							<td class="center">${status.count + navi.startRecord}</td>
-							<td>[답변대기] / [답변완료] </td>
-							<td><a href="qaDetail?qanum=${qa.qanum}">${qa.title}</a></td>
-							<td>${qa.userid}</td>
-							<td>${qa.regdate}</td>
-						</tr>
-					</c:forEach>
-					</c:if> --%>
-					
-					
-					<!-- 일단 박아놓기 -->
+			</thead>
+			<tbody>
+				<%-- 실제로 사용할 코드
+				<c:if test="${empty qalist }">
+					<td colspan="5">작성된 글이 없습니다</td>
+				</c:if>
+				<!-- 이하 글 목록 반복 -->
+				<c:if test="${not empty qalist }">
+				<c:forEach var="qa" items="${qalist}" varStatus="status">
 					<tr>
 						<td class="center">${status.count + navi.startRecord}</td>
-						<td>[답변완료] </td>
-						<td><a href="helpDetail?qanum=${qa.qanum}">도메인연결이 되지 않습니다</a></td>
-						<td>snoopy</td>
-						<td>2018.08.16</td>
+						<td>[답변대기] / [답변완료] </td>
+						<td><a href="qaDetail?qanum=${qa.qanum}">${qa.title}</a></td>
+						<td>${qa.userid}</td>
+						<td>${qa.regdate}</td>
 					</tr>
-				</tbody>
-			</table>
-				<div align="center">
-					<a href="review?currentPage=${navi.currentPage - navi.pagePerGroup}&searchItem=${searchItem}&searchWord=${searchWord}"><i class="fas fa-angle-double-left"></i> </a>
-					<a href="review?currentPage=${navi.currentPage - 1}&searchItem=${searchItem}&searchWord=${searchWord}"><i class="fas fa-caret-left"></i></a>
-	
-						<c:forEach var="page"  begin="${navi.startPageGroup}" end="${navi.endPageGroup}">
-						<c:if test="${navi.currentPage == page }">
-							<a href="review?currentPage=${page}&searchItem=${searchItem}&searchWord=${searchWord}">${page}</a> &nbsp;
-						</c:if>
-						<c:if test="${navi.currentPage != page }">
-							<a href="review?currentPage=${page}&searchItem=${searchItem}&searchWord=${searchWord}">${page}</a> &nbsp; 
-						</c:if>
-						</c:forEach>			
-							<a href="review?currentPage=${navi.currentPage + 1}&searchItem=${searchItem}&searchWord=${searchWord}"><i class="fas fa-caret-right"></i></a>
-							<a href="review?currentPage=${navi.currentPage + navi.pagePerGroup}&searchItem=${searchItem}&searchWord=${searchWord}"><i class="fas fa-angle-double-right"></i></a>
-				</div>
-				<div class="right" align="right" style="width:1210px">
-					<input class="buttons" type="button" value="문의하기" style="line-height:normal; text-align: center; margin: 5px;"/>
-				</div>
-			</div>
+				</c:forEach>
+				</c:if> --%>
+					
+					<!-- 일단 박아놓기 -->
+				<tr>
+					<td class="center">${status.count + navi.startRecord}</td>
+					<td>[답변완료] </td>
+					<td><a href="helpDetail?qanum=${qa.qanum}">도메인연결이 되지 않습니다</a></td>
+					<td>snoopy</td>
+					<td>2018.08.16</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<!-- 페이지 -->	
+		<div align="center">
+			<a href="review?currentPage=${navi.currentPage - navi.pagePerGroup}&searchItem=${searchItem}&searchWord=${searchWord}"><i class="fas fa-angle-double-left"></i> </a>
+			<a href="review?currentPage=${navi.currentPage - 1}&searchItem=${searchItem}&searchWord=${searchWord}"><i class="fas fa-caret-left"></i></a>
+		
+				<c:forEach var="page"  begin="${navi.startPageGroup}" end="${navi.endPageGroup}">
+				<c:if test="${navi.currentPage == page }">
+					<a href="review?currentPage=${page}&searchItem=${searchItem}&searchWord=${searchWord}">${page}</a> &nbsp;
+				</c:if>
+				<c:if test="${navi.currentPage != page }">
+					<a href="review?currentPage=${page}&searchItem=${searchItem}&searchWord=${searchWord}">${page}</a> &nbsp; 
+				</c:if>
+				</c:forEach>			
+					<a href="review?currentPage=${navi.currentPage + 1}&searchItem=${searchItem}&searchWord=${searchWord}"><i class="fas fa-caret-right"></i></a>
+					<a href="review?currentPage=${navi.currentPage + navi.pagePerGroup}&searchItem=${searchItem}&searchWord=${searchWord}"><i class="fas fa-angle-double-right"></i></a>
+		</div>
+		
+		<!-- 글 작성 버튼 -->
+		<div class="right" align="right" style="width:1210px">
+			<input class="buttons" type="button" value="문의하기" style="line-height:normal; text-align: center; margin: 5px;"/>
+		</div>
+	</div><!-- table-wrapper 끝 -->
 					
 		</div>
 </section>
