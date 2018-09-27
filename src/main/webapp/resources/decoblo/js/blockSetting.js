@@ -23,10 +23,12 @@ function menuConfig() {
 					if (mainIndex == 0) {
 						result += '<span id="intro-click" data-parent="'+ subMenu.menuParent+'">'+subMenu.menuName+'</span>';
 					} else {
-						if (subMenu.menuDepth==0){
-							result1 += '</ul></li><li data-parent="'+ subMenu.menuParent+'"><div data-menu-no='+subMenu.menuParent+'>'+ subMenu.menuName +'</div><ul>';
-						} else if(subMenu.menuDepth==1){
-							result1 += '<li><div data-menu-no='+subMenu.menuNo+'>'+ subMenu.menuName +'</div></li>';
+						if(subMenu.menuVisible == 1){ // 메뉴를 보이게 해놓은 경우
+							if (subMenu.menuDepth==0){
+								result1 += '</ul></li><li data-parent="'+ subMenu.menuParent+'"><div data-menu-no='+subMenu.menuParent+'>'+ subMenu.menuName +'</div><ul>';
+							} else if(subMenu.menuDepth==1){
+								result1 += '<li><div data-menu-no='+subMenu.menuNo+'>'+ subMenu.menuName +'</div></li>';
+							}
 						}
 					}		
 
@@ -107,7 +109,7 @@ function siteConfig() {
 		, success: function(resp) {
 			$('title').text("DecoBlo - " + resp.blogTitle);
 			$('.blogTitle').html(resp.blogTitle);
-			$('.menu-config-flip').css('background-color', resp.configBackgroundColor)
+			$('.block-wrapper').css('background-color', resp.configBackgroundColor)
 			$('.metaAuthor').val(resp.metaAuthor);
 			$('.metaKeyword').val(resp.metaKeyword);
 			$('.metaDescription').val(resp.metaDescription);
@@ -385,8 +387,9 @@ $(function(){
 	   }); 		
    });
    
-   /*메뉴 버튼 이벤트*/
+   /*메뉴 삭제 이벤트*/
    $(document).on('click', '.deletebtn', function(){
+	   
 	   var menuNo = $(this).data('rno');
 	   var menuParent = $(this).data('parent');
 	   var menuSeq = $(this).data('menu-seq');
@@ -397,6 +400,7 @@ $(function(){
 			   			"menuSeq" : menuSeq, 
 			   			"menuParentSeq" : menuParentSeq, 
 			   			"menuDepth" : menuDepth };
+	   alert("menuNo"+ menuNo +"menuParent"+ menuParent +"menuSeq"+ menuSeq +"menuParentSeq"+ menuParentSeq +"menuDepth"+ menuDepth);
 	   $.ajax({
 		   method : 'post', 
 		   url  : 'deleteMenu', 
@@ -509,6 +513,14 @@ $(function(){
 	   var blockBackgroundColor = $(this).val();
 	   var blockseq = $(this).parents('section').attr('data-block-seq'); 
 	   $('section[data-block-seq='+blockseq+']').css('background-color', blockBackgroundColor);
+   });
+   
+   
+   $('.button-backgroundcolor').children('.color-picker').on('change',function(){
+	   alert("a")
+	  /* var blockBackgroundColor = $(this).val();
+	   var blockseq = $(this).parents('section').attr('data-block-seq'); 
+	   $('section[data-block-seq='+blockseq+']').css('background-color', blockBackgroundColor);*/
    });
    
    firstcss();
