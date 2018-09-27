@@ -190,6 +190,8 @@ $(function(){
 	/* 배경 이미지 수정 */
 	$(document).on('click', '#blog-background-img', function(){
 		var formData = new FormData($("#fileform")[0]);
+		console.log(formData);
+		
 		$.ajax({
 			type : 'post'
 			, url : 'updateBackgroundImg'
@@ -527,14 +529,16 @@ $(function(){
 	   $('section[data-block-seq='+blockseq+']').css('background-color', blockBackgroundColor);
    });
    
-   
+   /* 버튼 색상 바꾸기*/
    $('.button-backgroundcolor').children('.color-picker').on('change',function(){
-	   alert("a")
-	  /* var blockBackgroundColor = $(this).val();
+	   //alert("a")
+	   var buttonBackgroundColor = $(this).val();
 	   var blockseq = $(this).parents('section').attr('data-block-seq'); 
-	   $('section[data-block-seq='+blockseq+']').css('background-color', blockBackgroundColor);*/
+	   $('button').css('background-color', buttonBackgroundColor);
    });
    
+   
+  
    firstcss();
    /*블록 없을때 블록 추가 버튼 */
    $('.intro-block-wrapper').on('click',function(){
