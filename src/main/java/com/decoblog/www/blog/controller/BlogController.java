@@ -1,13 +1,18 @@
 package com.decoblog.www.blog.controller;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +34,7 @@ import com.decoblog.www.blog.vo.Menu;
 import com.decoblog.www.blog.vo.Template;
 import com.decoblog.www.user.vo.User;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 @Controller
 public class BlogController {
@@ -111,8 +117,8 @@ public class BlogController {
 	 * 블로그 메타태그 수정 Ajax
 	 * @return 블로그 수정 페이지
 	 */
-	@RequestMapping(value = "/metaEdit", method = RequestMethod.POST)
-	public String metaEdit(@RequestBody HashMap<String, String> map) {
+	@RequestMapping(value = "/updateMetaTag", method = RequestMethod.POST)
+	public String updateMetaTag(@RequestBody HashMap<String, String> map) {
 		map.put("userNo", "1");
 		blogRepository.updateMetaTag(map);
 		return  "blog/config";
@@ -181,7 +187,6 @@ public class BlogController {
 	@RequestMapping(value = "/insertMenu", method = RequestMethod.POST)
 	public String insertMenu(@RequestBody HashMap<String, Object> map,HttpSession session) {
 		int userNo =  (int) session.getAttribute("loginNo");
-		System.out.println("요기다 이녀석아" +userNo);
 		map.put("menuUserNo", userNo);
 		blogRepository.insertMenu(map);
 		return  "blog/config";
@@ -223,7 +228,6 @@ public class BlogController {
          
         Iterator<String> files = multi.getFileNames();
         while(files.hasNext()){
-        	
         	String uploadFile = files.next();
             MultipartFile mFile = multi.getFile(uploadFile);
             configBackgroundOriginFile = mFile.getOriginalFilename();
@@ -261,7 +265,6 @@ public class BlogController {
         Iterator<String> files = multi2.getFileNames();
         
         while(files.hasNext()){
-        	
         	String uploadFile = files.next();
             MultipartFile mFile = multi2.getFile(uploadFile);
             fabiconOriginalFile = mFile.getOriginalFilename();
@@ -318,7 +321,7 @@ public class BlogController {
 				blogRepository.updateLargeMenuPush(map);
 				blogRepository.updateMenu(map);
 				blogRepository.updateSubmenu(map);
-			}else {//대메뉴가 다른 대메뉴의 소메뉴로 들어간 경우
+			} else {//대메뉴가 다른 대메뉴의 소메뉴로 들어간 경우
 				blogRepository.updateLargeMenuPull(map);
 				blogRepository.updateSmallMenuPush(map);
 				blogRepository.updateMenu(map);
@@ -327,7 +330,7 @@ public class BlogController {
 		
 		return result;
 	}
-	@RequestMapping(value="getThumnail",method=RequestMethod.POST)
+	@RequestMapping(value="getThumnail", method=RequestMethod.POST)
 	public @ResponseBody List<Integer> getThumnail(String tmpType) {
 		List<Integer> blockNoList = blogRepository.selectThumnail(tmpType);
 		return blockNoList;
@@ -335,7 +338,7 @@ public class BlogController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value="getBlockContent",method=RequestMethod.POST)
+	@RequestMapping(value="getBlockContent", method=RequestMethod.POST)
 	public String getBlockContent(int blockTmpNo) {
 		String blockContent = blogRepository.selectBlockContent(blockTmpNo);
 		try {
@@ -346,7 +349,7 @@ public class BlogController {
 		return blockContent;
 	}
 	
-	@RequestMapping(value="setBlockContent",method=RequestMethod.POST)
+	@RequestMapping(value="setBlockContent", method=RequestMethod.POST)
 	public @ResponseBody int setBlockContent(@RequestBody Block block,Menu menu) {
 		int blockSeq = block.getBlockSeq();
 		blogRepository.updateBlockSeq(blockSeq);
@@ -388,4 +391,219 @@ public class BlogController {
 		System.out.println(templateNo);
 		return "templates/" + templateNo + "/template-1";
 	}
+	
+	@RequestMapping(value="setBlockCss",method=RequestMethod.POST)
+	public @ResponseBody int setBlockCss(@RequestBody Block block) {
+		System.out.println(block);
+		int result =blogRepository.insertBlockCss(block);
+		return result;
+	}
+	
+	/**
+	 * 블로그 주소 중복확인
+	 * @param address
+	 * @return
+	 */
+	@RequestMapping(value="duplicatedAddress",method=RequestMethod.POST)
+	public @ResponseBody String duplicatedAddress(String address, HttpSession session) {
+		String result = blogRepository.selectUserNoByBlogAddress(address);
+		if (result == null) {
+			Map<String, String> insertData = new HashMap<>();
+			insertData.put("userNo", String.valueOf(session.getAttribute("loginNo")));
+			insertData.put("address", address);
+			
+			blogRepository.updateBlogAddress(insertData);
+			return "true";
+		} else {
+			return "false";
+		}
+	}
+	
+	/**
+	 * 템플릿 등록
+	 * @param templateNo
+	 * @return
+	 */
+	@RequestMapping(value="registerTemplate",method=RequestMethod.POST)
+	public @ResponseBody String registerTemplate(String templateNo, HttpSession session) {
+		String templateMenus = blogRepository.selectTemplateMenu(templateNo);
+		
+		Gson gson = new Gson();
+		
+		ArrayList<ArrayList<String>> menuList = gson.fromJson(templateMenus, new TypeToken<ArrayList<ArrayList<String>>>() {}.getType());
+		
+		int userNo = (int)session.getAttribute("loginNo");
+		int firstMenuNo = 0;
+		int mainMenuNo = 0;
+		
+		for (int mainMenuSeq = 0; mainMenuSeq < menuList.size(); mainMenuSeq++) {
+			for (int subMenuSeq = 0; subMenuSeq < menuList.get(mainMenuSeq).size(); subMenuSeq++) {
+				if (subMenuSeq==0) {
+					// MainMenu
+					Menu mainMenu = new Menu(0, userNo, menuList.get(mainMenuSeq).get(subMenuSeq), 0, 0, 0, 1, "", mainMenuSeq+1);
+					blogRepository.insertMainMenu(mainMenu);
+					if (mainMenuSeq == 0) {
+						firstMenuNo = mainMenu.getMenuNo();
+					}
+					mainMenuNo = mainMenu.getMenuNo();
+				} else {
+					//SubMenu
+					Menu subMenu = new Menu(0, userNo, menuList.get(mainMenuSeq).get(subMenuSeq), mainMenuNo, 1, subMenuSeq, 1, "", mainMenuSeq+1);
+					blogRepository.insertSubMenu(subMenu);
+				}
+			}
+		}
+		
+		Map<String, String> insertData = new HashMap<>();
+		insertData.put("blockMenuNo", String.valueOf(firstMenuNo));
+		insertData.put("blockTmpNo", templateNo);
+		
+		blogRepository.pasteBlock(insertData);
+		
+		
+		return "true";
+	}
+	
+	/**
+	 * 사용자 블로그 이동
+	 * 실제 파일은 C:\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\DecoBlo_dev\WEB-INF에
+	 * 존재하지만 webapp/WEB-INF에 있는 것과 동일하게 작동
+	 * @return
+	 */
+	@RequestMapping(value="/blog/{blogAddress}", method=RequestMethod.GET)
+	public String chTest4(@PathVariable("blogAddress") String blogAddress) {
+		String userNo = blogRepository.selectUserNoByBlogAddress(blogAddress);
+		return "blog/" + userNo + "/index";
+	}
+	
+	/**
+	 * 블로그 저장하기 
+	 */
+	@RequestMapping(value="/saveBlog", method=RequestMethod.GET)
+	public String SaveBlog(HttpServletRequest request, HttpSession session) {
+		
+		String userNo = String.valueOf(session.getAttribute("loginNo"));
+		StringBuffer htmlBuffer = new StringBuffer();
+		
+
+		//	블로그 기본정보 불러오기
+		User blogBasicInfo = blogRepository.selectBlogBasicInfo(userNo);
+
+		//	헤더 작성
+		StringBuffer headerBuffer = new StringBuffer();
+		headerBuffer.append("<%@ page language=\"java\" contentType=\"text/html; charset=UTF-8\" pageEncoding=\"UTF-8\"%>\n");
+		headerBuffer.append("<!DOCTYPE html>\n"); 
+		headerBuffer.append("<html>\n"); 
+		headerBuffer.append("<head>\n"); 
+		headerBuffer.append("<title>" + blogBasicInfo.getBlogTitle() + "</title>\n"); 
+		headerBuffer.append("<meta charset=\"utf-8\" />\n");
+		headerBuffer.append("<meta name=\"author\" content=\"" + blogBasicInfo.getMetaAuthor() + "\" />\r\n"); 
+		headerBuffer.append("<meta name=\"keyword\" content=\"" + blogBasicInfo.getMetaKeyword() + "\" />\r\n");
+		headerBuffer.append("<meta name=\"description\" content=\"" + blogBasicInfo.getMetaDescription() + "\" />\r\n");
+		headerBuffer.append("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n");
+		if (blogBasicInfo.getFabiconSavedFile() != null) {
+			headerBuffer.append("<link rel=\"shortcut icon\" href=\"" + blogBasicInfo.getFabiconSavedFile() + "\">");
+		}
+		headerBuffer.append("<link rel=\"stylesheet\" href=\"https://use.fontawesome.com/releases/v5.2.0/css/all.css\" />\n"); 
+		headerBuffer.append("<link rel=\"stylesheet\" href=\"/www/templates/common.css\" />\n"); 
+		headerBuffer.append("<link rel=\"stylesheet\" href=\"/www/templates/template.css\" />\n"); 
+		headerBuffer.append("</head>\n"); 
+		
+
+		// 바디 작성
+		StringBuffer bodyBuffer = new StringBuffer();
+		bodyBuffer.append("<body ");
+		
+		// 우클릭 방지
+		if (blogBasicInfo.getConfigRightClickable() == 1) {
+			bodyBuffer.append("oncontextmenu=\"return false\" "); 
+		}
+		
+		// 스타일
+		bodyBuffer.append("style=\"");
+		if (blogBasicInfo.getConfigBackgroundColor() != null) {
+			bodyBuffer.append("background-color:" + blogBasicInfo.getConfigBackgroundColor() + "; ");
+		}
+		
+		if (blogBasicInfo.getConfigBackgroundSavedFile() != null) {
+			bodyBuffer.append("background-img: url(" + blogBasicInfo.getConfigBackgroundSavedFile() + "); ");
+		}
+		
+		if (blogBasicInfo.getConfigBasicFont() != null) {
+			bodyBuffer.append("font-family: " + blogBasicInfo.getConfigBasicFont() + ", serif; ");
+		}
+		bodyBuffer.append("\"");
+		
+		bodyBuffer.append(">\n");
+		
+
+		// 블로그 메뉴 불러오기
+		ArrayList<Integer> menuNoList = blogRepository.selectMenuNo(userNo);
+		
+		// 원페이지 여부 확인
+		for (int menuNo : menuNoList) {
+			StringBuffer menuBuffer = new StringBuffer();
+			menuBuffer.append("<section class=\"menu-wrapper\">\n");
+			// 블록 불러오기
+			ArrayList<Block> blockList = blogRepository.selectBlock(menuNo);
+			
+			for (Block block : blockList) {
+				StringBuffer blockBuffer = new StringBuffer();
+				blockBuffer.append("<section class=\"block-wrapper\">\n");
+				blockBuffer.append(block.getBlockContent());
+				blockBuffer.append("</section>\n");
+				menuBuffer.append(blockBuffer);
+			}
+			
+			menuBuffer.append("</section>\n");
+			bodyBuffer.append(menuBuffer);
+		}
+		
+		htmlBuffer.append(headerBuffer);
+		htmlBuffer.append(bodyBuffer);
+		
+		htmlBuffer.append("<!-- Scripts -->\n"); 
+		htmlBuffer.append("<script src=\"/www/resources/library/js/jquery-3.3.1.min.js\"></script>\n"); 
+		htmlBuffer.append("\n"); 
+		
+		htmlBuffer.append("<!-- Script Import -->\n"); 
+		htmlBuffer.append("\n"); 
+		
+		htmlBuffer.append("</body>\n"); 
+		htmlBuffer.append("</html>\n");
+		
+		
+		// 저장 경로
+		// 테스트 서버일 경우 C:\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\DecoBlo_dev\ 에 저장
+		String path = request.getSession().getServletContext().getRealPath("/");
+		
+        //파일 객체 생성
+        File directory = new File(path + "WEB-INF/views/blog/"+ userNo);
+        //!표를 붙여주어 파일이 존재하지 않는 경우의 조건을 걸어줌
+        if(!directory.isDirectory()){
+            //디렉토리 생성 메서드
+        	directory.mkdirs();
+        }
+        
+		// 파일 쓰기 
+		BufferedWriter writer = null;
+		
+		try {
+			writer = new BufferedWriter(new FileWriter(path + "WEB-INF/views/blog/" + userNo + "/index.jsp"));
+			writer.write(htmlBuffer.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (writer != null) {
+					writer.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	
+		return "redirect:/config";
+	}
+	
 }

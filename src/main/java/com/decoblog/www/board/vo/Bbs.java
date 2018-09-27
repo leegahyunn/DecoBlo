@@ -12,12 +12,13 @@ public class Bbs {
 	private int bbsSeq;
 	private String bbsRegDate;
 	private String bbsEditDate;
+	private int bbsreguser;
 
 	public Bbs() {
 	}
 
 	public Bbs(int bbsNo, int boardNo, String bbsTitle, String bbsContent, int bbsCount, int bbsLike, int bbsParent,
-			int bbsDepth, int bbsSeq, String bbsRegDate, String bbsEditDate) {
+			int bbsDepth, int bbsSeq, String bbsRegDate, String bbsEditDate,int bbsreguser) {
 		this.bbsNo = bbsNo;
 		this.boardNo = boardNo;
 		this.bbsTitle = bbsTitle;
@@ -29,6 +30,7 @@ public class Bbs {
 		this.bbsSeq = bbsSeq;
 		this.bbsRegDate = bbsRegDate;
 		this.bbsEditDate = bbsEditDate;
+		this.bbsreguser= bbsreguser;
 	}
 
 	public int getBbsNo() {
@@ -119,11 +121,21 @@ public class Bbs {
 		this.bbsEditDate = bbsEditDate;
 	}
 
+	public int getBbsreguser() {
+		return bbsreguser;
+	}
+
+	public void setBbsreguser(int bbsreguser) {
+		this.bbsreguser = bbsreguser;
+	}
+
 	@Override
 	public String toString() {
 		return "Bbs [bbsNo=" + bbsNo + ", boardNo=" + boardNo + ", bbsTitle=" + bbsTitle + ", bbsContent=" + bbsContent
 				+ ", bbsCount=" + bbsCount + ", bbsLike=" + bbsLike + ", bbsParent=" + bbsParent + ", bbsDepth="
-				+ bbsDepth + ", bbsSeq=" + bbsSeq + ", bbsRegDate=" + bbsRegDate + ", bbsEditDate=" + bbsEditDate + "]";
+				+ bbsDepth + ", bbsSeq=" + bbsSeq + ", bbsRegDate=" + bbsRegDate + ", bbsEditDate=" + bbsEditDate
+				+ ", bbsreguser=" + bbsreguser + "]";
 	}
 
+	
 }

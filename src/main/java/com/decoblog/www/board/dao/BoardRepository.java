@@ -223,8 +223,102 @@ public class BoardRepository {
 
 
 	
+	/**************************************/
+	/* STAT *******************************/
+	/**************************************/
 
+	// 글쓴이 데이터 넘기기
+	public int selectuserno(int bbsNo) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		
+		int result = mapper.selectuserno(bbsNo);
+		
+		return result;
+	}
 	
-
+	//게시판 조 회 수 stat 넘기기
+	public int inupStat(int userNo) {
+		
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+				
+		int result = mapper.inupStat(userNo);
+		
+		return result;
+	}
+	//게시판 삭제시 stat 반영
+	public int decreasebbscount(int userNo) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		
+		int result = mapper.inupStat(userNo);
+		
+		return result;
+	}
 	
+	// 리플 증가 stat 반영
+	public int inputreplycount(int userNo) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		
+		int result = mapper.inputreplycount(userNo);
+		
+		return result;
+	}
+	
+	// 리플 감소 stat 반영
+	public int decreasereplycount(int userNo) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		
+		int result = mapper.decreasereplycount(userNo);
+		
+		return result;
+	}
+	
+	// 유저 정보 획득
+	
+	public int selectuserno2(int bbsno) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		
+		int result = mapper.selectuserno2(bbsno);
+		
+		return result;
+	}
+	
+	// replyno 이용하여 정보 획득
+	
+	public int selectuserno3(int replyno) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		
+		int result = mapper.selectuserno3(replyno);
+		
+		return result;
+	}
+	
+	// likebbsno 이용하면 정보 획득 
+	
+	public int selectuserno4(int bbsno) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		
+		int result = mapper.selectuserno4(bbsno);
+		
+		return result;
+	}
+	
+	// 좋아요 감소 stat 반영
+	
+	public int decreaselike(int userno) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		
+		int result = mapper.decreaselike(userno);
+		
+		return result;
+	}
+		
+	// 좋아요 증가 stat 반영
+		
+	public int inputlike(int userno) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		
+		int result = mapper.inputlike(userno);
+				
+		return result;
+	}
 }

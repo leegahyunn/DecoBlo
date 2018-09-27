@@ -27,32 +27,22 @@ public class HomeController {
 			model.addAttribute("nUser", nUser);
 			return "index";
 		}
-		
 	}
 	
 	@RequestMapping(value = "/customer", method = RequestMethod.GET)
 	public String customer() {
 		return "common/customer";
 	}
-	
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main() {
 		return "common/main";
 	}
-	
-	
-
-	
-	
 
 	@RequestMapping(value = "/view2", method = RequestMethod.GET)
 	public String view2(){
 			return "common/main";
-		
-		
 	}
-
 
 	/**************************************/
 	/* 테스트 컨트롤러; 테스트는 여기서 ! */
@@ -60,45 +50,31 @@ public class HomeController {
 	// 박치현
 	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
 	public String chtest() {
-		return "redirect:/template";
-	}
-	
-	@RequestMapping(value = "/chtest2", method = RequestMethod.GET)
-	public String chtest2() {
-		return "templates/1/block-2";
+		return "templates/chihyun";
 	}
 	
 	// 이가현
 	@RequestMapping(value = "/ghtest", method = RequestMethod.GET)
 	public String ghtest() {
 
-		return "templates/gallery1";
+		return "templates/listDesign";
 	}
-	
-	
 	
 	// 안정민
 	@RequestMapping(value = "/jmtest", method = RequestMethod.GET)
 	public String jmtest() {
-		return "blog/config";
+		return "templates/template_700";
 	}
 
-
-
-	
 	// 이준호
 	@RequestMapping(value = "/jhtest", method = RequestMethod.GET)
 	public String jhtest() {
 		return "blog/template";
 	}
 	
-	@RequestMapping(value = "/tmtest", method = RequestMethod.GET)
-	public String tmtest() {
-		return "templates/1/template-1";
+	//최용락 
+	@RequestMapping(value="/yrtest", method=RequestMethod.GET)
+	public String yrtest() {
+		return "templates/yrTemplate";
 	}
-	@RequestMapping(value = "/tmtest2", method = RequestMethod.GET)
-	public String tmtest2() {
-		return "templates/1/template-2";
-	}
-
 }

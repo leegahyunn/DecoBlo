@@ -12,19 +12,19 @@
 
 <style type="text/css">
 
-/* board_501 CSS */
-	.board_501 td {
+/* board-501 CSS */
+	.board-501 td {
 		text-align: center;
 		padding-top: 20px;
 		padding-bottom: 40px;
 		width: 200px;
 	}
 	
-	.board_501 ul{
+	.board-501 ul{
 		list-style: none;
 	}
 	
-	.board_501 li{
+	.board-501 li{
 		text-align: center;
 		font-size: 70%;
 		padding-bottom: 10px;
@@ -51,19 +51,19 @@
 		max-height: 150px;
 	}
 	
-/* board_502 CSS */
-	.board_502 td {
+/* board-502 CSS */
+	.board-502 td {
 		text-align: center;
 		padding-top: 20px;
 		padding-bottom: 40px;
 		width: 200px;
 	}
 	
-	.board_502 ul{
+	.board-502 ul{
 		list-style: none;
 	}
 	
-	.board_502 li{
+	.board-502 li{
 		text-align: center;
 		font-size: 70%;
 		padding-bottom: 10px;
@@ -74,6 +74,85 @@
 		text-align: center;
 		vertical-align: middle;
 		margin: 1px;
+	}
+	
+/* board-503 CSS */
+	.board-503 {
+		margin: 0;
+		padding: 0;
+	}
+ 
+ 	.board-503 {
+ 		background-color: gray;
+ 	}
+	.board-503 div {
+		margin: 20px;
+	}
+ 
+	.board-503 ul {
+		list-style-type: none;
+		width: 700px;
+		background-color: white;
+	}
+ 
+	.board-503 h3 {
+		font: bold 20px/1.5 Helvetica, Verdana, sans-serif;
+	}
+ 
+	.board-503 li img {
+		
+		width: 200px;
+		height: 200px;
+		float: left;
+		margin: 0 15px 0 0;
+	}
+ 
+	.board-503 li p {
+		font: 200 12px/1.5 Georgia, Times New Roman, serif;
+	}
+ 
+	.board-503 li {
+		padding: 10px;
+		padding-right: 40px;
+		overflow: auto;
+	}
+ 
+	.board-503 li:hover {
+		background: #eee;
+		cursor: pointer;
+	}
+	
+/* board-504 CSS */
+
+	.board-504 {
+		background-color: #444d47;
+	}
+	
+	.board-504 div {
+		width: 70%;
+		margin: 0 auto;
+		padding-top: 30px;
+		padding-bottom: 30px;
+		background-color: #ffffff;
+	}
+
+	.board-504 ol {
+		list-style-type: none;
+	}
+ 
+	.board-504 ol li {
+		position: relative;
+		font: bold italic 45px/1.5 Helvetica, Verdana, sans-serif;
+		margin-bottom: 20px;
+	}
+ 
+	.board-504 li p {
+		font: 12px/1.5 Helvetica, sans-serif;
+		padding-left: 60px;
+	}
+ 
+	.board-504 span {
+		position: absolute;
 	}
 	
 	
@@ -92,8 +171,8 @@
 
 
 
-<!-- board_501 -->
-<section class="board_501" class="wrapper">
+<!-- board-501 -->
+<section class="board-501" class="wrapper">
 	<div class="table-wrapper" align="center">	
 		<div class="custom-select" align="right" style="width: 92%; padding-bottom: 10px;">
 			<form class="search_501" action="bbsList" method="get">
@@ -162,8 +241,8 @@
 
 
 
-<!-- board_502 -->
-<section class="board_502" class="wrapper">
+<!-- board-502 -->
+<section class="board-502" class="wrapper">
 	<div class="table-wrapper" align="center">	
 		<div class="custom-select" align="right" style="width: 92%; padding-bottom: 10px;">
 			<form class="search_502" action="bbsList" method="get">
@@ -176,7 +255,7 @@
 			</form>
 		</div>
 
-		<div class="board_502"></div>
+		<div class="board-502"></div>
 
 		<table class="board" border="1" style="width:70%;">
 			<tbody>
@@ -203,7 +282,7 @@
 			</tbody>
 		</table>	
 		
-		<div class="board_502"></div>
+		<div class="board-502"></div>
 		<br>
 		
 		<!-- 페이지 -->
@@ -227,6 +306,68 @@
 			</div>
 			
 	</div>
+</section>
+
+
+
+<!-- board-503 -->
+<section class="board-503" class="wrapper">
+	<div align="center" >
+		<ul style="background-color: white;">
+			<li>
+				<img src="resources/imgUpload/list3-2.jpg" />
+				<h3>Iced Coffee with Milk</h3>
+				<p>Freshly brewed Starbucks® Iced Coffee Blend with milk – served chilled and lightly sweetened over ice.</p>
+			</li>
+			
+			<li>
+				<img src="resources/imgUpload/list3-1.jpg">
+				<h3>Iced Chocolate</h3>
+				<p>Steamed milk with vanilla- and mocha-flavored syrups. Topped with sweetened whipped cream and chocolate-flavored drizzle.</p>
+			</li>
+			
+		    <li>
+				<img src="resources/imgUpload/list3-3.jpg" />
+				<h3>White Chocolate Mocha Frappuccino® Blended Coffee</h3>
+				<p>White chocolate Frappuccino® roast coffee, milk and ice get together for what might be the best thing that happens to you all day. Oh and there's whipped cream on top.</p>
+			</li>
+		 
+			<li>
+				<img src="resources/imgUpload/list3-4.jpg" />
+				<h3>Matcha Green Tea Crème Frappuccino®</h3>
+				<p>We blend sweetened premium matcha green tea, milk and ice and top it with sweetened whipped cream to give you a delicious boost of energy.</p>
+			</li>
+		</ul>
+	</div>
+
+</section>
+
+
+
+<!-- board-504 -->
+<section class="board-504" class="wrapper">
+	<div>
+		<ol>
+			<li>
+				<span style="color:	#677e74">1.</span>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent euismod ultrices ante, ac laoreet nulla vestibulum adipiscing. 
+					Nam quis justo in augue auctor imperdiet. Curabitur aliquet orci sit amet est posuere consectetur. Fusce nec leo ut massa viverra venenatis. 
+					Nam accumsan libero a elit aliquet quis ullamcorper arcu tincidunt. Praesent purus turpis, consectetur quis congue vel, pulvinar at lorem. 
+					Vivamus varius condimentum dolor, quis ultricies ipsum porta quis. </p>
+			</li>
+			
+			<li>
+				<span style="color:	#92a4ac">2.</span>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent euismod ultrices ante, ac laoreet nulla vestibulum adipiscing. Nam quis justo in augue auctor imperdiet. Curabitur aliquet orci sit amet est posuere consectetur.  </p>
+			</li>
+				
+			<li>
+				<span style="color:	#dddbdb">3.</span>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent euismod ultrices ante, ac laoreet nulla vestibulum adipiscing. Nam quis justo in augue auctor imperdiet. Curabitur aliquet orci sit amet est posuere consectetur.  </p>
+			</li>
+		</ol>
+	</div>
+
 </section>
 
 
