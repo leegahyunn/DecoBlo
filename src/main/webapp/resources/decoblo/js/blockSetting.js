@@ -137,12 +137,23 @@ function siteConfig() {
 
 /* 사이트 설정 */
 $(function(){
-	// 블럭 내용 변경
-	$(document).on('click', '.editable', function(){         
+	// 블럭 내용 변경 text
+	$(document).on('click', '.text-editable', function(){         
 		$(this).attr('contentEditable','true');
 		$(this).focus();
 	});
-	  
+	// 블럭 내용 변경 image
+	$(document).on('mouseenter','.image',function(){
+		$(this).html('<div class="img-hover">'+
+		'<div class="filebox">'+
+		'<form class="imgFileForm" enctype"multipart/form-data">'+
+		'<label for="imagefile"><img src="resources/images/blockSettingimg/icon-image.png"/></label>'+
+		'<input type="file" id="imagefile"/><br/>'+
+		'<input type="button" value="변경" id="sendImage"></form></div></div>');
+	});
+	$(document).on('mouseleave','.image',function(){
+		$('.image > .img-hover').css('display','none');
+	});
 	$(document).on('focusout', '.editable', function(){         
 		$(this).removeAttr('contentEditable');
 		// db저장
@@ -201,7 +212,20 @@ $(function(){
 			, success : function() {}
 		});
 	});
-	
+	/*블록 이미지 수정*/
+	$(document).on('click','#sendImage',function(){
+		var formData=new FormData($('.imgFileForm')[0]);
+		console.log(formData);
+		$.ajax({
+			type:'post'
+			,url:'updateBlockImg'
+			,data:formData
+			, processData: false
+			, contentType : false
+			, success : function(){
+			}
+		});
+	});
 	/* 파비콘 수정 */
 	$(document).on('click', '#blog-fabicon-img', function(){
 		var formData2 = new FormData($("#fileform2")[0]);
@@ -792,7 +816,6 @@ $(function(){
          }
       })
    });
-   
 });
 
 
@@ -910,26 +933,6 @@ function thumnail(index){
       break;
    }
 }
-/*파일 업로드*/
-function fileSubmit() {
-    var formData = new FormData($("#fileForm")[0]);
-    console.log($("#fileForm")[0]);
-    $.ajax({
-        type : 'post',
-        url : 'fileUpload',
-        data : formData,
-        processData : false,
-        contentType : false,
-        success : function(html) {
-            alert("파일 업로드하였습니다.");
-        },
-        error : function(error) {
-            alert("파일 업로드에 실패하였습니다.");
-            console.log(error);
-            console.log(error.status);
-        }
-    }); 
-}
 /*첫화면 css */
 function firstcss(){
    var headerHeight = $('#header').height();
@@ -938,6 +941,7 @@ function firstcss(){
    $('.use-block-button').css('display','none');
    $('.block-preview').css('display','none');
 }
+
 
 /**************/
 /*메뉴 드래그앤드롭*/

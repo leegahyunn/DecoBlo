@@ -39,6 +39,7 @@
 	
 	<!-- 파일 업로드 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
-
 	
+	<beans:bean id = "uploadPath" class="java.lang.String">
+</beans:bean>
 </beans:beans>
