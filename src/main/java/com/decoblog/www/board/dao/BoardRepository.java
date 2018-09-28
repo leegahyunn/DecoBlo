@@ -64,7 +64,14 @@ public class BoardRepository {
 		return bbsAttach;
 	}
 	
-	
+	// 글 쓴이 정보 가져 오기 
+	public String selectusername(int bbsreguser) {
+		BoardMapper mapper = session.getMapper(BoardMapper.class);
+		String userNickName = mapper.selectusername(bbsreguser);
+		
+		return userNickName;
+		
+	}
 	
 	// 글 쓰기
 	public int insertBbs(Bbs bbs) {

@@ -146,10 +146,10 @@ $(function(){
 	$(document).on('mouseenter','.image',function(){
 		$(this).html('<div class="img-hover">'+
 		'<div class="filebox">'+
-		'<form class="imgFileForm" enctype"multipart/form-data">'+
 		'<label for="imagefile"><img src="resources/images/blockSettingimg/icon-image.png"/></label>'+
-		'<input type="file" id="imagefile"/><br/>'+
-		'<input type="button" value="변경" id="sendImage"></form></div></div>');
+		'<form class="imgFileForm" enctype"multipart/form-data">'+
+		'<input type="file" id="imagefile" name="imagefile"/><br/>'+
+		'<input type="button" value="변경" class="sendImage"></form></div></div>');
 	});
 	$(document).on('mouseleave','.image',function(){
 		$('.image > .img-hover').css('display','none');
@@ -201,7 +201,7 @@ $(function(){
 	/* 배경 이미지 수정 */
 	$(document).on('click', '#blog-background-img', function(){
 		var formData = new FormData($("#fileform")[0]);
-		console.log(formData);
+		//console.log(formData);
 		
 		$.ajax({
 			type : 'post'
@@ -213,13 +213,13 @@ $(function(){
 		});
 	});
 	/*블록 이미지 수정*/
-	$(document).on('click','#sendImage',function(){
-		var formData=new FormData($('.imgFileForm')[0]);
-		console.log(formData);
+	$(document).on('click','.sendImage',function(){
+		var formData3 = new FormData($(".imgFileForm")[0]);
+		console.log(formData3);
 		$.ajax({
 			type:'post'
 			,url:'updateBlockImg'
-			,data:formData
+			,data:formData3
 			, processData: false
 			, contentType : false
 			, success : function(){

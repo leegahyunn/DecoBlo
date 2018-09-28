@@ -64,7 +64,14 @@ public class BoardController {
 		PageNavigator navi = new PageNavigator(currentPage, totalRecordCount);
 
 		List<Bbs> bbsList = repository.select(searchItem, searchWord, navi.getStartRecord(), navi.getCountPerPage());
-
+		
+		for (int i = 0; i < bbsList.size(); i++) {
+			int bbsreguser = bbsList.get(i).getBbsreguser();
+			String nickname = repository.selectusername(bbsreguser);
+			System.out.println(nickname);
+			model.addAttribute("nickname", nickname);
+		}
+		
 		model.addAttribute("bbsList", bbsList);
 		model.addAttribute("searchItem", searchItem);
 		model.addAttribute("searchWord", searchWord);
@@ -79,7 +86,10 @@ public class BoardController {
 	public String selectOneBbs(Model model, int bbsNo,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "searchItem", defaultValue = "bbsTitle") String searchItem,
-			@RequestParam(value = "searchWord", defaultValue = "") String searchWord) {
+			@RequestParam(value = "searchWord", defaultValue = "") String searchWord,
+			HttpSession session) {
+		// 로그인된 유저 정보 받기
+		int loginNo = (int)session.getAttribute("loginNo");
 		
 		// 글쓴 유저 번호 받기
 		Bbs bbsDetail = repository.selectOneBbs(bbsNo);
@@ -98,6 +108,13 @@ public class BoardController {
 
 		List<Bbs> bbsList = repository.select(searchItem, searchWord, navi.getStartRecord(), navi.getCountPerPage());
 		
+		for (int i = 0; i < bbsList.size(); i++) {
+			int bbsreguser = bbsList.get(i).getBbsreguser();
+			String nickname = repository.selectusername(bbsreguser);
+			System.out.println(nickname);
+			model.addAttribute("nickname", nickname);
+		}
+		model.addAttribute("loginNo", loginNo);
 		model.addAttribute("bbsList", bbsList);
 		model.addAttribute("bbsDetail", bbsDetail);
 
