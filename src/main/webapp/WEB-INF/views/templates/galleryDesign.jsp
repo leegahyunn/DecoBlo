@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="templates/common.css" />
 <style type="text/css">
 
+/* gallery-501 CSS */
+
 .gallery-501 {
 
 	width: 60%;
