@@ -286,6 +286,9 @@ public class BlogController {
         return "blog/config";
     }
 	
+	
+	
+	
 	@ResponseBody
 	@RequestMapping(value="/updateMenu", method=RequestMethod.POST)
 	public int updateMenu(@RequestBody HashMap<String, Object> map) {
