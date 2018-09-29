@@ -39,6 +39,7 @@
 	
 	<!-- 파일 업로드 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+<<<<<<< HEAD
 
 	<!-- 인터셉터 빈등록 -->
 
@@ -63,5 +64,9 @@
 	<context:component-scan
 		base-package="com.decoblog.www" />
 
+=======
+>>>>>>> 38ff5988edd6af9b3adba723c862ae8131253bd6
 	
+	<beans:bean id = "uploadPath" class="java.lang.String">
+</beans:bean>
 </beans:beans>

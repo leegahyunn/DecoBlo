@@ -578,3 +578,234 @@ to {
 	margin: 0 auto; 
 	padding:10px
 }
+
+.block-12{
+	border:none;
+	border:0px;
+	margin:0px;
+	padding:0px;
+	font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
+	font-size:14px;
+	font-weight:bold;
+}
+.block-12 ul{
+	background: rgb(109,109,109);
+	height:50px;
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+
+.block-12 li{
+	float:left;
+	padding:0px;
+}
+
+.block-12 li a{
+	background: rgb(109,109,109);
+	color:#cccccc;
+	display:block;
+	font-weight:normal;
+	line-height:50px;
+	margin:0px;
+	padding:0px 25px;
+	text-align:center;
+	text-decoration:none;
+}
+
+.block-12 li a:hover, .block-12 ul li:hover a{
+	background: rgb(71,71,71);
+	color:#FFFFFF;
+	text-decoration:none;
+}
+
+.block-12 li ul{
+	background: rgb(109,109,109);
+	display:none; /* 평상시에는 드랍메뉴가 안보이게 하기 */
+	height:auto;
+	padding:0px;
+	margin:0px;
+	border:0px;
+	position:absolute;
+	width:200px;
+	z-index:200;
+}
+
+.block-12 li:hover ul{
+	display:block; /* 마우스 커서 올리면 드랍메뉴 보이게 하기 */
+}
+
+.block-12 li li {
+	background: rgb(109,109,109);
+	display:block;
+	float:none;
+	margin:0px;
+	padding:0px;
+	width:200px;
+}
+
+.block-12 li:hover li a{
+	background:none;
+}
+
+.block-12 li ul a{
+	display:block;
+	height:50px;
+	font-size:12px;
+	font-style:normal;
+	margin:0px;
+	padding:0px 10px 0px 15px;
+	text-align:left;
+}
+
+.block-12 li ul a:hover, .block-12 li ul li:hover a{
+	background: rgb(71,71,71);
+	border:0px;
+	color:#ffffff;
+	text-decoration:none;
+}
+
+.block-12 p{
+	clear:left;
+}
+
+/******************************************************/
+.block-13 {
+    position: relative;
+    display: inline-block;
+}
+.block-13 div {
+    position: absolute;    
+    height: 100%;
+    text-align: center;    
+    width: 100%;
+}
+.block-13 div:before {
+   content: '';
+   display: inline-block;
+   height: 100%;
+   vertical-align: middle;
+}
+.block-13 span {
+   display: inline-block;
+   font-size: 20px; /*or whatever you want*/
+   color: #FFF;   
+}
+.block-13 img {
+  display: block;
+  max-width: 100%;
+  width:1600px;
+  height: auto;
+}
+
+/******************************************************/
+.block-14{
+	text-align: center;
+	font-family:'Georgia', serif; 
+	font-style:italic; 
+}
+
+/******************************************************/
+.block-15{
+	text-align: center;
+	font-family:'Georgia', serif; 
+	font-style:italic; 
+}
+
+/******************************************************/
+.block-16{
+	text-align: center;
+	font-family:'Georgia', serif; 
+	font-style:italic; 
+}
+
+/******************************************************/
+.block-17{
+	margin:0 auto;
+	width:74%;
+	overflow: hidden;
+}
+.block-17 .left-box{
+	float:left;
+	padding:10px;
+}
+.block-17 .right-box{
+	 display:inline-block; 
+	 width:45%;
+	 padding:10px;
+}
+.block-17 img {
+	max-width: 100%;
+ 	width:100%;
+}
+
+/******************************************************/
+.block-18{
+	margin:0 auto;
+	width:74%;
+    overflow: hidden;
+}
+.block-18 .left-box{
+	width:50%;
+	float:left;
+}
+.block-18 .right-box{
+	display:inline-block; 
+	float:right;
+}
+.block-18 img {
+	max-width: 100%;
+ 	width:100%;
+}
+
+/******************************************************/
+.block-19{
+	text-align: center;
+	font-family:'Georgia', serif; 
+	font-style:italic; 
+}
+
+/******************************************************/
+.block-20{
+	margin:0 auto;
+	width:74%
+}
+.block-20 .left-box {
+	border: 1px solid gold; 
+	float: left; 
+	width: 30%; 
+	padding:10px;
+	
+}
+
+.block-20 .left-box img{
+	max-width: 100%;
+ 	width:100%;
+}
+
+.block-20 .center-box {
+	border: 1px solid red; 
+	float: left; 
+	width: 30%; 
+	padding:10px;
+}
+
+.block-20 .center-box img{
+	max-width: 100%;
+ 	width:100%;
+}
+
+.block-20 .right-box {
+	border: 1px solid blue; 
+	float: left; 
+	width: 30%; 
+	padding:10px;
+}
+.block-20 .right-box img{
+	max-width: 100%;
+ 	width:100%;
+}
+
+.block-20 .img-wrapper img {
+	width: 33%;
+}

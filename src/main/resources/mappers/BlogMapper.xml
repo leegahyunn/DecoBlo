@@ -450,5 +450,9 @@ WHERE menuNo=#{menuNo} AND menuuserno=#{menuUserNo}
 	WHERE
 		userNo = #{userNo}
 </update>
-
+<!-- 블록 컨텐트 텍스트 수정 -->
+<update id="updateBlockContentText" parameterType="Block">
+	UPDATE db_block SET blockcontent = #{blockContent}
+	WHERE blockseq = ${blockSeq}
+</update>
 </mapper>

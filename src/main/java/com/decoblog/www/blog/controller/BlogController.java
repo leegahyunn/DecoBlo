@@ -213,11 +213,69 @@ public class BlogController {
 		return  "blog/config";
 	}
 	
+	@RequestMapping(value="/updateBlockImg",method=RequestMethod.POST)
+	public String updateImageFile(MultipartHttpServletRequest multi3) {
+		String root = multi3.getSession().getServletContext().getRealPath("/");
+        String path = root+"resources/updateBlockImg/";
+        String blockSavedFile = ""; // 업로드 되는 파일명
+        String blockOriginalFile = ""; 
+        File dir = new File(path);
+        
+        if(!dir.isDirectory()){
+            dir.mkdir();
+        }
+        System.out.println(path);
+        Iterator<String> files = multi3.getFileNames();
+        System.out.println(files);
+        while(files.hasNext()){
+        	String uploadFile = files.next();
+            MultipartFile mFile = multi3.getFile(uploadFile);
+            blockOriginalFile = mFile.getOriginalFilename();
+            blockSavedFile = System.currentTimeMillis()+"."
+                    +blockOriginalFile.substring(blockOriginalFile.lastIndexOf(".")+1);
+            System.out.println("Aaaa");
+            try {
+                mFile.transferTo(new File(path+blockSavedFile));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+       
+        
+        return "blog/config";
+		/*String root = multi2.getSession().getServletContext().getRealPath("/");
+        String path = root+"resources/uploadblockimg/";
+        String blockImgSavedFile = ""; // 업로드 되는 파일명
+        String blockImgOriginalFile = ""; 
+        File dir = new File(path);
+        System.out.println(path);
+        if(!dir.isDirectory()){
+            dir.mkdir();
+        }
+         System.out.println("aa"+path);
+        Iterator<String> files = multi2.getFileNames();
+       
+        while(files.hasNext()){
+        	String uploadFile = files.next();
+            MultipartFile mFile = multi2.getFile(uploadFile);
+            blockImgOriginalFile = mFile.getOriginalFilename();
+            blockImgSavedFile = System.currentTimeMillis()+"."
+                    +blockImgOriginalFile.substring(blockImgOriginalFile.lastIndexOf(".")+1);
+            System.out.println("aaaaaaa");
+            try {
+                mFile.transferTo(new File(path+blockImgSavedFile));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return "";
+	}
 	
 	@RequestMapping(value = "/updateBackgroundImg", method = RequestMethod.POST)
     public String updateBackgroundImg(MultipartHttpServletRequest multi) {
 		String root = multi.getSession().getServletContext().getRealPath("/");
         String path = root+"resources/uploadbackgroundimg/";
+        System.out.println(path);
         String configBackgroundSavedFile = ""; // 업로드 되는 파일명
         String configBackgroundOriginFile = ""; 
         File dir = new File(path);
@@ -286,6 +344,9 @@ public class BlogController {
         return "blog/config";
     }
 	
+	
+	
+	
 	@ResponseBody
 	@RequestMapping(value="/updateMenu", method=RequestMethod.POST)
 	public int updateMenu(@RequestBody HashMap<String, Object> map) {
@@ -340,12 +401,14 @@ public class BlogController {
 	@ResponseBody
 	@RequestMapping(value="getBlockContent", method=RequestMethod.POST)
 	public String getBlockContent(int blockTmpNo) {
+		System.out.println(blockTmpNo);
 		String blockContent = blogRepository.selectBlockContent(blockTmpNo);
 		try {
 			blockContent = URLEncoder.encode(blockContent, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		System.out.println(blockContent);
 		return blockContent;
 	}
 	
@@ -604,6 +667,13 @@ public class BlogController {
 		}
 	
 		return "redirect:/config";
+	}
+	@RequestMapping(value="updateBlockContentText",method=RequestMethod.POST)
+	public @ResponseBody int updateBlockContentText(@RequestBody Block block) {
+		int result = 0;
+		System.out.println(block);
+		result = blogRepository.updateBlockContentText(block);
+		return result;
 	}
 	
 }
