@@ -281,10 +281,10 @@
 		<div class="block-15">
 			<br><br>
 			<h6><span class="text-editable"><strong>E D U C A T I O N</strong></span></h6><br>
-            <p><span class="text-editable">2011  Brand New Awards 2011<br>2010  Communication Arts Annual 52<br>2010  If They Can Make it Here<br></span></p><br><br>
-            
-            <h6><span class="text-editable"><strong>A W A R D S</strong></span></h6><br>
-            <p><span class="text-editable">2015  30 Brightest Design Stars Under 30<br>2014  Print New Visual Artists Review<br>2013  ADC Young Guns 9<br></span></p><br><br>
+		          <p><span class="text-editable">2011  Brand New Awards 2011<br>2010  Communication Arts Annual 52<br>2010  If They Can Make it Here<br></span></p><br><br>
+		          
+		          <h6><span class="text-editable"><strong>A W A R D S</strong></span></h6><br>
+		          <p><span class="text-editable">2015  30 Brightest Design Stars Under 30<br>2014  Print New Visual Artists Review<br>2013  ADC Young Guns 9<br></span></p><br><br>
 		</div>
 		
 		<!-- 타이틀 -->
@@ -303,20 +303,20 @@
 				<img src="resources/images/blockThumnail/block706.png"/>
 			</div>
 			<div class="right-box">
-				<h5><em>Etiam ut egestas</em></h5><br>
-                <h2><span>SHORT HISTORY11111</span></h2><br>
-                <hr>
-                <p>In tempor, nisi eget iaculis facilisis, mauris nunc congue risus, a placerat turpis  nibh eget elit. Proin interdum laoreet nisl eget fringilla. Etiam dapibus magna elementum, tempus urna non, pulvinar nulla. Proin varius mauristempus lorem fringilla. Integer augue orci, facilisis quis vestibulum id, feugiat a odio. Nunc vel eleifend eros, vel volutpat ligula. Sed pulvinar vulputate sagittis. Nam id tellus in quam.</p>
+				<h5 class="text-editable"><em>Etiam ut egestas</em></h5><br>
+		              <h2 class="text-editable"><span>SHORT HISTORY11111</span></h2><br>
+		              <hr>
+		              <p class="text-editable">In tempor, nisi eget iaculis facilisis, mauris nunc congue risus, a placerat turpis  nibh eget elit. Proin interdum laoreet nisl eget fringilla. Etiam dapibus magna elementum, tempus urna non, pulvinar nulla. Proin varius mauristempus lorem fringilla. Integer augue orci, facilisis quis vestibulum id, feugiat a odio. Nunc vel eleifend eros, vel volutpat ligula. Sed pulvinar vulputate sagittis. Nam id tellus in quam.</p>
 			</div>
 		</div>
 		
 		<!-- 켄텐츠 -->
 		<div class="block-18">
 			<div class="left-box">
-				<h5><em>Etiam ut egestas</em></h5><br>
-                <h2><span class="fsize30">SHORT HISTORY</span></h2><br>
-                <hr>
-                <p>In tempor, nisi eget iaculis facilisis, mauris nunc congue risus, a placerat turpis nibh eget elit. Proin interdum laoreet nisl eget fringilla. Etiam dapibus magna elementum, tempus urna non, pulvinar nulla. Proin varius mauris tempus lorem fringilla. Integer augue orci, facilisis quis vestibulum id, feugiat a odio. Nunc vel eleifend eros, vel volutpat ligula. Sed pulvinar vulputate sagittis. Nam id tellus in quam.</p>
+				<h5 class="right-box"><em>Etiam ut egestas</em></h5><br>
+		              <h2 class="right-box"><span class="fsize30">SHORT HISTORY</span></h2><br>
+		              <hr>
+		              <p class="right-box">In tempor, nisi eget iaculis facilisis, mauris nunc congue risus, a placerat turpis nibh eget elit. Proin interdum laoreet nisl eget fringilla. Etiam dapibus magna elementum, tempus urna non, pulvinar nulla. Proin varius mauris tempus lorem fringilla. Integer augue orci, facilisis quis vestibulum id, feugiat a odio. Nunc vel eleifend eros, vel volutpat ligula. Sed pulvinar vulputate sagittis. Nam id tellus in quam.</p>
 			</div>
 			<div class="right-box">
 				<img src="resources/images/blockThumnail/block707.png"/>
