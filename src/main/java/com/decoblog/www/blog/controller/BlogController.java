@@ -214,9 +214,37 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value="/updateBlockImg",method=RequestMethod.POST)
-	public String updateImageFile(MultipartHttpServletRequest multi2, HttpServletRequest req) {
-		String root = multi2.getSession().getServletContext().getRealPath("/");
-        String path = root+"resources/uploadBlockImg";
+	public String updateImageFile(MultipartHttpServletRequest multi3) {
+		String root = multi3.getSession().getServletContext().getRealPath("/");
+        String path = root+"resources/updateBlockImg/";
+        String blockSavedFile = ""; // 업로드 되는 파일명
+        String blockOriginalFile = ""; 
+        File dir = new File(path);
+        
+        if(!dir.isDirectory()){
+            dir.mkdir();
+        }
+        System.out.println(path);
+        Iterator<String> files = multi3.getFileNames();
+        System.out.println(files);
+        while(files.hasNext()){
+        	String uploadFile = files.next();
+            MultipartFile mFile = multi3.getFile(uploadFile);
+            blockOriginalFile = mFile.getOriginalFilename();
+            blockSavedFile = System.currentTimeMillis()+"."
+                    +blockOriginalFile.substring(blockOriginalFile.lastIndexOf(".")+1);
+            System.out.println("Aaaa");
+            try {
+                mFile.transferTo(new File(path+blockSavedFile));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+       
+        
+        return "blog/config";
+		/*String root = multi2.getSession().getServletContext().getRealPath("/");
+        String path = root+"resources/uploadblockimg/";
         String blockImgSavedFile = ""; // 업로드 되는 파일명
         String blockImgOriginalFile = ""; 
         File dir = new File(path);
@@ -224,14 +252,16 @@ public class BlogController {
         if(!dir.isDirectory()){
             dir.mkdir();
         }
+         System.out.println("aa"+path);
         Iterator<String> files = multi2.getFileNames();
-        System.out.println(files);
+       
         while(files.hasNext()){
         	String uploadFile = files.next();
             MultipartFile mFile = multi2.getFile(uploadFile);
             blockImgOriginalFile = mFile.getOriginalFilename();
             blockImgSavedFile = System.currentTimeMillis()+"."
                     +blockImgOriginalFile.substring(blockImgOriginalFile.lastIndexOf(".")+1);
+            System.out.println("aaaaaaa");
             try {
                 mFile.transferTo(new File(path+blockImgSavedFile));
             } catch (Exception e) {
