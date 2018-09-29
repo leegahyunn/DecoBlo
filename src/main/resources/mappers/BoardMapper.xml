@@ -21,6 +21,8 @@
 		db_bbs
 	WHERE
 		${searchItem} like '%' || #{searchWord} || '%'
+	AND
+		boardNo = #{boardNo}
 	ORDER BY
 		bbsParent desc, bbsDepth asc, bbsSeq desc
 </select>
@@ -33,7 +35,7 @@
 		, bbsTitle
 		, bbsContent
 		, bbsCount
-		, (select count(*) from db_like where bbsNo= #{bbsNo}) as bbsLike 
+		, (select count(*) from db_like where bbsNo= #{1}) as bbsLike 
 		, bbsParent
 		, bbsDepth
 		, bbsSeq
@@ -42,7 +44,9 @@
 	FROM 
 		db_bbs
 	WHERE
-		bbsNo = #{bbsNo}
+		boardNo = #{0}
+	AND
+		bbsNo = #{1}
 	ORDER BY
 		bbsRegdate desc
 </select>
@@ -127,6 +131,8 @@
 		, bbsEditDate = sysdate
 	WHERE
 		bbsNo = #{bbsNo}
+	AND
+		boardNo = #{boardNo}
 </update>
 
 
@@ -149,7 +155,9 @@
 	DELETE FROM 
 		db_bbs
 	WHERE
-		bbsNo = #{bbsNo}
+		boardNo = #{0}
+	AND
+		bbsNo = #{1}
 </delete>
 
 <!-- 첨부파일 삭제 -->
@@ -178,6 +186,8 @@
 		bbsCount = bbsCount+1
 	WHERE
 		bbsNo = #{bbsNo}
+	AND
+		boardNo = #{boardNo}
 </update>
 
 
@@ -288,14 +298,20 @@
 </update>
 
 <!-- 유저 NO 받아오기 -->
-	<select id="selectuserno" parameterType="int" resultType="int">
-	select BBSREGUSER from db_bbs
-	WHERE bbsNo = #{bbsNo}
+<select id="selectuserno" parameterType="int" resultType="int">
+	select 
+		BBSREGUSER 
+	FROM 
+		db_bbs
+	WHERE
+		 bbsNo = #{bbsNo}
 	
-	</select>
+</select>
+
+
 <!-- 게시판 조회수 증가  데이터 받거나 없으면 생성하기 -->
-	<update id="inupStat" parameterType="int" >
-	MERGE INTO DB_STAT t1
+<update id="inupStat" parameterType="int" >
+	MERGE INTO db_stat t1
 	USING DUAL 
     ON (t1.statuserno = #{userNo} and trunc(t1.statregdate)=trunc(sysdate))
 	WHEN MATCHED THEN
@@ -304,57 +320,93 @@
     INSERT (statno,statuserno, statBbsCount, statregdate)
     VALUES (db_stat_seq.nextval,#{userNo},'1',sysdate)
 </update>
-	<!--  게시판 삭제시 반영 -->
- 	<update id="decreasebbscount" parameterType="int">
- 	UPDATE DB_STAT
+
+
+<!--  게시판 삭제시 반영 -->
+ <update id="decreasebbscount" parameterType="int">
+ 	UPDATE db_stat
  	SET
- 	statBbsCount = statBbsCount - 1
- 	WHERE statuserno = #{userNo} and trunc(statregdate)=trunc(sysdate)
+ 		statBbsCount = statBbsCount - 1
+ 	WHERE 
+ 		statuserno = #{userNo} 
+ 	AND
+ 		trunc(statregdate)=trunc(sysdate)
 </update>
-	<!-- 댓글 게시판번호를 이용해 유저번호 -->
-	<select id="selectuserno2" parameterType="int" resultType="int">
+
+
+<!-- 댓글 게시판번호를 이용해 유저번호 -->
+<select id="selectuserno2" parameterType="int" resultType="int">
 	select DISTINCT db_bbs.bbsreguser as bbsreguser from db_reply
 	inner join  db_bbs 
 	on db_reply.replybbsNO = #{bbsno} and db_bbs.bbsno = db_reply.replybbsNO
 </select>
-	<!-- 댓글NO를 이용해 유저번호 -->
-	<select id="selectuserno3" parameterType="int" resultType="int">
+
+
+<!-- 댓글NO를 이용해 유저번호 -->
+<select id="selectuserno3" parameterType="int" resultType="int">
 	select DISTINCT db_bbs.bbsreguser as bbsreguser from db_reply
 	inner join  db_bbs 
 	on db_reply.replyNo = #{replyno} and db_bbs.bbsno = db_reply.replybbsNO
 </select>
-	<!-- 댓글 증가 stat 반영 -->
-	<update id="inputreplycount">
- 	UPDATE DB_STAT
+
+
+<!-- 댓글 증가 stat 반영 -->
+<update id="inputreplycount">
+ 	UPDATE db_stat
  	SET
- 	statReplyCount = statReplyCount + 1
- 	WHERE statuserno = #{userNo} and trunc(statregdate)=trunc(sysdate)
+ 		statReplyCount = statReplyCount + 1
+ 	WHERE 
+ 		statuserno = #{userNo} 
+ 	AND
+ 		trunc(statregdate)=trunc(sysdate)
 </update>
-	<!-- 댓글 감소 stat 반영 -->
-	<update id="decreasereplycount" parameterType="int">
- 	UPDATE DB_STAT
+
+
+<!-- 댓글 감소 stat 반영 -->
+<update id="decreasereplycount" parameterType="int">
+ 	UPDATE db_stat
  	SET
- 	statReplyCount = statReplyCount - 1
- 	WHERE statuserno = #{userNo} and trunc(statregdate)=trunc(sysdate)
+ 		statReplyCount = statReplyCount - 1
+ 	WHERE
+ 		statuserno = #{userNo} 
+ 	AND
+ 		trunc(statregdate)=trunc(sysdate)
 </update>
- 	<!-- 좋아요 감소 stat 반영 -->
- 	<update id="decreaselike">
- 	UPDATE DB_STAT
+
+
+
+ <!-- 좋아요 감소 stat 반영 -->
+ <update id="decreaselike">
+ 	UPDATE db_stat
  	SET
- 	statBBSLike = statBBSLike - 1
- 	WHERE statuserno = #{userno} and trunc(statregdate)=trunc(sysdate)
+ 		statBBSLike = statBBSLike - 1
+ 	WHERE
+ 		statuserno = #{userno}
+ 	AND
+ 		trunc(statregdate)=trunc(sysdate)
 </update>
- 	<!-- 좋아요 증가 stat 반영 -->
- 	<update id="inputlike">
- 	UPDATE DB_STAT
+
+
+
+ <!-- 좋아요 증가 stat 반영 -->
+ <update id="inputlike">
+ 	UPDATE db_stat
  	SET
- 	statBBSLike = statBBSLike + 1
- 	WHERE statuserno = #{userno} and trunc(statregdate)=trunc(sysdate)
+ 		statBBSLike = statBBSLike + 1
+ 	WHERE
+ 		statuserno = #{userno} 
+ 	AND
+ 		trunc(statregdate)=trunc(sysdate)
 </update>
-	<!-- 좋아요 이용한 유저 정보 획득 -->
-	<select id="selectuserno4" parameterType="int" resultType="int">
+
+
+
+<!-- 좋아요 이용한 유저 정보 획득 -->
+<select id="selectuserno4" parameterType="int" resultType="int">
 	select DISTINCT db_bbs.bbsreguser as bbsreguser from db_like
 	inner join  db_bbs 
 	on  db_bbs.bbsno = #{bbsno}  	
 </select>
+
+
 </mapper>

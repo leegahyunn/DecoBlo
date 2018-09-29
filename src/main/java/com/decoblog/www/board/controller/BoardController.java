@@ -55,15 +55,17 @@ public class BoardController {
 	@RequestMapping(value = "/bbsList", method = RequestMethod.GET)
 	public String listboard(Model model, @RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "searchItem", defaultValue = "bbsTitle") String searchItem,
-			@RequestParam(value = "searchWord", defaultValue = "") String searchWord) {
+			@RequestParam(value = "searchWord", defaultValue = "") String searchWord,
+			int boardNo) {
 
+		
 		// Repository로 넘겨주기
 		int totalRecordCount = repository.getTotalBbs(searchItem, searchWord);
 
 		// 페이지네비게이터 생성
 		PageNavigator navi = new PageNavigator(currentPage, totalRecordCount);
 
-		List<Bbs> bbsList = repository.select(searchItem, searchWord, navi.getStartRecord(), navi.getCountPerPage());
+		List<Bbs> bbsList = repository.select(searchItem, searchWord, navi.getStartRecord(), navi.getCountPerPage(), boardNo);
 
 		model.addAttribute("bbsList", bbsList);
 		model.addAttribute("searchItem", searchItem);
@@ -76,27 +78,27 @@ public class BoardController {
 
 	// 글 상세보기
 	@RequestMapping(value = "/bbsDetail", method = RequestMethod.GET)
-	public String selectOneBbs(Model model, int bbsNo,
+	public String selectOneBbs(Model model, int bbsNo, int boardNo,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "searchItem", defaultValue = "bbsTitle") String searchItem,
 			@RequestParam(value = "searchWord", defaultValue = "") String searchWord) {
 		
 		// 글쓴 유저 번호 받기
-		Bbs bbsDetail = repository.selectOneBbs(bbsNo);
+		Bbs bbsDetail = repository.selectOneBbs(boardNo, bbsNo);
 		int userNo = (int)repository.selectuserno(bbsNo);
-		System.out.println(userNo);
+		
 		// 글쓴 유저 번호를 이용하여  오늘데이터가 없으면 insert 있으면 update
 		int result = (int)repository.inupStat(userNo);
-		System.out.println(result);
 		
 		// 조회수 +1
 		repository.updateBbsCount(bbsNo);
 
+		
 		// 글목록
 		int totalRecordCount = repository.getTotalBbs(searchItem, searchWord);
 		PageNavigator navi = new PageNavigator(currentPage, totalRecordCount);
 
-		List<Bbs> bbsList = repository.select(searchItem, searchWord, navi.getStartRecord(), navi.getCountPerPage());
+		List<Bbs> bbsList = repository.select(searchItem, searchWord, navi.getStartRecord(), navi.getCountPerPage(), boardNo);
 		
 		model.addAttribute("bbsList", bbsList);
 		model.addAttribute("bbsDetail", bbsDetail);
@@ -107,24 +109,28 @@ public class BoardController {
 	// 글쓰기 화면 요청
 	@RequestMapping(value = "/writeBbs", method = RequestMethod.GET)
 	public String writeBbs(Model model, @RequestParam(value = "bbsNo", defaultValue = "0") int bbsNo,
-			@RequestParam(value = "bbsParent", defaultValue = "0") int bbsParent, String type) {
+			@RequestParam(value = "bbsParent", defaultValue = "0") int bbsParent, String type, 
+			int boardNo) {
 
 		model.addAttribute("bbsNo", bbsNo);
 		model.addAttribute("bbsParent", bbsParent);
 		model.addAttribute("type", type);
+		model.addAttribute("boardNo", boardNo);
 
 		if (type.equals("update")) {
-			model.addAttribute("bbs", repository.selectOneBbs(bbsNo));
+			model.addAttribute("bbs", repository.selectOneBbs(boardNo, bbsNo));
 		}
 		return "common/bbsWrite";
 	}
 
 	// 글쓰기 + 첨부파일 DB
 	@RequestMapping(value = "/writeBbs", method = RequestMethod.POST)
-	public String writeBbs(Bbs bbs, BbsAttach bbsAttach, String type,  MultipartFile upload,HttpSession session) {
-		int userNo = (int)session.getAttribute("loginNo");
-		System.out.println(userNo);
+	public String writeBbs(Bbs bbs, int boardNo, BbsAttach bbsAttach, String type, MultipartFile upload, HttpSession session) {
+		
+		int userNo = (int) session.getAttribute("loginNo");
+		
 		bbs.setBbsreguser(userNo);
+		bbs.setBoardNo(boardNo);
 		
 		if (type.equals("write")) {
 			repository.insertBbs(bbs);
@@ -132,27 +138,25 @@ public class BoardController {
 			repository.updateBbs(bbs);
 		}
 
-		return "redirect:bbsList";
+		return "redirect:bbsList?boardNo=" + boardNo;
 	}
 
 
 	// 글 삭제
 	@RequestMapping(value = "/deleteBbs", method = RequestMethod.GET)
-	public String deleteBbs(int bbsNo,HttpSession session) {
+	public String deleteBbs(int boardNo, int bbsNo, HttpSession session) {
 		
-		// 첨부파일 삭제
-		int result = repository.deleteBbs(bbsNo);
+		// 삭제
+		int result = repository.deleteBbs(boardNo, bbsNo);
 
-		//세션에서 로그인 데이터 받아고기
+		//세션에서 로그인 데이터 받아오기
 		int userNo = (int)session.getAttribute("loginNo");
-		System.out.println(userNo);
 		
 		//삭제시 stat에도 반영
 		int statdel = repository.decreasebbscount(userNo);
-		System.out.println(statdel);
 		
 		
-		return "redirect:bbsList";
+		return "redirect:bbsList?boardNo=" + boardNo;
 	}
 	
 	
@@ -254,7 +258,6 @@ public class BoardController {
 		int bbsno = like.getLikeBbsNo();
 		int userno = repository.selectuserno4(bbsno);
 		int inputstat = repository.inputlike(userno); 
-		System.out.println(inputstat);
 		
 		return "redirect:/bbsDetail";
 	}
@@ -266,7 +269,6 @@ public class BoardController {
 		int bbsno = likeBbsNo;
 		int userno = repository.selectuserno4(bbsno);
 		int inputstat = repository.inputlike(userno); 
-		System.out.println(inputstat);
 		
 		int likeUserNo = (int)session.getAttribute("loginNo");
 		int result = repository.deleteLike(likeUserNo, likeBbsNo);
@@ -325,13 +327,8 @@ public class BoardController {
 	public @ResponseBody Integer replyDelete(int replyNo) {
 		
 		int userno = repository.selectuserno3(replyNo);
-		
 		int delstat = repository.decreasereplycount(userno);
-		
 		int result = repository.deleteReply(replyNo);
-		
-		System.out.println(delstat);
-		
 		
 		return result;
 	}

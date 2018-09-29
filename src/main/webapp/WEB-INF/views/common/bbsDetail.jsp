@@ -12,19 +12,27 @@
 <script src="resources/library/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
 function bbsList() { 	// 글목록으로 이동
-	location.href = "${pageContext.request.contextPath}/bbsList";
+	
+	var boardNo = $('#boardNo').val();
+	location.href = "${pageContext.request.contextPath}/bbsList?boardNo="+boardNo;
 }
 
 function deleteBbs(bbsNo) { 	// 글삭제
 	
+	var boardNo = $('#boardNo').val();
+	
+	alert(bbsNo);
+	alert(boardNo);
+	
 	if (confirm('정말 삭제하시겠습니까?')) {
-		location.href = "deleteBbs?bbsNo=" + bbsNo;
+		location.href = "deleteBbs?boardNo=" + boardNo + "&bbsNo=" + bbsNo;
 	}
 }
 
 function writeAnswer(){
-
-	location.href = "${pageContext.request.contextPath}/writeBbs?type=write&bbsParent=${bbsDetail.bbsNo}";
+	
+	var boardNo = $('#boardNo').val();
+	location.href = "${pageContext.request.contextPath}/writeBbs?type=write&bbsParent=${bbsDetail.bbsNo}&boardNo="+boardNo;
 }
 
 
@@ -33,6 +41,7 @@ $(function(){
 	
 	init();
 	likeList();
+	
 	$('#replySave').on('click', replySave);
 	$('#replyForm').on('click', '.re-reply', writeReReply2);
 	$('#replyForm').on('click', '#re_replySave', re_replySave);
@@ -161,8 +170,8 @@ function writeReReply(){
 }
 
 function writeReReply2(){
-	var replyContentDiv =$(this).parent('div.replyContent');
 	
+	var replyContentDiv =$(this).parent('div.replyContent');
 	
 	replyContentDiv.append('<table id="replytable">');
 	replyContentDiv.append('<tr>');
@@ -178,7 +187,6 @@ function re_replySave(){
 	var replyBbsNo = $('#replyBbsNo').val();
 	var replyContent = $('#content').val();
 	var replyNo = $(this).parents('div.replyContent').children('input.replyUpdate').attr('data-rno');
-	//console.log($(this).parents('div.replyContent').children('input.replyUpdate').attr('data-rno'));
 	alert(replyNo);
 
 	var sendData = {
@@ -359,9 +367,10 @@ function changeLike() {
 	
 	<br>
 	<div class="detail" align="left" style="width:1200px">
+	<input type="hidden" name="boardNo" id="boardNo" value="1"/>
 		<h1 style="font-size: 30px;">${bbsDetail.bbsTitle}</h1>
 		<div style="text-align: right;">
-			<a href="writeBbs?type=update&bbsNo=${bbsDetail.bbsNo}&bbsParent=${bbsDetail.bbsParent}" style="font-size:12px; padding-right: 20px;">수정</a>
+			<a href="writeBbs?type=update&boardNo=${bbsDetail.boardNo}&bbsNo=${bbsDetail.bbsNo}&bbsParent=${bbsDetail.bbsParent}" style="font-size:12px; padding-right: 20px;">수정</a>
 			<a href="javascript:deleteBbs('${bbsDetail.bbsNo}')"  style="font-size:12px; padding-right: 20px;">삭제</a>
 		</div>
 		<hr/>
@@ -454,7 +463,7 @@ function changeLike() {
 					<c:forEach var="bbs" items="${bbsList}" varStatus="status">
 						<tr>
 							<td class="center">${status.count + navi.startRecord}</td>
-							<td><a href="bbsDetail?bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></td>
+							<td><a href="bbsDetail?boardNo=${bbs.boardNo}&bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></td>
 							<td>${bbs.bbsRegDate}</td>
 						</tr>
 					</c:forEach>
