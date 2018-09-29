@@ -39,6 +39,8 @@ public interface BlogMapper {
 	public int deleteBlock(int blockSeq);
 	//블록 css 저장 
 	public int insertBlockCss(Block block);
+	//블록 텍스트 업데이트 
+	public int updateBlockContentText(Block block);
 	public int updateBlogTitle(HashMap<String, String> map);
 	public int updateMetaTag(HashMap<String, String> map);
 	public int updateBackgroundColor(HashMap<String, String> map);

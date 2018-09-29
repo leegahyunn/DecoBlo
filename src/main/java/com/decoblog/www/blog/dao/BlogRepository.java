@@ -335,4 +335,12 @@ public class BlogRepository {
 		return result;
 		
 	}
+	
+	/*블록 컨텐트 텍스트 수정*/
+	public int updateBlockContentText(Block block) {
+		int result = 0;
+		BlogMapper mapper = session.getMapper(BlogMapper.class);
+		result = mapper.updateBlockContentText(block);
+		return result;
+	}
 }

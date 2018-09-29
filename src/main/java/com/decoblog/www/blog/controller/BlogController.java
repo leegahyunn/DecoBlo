@@ -248,7 +248,7 @@ public class BlogController {
         String blockImgSavedFile = ""; // 업로드 되는 파일명
         String blockImgOriginalFile = ""; 
         File dir = new File(path);
-        
+        System.out.println(path);
         if(!dir.isDirectory()){
             dir.mkdir();
         }
@@ -268,31 +268,7 @@ public class BlogController {
                 e.printStackTrace();
             }
         }
-		*/
-//		
-//		
-//		String test = req.getParameter("test");
-//		
-//		MultipartFile mf= mre.getFile("imgFileForm");
-//		String uploadPath = "";
-//		String root = mre.getSession().getServletContext().getRealPath("/");
-//        String path = root+"resources/uploadbackgroundimg/";
-//		String original = mf.getOriginalFilename();
-//		System.out.println("!!!!!!!!!!"+test);      // text value
-//	    System.out.println("!!!!!!!!!!"+original);  // file original name
-//	    System.out.println("!!!!!!!!!!"+mf.getSize());// file size
-//	    uploadPath = path+original; 
-//	    try {
-//            mf.transferTo(new File(uploadPath)); // 파일을 위에 지정 경로로 업로드
-//        } catch (IllegalStateException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-         
-       // return "blog/config";
+        return "";
 	}
 	
 	@RequestMapping(value = "/updateBackgroundImg", method = RequestMethod.POST)
@@ -691,6 +667,13 @@ public class BlogController {
 		}
 	
 		return "redirect:/config";
+	}
+	@RequestMapping(value="updateBlockContentText",method=RequestMethod.POST)
+	public @ResponseBody int updateBlockContentText(@RequestBody Block block) {
+		int result = 0;
+		System.out.println(block);
+		result = blogRepository.updateBlockContentText(block);
+		return result;
 	}
 	
 }

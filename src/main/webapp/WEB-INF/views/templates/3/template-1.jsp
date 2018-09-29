@@ -5,7 +5,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Insert title here</title>
-<link rel="stylesheet" href="templates/common.css" />
+<link rel="stylesheet" href="/www/templates/common.css" />
 <style>
 .block-12{
 	border:none;
@@ -254,15 +254,15 @@
 				 		<li><a href="#">Apps</a></li>
 						<li><a href="#">Extensions</a></li>
 					</ul>
- 				</li>
+					</li>
 				<li><a href="#">Company</a></li>
- 				<li><a href="#">Address</a></li>
+					<li><a href="#">Address</a></li>
 			</ul>
 		</div>
 		<!-- 쇼케이스 -->
 		<div class="block-13">
 			<div>
-				<span class="editable">Your Text is responsive and centered</span>
+				<span class="text-editable">Your Text is responsive and centered</span>
 			</div>
 			<img src="resources/images/blockThumnail/block702.png"/>
 		</div>
@@ -272,7 +272,7 @@
 			<br>
 			<hr>
 			<br>
-			<h3><span class="editable">A B O U T&nbsp;&nbsp;&nbsp;C O M P A N Y</span></h3>
+			<h3><span class="text-editable">A B O U T&nbsp;&nbsp;&nbsp;C O M P A N Y</span></h3>
 			<br>
 			<hr>
 		</div>
@@ -280,11 +280,11 @@
 		<!-- 텍스트 -->
 		<div class="block-15">
 			<br><br>
-			<h6><span class="editable"><strong>E D U C A T I O N</strong></span></h6><br>
-            <p><span class="editable">2011  Brand New Awards 2011<br>2010  Communication Arts Annual 52<br>2010  If They Can Make it Here<br></span></p><br><br>
+			<h6><span class="text-editable"><strong>E D U C A T I O N</strong></span></h6><br>
+            <p><span class="text-editable">2011  Brand New Awards 2011<br>2010  Communication Arts Annual 52<br>2010  If They Can Make it Here<br></span></p><br><br>
             
-            <h6><span class="editable"><strong>A W A R D S</strong></span></h6><br>
-            <p><span class="editable">2015  30 Brightest Design Stars Under 30<br>2014  Print New Visual Artists Review<br>2013  ADC Young Guns 9<br></span></p><br><br>
+            <h6><span class="text-editable"><strong>A W A R D S</strong></span></h6><br>
+            <p><span class="text-editable">2015  30 Brightest Design Stars Under 30<br>2014  Print New Visual Artists Review<br>2013  ADC Young Guns 9<br></span></p><br><br>
 		</div>
 		
 		<!-- 타이틀 -->
@@ -292,7 +292,7 @@
 			<br>
 			<hr>
 			<br>
-			<h3><span class="editable">M E N U</span></h3>
+			<h3><span class="text-editable">M E N U</span></h3>
 			<br>
 			<hr>
 		</div>
@@ -328,7 +328,7 @@
 			<br>
 			<hr>
 			<br>
-			<h3><span class="editable">P I C T U R E</span></h3>
+			<h3><span class="text-editable">P I C T U R E</span></h3>
 			<br>
 			<hr>
 		</div>
@@ -336,9 +336,9 @@
 		<!-- 이미지 -->
 		<div class="block-20">
 			<div class="img-wrapper" style="text-align: center">
-				<img src="resources/images/blockThumnail/block708_1.png"/>
-				<img src="resources/images/blockThumnail/block708_2.png"/>
-				<img src="resources/images/blockThumnail/block708_3.png"/>
+				<img src="www/resources/images/blockThumnail/block708_1.png"/>
+				<img src="www/resources/images/blockThumnail/block708_2.png"/>
+				<img src="www/resources/images/blockThumnail/block708_3.png"/>
 			</div>
 		</div>
 	</section>

@@ -50,7 +50,7 @@ public class HomeController {
 	// 박치현
 	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
 	public String chtest() {
-		return "templates/chihyun";
+		return "templates/template_700";
 	}
 	
 	// 이가현

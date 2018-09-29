@@ -322,7 +322,9 @@
 				</li>
 			</ul>
 			<section class="block-wrapper" data-block-seq="${blockList.blockSeq}">
+			<div class="blockContent">
 			${blockList.blockContent}
+			</div>
 			<div class="mask2" id="mask-2-${blockList.blockSeq}"></div>
 			<div class="settingIcon ${blockList.blockSeq}" id='${blockList.blockSeq}'>
 				<div class="settingButton">
