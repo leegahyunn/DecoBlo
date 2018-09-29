@@ -28,7 +28,7 @@
 				<li><a href="user/join">무료회원가입</a></li>
 				<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
 					<ul>
-						<li><a href="#">한국어(KO)</a></li>
+						<li><a href="/">한국어(KO)</a></li>
 						<li><a href="#">日本語(JP)</a></li>
 					</ul>
 				</li>
@@ -217,7 +217,7 @@
 	    </div>
 	</div>
 	<!-- /로그인 팝업 -->
-
+	
 	<!-- Scripts -->
 	<script src="pixelarity/assets/js/jquery.min.js"></script>
 	<script src="pixelarity/assets/js/jquery.dropotron.min.js"></script>

@@ -460,7 +460,7 @@ pmydate{
 								class="button">블로그 편집</a>
 							</div>
 							<div class="neighbor">
-				<p>1111111111111111111111111</p>
+				
 				</div>
 						<br/>
 						<br/>
