@@ -142,16 +142,33 @@ $(function(){
 		$(this).attr('contentEditable','true');
 		$(this).focus();
 	});
+	/*블록 내용 변경 후 DB 저장*/
+	$(document).on('focusout','.text-editable',function(){
+		var blockSeq=$(this).closest('section').attr('data-block-seq');
+		var blockContent=$(this).parents('.blockContent').html();
+		var block = {"blockContent":blockContent , "blockSeq":blockSeq};
+		var blockMenuNo = $('.menu-bar').attr("data-menu-no");
+		$.ajax({
+			url:'updateBlockContentText'
+			,type:'post'
+			,data:JSON.stringify(block)
+			,dataType:'json'
+			,contentType:'application/json; charset:utf-8'
+			,success:function(){
+				location.replace("config?menuNo="+blockMenuNo);
+			}
+		});
+	})
 	// 블럭 내용 변경 image
-	$(document).on('mouseenter','.image',function(){
+	$(document).on('mouseenter','.image-editable',function(){
 		$(this).html('<div class="img-hover">'+
 		'<div class="filebox">'+
-		'<form class="imgFileForm" enctype"multipart/form-data">'+
 		'<label for="imagefile"><img src="resources/images/blockSettingimg/icon-image.png"/></label>'+
-		'<input type="file" id="imagefile"/><br/>'+
-		'<input type="button" value="변경" id="sendImage"></form></div></div>');
+		'<form class="imgFileForm" enctype"multipart/form-data">'+
+		'<input type="file" id="imagefile" name="imagefile"/><br/>'+
+		'<input type="button" value="변경" class="sendImage"></form></div></div>');
 	});
-	$(document).on('mouseleave','.image',function(){
+	$(document).on('mouseleave','.image-deitable',function(){
 		$('.image > .img-hover').css('display','none');
 	});
 	$(document).on('focusout', '.editable', function(){         
@@ -201,7 +218,7 @@ $(function(){
 	/* 배경 이미지 수정 */
 	$(document).on('click', '#blog-background-img', function(){
 		var formData = new FormData($("#fileform")[0]);
-		console.log(formData);
+		//console.log(formData);
 		
 		$.ajax({
 			type : 'post'
@@ -213,13 +230,13 @@ $(function(){
 		});
 	});
 	/*블록 이미지 수정*/
-	$(document).on('click','#sendImage',function(){
-		var formData=new FormData($('.imgFileForm')[0]);
-		console.log(formData);
+	$(document).on('click','.sendImage',function(){
+		var formData3 = new FormData($(".imgFileForm")[0]);
+		console.log(formData3);
 		$.ajax({
 			type:'post'
 			,url:'updateBlockImg'
-			,data:formData
+			,data:formData3
 			, processData: false
 			, contentType : false
 			, success : function(){
