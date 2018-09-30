@@ -267,8 +267,7 @@ public class BlogController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        return "";
+        }*/
 	}
 	
 	@RequestMapping(value = "/updateBackgroundImg", method = RequestMethod.POST)

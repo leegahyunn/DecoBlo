@@ -3,7 +3,6 @@
 /* 메뉴 블록, block-1 */
 /**********************/
 .block-1 {
-	background-color: #000;
 	overflow: hidden;
 }
 
@@ -54,7 +53,6 @@
     top: 0px;
     opacity: 1;
     display: none;
-    background-color: #ECECEC;
     padding: 5px;    
 }
 .block-1 nav .dropdown-menu .dropdown-opt li {
@@ -116,7 +114,6 @@
 	background-size: cover;
 	background-repeat: no-repeat;
 	height: 600px;
-	background-color: #D8D8D8;
 }
 
 .block-3 .photo {
@@ -414,10 +411,6 @@ to {
 /***********/
 /* block-8 */
 /***********/
-.block-8 {	
-	background-color: #6D6059;	
-}
-
 .block-8 .contents-wrapper {
 	padding: 100px 0 ;
 	color: #FDFDFD;
@@ -525,7 +518,7 @@ to {
 }
 
 .block-10	.contents-wrapper .inside-image {
-		width: 13%;
+	width: 13%;
 	height: 200px;
 	margin: 0 22%;
 	display: inline-block;
