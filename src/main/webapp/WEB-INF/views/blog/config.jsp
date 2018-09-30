@@ -163,7 +163,7 @@
 					   	 	<input type="button" value="확인" id="blog-background-img" />
 					    </form>
 					</div>	
-					<div class="config-row">
+					<!-- <div class="config-row">
 						<label>position</label>
 						<select>
 							<option>left top</option>
@@ -192,7 +192,7 @@
 							<option>cover</option>
 							<option>contain</option>
 						</select>
-					</div>	
+					</div>	 -->
 				</div>
 			</div>
 			<div class="default-config">
