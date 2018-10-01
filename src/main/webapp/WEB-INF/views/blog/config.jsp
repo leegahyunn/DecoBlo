@@ -30,6 +30,7 @@
 	<script src="templates/block-${blockList.blockTmpNo}.js"></script>
 </c:forEach>
 </head>
+
 <body id="body-config">
 <header id="header">
 	<div class="left-menu menu-config-flip folder">

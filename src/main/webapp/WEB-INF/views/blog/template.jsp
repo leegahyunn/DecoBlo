@@ -16,7 +16,6 @@
 position: relative;
 }
 
-
 .allmm{
 position:absolute;
 top:10px;
@@ -327,7 +326,7 @@ margin: 0 auto;
 	
 	function useTemplate() {
 		if ($('#blogAddress').val() == "") {
-			alert('블로그 주소를 입력해주세요.');
+			alert(<spring:message code="t8" />);
 			$('#blogAddress').focus();
 			return false;
 		} else {
@@ -347,7 +346,7 @@ margin: 0 auto;
 							}
 						});
 					} else {
-						alert("\n");
+						alert("<spring:message code="t7" />\n<spring:message code="t9" />");
 					}
 				}
 			});

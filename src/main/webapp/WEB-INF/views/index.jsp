@@ -13,7 +13,6 @@
 <link rel="stylesheet" href="pixelarity/assets/css/main.css" />
 <link rel="stylesheet" href="decoblo/css/user.css" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
 </head>
 <body class="landing">
 	<input type="hidden" id="isAuthed" value="${isAuthed}">
