@@ -24,7 +24,7 @@
 		
 		<nav id="nav">
 			<ul>
-				<li id="login" class="main-login"><spring:message code="m1"></spring:message></li>
+				<li id="login" class="main-login"><spring:message code='m1' /></li>
 				<li><a href="user/join"><spring:message code="m2" /></a></li>
 				<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
 					<ul>

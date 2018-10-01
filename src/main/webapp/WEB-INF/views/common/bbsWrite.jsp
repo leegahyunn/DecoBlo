@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://www.springframework.org/tags" prefix= "spring" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +44,7 @@
 		alert(bbsContent);
 		
 		if (bbsTitle == '' || bbsContent == ''){
-			alert('제목과 내용을 입력하세요.');
+			alert(<spring:message code="bbsw1" />);
 			return false;
 		}
 		
@@ -74,15 +75,15 @@
 				<div class="table-inwrapper">
 					<table class="board" border="1" style="width: 1200px;">
 						<tr>
-							<td><input type="text" name="bbsTitle" id="bbsTitle" value="${bbs.bbsTitle}" placeholder="제목"></td>
+							<td><input type="text" name="bbsTitle" id="bbsTitle" value="${bbs.bbsTitle}" placeholder=<spring:message code="bbsw2" />></td>
 						</tr>
 						<tr>
 							<td><textarea rows="100" cols="50" name="bbsContent" id="bbsContent" class="bbsContent">${bbs.bbsContent}</textarea> </td>
 						</tr>
 						<tr>
 							<td class="btn" colspan="2" align="center">
-								<input type="button" value="목록" onclick="bbsList()"/>
-								<input type="submit" value="등록" onclick="return bbsCheck()"> 
+								<input type="button" value=<spring:message code="bbsw4" />" onclick="bbsList()"/>
+								<input type="submit" value=<spring:message code="bbsw3" /> onclick="return bbsCheck()"> 
 							</td>
 						</tr>
 					</table>

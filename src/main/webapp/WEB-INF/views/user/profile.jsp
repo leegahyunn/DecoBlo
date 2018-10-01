@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+ <%@ taglib uri="http://www.springframework.org/tags" prefix= "spring" %> 
 <!DOCTYPE html >
 <html>
 <head>
@@ -170,19 +171,19 @@ section.account .left-two p span, section.account .left-three input[type="passwo
 	<!-- Main -->
 	<section id="main" class="wrapper style1 account-profile">
 		<header class="major">
-			<h2>계정 관리</h2>
+			<h2><spring:message code="p1" /> </h2>
 		</header>
 		<div class="container">
 			<!-- Content -->
 				<section class="account">
 					<div class="left-one">
-						<h3>계정 정보</h3>
+						<h3><spring:message code="p2" /></h3>
 					</div>
 					<div class="left-two">
-						<p>이름</p>
-						<p>이메일</p>
-						<p>닉네임</p>
-						<p>도메인</p>												
+						<p><spring:message code="p3" /></p>
+						<p><spring:message code="p4" /></p>
+						<p><spring:message code="p5" /></p>
+						<p><spring:message code="p6" /></p>												
 					</div>
 					<div class="left-three">
 						<p id="profile-user-name"></p>
@@ -200,12 +201,12 @@ section.account .left-two p span, section.account .left-three input[type="passwo
 				<hr>
 				<section class="account additional-info">
 					<div class="left-one">
-						<h3>추가 정보</h3>
+						<h3><spring:message code="p7" /></h3>
 					</div>
 					<div class="left-two">
 						<div>
 							<img id="profile-user-image" src="../decoblo/images/profile-mypage.jpg">
-							<p>사진 수정</p>
+							<p><spring:message code="p8" /></p>
 						</div>
 					</div>
 					<div class="left-three">
@@ -216,18 +217,18 @@ section.account .left-two p span, section.account .left-three input[type="passwo
 				<hr>
 				<section class="account password">
 					<div class="left-one">
-						<h3>비밀번호</h3>
+						<h3><spring:message code="p9" /></h3>
 					</div>
 					<div class="left-two">
-						<p>기존 비밀번호</p>
-						<p>새 비밀번호</p>
-						<p>새 비밀번호 확인</p>						
+						<p><spring:message code="p10" /></p>
+						<p><spring:message code="p11" /></p>
+						<p><spring:message code="p12" /></p>						
 					</div>
 					<div class="left-three">
 						<input type="password" name="currentPassword" id="currentPassword">
 						<input type="password" name="newPassword" id="newPassword">
 						<input type="password" name="newPasswordCheck" id="newPasswordCheck">
-						<button id="update-password-btn" class="profile-edit-button">수정하기</button>
+						<button id="update-password-btn" class="profile-edit-button"><spring:message code="p13" /></button>
 					</div>
 				</section>
 
@@ -284,15 +285,15 @@ section.account .left-two p span, section.account .left-three input[type="passwo
 					$('#profile-user-name').text(resp.userName).css('font-weight', 'bold');
 					$('#profile-user-email').text(resp.userEmail).css('font-weight', 'bold');
 					if (resp.userNickName == ''){
-						$('#profile-user-nickname .basic-message').text("닉네임을 설정하지 않았습니다.");
+						$('#profile-user-nickname .basic-message').text("<spring:message code="p14" />");
 					} else {
 						$('#profile-user-nickname .basic-message').text(resp.userNickName);
 					}
 					$('#profile-user-nickname .additional-option').html('<i class="fa fa-pencil"></i>');
 					
 					if (resp.blogAddress == ''){
-						$('#profile-user-blog-address .basic-message').text("아직 블로그를 생성하지 않았습니다.");
-						$('#profile-user-blog-address .additional-option').html('<a href="#">블로그 생성</a>').css({'text-weight':'bold'});
+						$('#profile-user-blog-address .basic-message').text("<spring:message code="p15" />");
+						$('#profile-user-blog-address .additional-option').html('<a href="#"><spring:message code="p16" /></a>').css({'text-weight':'bold'});
 
 					} else {
 						$('#profile-user-blog-address .basic-message').text(resp.blogAddress);
@@ -316,19 +317,19 @@ section.account .left-two p span, section.account .left-three input[type="passwo
 			var newPasswordCheck = $('#newPasswordCheck').val();
 			
 			if (currentPassword == "") {
-				alert('비밀번호를 입력하여 주십시오');
+				alert(<spring:message code="p17" />);
 				$('#currentPassword').focus();
 				return false;
 			} 
 			
 			if (newPassword == "") {
-				alert('새로운 비밀번호를 입력하여 주십시오');
+				alert(<spring:message code="p18" />);
 				$('#newPassword').focus();
 				return false;
 			}
 			
 			if (newPassword != newPasswordCheck) {
-				alert('새 비밀번호와 확인이 일치하지 않습니다.');
+				alert(<spring:message code="p19" />);
 				$('#newPassword').focus();
 				return false;
 			}
@@ -342,11 +343,11 @@ section.account .left-two p span, section.account .left-three input[type="passwo
 				},
 				success: function(resp){
 					if (resp == "Success") {
-						alert('비밀번호가 변경되었습니다. \n'
-								+ '다시 로그인해주시기 바랍니다.');
+						alert(<spring:message code="p20" />+'\n'
+								+ <spring:message code="p21" />);
 						location.href = '/www';
 					} else {
-						alert('현재 비밀번호가 맞지 않습니다.');
+						alert(<spring:message code="p22" />);
 					}
 				}
 			});

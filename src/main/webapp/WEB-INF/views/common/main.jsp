@@ -273,7 +273,7 @@
 			</header>
 
 			
-			<h2>이웃 새글</h2>
+			<h2><spring:message code="mm1" /></h2>
 			<div class="subscribe-new">
 				<div class="top">
 					<div class="ttext">
