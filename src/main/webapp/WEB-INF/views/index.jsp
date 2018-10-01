@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix= "spring" %> 
 <!DOCTYPE html >
 <html>
 <head>
@@ -25,7 +26,7 @@
 		
 		<nav id="nav">
 			<ul>
-				<li id="login" class="main-login">로그인</li>
+				<li id="login" class="main-login">로그인<spring:message code="hello"></spring:message></li>
 				<li><a href="user/join">무료회원가입</a></li>
 				<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
 					<ul>
@@ -200,7 +201,7 @@
 	      <div class="login-body user-body">
 	        <div class="text-center logo"><img src="resources/images/logo/logo_full_white.png" alt="creatorlink logo" style="width: 200px;"></div>
 	        <div class="text-center">
-	            <span class="join-text">데코블로가 처음이신가요?</span> 
+	            <span class="join-text">데코블로가 처음이신가요?</span>
 	            <a class="join" href="user/join">회원가입</a>
 	        </div>
 	        <div class="login-form user-form form-group">

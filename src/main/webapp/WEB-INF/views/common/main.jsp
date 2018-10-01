@@ -165,6 +165,10 @@
 <body>
 	<!-- Header -->
 	<jsp:include page="header.jsp"></jsp:include>
+	
+	<form>
+		<input type="hidden" id="no-address" value="${noAddress}">
+	</form>
 
 	<!-- Main -->
 	<section id="main" class="wrapper style1">
@@ -364,6 +368,16 @@
 	<!--[if lte IE 8]><script src="pixelarity/assets/js/ie/respond.min.js"></script><![endif]-->
 	<script src="pixelarity/assets/js/main.js"></script>
 	
-		
+	<script>
+		$(function(){			
+			// 블로그 미생성시 템플릿 페이지로 이동
+			if ($('#no-address').val() == "") {
+				var moveToTemplatePage = confirm('ブログが生成されませんでした。 テンプレートページに移動しますか。');
+				if (moveToTemplatePage) {
+					location.href = "/www/template";
+				}
+			}
+		});
+	</script>
 	
 </html>
