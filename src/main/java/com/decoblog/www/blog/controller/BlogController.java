@@ -220,6 +220,11 @@ public class BlogController {
 		return  "blog/config";
 	}
 	
+	/**
+	 * 블록 이미지 수정
+	 * @param multi3 MultipartFile
+	 * @return 저장된 파일명
+	 */
 	@RequestMapping(value="/updateBlockImg",method=RequestMethod.POST)
 	public @ResponseBody String updateImageFile(MultipartHttpServletRequest multi3) {
 		String root = multi3.getSession().getServletContext().getRealPath("/");
@@ -249,6 +254,11 @@ public class BlogController {
         return blockSavedFile;
 	}
 	
+	/**
+	 * 배경 이미지 수정
+	 * @param multi MultipartFile
+	 * @return
+	 */
 	@RequestMapping(value = "/updateBackgroundImg", method = RequestMethod.POST)
     public String updateBackgroundImg(MultipartHttpServletRequest multi) {
 		String root = multi.getSession().getServletContext().getRealPath("/");
@@ -285,7 +295,11 @@ public class BlogController {
         return "blog/config";
     }
 	
-	
+	/**
+	 * 파비콘 이미지 수정
+	 * @param multi2 MultipartFile
+	 * @return
+	 */
 	@RequestMapping(value = "/updateFabiconImg", method = RequestMethod.POST)
     public String updateFabiconImg(MultipartHttpServletRequest multi2) {
 		String root = multi2.getSession().getServletContext().getRealPath("/");

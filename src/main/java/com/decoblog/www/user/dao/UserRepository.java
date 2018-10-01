@@ -44,18 +44,18 @@ public class UserRepository {
 		MailHandler sendMail = null;
 		try {
 			sendMail = new MailHandler(mailSender);
-			sendMail.setSubject("[DecoBlo 서비스 이메일 인증]");
+			sendMail.setSubject("[デコブロ]サービスメール認証");
 			sendMail.setText(
 					new StringBuffer()
-						.append("<h1>메일인증</h1>")
+						.append("<h1>メール認証</h1>")
 						.append("<a href='http://localhost:48080/www/user/emailConfirm?userEmail=")
 						.append(vo.getUserEmail())
 						.append("&key=")
 						.append(key)
-						.append("' target='_blenk'>이메일 인증 확인</a>")
+						.append("' target='_blenk'>メール認証確認</a>")
 						.toString()
 					);
-			sendMail.setFrom("decoblo35@gmail.com", "데코브로");
+			sendMail.setFrom("decoblo35@gmail.com", "デコブロ");
 			sendMail.setTo(vo.getUserEmail());
 			sendMail.send();
 		} catch (MessagingException e) {

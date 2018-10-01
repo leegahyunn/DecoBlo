@@ -324,6 +324,7 @@ margin: 0 auto;
 		});
 	});
 	
+	/* 블로그 주소 중복 확인 */
 	function useTemplate() {
 		if ($('#blogAddress').val() == "") {
 			alert('블로그 주소를 입력해주세요.');
@@ -336,21 +337,35 @@ margin: 0 auto;
 				, data   : {'address' : $('#blogAddress').val()}
 				, success: function(resp) {
 					if (resp == 'true') {
-						var templateNo = $(".login-wrapper .login-body h2").data('template-no');
-						$.ajax({
-							method   : 'post'
-							, url    : 'registerTemplate'
-							, data   : {'templateNo' : templateNo}
-							, success: function(resp) {
-								alert(resp);
-							}
-						});
+						createTemplate();
 					} else {
 						alert("이미 있는 주소입니다.\n다른 주소를 입력해주십시오.");
 					}
 				}
 			});
 		}
+	}
+	
+	/* 블로그 생성 */
+	function createTemplate() {
+		var templateNo = $(".login-wrapper .login-body h2").data('template-no');
+		$.ajax({
+			method   : 'post'
+			, url    : 'registerTemplate'
+			, data   : {'templateNo' : templateNo}
+			, success: function() {
+				// 블로그 생성
+				$.ajax({
+					method   : 'get'
+					, url    : 'saveBlog'
+				});
+				
+				var moveToConfig = confirm("ブログが生成されました。 ブログ修正ページに移動しますか。");
+				if (moveToConfig) {
+					location.href = "/www/config";	
+				}
+			}
+		});
 	}
 		
 	/* 템플릿 미리보기 */

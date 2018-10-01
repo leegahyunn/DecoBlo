@@ -370,6 +370,7 @@
 	
 	<script>
 		$(function(){			
+			// 블로그 미생성시 템플릿 페이지로 이동
 			if ($('#no-address').val() == "") {
 				var moveToTemplatePage = confirm('ブログが生成されませんでした。 テンプレートページに移動しますか。');
 				if (moveToTemplatePage) {
