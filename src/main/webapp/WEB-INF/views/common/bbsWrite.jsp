@@ -29,7 +29,9 @@
 <script type="text/javascript">
 	//글목록으로 이동
 	function bbsList() {
-		location.href = "${pageContext.request.contextPath}/bbsList";
+		
+		var boardNo = $('#boardNo').val();
+		location.href = "${pageContext.request.contextPath}/bbsList?boardNo="+boardNo;
 	}
 	
 	//글쓰기 유효성 검사
@@ -66,6 +68,7 @@
 		<input type="hidden" name="boardNo" id="boardNo" value="1"/>
 		<input type="hidden" name="bbsParent" id="bbsParent" value="${bbsParent}"/>
 		<input type="hidden" name="type" id="type" value="${type}"/>
+		<input type="hidden" name="bbsNo" id="bbsNo" value="${bbsNo}"/>
 		
 			<div class="table-wrapper" >
 				<div class="table-inwrapper">

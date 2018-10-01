@@ -57,7 +57,7 @@ public class HomeController {
 	@RequestMapping(value = "/ghtest", method = RequestMethod.GET)
 	public String ghtest() {
 
-		return "templates/listDesign";
+		return "common/notice";
 	}
 	
 	// 안정민
