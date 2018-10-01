@@ -23,7 +23,7 @@ $(function(){
 	})
 	if ($('#type').val()=="emailConfirm") {
 		if ($('#isAuthed').val() == 1) {
-			alert("회원인증에 성공하였습니다. 로그인 해주시기 바랍니다.");
+			alert("会員認証に成功しました。 ログインしてください。");
 		} else {
 			var reMail = confirm("인증에 실패하였습니다. \n 비밀번호를 다시 설정하시겠습니까?");
 			if (reMail){

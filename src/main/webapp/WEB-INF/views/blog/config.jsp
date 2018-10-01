@@ -61,7 +61,7 @@
    
 </header>
 <div class="panel-config">
-<div id="nav-container">g
+<div id="nav-container">
    <nav id="menu-config-nav">
       <!-- config-section -->
       <div class="menu-config-panel dd" id="nestable" >
