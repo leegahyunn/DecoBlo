@@ -321,7 +321,7 @@
 					</div>
 				</li>
 			</ul>
-			<section class="block-wrapper" data-block-seq="${blockList.blockSeq}">
+			<section class="block-wrapper" data-block-seq="${blockList.blockSeq}" data-blockNo="${blockList.blockNo}" style="${blockList.blockCss }">
 			<div class="blockContent">
 			${blockList.blockContent}
 			</div>

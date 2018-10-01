@@ -251,33 +251,6 @@ public class BlogController {
         
         return "blog/config";
 	}
-		/*String root = multi2.getSession().getServletContext().getRealPath("/");
-        String path = root+"resources/uploadblockimg/";
-        String blockImgSavedFile = ""; // �뾽濡쒕뱶 �릺�뒗 �뙆�씪紐�
-        String blockImgOriginalFile = ""; 
-        File dir = new File(path);
-        System.out.println(path);
-        if(!dir.isDirectory()){
-            dir.mkdir();
-        }
-         System.out.println("aa"+path);
-        Iterator<String> files = multi2.getFileNames();
-       
-        while(files.hasNext()){
-        	String uploadFile = files.next();
-            MultipartFile mFile = multi2.getFile(uploadFile);
-            blockImgOriginalFile = mFile.getOriginalFilename();
-            blockImgSavedFile = System.currentTimeMillis()+"."
-                    +blockImgOriginalFile.substring(blockImgOriginalFile.lastIndexOf(".")+1);
-            System.out.println("aaaaaaa");
-            try {
-                mFile.transferTo(new File(path+blockImgSavedFile));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return "";*/
-	}
 	
 	@RequestMapping(value = "/updateBackgroundImg", method = RequestMethod.POST)
     public String updateBackgroundImg(MultipartHttpServletRequest multi) {
