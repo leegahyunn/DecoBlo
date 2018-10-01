@@ -135,14 +135,14 @@ public class BlogRepository {
 	 * 블로그 타이틀 수정
 	 * @return 성공 여부
 	 */
-	public int updateBlogTitle(HashMap<String, String> map) {
+	public int updateBlogTitle(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.updateBlogTitle(map);
 		
 		return result;
 	}
 
-	public int updateMetaTag(HashMap<String, String> map) {
+	public int updateMetaTag(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.updateMetaTag(map);
 		
@@ -150,7 +150,7 @@ public class BlogRepository {
 		
 	}
 
-	public int updateBackgroundColor(HashMap<String, String> map) {
+	public int updateBackgroundColor(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.updateBackgroundColor(map);
 		
@@ -170,21 +170,21 @@ public class BlogRepository {
 		return result;
 	}
 
-	public int updateBlogFont(HashMap<String, String> map) {
+	public int updateBlogFont(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.updateBlogFont(map);
 		
 		return result;
 	}
 
-	public int updateOnepageStyle(HashMap<String, String> map) {
+	public int updateOnepageStyle(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.updateOnepageStyle(map);
 		
 		return result;
 	}
 
-	public int updateRightClickable(HashMap<String, String> map) {
+	public int updateRightClickable(HashMap<String, Object> map) {
 		BlogMapper mapper = session.getMapper(BlogMapper.class);
 		int result = mapper.updateRightClickable(map);
 		

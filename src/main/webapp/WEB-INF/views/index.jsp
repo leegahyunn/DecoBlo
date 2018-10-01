@@ -19,16 +19,16 @@
 	<input type="hidden" id="type" value="${type}">
 	<!-- Header -->
 	<header id="header" class="alt ">
-		<h1>
-			<a href="index.html">Deco <span>Blo</span></a>
-		</h1>
+		
+			<a href="#"><img src="resources/images/logo/logo_full_col.png" style="width: 100px; "></a>
+		
 		<nav id="nav">
 			<ul>
 				<li id="login" class="main-login">로그인</li>
 				<li><a href="user/join">무료회원가입</a></li>
 				<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
 					<ul>
-						<li><a href="#">한국어(KO)</a></li>
+						<li><a href="/">한국어(KO)</a></li>
 						<li><a href="#">日本語(JP)</a></li>
 					</ul>
 				</li>
@@ -61,8 +61,7 @@
 			</div>
 	</section>
 
-	<!-- One -->
-	<section id="one" class="wrapper style1">
+	<!-- One -->	<section id="one" class="wrapper style1">
 		<div class="container">
 			<header class="major">
 				<h2>마우스 클릭만으로 만들어지는 블로그</h2>
@@ -198,7 +197,7 @@
 	        <i class="fa fa-times"></i>
 	      </div>
 	      <div class="login-body user-body">
-	        <div class="text-center logo"><img src="//i.addblock.net/modal-logo-dark.png" alt="creatorlink logo"></div>
+	        <div class="text-center logo"><img src="resources/images/logo/logo_full_white.png" alt="creatorlink logo" style="width: 200px;"></div>
 	        <div class="text-center">
 	            <span class="join-text">데코블로가 처음이신가요?</span> 
 	            <a class="join" href="user/join">회원가입</a>
@@ -217,7 +216,7 @@
 	    </div>
 	</div>
 	<!-- /로그인 팝업 -->
-
+	
 	<!-- Scripts -->
 	<script src="pixelarity/assets/js/jquery.min.js"></script>
 	<script src="pixelarity/assets/js/jquery.dropotron.min.js"></script>

@@ -236,7 +236,7 @@
 			</div>
 			
 	</div>
-</section>
+</section>	<!-- board-501 끝 -->
 
 
 
@@ -306,7 +306,7 @@
 			</div>
 			
 	</div>
-</section>
+</section>	<!-- board-502 끝 -->
 
 
 
@@ -340,7 +340,7 @@
 		</ul>
 	</div>
 
-</section>
+</section>	<!-- board-503 끝 -->
 
 
 
@@ -368,7 +368,7 @@
 		</ol>
 	</div>
 
-</section>
+</section>	<!-- board-504 끝 -->
 
 
 </body>
