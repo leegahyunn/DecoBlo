@@ -243,6 +243,10 @@ body#body-config #header {
 	color: #FFFFFF;
 	height: 35px;
 	overflow: hidden;
+	display: block;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
 }
 #fixed-menu {
   width: 100%;
@@ -293,13 +297,24 @@ body#body-config #header .right-menu div {
 #nav-container{
 	overflow: hidden;
 }
-#menu-config-nav, #site-config-nav{
+#menu-config-nav{
 	width: 300px;
 	float: left;
- 	border: 1px solid white;
+ 	border: 1px solid #556273;
  	background-color: #FFF;
+ 	position: absolute;
+    top: 35;
 }
 
+#site-config-nav{
+	width: 300px;
+	float: left;
+ 	border: 1px solid #556273;
+ 	background-color: #FFF;
+ 	position: absolute;
+ 	left:300px;
+    top: 35;
+}
 /**************/
 /* On/Off 버튼 */
 /**************/
@@ -501,6 +516,8 @@ body { margin: 0; }
   background: #f2f2f2;
   display: inline-block;
   width: 100%;
+  position: relative;
+  top: 35;
 }
 .menu-block { margin: 0; padding: 0; }
 .menu-block li {
@@ -555,7 +572,7 @@ body { margin: 0; }
     float: left;
     color: black;
     left: 70px;
-    top: 25px;
+     top: 8px;
 	 }
 .main-menu-block span:hover { background: #ddd; }
 .main-menu-block span:hover { color: black; }
