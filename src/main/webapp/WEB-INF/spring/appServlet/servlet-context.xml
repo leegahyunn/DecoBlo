@@ -40,29 +40,29 @@
 	
 	<!-- 파일 업로드 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
-
 		<beans:bean id = "uploadPath" class="java.lang.String">
-</beans:bean>
-	<!-- 인터셉터 빈등록 -->
+	</beans:bean>
 
-	<beans:bean id="loginInterceptor"
-		class= "com.decoblog.www.stat.LoginInterceptor" />
+	<beans:bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+	     <beans:property name="basenames" value="locale/messages"/>
+	     <beans:property name="defaultEncoding" value="UTF-8"/>	         
+	 </beans:bean>    
 
-	<!-- 경로설정 -->
+	 <beans:bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+		<beans:property name="defaultLocale" value="ko" />
+	</beans:bean>
+
 	<interceptors>
-		<interceptor>
-			
-			
-			
-			<mapping path="/user/changePassword" />
-			
-			<beans:ref bean= "loginInterceptor"/>
-		</interceptor>
-	</interceptors>
-	
+	    <beans:bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+	    	<beans:property name="paramName" value="lang" />
+	    </beans:bean>
+    </interceptors>	 
 
-	<context:component-scan
-		base-package="com.decoblog.www" />
+	
+	<!-- 인터셉터 빈등록 -->
+	<beans:bean id="loginInterceptor" class= "com.decoblog.www.stat.LoginInterceptor" />
+
+	<context:component-scan base-package="com.decoblog.www" />
 </beans:beans>
 		
 		

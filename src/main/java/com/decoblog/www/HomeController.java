@@ -1,5 +1,8 @@
 package com.decoblog.www;
 
+import java.text.DateFormat;
+import java.util.Locale;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +22,8 @@ public class HomeController {
 	/* 메인 컨트롤러; 수정하지 말아주세요 */
 	/**************************************/
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(HttpSession session, Model model) {
+	public String home(HttpSession session, Model model, Locale locale) {
+		
 		if (session.getAttribute("loginNo") != null) {
 			return "redirect:/main";
 		} else {
@@ -35,7 +39,8 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String main() {
+	public String main(HttpSession session) {
+		String blogAddress = String.valueOf(session.getAttribute("loginBlogAddress"));
 		return "common/main";
 	}
 
