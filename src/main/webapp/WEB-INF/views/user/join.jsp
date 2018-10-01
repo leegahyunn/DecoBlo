@@ -17,7 +17,7 @@
            <a href="/www"><i class="fa fa-times"></i></a>
          </div>
          <div class="join-body user-body">
-           <div class="text-center logo"><img src="www/src/main/webapp/resources/images/logo/logo_full_col.png" alt="creatorlink logo" style="width: 200px;"></div>
+           <div class="text-center logo"><img src="/www/resources/images/logo/logo_full_white.png" alt="creatorlink logo" style="width: 200px;"></div>
            <div class="text-center">
                <span class="join-text"><spring:message code="j1" /></span> 
            </div>
