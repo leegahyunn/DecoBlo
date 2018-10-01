@@ -107,8 +107,9 @@ public class BlogController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/editBlogTitle", method = RequestMethod.POST)
-	public String editBlogTitle(@RequestBody HashMap<String, String> map) {
-		map.put("userNo", "1");
+	public String editBlogTitle(@RequestBody HashMap<String, Object> map, HttpSession session) {
+		int userNo =  (int) session.getAttribute("loginNo");
+		map.put("userNo", userNo);
 		blogRepository.updateBlogTitle(map);
 		return  "blog/config";
 	}
@@ -118,8 +119,9 @@ public class BlogController {
 	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
 	 */
 	@RequestMapping(value = "/updateMetaTag", method = RequestMethod.POST)
-	public String updateMetaTag(@RequestBody HashMap<String, String> map) {
-		map.put("userNo", "1");
+	public String updateMetaTag(@RequestBody  HashMap<String, Object> map, HttpSession session) {
+		int userNo =  (int) session.getAttribute("loginNo");
+		map.put("userNo", userNo);
 		blogRepository.updateMetaTag(map);
 		return  "blog/config";
 	}
@@ -129,8 +131,9 @@ public class BlogController {
 	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
 	 */
 	@RequestMapping(value = "/updateBackgroundColor", method = RequestMethod.POST)
-	public String updateBackgroundColor(@RequestBody HashMap<String, String> map) {
-		map.put("userNo", "1");
+	public String updateBackgroundColor(@RequestBody HashMap<String, Object> map, HttpSession session) {
+		int userNo =  (int) session.getAttribute("loginNo");
+		map.put("userNo", userNo);
 		blogRepository.updateBackgroundColor(map);
 		return  "blog/config";
 	}
@@ -140,8 +143,9 @@ public class BlogController {
 	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
 	 */
 	@RequestMapping(value = "/updateBlogFont", method = RequestMethod.POST)
-	public String updateBlogFont(@RequestBody HashMap<String, String> map) {
-		map.put("userNo", "1");
+	public String updateBlogFont(@RequestBody HashMap<String, Object> map, HttpSession session) {
+		int userNo =  (int) session.getAttribute("loginNo");
+		map.put("userNo", userNo);
 		blogRepository.updateBlogFont(map);
 		return  "blog/config";
 	}
@@ -151,8 +155,9 @@ public class BlogController {
 	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
 	 */
 	@RequestMapping(value = "/updateOnepageStyle", method = RequestMethod.POST)
-	public String updateOnepageStyle(@RequestBody HashMap<String, String> map) {
-		map.put("userNo", "1");
+	public String updateOnepageStyle(@RequestBody HashMap<String, Object> map, HttpSession session) {
+		int userNo =  (int) session.getAttribute("loginNo");
+		map.put("userNo", userNo);
 		blogRepository.updateOnepageStyle(map);
 		return  "blog/config";
 	}
@@ -162,8 +167,9 @@ public class BlogController {
 	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
 	 */
 	@RequestMapping(value = "/updateRightClickable", method = RequestMethod.POST)
-	public String updateRightClickable(@RequestBody HashMap<String, String> map) {
-		map.put("userNo", "1");
+	public String updateRightClickable(@RequestBody HashMap<String, Object> map, HttpSession session) {
+		int userNo =  (int) session.getAttribute("loginNo");
+		map.put("userNo", userNo);
 		blogRepository.updateRightClickable(map);
 		return  "blog/config";
 	}
@@ -173,9 +179,9 @@ public class BlogController {
 	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
 	 */
 	@RequestMapping(value = "/updateMenuVisible", method = RequestMethod.POST)
-	public String updateMenuVisible(@RequestBody HashMap<String, Object> map) {
-		System.out.println(map);
-		map.put("menuUserNo", "1");
+	public String updateMenuVisible(@RequestBody HashMap<String, Object> map, HttpSession session) {
+		int userNo =  (int) session.getAttribute("loginNo");
+		map.put("menuUserNo", userNo);
 		blogRepository.updateMenuVisible(map);
 		return  "blog/config";
 	}
@@ -185,7 +191,7 @@ public class BlogController {
 	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
 	 */
 	@RequestMapping(value = "/insertMenu", method = RequestMethod.POST)
-	public String insertMenu(@RequestBody HashMap<String, Object> map,HttpSession session) {
+	public String insertMenu(@RequestBody HashMap<String, Object> map, HttpSession session) {
 		int userNo =  (int) session.getAttribute("loginNo");
 		map.put("menuUserNo", userNo);
 		blogRepository.insertMenu(map);
@@ -197,9 +203,10 @@ public class BlogController {
 	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
 	 */
 	@RequestMapping(value = "/deleteMenu", method = RequestMethod.POST)
-	public String deleteMenu(@RequestBody HashMap<String, Object> map) {
+	public String deleteMenu(@RequestBody HashMap<String, Object> map, HttpSession session) {
 		int menuDepth = (int)map.get("menuDepth");
-		map.put("menuUserNo", "1");
+		int userNo =  (int) session.getAttribute("loginNo");
+		map.put("menuUserNo", userNo);
 		
 		if(menuDepth==0) {
 			blogRepository.deleteLargeMenu(map);
@@ -269,7 +276,7 @@ public class BlogController {
                 e.printStackTrace();
             }
         }
-        return "";
+        return "";*/
 	}
 	
 	@RequestMapping(value = "/updateBackgroundImg", method = RequestMethod.POST)
@@ -350,17 +357,17 @@ public class BlogController {
 	
 	@ResponseBody
 	@RequestMapping(value="/updateMenu", method=RequestMethod.POST)
-	public int updateMenu(@RequestBody HashMap<String, Object> map) {
+	public int updateMenu(@RequestBody HashMap<String, Object> map, HttpSession session) {
 		if (map.isEmpty()) {
 			return 0;
 		}
 		int result=0;
-		// TODO userNo �꽭�뀡媛믪쑝濡� 諛붽씀湲� 
-		map.put("menuUserNo", "1");
+		// TODO userNo 세션값으로 바꾸기 
+		int userNo =  (int) session.getAttribute("loginNo");
+		map.put("menuUserNo", userNo);
 		String depth = String.valueOf(map.get("menuDepth"));
-		System.out.println(map);
-		if(depth.equals("1")) {//��吏곸씤 �븷媛� �냼硫붾돱�씪 寃쎌슦
-			if(map.get("menuParent").equals("newMenuParent")){//��硫붾돱 �궡�뿉�꽌 �냼硫붾돱媛� �씠�룞�븳 寃쎌슦(遺�紐④� 洹몃�濡쒖씤 寃쎌슦)
+		if(depth.equals("1")) {//움직인 애가 소메뉴일 경우
+			if(map.get("menuParent").equals("newMenuParent")){//대메뉴 내에서 소메뉴가 이동한 경우(부모가 그대로인 경우)
 				blogRepository.updateSmallMenuPull(map);
 				blogRepository.updateSmallMenuPush(map);
 				result = blogRepository.updateMenu(map);
