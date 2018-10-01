@@ -37,6 +37,7 @@
 	
 	<context:component-scan base-package="com.decoblog.www" />
 	
+	
 	<!-- 파일 업로드 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 	

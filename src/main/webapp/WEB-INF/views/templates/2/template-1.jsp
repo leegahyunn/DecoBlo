@@ -133,12 +133,14 @@
 }
 
 .block-9 .image {
-	background-image: url(https://www.incimages.com/uploaded_files/image/1940x900/getty_504333530_361153.jpg);
-	background-size: cover;
 	width: 50%;
 	height: 300px;
 	float: left;
 	margin: 0 5%;
+}
+
+.block-9 .image img {
+	width: 100%;
 }
 
 /* block-10 */
@@ -152,15 +154,16 @@
 	overflow: hidden;
 }
 
-.block-10	.contents-wrapper .inside-image {
-		width: 13%;
+.block-10 .contents-wrapper .inside-image {
+	width: 13%;
 	height: 200px;
 	margin: 0 22%;
 	display: inline-block;
-	float: left;
-	background-image: url(/www/templates/circle_r.png);
-	background-size: contain;
-	background-repeat: no-repeat;
+	float: left;	
+}
+
+.block-10 .contents-wrapper .inside-image img {
+	width: 100%;
 }
 
 .block-10	.contents-wrapper .contents {
@@ -232,14 +235,14 @@
 		<div class="block-8">
 			<div class="contents-wrapper">
 				<div class="contents">
-					<h2 class="editable">The art of blending through the eyes of artists</h2>
-					<p class="editable">
+					<h2 class="text-editable">The art of blending through the eyes of artists</h2>
+					<p class="text-editable">
 						Our four-part series, Coffee Stories, continues with chapter three, 
 						“Blending.” See how coffee blending inspired muralists Jessie and Katey 
 						to create the art for this original, limited-edition packaging for our 
 						signature smooth and balanced Pike Place® Roast.
 					</p>
-					<button class="editable">READ THE FULL STORY</button>
+					<button class="button-editable text-editable">READ THE FULL STORY</button>
 				</div>
 				<!-- 움직여야 돼 -->
 				<div class="showcase-image">
@@ -253,20 +256,21 @@
 	<div class="block-wrapper">
 		<div class="block-9">
 			<div class="contents-wrapper">
-				<h3 class="editable">THE BEST COFFEE. STARBUCKS COFFEE FINDER.</h3>
-				<p class="editable">
+				<h3 class="text-editable">THE BEST COFFEE. STARBUCKS COFFEE FINDER.</h3>
+				<p class="text-editable">
 					Our coffee masters have distilled their years of tasting knowledge down to three simple 
 					questions to help you find a Starbucks coffee you’re sure to love.
 				</p>
-				<a href="#" class="editable">
+				<a href="#" class="text-editable">
 					Explore our coffees
 				</a>
 				<br>
-				<a href="#" class="editable">
+				<a href="#" class="text-editable">
 					Browse our coffees
 				</a>
 			</div>
-			<div class="image">
+			<div class="image image-editable">
+				<img src="https://www.incimages.com/uploaded_files/image/1940x900/getty_504333530_361153.jpg">
 			</div>
 		</div>
 	</div>
@@ -278,11 +282,12 @@
 		<div class="block-10">
 			<div class="contents-wrapper">
 				<div>
-					<div class="inside-image">
+					<div class="inside-image image-editable">
+						<img src="/www/templates/circle_r.png">
 					</div>		
 					<div class="contents">			
-						<h3 class="editable">OUR RAREST COFFEES, SMALL-BATCH ROASTED IN SEATTLE</h3>
-						<p class="editable">
+						<h3 class="text-editable">OUR RAREST COFFEES, SMALL-BATCH ROASTED IN SEATTLE</h3>
+						<p class="text-editable">
 							We travel the world in search of great coffee. In the process, we discover beans 
 							so special and rare that we can’t wait to bring them home and share. Each of these 
 							small-lot coffees has its own story to tell, and we meticulously develop a signature 
@@ -298,9 +303,9 @@
 	<!-- text, block-11 -->
 	<div class="block-wrapper">
 		<div class="block-11">
-			<h3>Explore the range in every roast.</h3>
+			<h3 class="text-editable">Explore the range in every roast.</h3>
 			<div class="line"></div>
-			<p>
+			<p class="text-editable">
 				Each Starbucks® roast boasts a variety of tastes and flavors 
 				<br>
 				so you can bring home a new favorite.
