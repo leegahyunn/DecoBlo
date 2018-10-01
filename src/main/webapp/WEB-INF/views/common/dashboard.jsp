@@ -452,7 +452,7 @@ pmydate{
 						<div class="maintext">
 							<br>
 							<h3>${loginName}</h3>
-							<p>LAST UPDATE</p>
+							<p>LAST UPDATE  ${today}</p>
 
 						</div>
 						<div class="mainbutton">
@@ -460,7 +460,7 @@ pmydate{
 								class="button">블로그 편집</a>
 							</div>
 							<div class="neighbor">
-				<p>1111111111111111111111111</p>
+				
 				</div>
 						<br/>
 						<br/>
@@ -580,19 +580,19 @@ pmydate{
 							</section>
 							<section id="panel-3">
 								<main>
-								<p align="left" id="clock">기준</p>
+								<p align="left" id="clock3">기준</p>
 								<canvas id="chart3"></canvas>
 								 </main>
 							</section>
 							<section id="panel-4">
 								<main>
-								<p align="left" id="clock">기준</p>
+								<p align="left" id="clock4">기준</p>
 								<canvas id="chart4"></canvas>
 								 </main>
 							</section>
 							<section id="panel-5">
 								<main>
-								<p align="left" id="clock">기준</p>
+								<p align="left" id="clock5">기준</p>
 								<canvas id="chart5"></canvas>
 								</main>
 							</section>
@@ -739,14 +739,19 @@ pmydate{
 
 	            var clock = document.getElementById("clock");
 	            var clock2 = document.getElementById("clock2");
-
+	            var clock3 = document.getElementById("clock3");
+	            var clock4 = document.getElementById("clock4");
+	            var clock5 = document.getElementById("clock5");
+	            
 	            var now = new Date();                                                  // 현재시간
 
 	            var nowTime = now.getFullYear() + "년" + (now.getMonth()+1) + "월" + now.getDate() + "일" + now.getHours() + "시" + now.getMinutes() + "분";
 
 	            clock.innerHTML = nowTime;           // 현재시간을 출력
 	            clock2.innerHTML = nowTime; 
-	            
+	            clock3.innerHTML = nowTime; 
+	            clock4.innerHTML = nowTime;
+	            clock5.innerHTML = nowTime;
 	            setTimeout("printTime()",1000);         // setTimeout(“실행할함수”,시간) 시간은1초의 경우 1000
 
 			}
@@ -909,7 +914,8 @@ pmydate{
 
 								$('#week-picker').val(startDate + '~' + endDate);
 					            setTimeout("applyWeeklyHighlight()", 100);
-					            var send = startDate+'~'+endDate;
+					            var send = startDate + '~' + endDate;
+					            alert(send);
 					            var senddate = {'statRegDate':send};
 					            alert(JSON.stringify(senddate));
 					            $.ajax({
@@ -1026,22 +1032,22 @@ pmydate{
 				chart2 += '</main>'
 				
 			 var chart3 =  '<main>'
-				 chart3 += '<p align="left" id="clock">기준</p>'
+				 chart3 += '<p align="left" id="clock2">기준</p>'
 				 chart3 += '<canvas id="chart2"></canvas>'
 				 chart3 += '</main>'	
 				 
 			 var chart4 =  '<main>'
-				 chart4 += '<p align="left" id="clock">기준</p>'
+				 chart4 += '<p align="left" id="clock3">기준</p>'
 				 chart4 += '<canvas id="chart3"></canvas>'
 				 chart4 += '</main>'	 
 			
 			 var chart5 =  '<main>'
-				 chart5 += '<p align="left" id="clock">기준</p>'
+				 chart5 += '<p align="left" id="clock4">기준</p>'
 				 chart5 += '<canvas id="chart4"></canvas>'
 				 chart5 += '</main>'
 				 
 			 var chart6 =  '<main>'
-				 chart6 += '<p align="left" id="clock">기준</p>'
+				 chart6 += '<p align="left" id="clock5">기준</p>'
 				 chart6 += '<canvas id="chart5"></canvas>'
 				 chart6 += '</main>'
 						 

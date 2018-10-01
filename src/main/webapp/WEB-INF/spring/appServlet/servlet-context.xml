@@ -40,7 +40,30 @@
 	
 	<!-- 파일 업로드 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
-	
-	<beans:bean id = "uploadPath" class="java.lang.String">
+
+		<beans:bean id = "uploadPath" class="java.lang.String">
 </beans:bean>
+	<!-- 인터셉터 빈등록 -->
+
+	<beans:bean id="loginInterceptor"
+		class= "com.decoblog.www.stat.LoginInterceptor" />
+
+	<!-- 경로설정 -->
+	<interceptors>
+		<interceptor>
+			
+			
+			
+			<mapping path="/user/changePassword" />
+			
+			<beans:ref bean= "loginInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
+
+	<context:component-scan
+		base-package="com.decoblog.www" />
 </beans:beans>
+		
+		
+

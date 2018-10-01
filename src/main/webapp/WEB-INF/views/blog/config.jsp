@@ -163,7 +163,7 @@
 					   	 	<input type="button" value="확인" id="blog-background-img" />
 					    </form>
 					</div>	
-					<div class="config-row">
+					<!-- <div class="config-row">
 						<label>position</label>
 						<select>
 							<option>left top</option>
@@ -192,7 +192,7 @@
 							<option>cover</option>
 							<option>contain</option>
 						</select>
-					</div>	
+					</div>	 -->
 				</div>
 			</div>
 			<div class="default-config">
@@ -321,7 +321,7 @@
 					</div>
 				</li>
 			</ul>
-			<section class="block-wrapper" data-block-seq="${blockList.blockSeq}">
+			<section class="block-wrapper" data-block-seq="${blockList.blockSeq}" data-blockNo="${blockList.blockNo}" style="${blockList.blockCss }">
 			<div class="blockContent">
 			${blockList.blockContent}
 			</div>

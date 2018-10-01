@@ -3,7 +3,6 @@
 /* 메뉴 블록, block-1 */
 /**********************/
 .block-1 {
-	background-color: #000;
 	overflow: hidden;
 }
 
@@ -54,7 +53,6 @@
     top: 0px;
     opacity: 1;
     display: none;
-    background-color: #ECECEC;
     padding: 5px;    
 }
 .block-1 nav .dropdown-menu .dropdown-opt li {
@@ -116,7 +114,6 @@
 	background-size: cover;
 	background-repeat: no-repeat;
 	height: 600px;
-	background-color: #D8D8D8;
 }
 
 .block-3 .photo {

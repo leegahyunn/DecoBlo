@@ -109,7 +109,7 @@ function siteConfig() {
 		, success: function(resp) {
 			$('title').text("DecoBlo - " + resp.blogTitle);
 			$('.blogTitle').html(resp.blogTitle);
-			$('.block-wrapper').css('background-color', resp.configBackgroundColor)
+			$('.menu-wrapper').css('background-color', resp.configBackgroundColor);
 			$('.metaAuthor').val(resp.metaAuthor);
 			$('.metaKeyword').val(resp.metaKeyword);
 			$('.metaDescription').val(resp.metaDescription);

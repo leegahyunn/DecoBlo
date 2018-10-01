@@ -41,14 +41,14 @@ public interface BlogMapper {
 	public int insertBlockCss(Block block);
 	//블록 텍스트 업데이트 
 	public int updateBlockContentText(Block block);
-	public int updateBlogTitle(HashMap<String, String> map);
-	public int updateMetaTag(HashMap<String, String> map);
-	public int updateBackgroundColor(HashMap<String, String> map);
+	public int updateBlogTitle(HashMap<String, Object> map);
+	public int updateMetaTag(HashMap<String, Object> map);
+	public int updateBackgroundColor(HashMap<String, Object> map);
 	public int updateBackgroundImg(HashMap<String, Object> map);
 	public User selectBlog(int userNo);
-	public int updateBlogFont(HashMap<String, String> map);
-	public int updateOnepageStyle(HashMap<String, String> map);
-	public int updateRightClickable(HashMap<String, String> map);
+	public int updateBlogFont(HashMap<String, Object> map);
+	public int updateOnepageStyle(HashMap<String, Object> map);
+	public int updateRightClickable(HashMap<String, Object> map);
 	public int insertMenu(HashMap<String, Object> map);
 	public int updateSubmenu(HashMap<String, Object> map);
 	public int deleteLargeMenu(HashMap<String, Object> map);
