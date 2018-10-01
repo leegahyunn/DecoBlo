@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix= "spring" %>  
 <!DOCTYPE html >
 <html>
 <head>
@@ -160,7 +161,6 @@
 }
 </style>
 
-
 </head>
 <body>
 	<!-- Header -->
@@ -273,7 +273,7 @@
 			</header>
 
 			
-			<h2>이웃 새글</h2>
+			<h2><spring:message code="mm1" /></h2>
 			<div class="subscribe-new">
 				<div class="top">
 					<div class="ttext">
