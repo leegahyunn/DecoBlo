@@ -66,7 +66,14 @@ public class BoardController {
 		PageNavigator navi = new PageNavigator(currentPage, totalRecordCount);
 
 		List<Bbs> bbsList = repository.select(searchItem, searchWord, navi.getStartRecord(), navi.getCountPerPage(), boardNo);
-
+		
+		for (int i = 0; i < bbsList.size(); i++) {
+			int bbsreguser = bbsList.get(i).getBbsreguser();
+			String nickname = repository.selectusername(bbsreguser);
+			System.out.println(nickname);
+			model.addAttribute("nickname", nickname);
+		}
+		
 		model.addAttribute("bbsList", bbsList);
 		model.addAttribute("searchItem", searchItem);
 		model.addAttribute("searchWord", searchWord);
@@ -81,7 +88,10 @@ public class BoardController {
 	public String selectOneBbs(Model model, int bbsNo, int boardNo,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "searchItem", defaultValue = "bbsTitle") String searchItem,
-			@RequestParam(value = "searchWord", defaultValue = "") String searchWord) {
+			@RequestParam(value = "searchWord", defaultValue = "") String searchWord,
+			HttpSession session) {
+		// 로그인된 유저 정보 받기
+		int loginNo = (int)session.getAttribute("loginNo");
 		
 		// 글쓴 유저 번호 받기
 		Bbs bbsDetail = repository.selectOneBbs(boardNo, bbsNo);
@@ -100,6 +110,13 @@ public class BoardController {
 
 		List<Bbs> bbsList = repository.select(searchItem, searchWord, navi.getStartRecord(), navi.getCountPerPage(), boardNo);
 		
+		for (int i = 0; i < bbsList.size(); i++) {
+			int bbsreguser = bbsList.get(i).getBbsreguser();
+			String nickname = repository.selectusername(bbsreguser);
+			System.out.println(nickname);
+			model.addAttribute("nickname", nickname);
+		}
+		model.addAttribute("loginNo", loginNo);
 		model.addAttribute("bbsList", bbsList);
 		model.addAttribute("bbsDetail", bbsDetail);
 
@@ -277,10 +294,6 @@ public class BoardController {
 		return "redirect:/bbsDetail";
 	}
 	
-	
-	
-	
-	
 	/**************************************/
 	/* REPLY ******************************/
 	/**************************************/
@@ -321,7 +334,6 @@ public class BoardController {
 		
 	}
 	
-	
 	// 댓글 삭제
 	@RequestMapping(value="/replyDelete", method=RequestMethod.GET)
 	public @ResponseBody Integer replyDelete(int replyNo) {
@@ -333,7 +345,6 @@ public class BoardController {
 		return result;
 	}
 	
-	
 	// 댓글 수정
 	@RequestMapping(value="/replyUpdate", method=RequestMethod.POST)
 	public @ResponseBody Integer replyUpdate(@RequestBody Reply reply) {
@@ -342,10 +353,4 @@ public class BoardController {
 		
 		return result;
 	}
-	
-	
-	
-	
-	
-
 }

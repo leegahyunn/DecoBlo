@@ -371,9 +371,16 @@ function changeLike() {
 		<h1 style="font-size: 30px;">${bbsDetail.bbsTitle}</h1>
 		<div style="text-align: right;">
 			<a href="writeBbs?type=update&boardNo=${bbsDetail.boardNo}&bbsNo=${bbsDetail.bbsNo}&bbsParent=${bbsDetail.bbsParent}" style="font-size:12px; padding-right: 20px;">수정</a>
+		<h1 style="font-size: 30px;">${bbsDetail.bbsTitle}</h1><p style="text-align: right; font-size: 14px;">조회 &nbsp;&nbsp;${bbsDetail.bbsCount}</p>
+		<hr style=" border: none;border-top: 1px dotted gray;color: #fff; background-color: #fff;height: 1px;" />
+		<div style="text-align: right;">
+		<p style="font-size:14px;">${nickname}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${bbsDetail.bbsRegDate}</p>
+		<c:if test="${bbsDetail.bbsreguser eq loginNo}">
+			<a href="writeBbs?type=update&bbsNo=${bbsDetail.bbsNo}&bbsParent=${bbsDetail.bbsParent}" style="font-size:12px; padding-right: 20px;">수정</a>
 			<a href="javascript:deleteBbs('${bbsDetail.bbsNo}')"  style="font-size:12px; padding-right: 20px;">삭제</a>
+			</c:if>
 		</div>
-		<hr/>
+		
 		<!-- <hr class="hr"/> -->  
 	
 		<br/>

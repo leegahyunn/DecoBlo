@@ -50,7 +50,7 @@ public class HomeController {
 	// 박치현
 	@RequestMapping(value = "/chtest", method = RequestMethod.GET)
 	public String chtest() {
-		return "templates/chihyun";
+		return "templates/template_700";
 	}
 	
 	// 이가현
@@ -69,7 +69,7 @@ public class HomeController {
 	// 이준호
 	@RequestMapping(value = "/jhtest", method = RequestMethod.GET)
 	public String jhtest() {
-		return "blog/template/1/template_800";
+		return "templates/template_800";
 	}
 	
 	//최용락 

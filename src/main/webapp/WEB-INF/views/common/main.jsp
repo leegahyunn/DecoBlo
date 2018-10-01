@@ -150,8 +150,13 @@
 }
 .hot-content{
 	text-overflow: ellipsis;
-	height: 48%;
+	height: 35%;
 	overflow: hidden;
+	display: -webkit-box; 
+	-webkit-line-clamp: 5; 
+	-webkit-box-orient: vertical;
+
+
 }
 </style>
 
@@ -176,7 +181,7 @@
 						<a class="prev" onclick="plusSlides(-1)"></a>
 						<div class="slideshow">
 							<div class="thumbnails-wrapper">
-								<img width="100%" height="100%" src="resources/images/sample1.jpg">
+								<img width="100%" height="100%" src="resources/images/coff.png">
 							</div>
 							<h3 class="hot-title">
 								Lorem Ipsum

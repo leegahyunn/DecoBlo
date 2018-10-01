@@ -17,6 +17,7 @@
 		, bbsSeq
 		, to_char(bbsRegdate, 'YYYY-MM-DD') bbsRegdate
 		, to_char(bbsEditDate, 'YYYY-MM-DD') bbsEditDate
+		, bbsreguser
 	FROM
 		db_bbs
 	WHERE
@@ -26,7 +27,12 @@
 	ORDER BY
 		bbsParent desc, bbsDepth asc, bbsSeq desc
 </select>
-
+<!-- 유저이름 가져오기 -->
+<select id="selectusername" parameterType="int" resultType="String">
+select DISTINCT db_user.usernickname as userNickName  from db_bbs
+	inner join  db_user 
+	on db_user.userno = #{bbsreguser}
+</select>
 <!-- 글 상세보기 -->
 <select id="selectOneBbs" parameterType="int" resultType="Bbs">
 	SELECT
@@ -39,8 +45,9 @@
 		, bbsParent
 		, bbsDepth
 		, bbsSeq
-		, to_char(bbsRegdate, 'YYYY-MM-DD') bbsRegdate
+		, to_char(bbsRegdate, 'YYYY-MM-DD HH24:MI:SS') bbsRegdate
 		, to_char(bbsEditDate, 'YYYY-MM-DD') bbsEditDate
+		, bbsreguser
 	FROM 
 		db_bbs
 	WHERE

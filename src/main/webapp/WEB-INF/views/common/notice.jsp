@@ -140,7 +140,9 @@ function writeBbs(boardNo) { 	// 글쓰기로 이동
 					<tr>
 						<th>No.</th>
 						<th>제목</th>
+						<th>작성자</th>	
 						<th>작성일</th>
+						<th>조회수</th>
 					</tr>
 				</thead>
 				
@@ -161,7 +163,9 @@ function writeBbs(boardNo) { 	// 글쓰기로 이동
 								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-reply fa-rotate-180"></i>&nbsp;&nbsp;&nbsp;<a href="bbsDetail?bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></td>
 							</c:if>
 							
+							<td>${nickname}</td>
 							<td>${bbs.bbsRegDate}</td>
+							<td>${bbs.bbsCount}</td>
 						</tr>
 					</c:forEach>
 					</c:if>

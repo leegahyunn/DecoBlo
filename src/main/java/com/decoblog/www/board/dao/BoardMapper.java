@@ -49,6 +49,9 @@ public interface BoardMapper {
 	public int updateBbsCount(int bbsNo);
 	// 글 전체 개수 조회
 	public int getTotalBbs(Map<String, String> map);
+	
+	// 글 쓴 이 정보 가져오기 
+	public String selectusername(int bbsreguser);
 
 	
 	/**************************************/

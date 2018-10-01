@@ -317,3 +317,35 @@
     background-color: #2d343e;
     cursor: pointer;
 }
+.img-hover{
+	position:relative;
+	width: 100%;
+	height: 100%;
+	background-color: #fed136;
+	display: block;
+	opacity: 0.8;
+}
+.img-hover .filebox{
+	position: relative;
+	top: 40%;
+}
+.img-hover .filebox label{
+	display: inline-block; 
+	padding: .5em .75em;
+	background-color: #4789E7; 
+	cursor: pointer; 
+	border: 1px solid #4789E7; 
+	border-bottom-color: #e2e2e2; 
+	border-radius: .25em;
+
+}
+.img-hover input[type="file"]{
+	position: absolute; 
+	width: 1px; 
+	height: 1px; 
+	padding: 0; 
+	margin: -1px; 
+	overflow: hidden; 
+	clip:rect(0,0,0,0); 
+	border: 0;
+}
