@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix= "spring" %> 
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -110,7 +111,7 @@ function writeBbs(boardNo) { 	// 글쓰기로 이동
 <section id="main" class="wrapper">
 	<div class="heading" align="center" style="margin-bottom: 70px;">
 		<p class="title"><b>NOTICE</b></p>
-		<p style="font-size: 16px;">데코블로의 기능 개선 및 서비스 점검 등 새로운 소식을 안내 드립니다.</p>
+		<p style="font-size: 16px;"><spring:message code="n1" /></p>
 	</div>
 
 
@@ -122,11 +123,11 @@ function writeBbs(boardNo) { 	// 글쓰기로 이동
 				<select name="searchItem" class="searchItem" style="margin: 5px;">
 	
 	<!-- 여기 검색에는 작성자 검색 X => 특별히 필요할 것 같지 않아서 넣지 않음 -->
-					<option value="bbsTitle" ${searchItem == 'bbsTitle' ? 'selected':'' } >글제목</option>
-					<option value="bbsContent" ${searchItem == 'bbsContent' ? 'selected':'' } >내용</option>
+					<option value="bbsTitle" ${searchItem == 'bbsTitle' ? 'selected':'' } ><spring:message code="n2" /></option>
+					<option value="bbsContent" ${searchItem == 'bbsContent' ? 'selected':'' } ><spring:message code="n3" /></option>
 				</select>
 				<input class="searchWord" type="text" name="searchWord" value="${searchWord }" style="margin: 5px;"/>
-				<input class="buttons" type="submit" value="검색" style="line-height:normal; text-align: center; margin: 5px;"/>
+				<input class="buttons" type="submit" value=<spring:message code="n4" /> style="line-height:normal; text-align: center; margin: 5px;"/>
 			</form>
 		</div>
 
@@ -139,16 +140,16 @@ function writeBbs(boardNo) { 	// 글쓰기로 이동
 				<thead>
 					<tr>
 						<th>No.</th>
-						<th>제목</th>
-						<th>작성자</th>	
-						<th>작성일</th>
-						<th>조회수</th>
+						<th><spring:message code="n5" /></th>
+						<th><spring:message code="n6" /></th>	
+						<th><spring:message code="n7" /></th>
+						<th><spring:message code="n8" /></th>
 					</tr>
 				</thead>
 				
 				<tbody>
 					<c:if test="${empty bbsList }">
-						<td colspan="5" style="text-align:center;">작성된 글이 없습니다</td>
+						<td colspan="5" style="text-align:center;"><spring:message code="n9" /></td>
 					</c:if>
 					<!-- 이하 글 목록 반복 -->
 					<c:if test="${not empty bbsList }">
@@ -189,7 +190,7 @@ function writeBbs(boardNo) { 	// 글쓰기로 이동
 				</div>
 				<div class="right" align="right" style="width:1210px">
 					<!-- 관리자만 공지사항 등록 가능 c:if 사용하기 -->			
-					<input class="buttons" type="button" value="공지사항등록" onclick="writeBbs(boardNo)" style="line-height:normal; text-align: center; margin: 5px;"/>
+					<input class="buttons" type="button" value=<spring:message code="n10" /> onclick="writeBbs(boardNo)" style="line-height:normal; text-align: center; margin: 5px;"/>
 				</div>
 			</div>
 					
