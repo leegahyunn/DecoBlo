@@ -41,8 +41,11 @@ public class HomeController {
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main(Model model, HttpSession session) {
 		String blogAddress = String.valueOf(session.getAttribute("loginBlogAddress"));
-		if (blogAddress == null) {
-			model.addAttribute("noAddress", "null");
+		System.out.println(blogAddress);
+		if (blogAddress.equals("")) {
+			model.addAttribute("noAddress", "true");
+		} else {
+			model.addAttribute("noAddress", "false");
 		}
 		return "common/main";
 	}
