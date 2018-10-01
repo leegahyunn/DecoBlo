@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="pixelarity/assets/css/main.css" />
 <link rel="stylesheet" href="decoblo/css/user.css" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link href="https://フォントCSSのURL" rel="stylesheet">
 
 </head>
 <body class="landing">
@@ -50,7 +51,7 @@
 	<section id="banner" style="background-image: url('pixelarity/images/background.png'); background-size: cover; ; ">
 		<div class="inner">
 			<h2>자신만의 특별한 블로그 제작</h2>
-			<p>코딩을 몰라도 누구나 자신만의 특별한 블로그를 만들 수 있습니다.</p>
+			<p>코딩을 몰라도 누구나 자신만의 특별한 블로그를 만들 수 있습니다.あいしてる</p>
 			<ul class="actions">
 				<li><a href="#" class="button big scrolly main-login">시작하기</a></li>
 			</ul>

@@ -373,9 +373,7 @@ to {
 	font-style: italic;
 }
 
-/***********/
 /* block-7 */
-/***********/
 .block-7 {
 	height: 100px;
 	overflow: hidden;	
@@ -407,10 +405,11 @@ to {
 	color: #020202	;
 }
 
-
-/***********/
 /* block-8 */
-/***********/
+.block-8 {	
+	background-color: #6D6059;	
+}
+
 .block-8 .contents-wrapper {
 	padding: 100px 0 ;
 	color: #FDFDFD;
@@ -454,9 +453,7 @@ to {
 	background-size: cover;
 }
 
-/***********/
 /* block-9 */
-/***********/
 .block-9 {
 	background-image: url(https://media.istockphoto.com/photos/paper-texture-background-picture-id469252888?k=6&m=469252888&s=612x612&w=0&h=GADXQDtdPgmNQim1IXCl9wLurVWk3mK2YyhcF8mGhys=);
 	background-size: cover;
@@ -496,19 +493,19 @@ to {
 }
 
 .block-9 .image {
-	background-image: url(https://www.incimages.com/uploaded_files/image/1940x900/getty_504333530_361153.jpg);
-	background-size: cover;
 	width: 50%;
 	height: 300px;
 	float: left;
 	margin: 0 5%;
 }
 
-/***********/
+.block-9 .image img {
+	width: 100%;
+}
+
 /* block-10 */
-/***********/
 .block-10 {
-	background-image: url(templates/coffee_background_1.png);
+	background-image: url(/www/templates/coffee_background_1.png);
 	background-size: cover;
 	padding: 8% 0 3% 0;
 }
@@ -517,15 +514,16 @@ to {
 	overflow: hidden;
 }
 
-.block-10	.contents-wrapper .inside-image {
+.block-10 .contents-wrapper .inside-image {
 	width: 13%;
 	height: 200px;
 	margin: 0 22%;
 	display: inline-block;
-	float: left;
-	background-image: url(templates/circle_r.png);
-	background-size: contain;
-	background-repeat: no-repeat;
+	float: left;	
+}
+
+.block-10 .contents-wrapper .inside-image img {
+	width: 100%;
 }
 
 .block-10	.contents-wrapper .contents {
@@ -546,9 +544,7 @@ to {
 	margin: 30px 0;
 }
 
-/***********/
 /* block-11 */
-/***********/
 .block-11 {
 	padding: 3%;
 }

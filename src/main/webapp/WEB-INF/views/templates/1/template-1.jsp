@@ -50,11 +50,11 @@
 	<div class="block-wrapper">
 		<div class="block-2">
 			<div class="temp-space"></div>
-			<h2 class="showcase-title">Lorem Ipsum</h2>
-			<p class="showcase-content">Neque porro quisquam est qui dolorem
+			<h2 class="showcase-title text-editable">Lorem Ipsum</h2>
+			<p class="showcase-content text-editable">Neque porro quisquam est qui dolorem
 				ipsum quia dolor sit amet</p>
 			<div class="start-btn-wrapper">
-				<button class="start-btn">Start</button>
+				<button class="start-btn text-editable">Start</button>
 			</div>
 		</div>
 	</div>
@@ -168,12 +168,12 @@
 					class="picimg">
 			</div>
 			<div class="ptitle">
-				<p class="ptfont" id="ptfont" contenteditable="true"
+				<p class="ptfont text-editable" id="ptfont"
 					onkeyup="lengthlow();">초밥먹고 싶다</p>
 				<hr />
 			</div>
 		
-			<div class="pbonmon" contenteditable="true">In tempor, nisi
+			<div class="pbonmon text-editable">In tempor, nisi
 				eget iaculis facilisis, mauris nunc congue risus, a placerat turpis
 				nibh eget elit. Proin interdum laoreet nisl eget fringilla. Etiam
 				dapibus magna elementum, tempus urna non, pulvinar nulla. Proin

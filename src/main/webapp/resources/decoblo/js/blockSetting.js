@@ -160,20 +160,27 @@ $(function(){
 		});
 	})
 	// 블럭 내용 변경 image
-	$(document).on('mouseenter','.image-editable',function(){
-		$(this).html('<div class="img-hover">'+
-		'<div class="filebox">'+
-		'<label for="imagefile"><img src="resources/images/blockSettingimg/icon-image.png"/></label>'+
-		'<form class="imgFileForm" enctype"multipart/form-data">'+
-		'<input type="file" id="imagefile" name="imagefile"/><br/>'+
-		'<input type="button" value="변경" class="sendImage"></form></div></div>');
+	$(document).on('mouseenter','.image-editable', function(){
+		$(this).css({"position" : "relative" , "opacity" : "0.3"});
+		
+		var hoverHtml = '';
+		hoverHtml += '<label class="temp" for="imagefile" style="position: absolute; top:0; left:0;">';
+		hoverHtml += '<img class="temp" src="resources/images/blockSettingimg/icon-image.png" style="width: 100px"/>';
+		hoverHtml += '</label>';
+		hoverHtml += '<form class="temp imgFileForm" enctype="multipart/form-data" style="display:none">';
+		hoverHtml += '<input type="file" id="imagefile" name="imagefile" class="temp"/><br/>';
+		hoverHtml += '<input type="button" value="변경" class="temp sendImage"></form></div></div>';
+		
+		
+		$(this).append(hoverHtml);
 	});
-	$(document).on('mouseleave','.image-deitable',function(){
-		$('.image > .img-hover').css('display','none');
+	
+	$(document).on('change', '#imagefile', function(){
+		sendImage();
 	});
-	$(document).on('focusout', '.editable', function(){         
-		$(this).removeAttr('contentEditable');
-		// db저장
+	
+	$(document).on('mouseout','.image-editable', function(){
+		$('.temp').remove();
 	});
 	
 	// 사이트 설정 - 배경 색상
@@ -229,20 +236,23 @@ $(function(){
 			, success : function() {}
 		});
 	});
+	
 	/*블록 이미지 수정*/
-	$(document).on('click','.sendImage',function(){
+	function sendImage() {
 		var formData3 = new FormData($(".imgFileForm")[0]);
 		console.log(formData3);
 		$.ajax({
 			type:'post'
 			,url:'updateBlockImg'
 			,data:formData3
-			, processData: false
-			, contentType : false
-			, success : function(){
+			,processData: false
+			,contentType : false
+			,success : function(resp){
+				console.log($('.imgFileForm'));
 			}
-		});
-	});
+		});		
+	}
+	
 	/* 파비콘 수정 */
 	$(document).on('click', '#blog-fabicon-img', function(){
 		var formData2 = new FormData($("#fileform2")[0]);

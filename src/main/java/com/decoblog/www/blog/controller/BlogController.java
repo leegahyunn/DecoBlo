@@ -42,8 +42,8 @@ public class BlogController {
 	BlogRepository blogRepository;
 	
 	/**
-	 * 釉붾줈洹� �닔�젙 �럹�씠吏�濡� �씠�룞
-	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
+	 * 블로그 수정 페이지로 이동
+	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/config", method = RequestMethod.GET)
 	public String config(@RequestParam(value="menuNo", defaultValue="0") int menuNo,
@@ -63,8 +63,8 @@ public class BlogController {
 		return "blog/config";
 	}
 	/**
-	 * 硫붾돱 遺덈윭�삤湲� Ajax
-	 * DB�뿉 ���옣�맂 硫붾돱瑜� 媛��졇���꽌 JSP�뿉 �꽆寃⑥쨲
+	 * 메뉴 불러오기 Ajax
+	 * DB에 저장된 메뉴를 가져와서 JSP에 넘겨줌
 	 * @return ArrayList<HashMap<String, ArrayList<Menu>>> JSON
 	 */
 	@ResponseBody
@@ -79,8 +79,8 @@ public class BlogController {
 	}
 	
 	/**
-	 * ���씠�� 遺덈윭�삤湲� Ajax
-	 * DB�뿉 ���옣�맂 釉붾줈洹� ���씠��瑜� 媛��졇���꽌 JSP�뿉 �꽆寃⑥쨲
+	 * 타이틀 불러오기 Ajax
+	 * DB에 저장된 블로그 타이틀를 가져와서 JSP에 넘겨줌
 	 * @return ArrayList<HashMap<String, ArrayList<Menu>>> JSON
 	 */
 	@ResponseBody
@@ -92,8 +92,8 @@ public class BlogController {
 	}
 
 	/**
-	 * 硫붾돱 �닔�젙 Ajax
-	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
+	 * 메뉴 수정 Ajax
+	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/editMenu", method = RequestMethod.POST)
 	public String editMenu(@RequestBody Menu menu) {
@@ -102,8 +102,8 @@ public class BlogController {
 	}
 	
 	/**
-	 * 釉붾줈洹� ���씠�� �닔�젙 Ajax
-	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
+	 * 블로그 타이틀 수정 Ajax
+	 * @return 블로그 수정 페이지
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/editBlogTitle", method = RequestMethod.POST)
@@ -115,8 +115,8 @@ public class BlogController {
 	}
 	
 	/**
-	 * 釉붾줈洹� 硫뷀��깭洹� �닔�젙 Ajax
-	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
+	 * 블로그 메타태그 수정 Ajax
+	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/updateMetaTag", method = RequestMethod.POST)
 	public String updateMetaTag(@RequestBody  HashMap<String, Object> map, HttpSession session) {
@@ -127,8 +127,8 @@ public class BlogController {
 	}
 	
 	/**
-	 * 釉붾줈洹� 諛곌꼍�깋 �닔�젙 Ajax
-	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
+	 * 블로그 배경색 수정 Ajax
+	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/updateBackgroundColor", method = RequestMethod.POST)
 	public String updateBackgroundColor(@RequestBody HashMap<String, Object> map, HttpSession session) {
@@ -139,8 +139,8 @@ public class BlogController {
 	}
      
 	/**
-	 * 釉붾줈洹� �룿�듃 �닔�젙 Ajax
-	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
+	 * 블로그 폰트 수정 Ajax
+	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/updateBlogFont", method = RequestMethod.POST)
 	public String updateBlogFont(@RequestBody HashMap<String, Object> map, HttpSession session) {
@@ -151,8 +151,8 @@ public class BlogController {
 	}
 	
 	/**
-	 * 釉붾줈洹� �썝�럹�씠吏� �뿬遺� Ajax
-	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
+	 * 블로그 원페이지 여부 Ajax
+	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/updateOnepageStyle", method = RequestMethod.POST)
 	public String updateOnepageStyle(@RequestBody HashMap<String, Object> map, HttpSession session) {
@@ -163,8 +163,8 @@ public class BlogController {
 	}
 	
 	/**
-	 * 釉붾줈洹� 留덉슦�뒪 �슦�겢由� �뿬遺� Ajax
-	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
+	 * 블로그 마우스 우클릭 여부 Ajax
+	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/updateRightClickable", method = RequestMethod.POST)
 	public String updateRightClickable(@RequestBody HashMap<String, Object> map, HttpSession session) {
@@ -175,8 +175,8 @@ public class BlogController {
 	}
 	
 	/**
-	 * 釉붾줈洹� 留덉슦�뒪 �슦�겢由� �뿬遺� Ajax
-	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
+	 * 블로그 마우스 우클릭 여부 Ajax
+	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/updateMenuVisible", method = RequestMethod.POST)
 	public String updateMenuVisible(@RequestBody HashMap<String, Object> map, HttpSession session) {
@@ -187,8 +187,8 @@ public class BlogController {
 	}
 	
 	/**
-	 * 硫붾돱 異붽�  Ajax
-	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
+	 * 메뉴 추가  Ajax
+	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/insertMenu", method = RequestMethod.POST)
 	public String insertMenu(@RequestBody HashMap<String, Object> map, HttpSession session) {
@@ -199,8 +199,8 @@ public class BlogController {
 	}
  
 	/**
-	 * 硫붾돱 �궘�젣  Ajax
-	 * @return 釉붾줈洹� �닔�젙 �럹�씠吏�
+	 * 메뉴 삭제  Ajax
+	 * @return 블로그 수정 페이지
 	 */
 	@RequestMapping(value = "/deleteMenu", method = RequestMethod.POST)
 	public String deleteMenu(@RequestBody HashMap<String, Object> map, HttpSession session) {
@@ -221,10 +221,10 @@ public class BlogController {
 	}
 	
 	@RequestMapping(value="/updateBlockImg",method=RequestMethod.POST)
-	public String updateImageFile(MultipartHttpServletRequest multi3) {
+	public @ResponseBody String updateImageFile(MultipartHttpServletRequest multi3) {
 		String root = multi3.getSession().getServletContext().getRealPath("/");
         String path = root+"resources/updateBlockImg/";
-        String blockSavedFile = ""; // �뾽濡쒕뱶 �릺�뒗 �뙆�씪紐�
+        String blockSavedFile = ""; // 업로드 되는 파일명
         String blockOriginalFile = ""; 
         File dir = new File(path);
         
@@ -233,14 +233,12 @@ public class BlogController {
         }
         System.out.println(path);
         Iterator<String> files = multi3.getFileNames();
-        System.out.println(files);
         while(files.hasNext()){
         	String uploadFile = files.next();
             MultipartFile mFile = multi3.getFile(uploadFile);
             blockOriginalFile = mFile.getOriginalFilename();
             blockSavedFile = System.currentTimeMillis()+"."
                     +blockOriginalFile.substring(blockOriginalFile.lastIndexOf(".")+1);
-            System.out.println("Aaaa");
             try {
                 mFile.transferTo(new File(path+blockSavedFile));
             } catch (Exception e) {
@@ -248,8 +246,7 @@ public class BlogController {
             }
         }
        
-        
-        return "blog/config";
+        return blockSavedFile;
 	}
 	
 	@RequestMapping(value = "/updateBackgroundImg", method = RequestMethod.POST)
@@ -257,7 +254,7 @@ public class BlogController {
 		String root = multi.getSession().getServletContext().getRealPath("/");
         String path = root+"resources/uploadbackgroundimg/";
         System.out.println(path);
-        String configBackgroundSavedFile = ""; // �뾽濡쒕뱶 �릺�뒗 �뙆�씪紐�
+        String configBackgroundSavedFile = ""; // 업로드 되는 파일명
         String configBackgroundOriginFile = ""; 
         File dir = new File(path);
         
@@ -293,7 +290,7 @@ public class BlogController {
     public String updateFabiconImg(MultipartHttpServletRequest multi2) {
 		String root = multi2.getSession().getServletContext().getRealPath("/");
         String path = root+"resources/uploadfabiconimg/";
-        String fabiconSavedFile = ""; // �뾽濡쒕뱶 �릺�뒗 �뙆�씪紐�
+        String fabiconSavedFile = ""; // 업로드 되는 파일명
         String fabiconOriginalFile = ""; 
         File dir = new File(path);
         
@@ -345,25 +342,25 @@ public class BlogController {
 				blogRepository.updateSmallMenuPush(map);
 				result = blogRepository.updateMenu(map);
 			} else {
-				if(!(map.containsKey("newMenuParent"))) { //�냼硫붾돱媛� ��硫붾돱媛� �맂 寃쎌슦
+				if(!(map.containsKey("newMenuParent"))) { //소메뉴가 대메뉴가 된 경우
 					map.put("newMenuParent", map.get("menuNo"));
 					blogRepository.updateSmallMenuPull(map);
 					blogRepository.updateLargeMenuPush(map);
 					blogRepository.updateMenu(map);
-				}else {//�냼硫붾돱媛� �떎瑜� ��硫붾돱�쓽 �냼硫붾돱濡� �씠�룞�븳 寃쎌슦
+				}else {//소메뉴가 다른 대메뉴의 소메뉴로 이동한 경우
 					blogRepository.updateSmallMenuPull(map);
 					blogRepository.updateSmallMenuPush(map);
 					blogRepository.updateMenu(map);
 				}
 			}
-		} else {//��吏곸씤 �븷媛� ��硫붾돱�씪 寃쎌슦
-			if(!(map.containsKey("newMenuParent"))) { //��硫붾돱 �닚�꽌留� 諛붾�� 寃쎌슦
+		} else {//움직인 애가 대메뉴일 경우
+			if(!(map.containsKey("newMenuParent"))) { //대메뉴 순서만 바뀐 경우
 				map.put("newMenuParent", map.get("menuNo"));
 				blogRepository.updateLargeMenuPull(map);
 				blogRepository.updateLargeMenuPush(map);
 				blogRepository.updateMenu(map);
 				blogRepository.updateSubmenu(map);
-			} else {//��硫붾돱媛� �떎瑜� ��硫붾돱�쓽 �냼硫붾돱濡� �뱾�뼱媛� 寃쎌슦
+			} else {//대메뉴가 다른 대메뉴의 소메뉴로 들어간 경우
 				blogRepository.updateLargeMenuPull(map);
 				blogRepository.updateSmallMenuPush(map);
 				blogRepository.updateMenu(map);
@@ -422,7 +419,7 @@ public class BlogController {
 		int result = blogRepository.copyBlock(blockNo);
 		return result;
 	}
-	//
+	
 	@RequestMapping(value="template", method=RequestMethod.GET)
 	public String selectTemplate(Model model) {
 		List<Template> templates = blogRepository.selectTemplate();
@@ -444,7 +441,7 @@ public class BlogController {
 	}
 	
 	/**
-	 * 釉붾줈洹� 二쇱냼 以묐났�솗�씤
+	 * 블로그 주소 중복확인
 	 * @param address
 	 * @return
 	 */
@@ -464,7 +461,7 @@ public class BlogController {
 	}
 	
 	/**
-	 * �뀥�뵆由� �벑濡�
+	 * 템플릿 등록
 	 * @param templateNo
 	 * @return
 	 */
@@ -509,9 +506,9 @@ public class BlogController {
 	}
 	
 	/**
-	 * �궗�슜�옄 釉붾줈洹� �씠�룞
-	 * �떎�젣 �뙆�씪�� C:\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\DecoBlo_dev\WEB-INF�뿉
-	 * 議댁옱�븯吏�留� webapp/WEB-INF�뿉 �엳�뒗 寃껉낵 �룞�씪�븯寃� �옉�룞
+	 * 사용자 블로그 이동
+	 * 실제 파일은 C:\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\DecoBlo_dev\WEB-INF에
+	 * 존재하지만 webapp/WEB-INF에 있는 것과 동일하게 작동
 	 * @return
 	 */
 	@RequestMapping(value="/blog/{blogAddress}", method=RequestMethod.GET)
@@ -521,7 +518,7 @@ public class BlogController {
 	}
 	
 	/**
-	 * 釉붾줈洹� ���옣�븯湲� 
+	 * 블로그 저장하기 
 	 */
 	@RequestMapping(value="/saveBlog", method=RequestMethod.GET)
 	public String SaveBlog(HttpServletRequest request, HttpSession session) {
@@ -530,10 +527,10 @@ public class BlogController {
 		StringBuffer htmlBuffer = new StringBuffer();
 		
 
-		//	釉붾줈洹� 湲곕낯�젙蹂� 遺덈윭�삤湲�
+		//	블로그 기본정보 불러오기
 		User blogBasicInfo = blogRepository.selectBlogBasicInfo(userNo);
 
-		//	�뿤�뜑 �옉�꽦
+		//	헤더 작성
 		StringBuffer headerBuffer = new StringBuffer();
 		headerBuffer.append("<%@ page language=\"java\" contentType=\"text/html; charset=UTF-8\" pageEncoding=\"UTF-8\"%>\n");
 		headerBuffer.append("<!DOCTYPE html>\n"); 
@@ -554,16 +551,16 @@ public class BlogController {
 		headerBuffer.append("</head>\n"); 
 		
 
-		// 諛붾뵒 �옉�꽦
+		// 바디 작성
 		StringBuffer bodyBuffer = new StringBuffer();
 		bodyBuffer.append("<body ");
 		
-		// �슦�겢由� 諛⑹�
+		// 우클릭 방지
 		if (blogBasicInfo.getConfigRightClickable() == 1) {
 			bodyBuffer.append("oncontextmenu=\"return false\" "); 
 		}
 		
-		// �뒪���씪
+		// 스타일
 		bodyBuffer.append("style=\"");
 		if (blogBasicInfo.getConfigBackgroundColor() != null) {
 			bodyBuffer.append("background-color:" + blogBasicInfo.getConfigBackgroundColor() + "; ");
@@ -581,14 +578,14 @@ public class BlogController {
 		bodyBuffer.append(">\n");
 		
 
-		// 釉붾줈洹� 硫붾돱 遺덈윭�삤湲�
+		// 블로그 메뉴 불러오기
 		ArrayList<Integer> menuNoList = blogRepository.selectMenuNo(userNo);
 		
-		// �썝�럹�씠吏� �뿬遺� �솗�씤
+		// 원페이지 여부 확인
 		for (int menuNo : menuNoList) {
 			StringBuffer menuBuffer = new StringBuffer();
 			menuBuffer.append("<section class=\"menu-wrapper\">\n");
-			// 釉붾줉 遺덈윭�삤湲�
+			// 블록 불러오기
 			ArrayList<Block> blockList = blogRepository.selectBlock(menuNo);
 			
 			for (Block block : blockList) {
@@ -617,19 +614,19 @@ public class BlogController {
 		htmlBuffer.append("</html>\n");
 		
 		
-		// ���옣 寃쎈줈
-		// �뀒�뒪�듃 �꽌踰꾩씪 寃쎌슦 C:\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\DecoBlo_dev\ �뿉 ���옣
+		// 저장 경로
+		// 테스트 서버일 경우 C:\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\DecoBlo_dev\ 에 저장
 		String path = request.getSession().getServletContext().getRealPath("/");
 		
-        //�뙆�씪 媛앹껜 �깮�꽦
+        //파일 객체 생성
         File directory = new File(path + "WEB-INF/views/blog/"+ userNo);
-        //!�몴瑜� 遺숈뿬二쇱뼱 �뙆�씪�씠 議댁옱�븯吏� �븡�뒗 寃쎌슦�쓽 議곌굔�쓣 嫄몄뼱以�
+        //!표를 붙여주어 파일이 존재하지 않는 경우의 조건을 걸어줌
         if(!directory.isDirectory()){
-            //�뵒�젆�넗由� �깮�꽦 硫붿꽌�뱶
+            //디렉토리 생성 메서드
         	directory.mkdirs();
         }
         
-		// �뙆�씪 �벐湲� 
+		// 파일 쓰기 
 		BufferedWriter writer = null;
 		
 		try {
