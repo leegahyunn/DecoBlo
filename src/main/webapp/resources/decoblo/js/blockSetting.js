@@ -146,6 +146,10 @@ $(function(){
 	$(document).on('focusout','.text-editable',function(){
 		var blockSeq=$(this).closest('section').attr('data-block-seq');
 		var blockContent=$(this).parents('.blockContent').html();
+		updateBlockContentText(blockSeq, blockContent);
+	})
+	
+	function updateBlockContentText(blockSeq, blockContent) {
 		var block = {"blockContent":blockContent , "blockSeq":blockSeq};
 		var blockMenuNo = $('.menu-bar').attr("data-menu-no");
 		$.ajax({
@@ -158,14 +162,17 @@ $(function(){
 				location.replace("config?menuNo="+blockMenuNo);
 			}
 		});
-	})
+	}
 	// 블럭 내용 변경 image
 	$(document).on('mouseenter','.image-editable', function(){
 		$(this).css({"position" : "relative" , "opacity" : "0.3"});
 		
+		var imgWidth = $(this).width();
+		var imgHeight = $(this).height();
+		
 		var hoverHtml = '';
-		hoverHtml += '<label class="temp" for="imagefile" style="position: absolute; top:0; left:0;">';
-		hoverHtml += '<img class="temp" src="resources/images/blockSettingimg/icon-image.png" style="width: 100px"/>';
+		hoverHtml += '<label class="temp" for="imagefile" style="position: absolute; top:' + imgHeight/2 + '; left:' + imgWidth/2 + ';">';
+		hoverHtml += '<img class="temp" src="resources/images/blockSettingimg/icon-image-2.png" style="width: 100px"/>';
 		hoverHtml += '</label>';
 		hoverHtml += '<form class="temp imgFileForm" enctype="multipart/form-data" style="display:none">';
 		hoverHtml += '<input type="file" id="imagefile" name="imagefile" class="temp"/><br/>';
@@ -179,7 +186,8 @@ $(function(){
 		sendImage();
 	});
 	
-	$(document).on('mouseout','.image-editable', function(){
+	$(document).on('mouseleave','.image-editable', function(){
+		$(this).css({"position" : "relative" , "opacity" : "1"});
 		$('.temp').remove();
 	});
 	
@@ -239,6 +247,8 @@ $(function(){
 	
 	/*블록 이미지 수정*/
 	function sendImage() {
+		
+		
 		var formData3 = new FormData($(".imgFileForm")[0]);
 		console.log(formData3);
 		$.ajax({
@@ -248,7 +258,12 @@ $(function(){
 			,processData: false
 			,contentType : false
 			,success : function(resp){
-				console.log($('.imgFileForm'));
+				console.log(resp);
+				$('.imgFileForm').parent('.image-editable').children('img').attr('src', '/www/resources/updateBlockImg/'+resp);
+				var blockSeq = $(".imgFileForm").closest('section').attr('data-block-seq');
+				var blockContent = $(".imgFileForm").parents('.blockContent').html();
+				console.log(blockSeq, blockContent);
+				updateBlockContentText(blockSeq, blockContent);
 			}
 		});		
 	}
