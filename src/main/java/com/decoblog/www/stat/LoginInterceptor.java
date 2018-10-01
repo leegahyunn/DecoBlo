@@ -20,7 +20,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 		String loginNo = (String)session.getAttribute("loginNo");
 		
-		
+		System.out.println(loginNo);
 		
 		if(loginNo == null) {
 			

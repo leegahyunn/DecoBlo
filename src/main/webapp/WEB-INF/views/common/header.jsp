@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <header id="header">
 	<h1>
-		<a href="/www/">Deco <span>Blo</span></a>
+		<a href="/www/"><img src="resources/images/logo/logo_full_white.png" style="width: 100px; "></a>
 	</h1>
 	<nav id="nav">
 		<ul>

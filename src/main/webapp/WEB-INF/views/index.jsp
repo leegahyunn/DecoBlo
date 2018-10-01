@@ -19,9 +19,9 @@
 	<input type="hidden" id="type" value="${type}">
 	<!-- Header -->
 	<header id="header" class="alt ">
-		<h1>
-			<a href="index.html">Deco <span>Blo</span></a>
-		</h1>
+		
+			<a href="#"><img src="resources/images/logo/logo_full_col.png" style="width: 100px; "></a>
+		
 		<nav id="nav">
 			<ul>
 				<li id="login" class="main-login">로그인</li>
@@ -198,7 +198,7 @@
 	        <i class="fa fa-times"></i>
 	      </div>
 	      <div class="login-body user-body">
-	        <div class="text-center logo"><img src="//i.addblock.net/modal-logo-dark.png" alt="creatorlink logo"></div>
+	        <div class="text-center logo"><img src="resources/images/logo/logo_full_white.png" alt="creatorlink logo" style="width: 200px;"></div>
 	        <div class="text-center">
 	            <span class="join-text">데코블로가 처음이신가요?</span> 
 	            <a class="join" href="user/join">회원가입</a>

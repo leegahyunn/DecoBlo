@@ -69,7 +69,7 @@ public class HomeController {
 	// 이준호
 	@RequestMapping(value = "/jhtest", method = RequestMethod.GET)
 	public String jhtest() {
-		return "blog/template/1/template_800";
+		return "templates/template_800";
 	}
 	
 	//최용락 

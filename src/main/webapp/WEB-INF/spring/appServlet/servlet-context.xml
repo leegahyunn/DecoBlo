@@ -39,8 +39,9 @@
 	
 	<!-- 파일 업로드 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
-<<<<<<< HEAD
 
+		<beans:bean id = "uploadPath" class="java.lang.String">
+</beans:bean>
 	<!-- 인터셉터 빈등록 -->
 
 	<beans:bean id="loginInterceptor"
@@ -49,24 +50,19 @@
 	<!-- 경로설정 -->
 	<interceptors>
 		<interceptor>
-			<mapping path="/main" />
-			<mapping path="/dashboard" />
-			<mapping path="/bbsList" />
-			<mapping path="/write" />
-			<mapping path="/config" />
-			<mapping path="/editBlogTitle" />
-			<mapping path="/user/profile" />
+			
+			
+			
 			<mapping path="/user/changePassword" />
-			<mapping path="/customer" />
+			
 			<beans:ref bean= "loginInterceptor"/>
 		</interceptor>
 	</interceptors>
+	
+
 	<context:component-scan
 		base-package="com.decoblog.www" />
-
-=======
->>>>>>> 38ff5988edd6af9b3adba723c862ae8131253bd6
-	
-	<beans:bean id = "uploadPath" class="java.lang.String">
-</beans:bean>
 </beans:beans>
+		
+		
+
