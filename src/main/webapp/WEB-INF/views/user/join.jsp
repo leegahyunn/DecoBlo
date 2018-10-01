@@ -16,7 +16,7 @@
 	        <a href="/www"><i class="fa fa-times"></i></a>
 	      </div>
 	      <div class="join-body user-body">
-	        <div class="text-center logo"><img src="//i.addblock.net/modal-logo-dark.png" alt="creatorlink logo"></div>
+	        <div class="text-center logo"><img src="resources/images/logo/logo_full_col.png" alt="creatorlink logo" style="width: 200px;"></div>
 	        <div class="text-center">
 	            <span class="join-text">크리에이티브한 당신을 위한 사이트를 만들어보세요!</span> 
 	        </div>
