@@ -221,12 +221,12 @@ margin: 0 auto;
 						<a class="prev" onclick="plusSlides(-1)"></a>
 						
 						<h3>
-							템플릿을 선택하여 사이트를 제작하세요!
+							<spring:message code="t1" />
 						</h3>
 						<p>
-							모든 템플릿들은 20여 개 블럭들의 조합으로 구성되어 있습니다. <br>
-							원하는 스타일의 템플릿을 선택하신 후, 필요 없는 블럭들은 삭제하고 다른 디자인의 블럭들을 추가하면서<br> 
-							자신만의 개성 있는 사이트를 만들어보세요!
+							<spring:message code="t2" /><br>
+						<spring:message code="t3" /><br> 
+						<spring:message code="t4" />
 						</p>
 						
 						<c:forEach items="${templates}" var="template" varStatus="status">
@@ -276,11 +276,11 @@ margin: 0 auto;
 	        <i class="fa fa-times"></i>
 	      </div>
 	      <div class="login-body user-body" style="width:80%; margin: 0 auto; overflow: hidden">
-	        <div class="text-center logo" style="float:left"><h2 align="left">템플릿-1</h2></div>
+	        <div class="text-center logo" style="float:left"><h2 align="left"><spring:message code="t5" /></h2></div>
 	  
 			
 	        <div class="text-center button use-tempalte-button" style="float: right">
-		    	<p>템플릿 사용하기</p>
+		    	<p><spring:message code="t6" /></p>
 		    </div>
 		    
 		    <div class="template-name">
@@ -325,7 +325,6 @@ margin: 0 auto;
 		});
 	});
 	
-	/* 블로그 주소 중복 확인 */
 	function useTemplate() {
 		if ($('#blogAddress').val() == "") {
 			alert('블로그 주소를 입력해주세요.');
@@ -338,35 +337,21 @@ margin: 0 auto;
 				, data   : {'address' : $('#blogAddress').val()}
 				, success: function(resp) {
 					if (resp == 'true') {
-						createTemplate();
+						var templateNo = $(".login-wrapper .login-body h2").data('template-no');
+						$.ajax({
+							method   : 'post'
+							, url    : 'registerTemplate'
+							, data   : {'templateNo' : templateNo}
+							, success: function(resp) {
+								alert(resp);
+							}
+						});
 					} else {
-						alert("이미 있는 주소입니다.\n다른 주소를 입력해주십시오.");
+						alert("\n");
 					}
 				}
 			});
 		}
-	}
-	
-	/* 블로그 생성 */
-	function createTemplate() {
-		var templateNo = $(".login-wrapper .login-body h2").data('template-no');
-		$.ajax({
-			method   : 'post'
-			, url    : 'registerTemplate'
-			, data   : {'templateNo' : templateNo}
-			, success: function() {
-				// 블로그 생성
-				$.ajax({
-					method   : 'get'
-					, url    : 'saveBlog'
-				});
-				
-				var moveToConfig = confirm("ブログが生成されました。 ブログ修正ページに移動しますか。");
-				if (moveToConfig) {
-					location.href = "/www/config";	
-				}
-			}
-		});
 	}
 		
 	/* 템플릿 미리보기 */
