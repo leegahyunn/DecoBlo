@@ -61,8 +61,7 @@
 			</div>
 	</section>
 
-	<!-- One -->
-	<section id="one" class="wrapper style1">
+	<!-- One -->	<section id="one" class="wrapper style1">
 		<div class="container">
 			<header class="major">
 				<h2>마우스 클릭만으로 만들어지는 블로그</h2>
