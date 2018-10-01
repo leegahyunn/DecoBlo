@@ -11,8 +11,10 @@
 <link rel="stylesheet" href="decoblo/css/helpPage.css" />
 <script src="resources/library/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
-function writeBbs() { 	// 글쓰기로 이동
-	location.href = "${pageContext.request.contextPath}/writeBbs?type=write";
+function writeBbs(boardNo) { 	// 글쓰기로 이동
+	
+	var boardNo = $('#boardNo').val();
+	location.href = "${pageContext.request.contextPath}/writeBbs?type=write&boardNo="+ boardNo;
 }
 </script>
 <style type="text/css">
@@ -28,14 +30,12 @@ function writeBbs() { 	// 글쓰기로 이동
 		justify-content: space-around;
 		margin: 1px;
 	}
-	
+		
 	option {
 		font-size: 15px;
 	}
-	
-		
-	input.buttons{
-	
+			
+	input.buttons {	
 		line-height:normal;
 		text-align: center;
 		margin: 5px;
@@ -43,14 +43,12 @@ function writeBbs() { 	// 글쓰기로 이동
 		padding-right: 15px;
 	}
 		
-	
 	footer#footer {
 		padding: 0;
 		padding-bottom : 50px;
 		text-align :center;
 		width: 100%;
 		color: #AAA;
-		
 	}
 	
 	tbody{
@@ -62,13 +60,12 @@ function writeBbs() { 	// 글쓰기로 이동
 		background-color : white;
 	}
 	
-
 	section#intro-photo{
 		display: block;
 	    padding-top: 0px;
 	    padding-bottom: 20px;
-		
 	}
+	
 	section#intro-photo div#article {
 		width: 100%;
 		height: 300px;
@@ -76,7 +73,7 @@ function writeBbs() { 	// 글쓰기로 이동
 	}
 
 	h5 {
-		 padding-bottom: 20px;
+		padding-bottom: 20px;
 	}
 	
 	p.title{
@@ -84,16 +81,15 @@ function writeBbs() { 	// 글쓰기로 이동
 		margin-bottom: 30px;
 	}
 	
-	
 	.select-items div,.select-selected {
-		  font-size:10px;
-		  color: black;
-		  padding: 8px 16px;
-		  border: 1px solid transparent;
-		  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-		  cursor: pointer;
-		  user-select: none;
-}
+		font-size:10px;
+		color: black;
+		padding: 8px 16px;
+		border: 1px solid transparent;
+		border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+		cursor: pointer;
+		user-select: none;
+	}
 	
 </style>
 </head>
@@ -138,6 +134,7 @@ function writeBbs() { 	// 글쓰기로 이동
 
 	<!-- 글목록 div 태그 -->
 		<div class="table-wrapper">	
+		<input type="hidden" name="boardNo" id="boardNo" value="1"/>
 			<table class="board" border="1" style="width: 1200px;">
 				<thead>
 					<tr>
@@ -160,7 +157,7 @@ function writeBbs() { 	// 글쓰기로 이동
 							<td class="center">${status.count + navi.startRecord}</td>
 							
 							<c:if test="${bbs.bbsDepth eq 0}">
-								<td><a href="bbsDetail?bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></td>
+								<td><a href="bbsDetail?boardNo=${bbs.boardNo}&bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></td>
 							</c:if>
 							<c:if test="${bbs.bbsDepth ne 0}">
 								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-reply fa-rotate-180"></i>&nbsp;&nbsp;&nbsp;<a href="bbsDetail?bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></td>
@@ -172,8 +169,6 @@ function writeBbs() { 	// 글쓰기로 이동
 						</tr>
 					</c:forEach>
 					</c:if>
-					
-					
 				</tbody>
 			</table>
 
@@ -194,7 +189,7 @@ function writeBbs() { 	// 글쓰기로 이동
 				</div>
 				<div class="right" align="right" style="width:1210px">
 					<!-- 관리자만 공지사항 등록 가능 c:if 사용하기 -->			
-					<input class="buttons" type="button" value="공지사항등록" onclick="writeBbs()" style="line-height:normal; text-align: center; margin: 5px;"/>
+					<input class="buttons" type="button" value="공지사항등록" onclick="writeBbs(boardNo)" style="line-height:normal; text-align: center; margin: 5px;"/>
 				</div>
 			</div>
 					

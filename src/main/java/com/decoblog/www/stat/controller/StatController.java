@@ -1,6 +1,8 @@
 package com.decoblog.www.stat.controller;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import java.util.StringTokenizer;
@@ -61,7 +63,12 @@ public class StatController {
 		model.addAttribute("wwdate", wwdate);
 		}
 		
+		Date today = new Date();
+	    
+		SimpleDateFormat dt1 = new SimpleDateFormat("yyyy.mm.dd");
+		String today2 = dt1.format(today);
 		
+		model.addAttribute("today", today2);
 		model.addAttribute("stat", stat);
 		
 		

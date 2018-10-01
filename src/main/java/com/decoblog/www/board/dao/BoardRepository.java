@@ -27,7 +27,7 @@ public class BoardRepository {
 	
 	
 	// 글 목록 + 검색
-	public List<Bbs> select(String searchItem, String searchWord, int startRecord, int countPerPage){
+	public List<Bbs> select(String searchItem, String searchWord, int startRecord, int countPerPage, int boardNo){
 		
 		// 포인터(특정 위치까지 옮겨줌) 생성
 		RowBounds rb = new RowBounds(startRecord, countPerPage);
@@ -39,7 +39,7 @@ public class BoardRepository {
 		Map<String, Object> map = new HashMap<>();
 		map.put("searchItem", searchItem);
 		map.put("searchWord", searchWord);
-		
+		map.put("boardNo", boardNo);
 		List<Bbs> list = mapper.select(map,rb);
 		
 		
@@ -47,10 +47,10 @@ public class BoardRepository {
 	}
 		
 	// 글 상세 조회
-	public Bbs selectOneBbs(int bbsNo) {
+	public Bbs selectOneBbs(int boardNo, int bbsNo) {
 	
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
-		Bbs bbs = mapper.selectOneBbs(bbsNo);
+		Bbs bbs = mapper.selectOneBbs(boardNo, bbsNo);
 		
 		return bbs;
 	}
@@ -93,13 +93,14 @@ public class BoardRepository {
 	
 	
 	// 글 삭제
-	public int deleteBbs(int bbsNo) {
+	public int deleteBbs(int boardNo, int bbsNo) {
 		
 		BoardMapper mapper = session.getMapper(BoardMapper.class);
-		int result = mapper.deleteBbs(bbsNo);
+		int result = mapper.deleteBbs(boardNo, bbsNo);
 		
 		return result;
 	}
+	
 	// 첨부파일 삭제
 	public int deleteBbsAttach(int attachNo, int attachBbsNo) {
 		BoardMapper mapper = session.getMapper(BoardMapper.class);

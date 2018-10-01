@@ -23,7 +23,7 @@ public interface BoardMapper {
 	public List<Bbs> select(Map<String, Object> map, RowBounds rb);
 	
 	// 글 상세 조회
-	public Bbs selectOneBbs(int bbsNo);
+	public Bbs selectOneBbs(int boardNo, int bbsNo);
 	// 첨부파일 상세 조회
 	public BbsAttach selectOneBbsAttach(int bbsNo);
 	
@@ -34,7 +34,7 @@ public interface BoardMapper {
 	
 	
 	// 글 삭제
-	public int deleteBbs(int bbsNo);
+	public int deleteBbs(int boardNo, int bbsNo);
 	// 첨부파일 삭제
 	public int deleteBbsAttach(int attachNo, int attachBbsNo);
 	
