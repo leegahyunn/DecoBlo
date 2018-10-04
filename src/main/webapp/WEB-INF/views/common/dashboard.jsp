@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix= "spring" %>
 <!DOCTYPE html >
 <html>
 <head>
@@ -451,13 +452,13 @@ pmydate{
 						</div>
 						<div class="maintext">
 							<br>
-							<h3>${loginName}</h3>
+							<h3>${loginName}<spring:message code="dash25" /></h3>
 							<p>LAST UPDATE  ${today}</p>
 
 						</div>
 						<div class="mainbutton">
-							<a href="#" class="button special">블로그 가기</a> <a href="#"
-								class="button">블로그 편집</a>
+							<a href="#" class="button special"><spring:message code="dash1" /></a> <a href="#"
+								class="button"><spring:message code="dash2" /></a>
 							</div>
 							<div class="neighbor">
 				
@@ -475,7 +476,7 @@ pmydate{
 			<header>
 
 				<div class="a">
-					<h2 align="left">일간 현황</h2>
+					<h2 align="left"><spring:message code="dash3" /></h2>
 					<p align="center" id="timer">
 						 ${stat.statRegDate}
 					</p>
@@ -486,15 +487,15 @@ pmydate{
 						</div>	
 				</div>		
 					<div class="b">
-						<input type="button" class="button small" id='dd' value="일간"> <input type="button"
-							class="button small" id='week' value="주간"> <input type="button" class="button small" id='mm' value="월간">
+						<input type="button" class="button small" id='dd' value=<spring:message code="dash4" />> <input type="button"
+							class="button small" id='week' value=<spring:message code="dash5" />> <input type="button" class="button small" id='mm' value=<spring:message code="dash6" />>
 					</div>
 				
 				</div>
 				<hr />
 				<div class="box">
 					<div class="one">
-						<p align="center" class="today">오늘 조회수</p>
+						<p align="center" class="today"><spring:message code="dash7" /></p>
 					<c:if test="${empty stat.statBlogCount}">
 					<h3 align="center">0</h3>
 					&nbsp;&nbsp;&nbsp;<span><img src="resources/jchart/실시간.jpg" ></span>&nbsp;&nbsp;<span  id="clock"></span>
@@ -504,7 +505,7 @@ pmydate{
 					</c:if>
 					</div>
 					<div class="two">
-						<p align="center">공감수</p>
+						<p align="center"><spring:message code="dash8" /></p>
 						<c:if test="${empty stat.statBBSLike}">
 					<h3 align="center">0</h3>
 					</c:if>
@@ -513,7 +514,7 @@ pmydate{
 						</c:if>
 					</div>
 					<div class="three">
-						<p align="center">댓글수</p>
+						<p align="center"><spring:message code="dash9" /></p>
 						<c:if test="${empty stat.statReplyCount}">
 					<h3 align="center">0</h3>
 					</c:if>
@@ -523,7 +524,7 @@ pmydate{
 						
 					</div>
 					<div class="four">
-						<p align="center">구독 증감수</p>
+						<p align="center"><spring:message code="dash10" /></p>
 						<c:if test="${empty stat.statSubscribe}">
 					<h3 align="center">0</h3>
 					</c:if>
@@ -552,15 +553,15 @@ pmydate{
 					<ul id="tabs-list">
 						<!-- MENU TOGGLE -->
 						<li id="li-for-panel-1"><label class="panel-label"
-							for="panel-1-ctrl">블로그조회수</label></li>
+							for="panel-1-ctrl"><spring:message code="dash11" /></label></li>
 						<li id="li-for-panel-2"><label class="panel-label"
-							for="panel-2-ctrl">게시글조회수</label></li>
+							for="panel-2-ctrl"><spring:message code="dash12" /></label></li>
 						<li id="li-for-panel-3"><label class="panel-label"
-							for="panel-3-ctrl">댓글수</label></li>
+							for="panel-3-ctrl"><spring:message code="dash9" /></label></li>
 						<li id="li-for-panel-4"><label class="panel-label"
-							for="panel-4-ctrl">구독자</label></li>
+							for="panel-4-ctrl"><spring:message code="dash14" /></label></li>
 						<li id="li-for-panel-5"><label class="panel-label"
-							for="panel-5-ctrl">공감수</label></li>
+							for="panel-5-ctrl"><spring:message code="dash8" /></label></li>
 						
 					</ul>
 
@@ -609,10 +610,10 @@ pmydate{
 				<table class="mytable">
 					<thead>
 						<tr>
-							<th style="text-align: center;">날짜</th>
-							<th style="text-align: center;">블로그조회수</th>
-							<th style="text-align: center;">게시판조회수</th>
-							<th style="text-align: center;">구독자증감수 <p align="right" style="color: gray; font-size: x-small;">단위:건</p></th>
+							<th style="text-align: center;"><spring:message code="dash16" /></th>
+							<th style="text-align: center;"><spring:message code="dash11" /></th>
+							<th style="text-align: center;"><spring:message code="dash17" /></th>
+							<th style="text-align: center;"><spring:message code="dash18" /><p align="right" style="color: gray; font-size: x-small;">단위:건</p></th>
 							
 						</tr>
 						
@@ -745,7 +746,7 @@ pmydate{
 	            
 	            var now = new Date();                                                  // 현재시간
 
-	            var nowTime = now.getFullYear() + "년" + (now.getMonth()+1) + "월" + now.getDate() + "일" + now.getHours() + "시" + now.getMinutes() + "분";
+	            var nowTime = now.getFullYear() + "<spring:message code="dash27" />" + (now.getMonth()+1) + "<spring:message code="dash28" />" + now.getDate() + "<spring:message code="dash29" />" + now.getHours() + "<spring:message code="dash29" />" + now.getMinutes() + "<spring:message code="dash30" />";
 
 	            clock.innerHTML = nowTime;           // 현재시간을 출력
 	            clock2.innerHTML = nowTime; 
@@ -788,15 +789,15 @@ pmydate{
 				, dataType : 'json'
 				, contentType : 'application/json; charset:utf-8' 
 				, success : function(resp){
-					var succ = '<p align="center">조회수</p>';
+					var succ = '<p align="center"><spring:message code="dash20" /></p>';
 					succ += '<h3 align="center">'+resp.statBlogCount+'</h3>';
 					$('.one').html(succ);
 					
-					var succ2 = '<p align="center">공감수예정</p>';
+					var succ2 = '<p align="center"><spring:message code="dash21" /></p>';
 					succ2 += '<h3 align="center">'+resp.statBbsCount+'</h3>';
 					$('.two').html(succ2);
 					
-					var succ3 = '<p align="center">댓글수</p>';
+					var succ3 = '<p align="center"><spring:message code="dash22" /></p>';
 					succ3 += '<h3 align="center">'+resp.statReplyCount+'</h3>';
 					$('.three').html(succ3);
 					var sub2 = resp.statSubscribe;
@@ -813,7 +814,7 @@ pmydate{
 							alert(sub2);
 							var sub = sub3 - sub2;
 							
-							var succ4 = '<p align="center">구독 중감수</p>'
+							var succ4 = '<p align="center"><spring:message code="dash18" /></p>'
 							
 							succ4 += '<h3 align="center">'+sub+'</h3>';
 							
@@ -925,17 +926,17 @@ pmydate{
 									, dataType : 'json'
 									, contentType : 'application/json; charset:utf-8' 
 									, success : function(resp){
-										var succ = '<p align="center">조회수</p>'
+										var succ = '<p align="center"><spring:message code="dash20" /></p>'
 											succ += '<h3 align="center">'+resp.statBlogCount+'</h3>';
 										$(".one").html(succ);
-										var succ2 = '<p align="center">공감수예정</p>'
+										var succ2 = '<p align="center"><spring:message code="dash21" /></p>'
 											succ2 += '<h3 align="center">'+resp.statBbsCount+'</h3>';
 										$(".two").html(succ2);
-										var succ3 = '<p align="center">댓글수</p>'
+										var succ3 = '<p align="center"><spring:message code="dash13" /></p>'
 											succ3 += '<h3 align="center">'+resp.statReplyCount+'</h3>';
 										$(".three").html(succ3);
 										var sub = '${stat.statSubscribe}'-resp.statSubscribe
-										var succ4 = '<p align="center">구독 중감수</p>'
+										var succ4 = '<p align="center"><spring:message code="dash18" /></p>'
 											succ4 += '<h3 align="center">'+sub+'</h3>';
 										$(".four").html(succ4);
 										
@@ -968,19 +969,19 @@ pmydate{
 				
 				
 			var div2 = '<div class="one">';
-			div2 +=	'<p align="center">오늘 조회수</p>';
+			div2 +=	'<p align="center"><spring:message code="dash7" /></p>';
 			div2 +=	'<h3 align="center">${stat.statBlogCount}</h3>'
 			div2 +=	'</div>'
 			div2 += '<div class="two">'
-			div2 +=	'<p align="center">공감수</p>'
+			div2 +=	'<p align="center"><spring:message code="dash8" /></p>'
 			div2 +=	'<h3 align="center">${stat.statBlogCount}</h3>'
 			div2 +=	'</div>'
 		    div2 +=	'<div class="three">'
-		    div2 +=	'<p align="center">댓글수</p>'
+		    div2 +=	'<p align="center"><spring:message code="dash9" /></p>'
 		    div2 +=	'<h3 align="center">${stat.statReplyCount}</h3>'
 		    div2 +=	'</div>'
 		    div2 +=	'<div class="four">'
-		    div2 +=	'<p align="center">구독 증감수</p>'
+		    div2 +=	'<p align="center"><spring:message code="dash10" /></p>'
 		    div2 +=	'<h3 align="center">${stat.statSubscribe}</h3>'
 		    div2 +=	'</div>'
 		   
@@ -992,37 +993,37 @@ pmydate{
 		    	
 		    
 		    var div3 = '<div class="one">';
-			div3 +=	'<p align="center">이번 달 조회수</p>';
+			div3 +=	'<p align="center"><spring:message code="dash23" /></p>';
 			div3 +=	'<h3 align="center">${mstat.statBlogCount}</h3>'
 			div3 +=	'</div>'
 			div3 += '<div class="two">'
-			div3 +=	'<p align="center">공감수</p>'
+			div3 +=	'<p align="center"><spring:message code="dash19" /></p>'
 			div3 +=	'<h3 align="center">${mstat.statBlogCount}</h3>'
 			div3 +=	'</div>'
 		    div3 +=	'<div class="three">'
-		    div3 +=	'<p align="center">댓글수</p>'
+		    div3 +=	'<p align="center"><spring:message code="dash13" /></p>'
 		    div3 +=	'<h3 align="center">${mstat.statReplyCount}</h3>'
 		    div3 +=	'</div>'
 		    div3 +=	'<div class="four">'
-		    div3 +=	'<p align="center">구독 증감수</p>'
+		    div3 +=	'<p align="center"><spring:message code="dash18" /></p>'
 		    div3 +=	'<h3 align="center">${mstat.statSubscribe}</h3>'
 		    div3 +=	'</div>'
 		    
 		    
 		    	var div4 = '<div class="one">';
-			div4 +=	'<p align="center">이번 달 조회수</p>';
+			div4 +=	'<p align="center"><spring:message code="dash23" /></p>';
 			div4 +=	'<h3 align="center">${wstat.statBlogCount}</h3>'
 			div4 +=	'</div>'
 			div4 += '<div class="two">'
-			div4 +=	'<p align="center">공감수</p>'
+			div4 +=	'<p align="center"><spring:message code="dash19" /></p>'
 			div4 +=	'<h3 align="center">${wstat.statBlogCount}</h3>'
 			div4 +=	'</div>'
 		    div4 +=	'<div class="three">'
-		    div4 +=	'<p align="center">댓글수</p>'
+		    div4 +=	'<p align="center"><spring:message code="dash13" /></p>'
 		    div4 +=	'<h3 align="center">${wstat.statReplyCount}</h3>'
 		    div4 +=	'</div>'
 		    div4 +=	'<div class="four">'
-		    div4 +=	'<p align="center">구독 증감수</p>'
+		    div4 +=	'<p align="center"><spring:message code="dash18" /></p>'
 		    div4 +=	'<h3 align="center">${wstat.statSubscribe}</h3>'
 		    div4 +=	'</div>'
 		    
@@ -1121,13 +1122,13 @@ pmydate{
 							, contentType : 'application/json; charset:utf-8' 
 							, success : function(resp){
 								alert('!');
-								var succ = '<p align="center">조회수</p>'
+								var succ = '<p align="center"><spring:message code="dash20" /></p>'
 									succ += '<h3 align="center">'+resp.statBlogCount+'</h3>';
 								$(".one").html(succ);
-								var succ2 = '<p align="center">공감수예정</p>'
+								var succ2 = '<p align="center"><spring:message code="dash21" /></p>'
 									succ2 += '<h3 align="center">'+resp.statBbsCount+'</h3>';
 								$(".two").html(succ2);
-								var succ3 = '<p align="center">댓글수</p>'
+								var succ3 = '<p align="center"><spring:message code="dash22" /></p>'
 									succ3 += '<h3 align="center">'+resp.statReplyCount+'</h3>';
 								$(".three").html(succ3);
 								var sub2 = resp.statSubscribe;
@@ -1146,7 +1147,7 @@ pmydate{
 										alert(sub2);
 										var sub = sub3 - sub2;
 										
-										var succ4 = '<p align="center">구독 중감수</p>'
+										var succ4 = '<p align="center"><spring:message code="dash18" /></p>'
 										
 										succ4 += '<h3 align="center">'+sub+'</h3>';
 										
