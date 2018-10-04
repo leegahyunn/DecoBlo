@@ -85,8 +85,8 @@ public class BlogController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/siteConfig", method = RequestMethod.POST)
-	public User siteConfig() {
-		int userNo = 1;
+	public User siteConfig(HttpSession session) {
+		int userNo = (int)session.getAttribute("loginNo");
 		User user = blogRepository.selectBlog(userNo);
 		return user;
 	}
@@ -260,7 +260,7 @@ public class BlogController {
 	 * @return
 	 */
 	@RequestMapping(value = "/updateBackgroundImg", method = RequestMethod.POST)
-    public String updateBackgroundImg(MultipartHttpServletRequest multi) {
+    public String updateBackgroundImg(MultipartHttpServletRequest multi, HttpSession session) {
 		String root = multi.getSession().getServletContext().getRealPath("/");
         String path = root+"resources/uploadbackgroundimg/";
         System.out.println(path);
@@ -289,7 +289,7 @@ public class BlogController {
         HashMap<String, Object> map = new HashMap<>();
         map.put("configBackgroundOriginFile", configBackgroundOriginFile);
         map.put("configBackgroundSavedFile", configBackgroundSavedFile);
-        map.put("userNo", "1");
+        map.put("userNo", String.valueOf(session.getAttribute("loginNo")));
         blogRepository.updateBackgroundImg(map);
         
         return "blog/config";
@@ -301,7 +301,7 @@ public class BlogController {
 	 * @return
 	 */
 	@RequestMapping(value = "/updateFabiconImg", method = RequestMethod.POST)
-    public String updateFabiconImg(MultipartHttpServletRequest multi2) {
+    public String updateFabiconImg(MultipartHttpServletRequest multi2, HttpSession session) {
 		String root = multi2.getSession().getServletContext().getRealPath("/");
         String path = root+"resources/uploadfabiconimg/";
         String fabiconSavedFile = ""; // 업로드 되는 파일명
@@ -329,7 +329,7 @@ public class BlogController {
         HashMap<String, Object> map = new HashMap<>();
         map.put("fabiconOriginalFile", fabiconOriginalFile);
         map.put("fabiconSavedFile", fabiconSavedFile);
-        map.put("userNo", "1");
+        map.put("userNo", String.valueOf(session.getAttribute("loginNo")));
         
         blogRepository.updateFabiconImg(map);
         
@@ -535,7 +535,7 @@ public class BlogController {
 	 * 블로그 저장하기 
 	 */
 	@RequestMapping(value="/saveBlog", method=RequestMethod.GET)
-	public String SaveBlog(HttpServletRequest request, HttpSession session) {
+	public @ResponseBody String SaveBlog(HttpServletRequest request, HttpSession session) {
 		
 		String userNo = String.valueOf(session.getAttribute("loginNo"));
 		StringBuffer htmlBuffer = new StringBuffer();
@@ -658,8 +658,9 @@ public class BlogController {
 			}
 		}
 	
-		return "redirect:/config";
+		return "true";
 	}
+	
 	@RequestMapping(value="updateBlockContentText",method=RequestMethod.POST)
 	public @ResponseBody int updateBlockContentText(@RequestBody Block block) {
 		int result = 0;

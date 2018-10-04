@@ -33,6 +33,9 @@
 
 <body id="body-config">
 <header id="header">
+	<form>
+		<input type="hidden" value="${sessionScope.loginBlogAddress}" id="loginAddress">
+	</form>
 	<div class="left-menu menu-config-flip folder">
 		<div><spring:message code="c1" /></div>
 		<i class="fa fa-chevron-down"></i>
@@ -47,7 +50,7 @@
 		<div><i class="fa fa-share"></i> <spring:message code="c3" /></div>
 	</div>
 	<div class="right-menu">
-		<div><a href="saveBlog"><i class="fa fa-arrow-circle-up"></i>  <spring:message code="c4" /></a></div>
+		<div class="saveBlog"><i class="fa fa-arrow-circle-up"></i>  <spring:message code="c4" /></div>
 	</div>
 	<div class="right-menu">
 		<div><i class="fa fa-desktop"></i><spring:message code="c5" /></div>
@@ -61,7 +64,7 @@
 	
 </header>
 <div class="panel-config">
-<div id="nav-container">g
+<div id="nav-container">
 	<nav id="menu-config-nav">
       <!-- config-section -->
       <div class="menu-config-panel dd" id="nestable" >
@@ -532,5 +535,6 @@
 		</div>
 </div>	
 </section>
+
 </body>
 </html>

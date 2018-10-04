@@ -22,10 +22,7 @@ function deleteBbs(bbsNo) { 	// 글삭제
 	
 	var boardNo = $('#boardNo').val();
 	
-	alert(bbsNo);
-	alert(boardNo);
-	
-	if (confirm(<spring:message code="bbsd1" />)) {
+	if (confirm('<spring:message code="bbsd1" />')) {
 		location.href = "deleteBbs?boardNo=" + boardNo + "&bbsNo=" + bbsNo;
 	}
 }
@@ -70,20 +67,21 @@ function init(){
 function output(resp){
 	
 	var replyAll = '';
-
 	for(var i in resp){
-		replyAll += '<div class="replyContent">';
-		replyAll += '<p class="userid">'+ resp[i].replyRegUser +'</p> ';
-// 		replyAll += '<span class="re-reply"><a href="javascript:writeReReply()"  class="btnReply">&nbsp;&nbsp;&nbsp;<i class="fas fa-reply fa-rotate-180"></i>&nbsp;답글</a></span>';
-		replyAll += '<span class="re-reply" style="cursor: pointer">&nbsp;&nbsp;&nbsp;<i class="fas fa-reply fa-rotate-180"></i>&nbsp;답글</span>';
-		replyAll += '<p class="replyContent">'+ resp[i].replyContent +'</p> ';
-		replyAll += '<p class="regdate">'+ resp[i].replyRegDate +'</p> ';
-		replyAll += '<input class="replyUpdate" type="button" data-rno="'+ resp[i].replyNo +'" value="수정"  style="line-height:normal; text-align: center; margin: 5px;"/>     ';
-		replyAll += '<input class="replyDelete" type="button" data-rno="'+ resp[i].replyNo +'" value="삭제"  style="line-height:normal; text-align: center; margin: 5px;"/> ';
-		replyAll += '</div>';
-		replyAll += '<hr id="reply_hr"/>';
-	}
-	 
+	      replyAll += '<div class="replyContent">';
+	      replyAll += '<div class="inlineBlock" style="display: inline-block;"><i class="fas fa-user"></i>&nbsp;&nbsp;&nbsp;';
+	      replyAll += '<div class="inlineBlock" style="display: inline-block;"><p class="userid">'+ resp[i].replyRegUser +'&nbsp;&nbsp;&nbsp;</p></div> ';
+	      replyAll += '<div class="inlineBlock" style="display: inline-block;"><p class="regdate">'+ resp[i].replyRegDate +'</p></div> ';
+	      replyAll += '<div class="inlineBlock" style="display: inline-block;"><span class="re-reply" style="cursor: pointer; font-size: 14px;">&nbsp;&nbsp;&nbsp;<i class="fas fa-reply fa-rotate-180"></i>&nbsp;답글</span></div>';
+	      replyAll += '<div class="inlineBlock" style="display: inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>';
+	      replyAll += '<div class="inlineBlock" style="display: inline-block;"><p class="replyContent">'+ resp[i].replyContent +'</p></div> ';
+	      
+	      replyAll += '<input class="replyUpdate" type="button" data-rno="'+ resp[i].replyNo +'" value="수정"  style="line-height:normal; text-align: center; margin: 5px;"/>     ';
+	      replyAll += '<input class="replyDelete" type="button" data-rno="'+ resp[i].replyNo +'" value="삭제"  style="line-height:normal; text-align: center; margin: 5px;"/> ';
+	      replyAll += '</div>';
+	      replyAll += '<hr id="reply_hr"/>';
+	   }
+	    
 	$('#result').html(replyAll);
 	
 	$('input:button.replyDelete').click(replyDelete);
@@ -188,7 +186,6 @@ function re_replySave(){
 	var replyBbsNo = $('#replyBbsNo').val();
 	var replyContent = $('#content').val();
 	var replyNo = $(this).parents('div.replyContent').children('input.replyUpdate').attr('data-rno');
-	alert(replyNo);
 
 	var sendData = {
 				"replyBbsNo" : replyBbsNo
@@ -248,7 +245,6 @@ function changeLike() {
 			, url : 'deleteLike'
 			, data : {"likeBbsNo" : likeBbsNo}
 			, success : function(){
-				alert('좋아ddd요!');
 			}
 		});
 		
@@ -263,7 +259,6 @@ function changeLike() {
 			, data : JSON.stringify(sendData)
 			, contentType : 'application/json; charset=utf-8'
 			, success : function(){
-				alert('좋아요!');
 			}
 		});
 		

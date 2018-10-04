@@ -139,7 +139,7 @@ margin: 0 auto;
 }
 .showbox{
 	position: relative;
-	height: 450px;
+ 	overflow: hidden;
 }
 
 .showbox .thumbnails-wrapper {
@@ -326,7 +326,7 @@ margin: 0 auto;
 	
 	function useTemplate() {
 		if ($('#blogAddress').val() == "") {
-			alert(<spring:message code="t8" />);
+			alert('<spring:message code="t8" />');
 			$('#blogAddress').focus();
 			return false;
 		} else {
@@ -342,7 +342,10 @@ margin: 0 auto;
 							, url    : 'registerTemplate'
 							, data   : {'templateNo' : templateNo}
 							, success: function(resp) {
-								alert(resp);
+								var moveToConfig = ("블로그가 생성되었습니다. \n블로그 수정 페이지로 이동하시겠습니까?");
+								if (moveToConfig) {
+									location.href="/www/config";
+								}
 							}
 						});
 					} else {

@@ -318,13 +318,13 @@ top : 100px;
    			</div>
    	<!-- 쇼케이스 -->
    <div class="block-803">
-   			<div class="mySlides fade2">
+   			<div class="image-editable mySlides fade2">
 				<img class="main_slideImg" src="http://www.gamingrespawn.com/wp-content/uploads/2018/04/incredibles_legos.jpg">
 						</div>
-			<div class="mySlides fade2">
+			<div class="image-editable mySlides fade2">
 				<img class="main_slideImg" src="https://www.mindmeister.com/images/download/35785147">
 						</div>
-			<div class="mySlides fade2">
+			<div class="image-editable mySlides fade2">
 				<img class="main_slideImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ59BwGMzYT8NtSM8yeMCgrzf7aEU4LjtucYdA1vhthx8DkGwKaMg">
 						</div>
 			<a class="prev" onclick="plusSlides(-1)">❮</a>
@@ -337,16 +337,17 @@ top : 100px;
 		</div>
 		<!-- 컨테츠 박스 -->
 	<div class="block-804">
-	<img src="https://www.mindmeister.com/images/download/35785147" class="conimg">
+	<img class="image-editable" src="https://www.mindmeister.com/images/download/35785147" class="conimg">
 	
 		<div class="titlebox">
 		<h2>title 입니다만?</h2>
 					</div>
 		<div class="imgbox">
-			<img src= "https://i.ytimg.com/vi/vPdJBs7GVGQ/maxresdefault.jpg" style="height: 420px;">
+			<img class="image-editable" src= "https://i.ytimg.com/vi/vPdJBs7GVGQ/maxresdefault.jpg" style="height: 420px;">
+			
 				</div>
 			<div class="textbox">
-			<span>A full belly is the mother of all evil.
+			<span class="text-editable">A full belly is the mother of all evil.
 				배부른 것이 모든 악의 어머니이다.
 				Love your neighbor as yourself.
 				네 이웃을 네 몸처럼 사랑하여라

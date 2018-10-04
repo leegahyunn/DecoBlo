@@ -142,6 +142,20 @@ $(function(){
 		$(this).attr('contentEditable','true');
 		$(this).focus();
 	});
+	
+	/* 블로그 게시  */
+	$('.saveBlog').on('click', function(){
+		$.ajax({
+			url:'saveBlog'
+			,type:'get'
+			,success:function(){
+				var moveToBlog = confirm('블로그가 생성되었습니다. \n 생성된 블로그로 이동하시겠습니까?');
+				location.href = "/www/blog/" + $('#loginAddress').val();
+			}
+		});
+	});
+	
+	
 	/*블록 내용 변경 후 DB 저장*/
 	$(document).on('focusout','.text-editable',function(){
 		var blockSeq=$(this).closest('section').attr('data-block-seq');
@@ -521,10 +535,13 @@ $(function(){
 	   $(this).css('display','none');
 	   $('.menu-plus-box').css('display','block');
    }); 
+   
    $(document).on('click', '.menu-plus-check', function(){
 	   var menuPlusName = $(this).prev().val();
 	   var sendData = {"menuName" : menuPlusName};
 
+	   console.log("menuInsert");
+	   
 	   $.ajax({
 		   method : 'post', 
 		   url  : 'insertMenu', 

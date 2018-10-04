@@ -21,7 +21,7 @@
 					<li><a href="?lang=ko">한국어(KO)</a></li>
 					<li><a href="?lang=ja">日本語(JP)</a></li>
 				</ul></li>
-			<li><a href="#"><spring:message code="h8" /></a></li>
+			<li><a href="/www/bbsList?boardNo=1"><spring:message code="h8" /></a></li>
 		</ul>
 	</nav>
 </header>

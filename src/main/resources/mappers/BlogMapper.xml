@@ -279,7 +279,7 @@ ORDER BY blockseq
 <insert id="insertBlock" parameterType="Block">
 INSERT INTO db_block(blockno,blockmenuno,blocktmpno,blockseq,blockcontent)
  VALUES(
-db_block_seq.nextval,#{blockMenuNo},#{blockTmpNo},#{blockSeq},
+(select max(blockNo)+1 from db_block),#{blockMenuNo},#{blockTmpNo},#{blockSeq},
 #{blockContent}
 )
 </insert>
@@ -291,7 +291,7 @@ INTO db_block (
     blockSeq, blockContent, blockBackgroundNo, blockCss
 ) (
     SELECT 
-        db_block_seq.NEXTVAL, blockMenuNo, blockTmpNo, 
+        (select max(blockNo)+1 from db_block), blockMenuNo, blockTmpNo, 
         blockSeq-1, blockContent, blockBackgroundNo, blockCss  
     FROM db_block 
     WHERE blockno = #{blockNo}

@@ -161,7 +161,7 @@ function writeBbs(boardNo) { 	// 글쓰기로 이동
 								<td><a href="bbsDetail?boardNo=${bbs.boardNo}&bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></td>
 							</c:if>
 							<c:if test="${bbs.bbsDepth ne 0}">
-								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-reply fa-rotate-180"></i>&nbsp;&nbsp;&nbsp;<a href="bbsDetail?bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></td>
+								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-reply fa-rotate-180"></i>&nbsp;&nbsp;&nbsp;<a href="bbsDetail?boardNo=${bbs.boardNo}&bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></td>
 							</c:if>
 							
 							<td>${nickname}</td>
