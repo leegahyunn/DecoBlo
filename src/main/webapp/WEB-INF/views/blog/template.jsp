@@ -326,7 +326,7 @@ margin: 0 auto;
 	
 	function useTemplate() {
 		if ($('#blogAddress').val() == "") {
-			alert(<spring:message code="t8" />);
+			alert('<spring:message code="t8" />');
 			$('#blogAddress').focus();
 			return false;
 		} else {

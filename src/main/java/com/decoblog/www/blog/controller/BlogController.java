@@ -85,8 +85,8 @@ public class BlogController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/siteConfig", method = RequestMethod.POST)
-	public User siteConfig() {
-		int userNo = 1;
+	public User siteConfig(HttpSession session) {
+		int userNo = (int)session.getAttribute("loginNo");
 		User user = blogRepository.selectBlog(userNo);
 		return user;
 	}
