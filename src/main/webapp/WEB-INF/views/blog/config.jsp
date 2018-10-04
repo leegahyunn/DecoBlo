@@ -27,12 +27,13 @@
 <script src="decoblo/js/menuConfig.js"></script>
 <script src="decoblo/js/blockSetting.js"></script>
 <c:forEach items="${blockList}" var="blockList">
-	<script src="templates/block-${blockList.blockTmpNo}.js"></script>
+   <script src="templates/block-${blockList.blockTmpNo}.js"></script>
 </c:forEach>
 </head>
 
 <body id="body-config">
 <header id="header">
+
 	<form>
 		<input type="hidden" value="${sessionScope.loginBlogAddress}" id="loginAddress">
 	</form>
@@ -66,179 +67,180 @@
 <div class="panel-config">
 <div id="nav-container">
 	<nav id="menu-config-nav">
+
       <!-- config-section -->
       <div class="menu-config-panel dd" id="nestable" >
           <!-- 메뉴 불러오는 곳 -->
       </div>
       <!-- /config-section -->
    </nav>
-	
-	<nav id="site-config-nav" style="
+   
+   <nav id="site-config-nav" style="
     border-right-width: 0px;
     border-bottom-width: 0px;
     border-left-width: 0px;"
-	>
-		<div class="block-config-section site-config-panel"><!-- site-panel 클래스 추가 -->
-			<div class="default-config">
-				<div class="outer-config blog-title">
-					<span><spring:message code="c7" />- </span><span class="blogTitle"></span>
-					<i class="fa right-icon fa-pencil blog-title-edit"></i>
-				</div>
-				<div class="fold outer-config blog-title-editbox" style="display:none;">
-					<input type="text" style="width:200px;">
-					<i class="right-icon fa fa-check blog-title-check"></i>
-				</div>
-			</div>
-			<div class="default-config">
-				<div class="fold outer-config">
-					<span><spring:message code="c8" /></span> 
-					<i class="fa fa-chevron-right right-icon fold-icon"></i>
-				</div>
-				<div class="inner-config">
-					<div class="config-row">
-						<table>
-							<tr>
-								<th><spring:message code="c9" /></th>
-								<td>
-									<input class="metaAuthor" type="text"/>
-								</td>
-							</tr>
-							
-							<tr>
-								<th><spring:message code="c10" /></th>
-								<td>
-									<span class="blogTitle"></span>
-								</td>
-							</tr>
-							
-							<tr>
-								<th><spring:message code="c11" /></th>
-								<td>
-									<input class="metaDescription" type="text"/>
-								</td>
-							</tr>
-						
-							<tr>
-								<th><spring:message code="c12" /></th>
-								<td>
-									<input class="metaKeyword" type="text"/>
-								</td>
-							</tr>
-							<tr>
-								<th colspan="2">
-									<input class="btn btn-secondary updateMetaTag" type="button" value="확인"/>
-								</th>
-							</tr>
-						</table>
-					</div>	
-				</div>
-			</div>
-			<div class="default-config">
-				<div class="outer-config">
-					<span><spring:message code="c13" /></span> 
-					<label class="switch right-icon">
-  						<input class="configOnepageStyle" type="checkbox"/>
-  						<span class="slider round"></span>
-					</label>
-				</div>
-			</div>
-			<div class="default-config">
-				<div class="fold outer-config">
-					<span><spring:message code="c14" /></span> 
-					<label class="switch right-icon">
-  						<input class="configRightClickable" type="checkbox"/>
-  						<span class="slider round"></span>
-					</label>
-				</div>
-			</div>
-			<div class="default-config">
-				<div class="fold outer-config">
-					<span><spring:message code="c15" /></span> 
-					<i class="fa fa-chevron-right right-icon fold-icon"></i>
-				</div>
-				<div class="inner-config">
-					<div class="config-row">
-						<label><spring:message code="c16" /></label>
-						<input type="color" class="color color-picker transparent site-backgroundcolor" value="#888888">
-						<button id="example3"></button>
-					</div>
-					<div class="config-row">
-						<form id="fileform" enctype="multipart/form-data">
-					        <input type="file" id="fileUp" name="fileUp"/>
-					   	 	<input type="button" value=<spring:message code="c17" /> id="blog-background-img" />
-					    </form>
-					</div>	
-					<!-- <div class="config-row">
-						<label>position</label>
-						<select>
-							<option>left top</option>
-							<option>left center</option>
-							<option>left bottom</option>
-							<option>right top</option>
-							<option>right center</option>
-							<option>right bottom</option>
-							<option>center top</option>
-							<option>center center</option>
-							<option>center bottom</option>
-						</select>
-					</div>	
-					<div class="config-row">
-						<label>repeat</label>
-						<select>
-							<option>repeat:x</option>
-							<option>repeat:y</option>
-							<option>no-repeat</option>
-						</select>
-					</div>	
-					<div class="config-row">
-						<label>size</label>
-						<select>
-							<option>original</option>
-							<option>cover</option>
-							<option>contain</option>
-						</select>
-					</div>	 -->
-				</div>
-			</div>
-			<div class="default-config">
-				<div class="fold outer-config">
-					<span><spring:message code="c18" /></span> 
-					<i class="fa fa-chevron-right right-icon fold-icon"></i>
-				</div>
-				<div class="inner-config">
-					<div class="config-row">
-						<label><spring:message code="c19" /></label>
-						<input type="color" class="color color-picker transparent" value="#888888">
-						<button id="example3"></button>
-					</div>
-					<div class="config-row">
-						<label><spring:message code="c20" /></label>
-						<select class="updateBlogFont">
-							<option value="Gothic"><spring:message code="c21" /></option>
-							<option value="Dotum"><spring:message code="c22" /></option>
-							<option value="Batang"><spring:message code="c23" /></option>
-							<option value="Gungsuh"><spring:message code="c24" /></option>
-							<option value="Malgun Gothic"><spring:message code="c25" /></option>
-						</select>
-					</div>	
-				</div>
-			</div>
-			<div class="default-config">
-				<div class="fold outer-config">
-					<span><spring:message code="c26" /></span> 
-					<i class="fa fa-chevron-right right-icon fold-icon"></i>
-				</div>
-				<div class="inner-config">
-					<div class="config-row">
-						<form id="fileform2" enctype="multipart/form-data">
-					        <input type="file" id="fileUp2" name="fileUp2"/>
-					   	 	<input type="button" value=<spring:message code="c17" /> id="blog-fabicon-img" />
-					    </form>
-					</div>	
-				</div>
-			</div>
-		</div>
-	</nav>
+   >
+      <div class="block-config-section site-config-panel"><!-- site-panel 클래스 추가 -->
+         <div class="default-config">
+            <div class="outer-config blog-title">
+               <span><spring:message code="c7" />- </span><span class="blogTitle"></span>
+               <i class="fa right-icon fa-pencil blog-title-edit"></i>
+            </div>
+            <div class="fold outer-config blog-title-editbox" style="display:none;">
+               <input type="text" style="width:200px;">
+               <i class="right-icon fa fa-check blog-title-check"></i>
+            </div>
+         </div>
+         <div class="default-config">
+            <div class="fold outer-config">
+               <span><spring:message code="c8" /></span> 
+               <i class="fa fa-chevron-right right-icon fold-icon"></i>
+            </div>
+            <div class="inner-config">
+               <div class="config-row">
+                  <table>
+                     <tr>
+                        <th><spring:message code="c9" /></th>
+                        <td>
+                           <input class="metaAuthor" type="text"/>
+                        </td>
+                     </tr>
+                     
+                     <tr>
+                        <th><spring:message code="c10" /></th>
+                        <td>
+                           <span class="blogTitle"></span>
+                        </td>
+                     </tr>
+                     
+                     <tr>
+                        <th><spring:message code="c11" /></th>
+                        <td>
+                           <input class="metaDescription" type="text"/>
+                        </td>
+                     </tr>
+                  
+                     <tr>
+                        <th><spring:message code="c12" /></th>
+                        <td>
+                           <input class="metaKeyword" type="text"/>
+                        </td>
+                     </tr>
+                     <tr>
+                        <th colspan="2">
+                           <input class="btn btn-secondary updateMetaTag" type="button" value="확인"/>
+                        </th>
+                     </tr>
+                  </table>
+               </div>   
+            </div>
+         </div>
+         <div class="default-config">
+            <div class="outer-config">
+               <span><spring:message code="c13" /></span> 
+               <label class="switch right-icon">
+                    <input class="configOnepageStyle" type="checkbox"/>
+                    <span class="slider round"></span>
+               </label>
+            </div>
+         </div>
+         <div class="default-config">
+            <div class="fold outer-config">
+               <span><spring:message code="c14" /></span> 
+               <label class="switch right-icon">
+                    <input class="configRightClickable" type="checkbox"/>
+                    <span class="slider round"></span>
+               </label>
+            </div>
+         </div>
+         <div class="default-config">
+            <div class="fold outer-config">
+               <span><spring:message code="c15" /></span> 
+               <i class="fa fa-chevron-right right-icon fold-icon"></i>
+            </div>
+            <div class="inner-config">
+               <div class="config-row">
+                  <label><spring:message code="c16" /></label>
+                  <input type="color" class="color color-picker transparent site-backgroundcolor" value="#888888">
+                  <button id="example3"></button>
+               </div>
+               <div class="config-row">
+                  <form id="fileform" enctype="multipart/form-data">
+                       <input type="file" id="fileUp" name="fileUp"/>
+                         <input type="button" value=<spring:message code="c17" /> id="blog-background-img" />
+                   </form>
+               </div>   
+               <!-- <div class="config-row">
+                  <label>position</label>
+                  <select>
+                     <option>left top</option>
+                     <option>left center</option>
+                     <option>left bottom</option>
+                     <option>right top</option>
+                     <option>right center</option>
+                     <option>right bottom</option>
+                     <option>center top</option>
+                     <option>center center</option>
+                     <option>center bottom</option>
+                  </select>
+               </div>   
+               <div class="config-row">
+                  <label>repeat</label>
+                  <select>
+                     <option>repeat:x</option>
+                     <option>repeat:y</option>
+                     <option>no-repeat</option>
+                  </select>
+               </div>   
+               <div class="config-row">
+                  <label>size</label>
+                  <select>
+                     <option>original</option>
+                     <option>cover</option>
+                     <option>contain</option>
+                  </select>
+               </div>    -->
+            </div>
+         </div>
+         <div class="default-config">
+            <div class="fold outer-config">
+               <span><spring:message code="c18" /></span> 
+               <i class="fa fa-chevron-right right-icon fold-icon"></i>
+            </div>
+            <div class="inner-config">
+               <div class="config-row">
+                  <label><spring:message code="c19" /></label>
+                  <input type="color" class="color color-picker transparent" value="#888888">
+                  <button id="example3"></button>
+               </div>
+               <div class="config-row">
+                  <label><spring:message code="c20" /></label>
+                  <select class="updateBlogFont">
+                     <option value="Gothic"><spring:message code="c21" /></option>
+                     <option value="Dotum"><spring:message code="c22" /></option>
+                     <option value="Batang"><spring:message code="c23" /></option>
+                     <option value="Gungsuh"><spring:message code="c24" /></option>
+                     <option value="Malgun Gothic"><spring:message code="c25" /></option>
+                  </select>
+               </div>   
+            </div>
+         </div>
+         <div class="default-config">
+            <div class="fold outer-config">
+               <span><spring:message code="c26" /></span> 
+               <i class="fa fa-chevron-right right-icon fold-icon"></i>
+            </div>
+            <div class="inner-config">
+               <div class="config-row">
+                  <form id="fileform2" enctype="multipart/form-data">
+                       <input type="file" id="fileUp2" name="fileUp2"/>
+                         <input type="button" value=<spring:message code="c17" /> id="blog-fabicon-img" />
+                   </form>
+               </div>   
+            </div>
+         </div>
+      </div>
+   </nav>
 </div>
 </div>
 <!-- menu-bar -->
