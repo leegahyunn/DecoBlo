@@ -13,8 +13,6 @@
 <link rel="stylesheet" href="pixelarity/assets/css/main.css" />
 <link rel="stylesheet" href="decoblo/css/user.css" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link href="https://フォントCSSのURL" rel="stylesheet">
-
 </head>
 <body class="landing">
 	<input type="hidden" id="isAuthed" value="${isAuthed}">
@@ -26,12 +24,12 @@
 		
 		<nav id="nav">
 			<ul>
-				<li id="login" class="main-login">로그인<spring:message code="hello"></spring:message></li>
-				<li><a href="user/join">무료회원가입</a></li>
+				<li id="login" class="main-login"><spring:message code='m1' /></li>
+				<li><a href="user/join"><spring:message code="m2" /></a></li>
 				<li><a href="#" class="icon fa-angle-down">한국어(KO)</a>
 					<ul>
-						<li><a href="/">한국어(KO)</a></li>
-						<li><a href="#">日本語(JP)</a></li>
+						<li><a href="?lang=kr">한국어(KO)</a></li>
+						<li><a href="?lang=ja">日本語(JP)</a></li>
 					</ul>
 				</li>
 				<li><a href="#" class="icon fa-angle-down">테스트</a>
@@ -51,23 +49,22 @@
 	<!-- Banner -->
 	<section id="banner" style="background-image: url('pixelarity/images/background.png'); background-size: cover; ; ">
 		<div class="inner">
-			<h2>자신만의 특별한 블로그 제작</h2>
-			<p>코딩을 몰라도 누구나 자신만의 특별한 블로그를 만들 수 있습니다.あいしてる</p>
+			<h2><spring:message code="m3" /></h2>
+			<p><spring:message code="m4" /></p>
 			<ul class="actions">
-				<li><a href="#" class="button big scrolly main-login">시작하기</a></li>
+				<li><a href="#" class="button big scrolly main-login"><spring:message code="m5" /></a></li>
 			</ul>
 		</div>
 			<div class="a" style="bottom: 0; position: absolute; right: 0;">
-				<p  style="font-size: 1.4em;">현재 ${nUser}명이 DecoBlog를
-					이용하고 있습니다.</p>
+				<p  style="font-size: 1.4em;"><spring:message code="m6" /> ${nUser}<spring:message code="m7" /></p>
 			</div>
 	</section>
 
 	<!-- One -->	<section id="one" class="wrapper style1">
 		<div class="container">
 			<header class="major">
-				<h2>마우스 클릭만으로 만들어지는 블로그</h2>
-				<p>여러가지의 블록들과 템플릿을 이용하여 만드는 나만의 블로그</p>
+				<h2><spring:message code="m8" /></h2>
+				<p><spring:message code="m9" /></p>
 			</header>
 			<div class="slider">
 				<span class="nav-previous"></span>
@@ -95,7 +92,7 @@
 	<section id="three" class="wrapper style1">
 		<div class="container">
 			<header class="major">
-				<h2>Deco Blog로 만든 ${nUser}개의 멋진 블로그들을 확인해보세요!</h2>
+				<h2>Deco Blog<spring:message code="m10" />${nUser}<spring:message code="m11" /></h2>
 			</header>
 			<div class="row">
 				<div class="4u 6u(medium) 12u$(small)">
@@ -201,18 +198,18 @@
 	      <div class="login-body user-body">
 	        <div class="text-center logo"><img src="resources/images/logo/logo_full_white.png" alt="creatorlink logo" style="width: 200px;"></div>
 	        <div class="text-center">
-	            <span class="join-text">데코블로가 처음이신가요?</span>
-	            <a class="join" href="user/join">회원가입</a>
+	            <span class="join-text"><spring:message code="m12" /></span>
+	            <a class="join" href="user/join"><spring:message code="j5" /></a>
 	        </div>
 	        <div class="login-form user-form form-group">
-	            <input type="text" id="userEmail" name="userEmail" class="form-control valid" placeholder="이메일" autocomplete="new-password">
-	            <input type="password" id="userPassword" name="userPassword" class="form-control valid" placeholder="비밀번호">
+	            <input type="text" id="userEmail" name="userEmail" class="form-control valid" placeholder=<spring:message code="j3" /> autocomplete="new-password">
+	            <input type="password" id="userPassword" name="userPassword" class="form-control valid" placeholder=<spring:message code="j4" />>
 	        	<div class="row">
-		        	<label class="forget col-md-12 col-sm-12 col-xs-12"><a href="user/password_reset">비밀번호를 잊으셨나요?</a></label>
+		        	<label class="forget col-md-12 col-sm-12 col-xs-12"><a href="user/password_reset"><spring:message code="m13" /></a></label>
 	        	</div>
 	        </div>
 	        <div class="btn-wrapper">
-	        	<div class="login-btn user-btn">로그인</div>
+	        	<div class="login-btn user-btn"><spring:message code="m14" /></div>
 	        </div>
 	      </div>
 	    </div>
